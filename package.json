@@ -39,7 +39,7 @@
     "classic:html": "npm run classic:html:index",
     "classic:docs": "npm run classic:docs:schedule",
     "preclassic": "npm run classic:clean && npm run classic:mkdir",
-    "classic": "npm run classic:js & npm run classic:html & npm run classic:img",
+    "classic": "npm run classic:js & npm run classic:html & npm run classic:img & npm run classic:docs",
     "dev": "npm run www:js:app",
     "test": "node ."
   },
