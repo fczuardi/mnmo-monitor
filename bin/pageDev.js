@@ -9,7 +9,7 @@ import {html} from 'js-beautify';
 import {Page} from 'mnmo-components';
 
 var options = {
-    title: 'untitled webapp',
+    title: 'mnmo modern',
     scripts: [
         './js/vendors.js',
         './js/app.js'
