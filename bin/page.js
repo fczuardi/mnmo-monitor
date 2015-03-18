@@ -11,6 +11,9 @@ import {Page} from 'mnmo-components';
 var options = {
     title: 'untitled webapp',
     scripts: [
+        './lib/js/es5-shim.js',
+        './lib/js/es5-sham.js',
+        './lib/js/console-polyfill.js',
         './lib/js/react.js',
         './lib/js/component-checkbox.js',
         './js/app.js'

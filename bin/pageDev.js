@@ -11,6 +11,7 @@ import {Page} from 'mnmo-components';
 var options = {
     title: 'mnmo modern',
     scripts: [
+        './js/polyfills.js',
         './js/vendors.js',
         './js/app.js'
     ]
