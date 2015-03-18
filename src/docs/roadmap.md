@@ -1,6 +1,6 @@
 Nome da tarefa | Trabalho | Início | Término | Progresso |
 ---------------|----------|--------|---------|--------------------|
-Versão do código sem dependencia de ambiente node.js/npm | 30h | Sábado 14/03/2015 | Quarta 19/03 | 50% |
+Versão do código sem dependencia de ambiente node.js/npm | 30h | Sábado 14/03/2015 | Quarta 18/03 | 50% |
 Tela de login | 25h | Segunda 09/03/2015 | Sexta 20/03/2015 | 68% |
 Captcha | 7h | Segunda 23/03 | Terça 24/03 | 0% |
 Side menu | 12h | Terça 24/03 | Quinta 26/03 | 0% |
