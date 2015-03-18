@@ -1,0 +1,77 @@
+{
+  "name": "mnmo-monitor",
+  "version": "0.1.0",
+  "description": "A modern web-application to monitor data.",
+  "main": "index.js",
+  "browserify-shim": {
+    "react": "global:React",
+    "mnmo-components/lib/checkbox": "global:Checkbox",
+    "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox"
+  },
+  "scripts": {
+    "dev:lib": "npm install -D ../mnmo-components/dist/npm",
+    "dev:outdated": "npm outdated --depth=0",
+    "www:clean": "rm -rf ./dist/www",
+    "www:mkdir": "mkdir -p ./dist/www/js",
+    "www:js:vendors": "browserify -o ./dist/www/js/vendors.js -r react",
+    "www:js:app": "browserify -o ./dist/www/js/app.js -e src/app.js -x react -t babelify",
+    "www:html": "babel-node ./bin/pageDev.js > ./dist/www/index.html",
+    "www:img:lib": "cp -R ./node_modules/mnmo-components/lib/themes/mnmo/img ./dist/www",
+    "classic:clean": "rm -rf ../monitor-traditional/lib ../monitor-traditional/js ../monitor-traditional/*.html",
+    "classic:mkdir": "mkdir -p ../monitor-traditional/lib/js && mkdir -p ../monitor-traditional/js && mkdir -p ../monitor-traditional/docs",
+    "classic:js:lib:react": "cp -f ./node_modules/react/dist/react.js ../monitor-traditional/lib/js/.",
+    "classic:js:lib:checkbox": "browserify -e ./node_modules/mnmo-components/lib/checkbox.js -o ../monitor-traditional/lib/js/component-checkbox.js -t browserify-shim -s Checkbox",
+    "classic:js:lib:mnmo:checkbox": "browserify -e ./node_modules/mnmo-components/lib/themes/mnmo/checkbox.js -o ../monitor-traditional/lib/js/component-checkbox.js -t browserify-shim -s MNMOCheckbox",
+    "classic:js:app": "browserify -e src/app.js -o ../monitor-traditional/js/app.js --no-bundle-external -t babelify -t browserify-shim",
+    "classic:img:lib": "cp -R ./node_modules/mnmo-components/lib/themes/mnmo/img ../monitor-traditional/",
+    "classic:html:index": "babel-node ./bin/page.js > ../monitor-traditional/index.html",
+    "classic:docs:schedule": "babel-node ./bin/docSchedule.js > ../monitor-traditional/docs/schedule.html",
+    "classic:ghpages:check": "cd ../monitor-traditional && git checkout gh-pages && git show master:docs/schedule.html > docs/schedule.html && git status && git checkout . && git checkout master",
+    "classic:ghpages:update": "cd ../monitor-traditional && git checkout gh-pages && git show master:docs/schedule.html > docs/schedule.html && git add docs/* && git commit -m 'docs updated'  && git push origin gh-pages && git checkout master",
+    "www:js": "npm run www:js:vendors & npm run www:js:app",
+    "www:img": "npm run www:img:lib",
+    "prewww": "npm run www:clean && npm run www:mkdir",
+    "www": "npm run www:js & npm run www:img & npm run www:html",
+    "classic:js:lib:mnmo": "npm run classic:js:lib:mnmo:checkbox",
+    "classic:js:lib": "npm run classic:js:lib:react & npm run classic:js:lib:mnmo",
+    "classic:js": "npm run classic:js:app & npm run classic:js:lib",
+    "classic:img": "npm run classic:img:lib",
+    "classic:html": "npm run classic:html:index",
+    "classic:docs": "npm run classic:docs:schedule",
+    "preclassic": "npm run classic:clean && npm run classic:mkdir",
+    "classic": "npm run classic:js & npm run classic:html & npm run classic:img",
+    "dev": "npm run www:js:app",
+    "test": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fczuardi/mnmo-monitor.git"
+  },
+  "private": true,
+  "keywords": [
+    "webapp",
+    "react",
+    "javascript",
+    "npm",
+    "es6"
+  ],
+  "author": "Fabricio C Zuardi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fczuardi/mnmo-monitor/issues"
+  },
+  "homepage": "https://github.com/fczuardi/mnmo-monitor",
+  "devDependencies": {
+    "babel": "^4.7.16",
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "browserify-shim": "^3.8.3",
+    "js-beautify": "^1.5.5",
+    "koa": "^0.18.1",
+    "koa-static": "^1.4.9",
+    "marked": "^0.3.3",
+    "mnmo-components": "file:../mnmo-components/dist/npm",
+    "object-assign": "^2.0.0",
+    "react": "^0.13.1"
+  }
+}
