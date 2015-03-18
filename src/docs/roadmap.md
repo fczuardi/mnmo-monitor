@@ -114,3 +114,18 @@ Cálculo
 - css alternativos (10)
 - markups alternativos (10)
 - hacks (20)
+
+-----
+
+Bikeshedding
+============
+
+Total
+-----
+- 0/10 = 0%
+
+### Versão sem bundle (0/10)
+- usar babel [external helpers][externalhelpers] (10)
+
+
+[externalhelpers]: https://babeljs.io/docs/usage/external-helpers/
