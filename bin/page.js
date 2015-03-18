@@ -9,7 +9,7 @@ import {html} from 'js-beautify';
 import {Page} from 'mnmo-components';
 
 var options = {
-    title: 'untitled webapp',
+    title: 'unbundled webapp',
     scripts: [
         './lib/js/es5-shim.js',
         './lib/js/es5-sham.js',
