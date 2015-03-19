@@ -124,10 +124,11 @@ Bikeshedding
 
 Total
 -----
-- 0/10 = 0%
+- 0/15 = 0%
 
-### Versão sem bundle (0/10)
+### Versão sem bundle (0/15)
 - usar babel [external helpers][externalhelpers] (10)
+- adicionar docblock em todos os estilos para facilitar achar onde está o css (5)
 
 -----
 
