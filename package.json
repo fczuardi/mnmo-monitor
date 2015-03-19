@@ -8,9 +8,10 @@
     "react-intl": "global:ReactIntl",
     "mnmo-components/lib/themes/mnmo/stage": "global:MNMOStage",
     "mnmo-components/lib/themes/mnmo/centeredbox": "global:MNMOCenteredBox",
-    "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox",
     "mnmo-components/lib/themes/mnmo/fieldset": "global:MNMOFieldSet",
-    "mnmo-components/lib/themes/mnmo/textinput": "global:MNMOTextInput"
+    "mnmo-components/lib/themes/mnmo/textinput": "global:MNMOTextInput",
+    "mnmo-components/lib/themes/mnmo/select": "global:MNMOSelect",
+    "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox"
   },
   "scripts": {
     "clean": "rm -rf ./dist",

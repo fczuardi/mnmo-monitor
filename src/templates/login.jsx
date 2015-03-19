@@ -6,6 +6,7 @@ import {FormattedMessage} from 'react-intl';
 import CenteredBox from 'mnmo-components/lib/themes/mnmo/centeredbox';
 import FieldSet from 'mnmo-components/lib/themes/mnmo/fieldset';
 import TextInput from 'mnmo-components/lib/themes/mnmo/textinput';
+import Select from 'mnmo-components/lib/themes/mnmo/select';
 import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
 export default (p, s, a) =>
 <CenteredBox>
@@ -27,7 +28,7 @@ export default (p, s, a) =>
                 name="password"
             />
             <div>
-                <select
+                <Select
                     value={s.country.selected}
                     onChange={a.countrySelect}
                     onBlur={a.countryBlur}
@@ -38,7 +39,7 @@ export default (p, s, a) =>
                             {country.label}
                         </option>
                     )}
-                </select>
+                </Select>
                 <Checkbox
                     id="saveInfoCheckbox"
                     checked={s.user.rememberLogin}
