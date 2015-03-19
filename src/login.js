@@ -30,18 +30,6 @@
  * @param {string} [messages.login.iAgree]
  * @param {string} [messages.login.tos]
  * @param {object} [styles]
- * @param {object} [styles.loginScreen]
- * @param {object} [styles.loginScreenWrapper]
- * @param {object} [styles.loginSection]
- * @param {object} [styles.sectionTitle]
- * @param {object} [styles.logoSmall]
- * @param {object} [styles.formLine]
- * @param {object} [styles.formLineHack]
- * @param {object} [styles.formControl]
- * @param {object} [styles.formTosLine]
- * @param {object} [styles.countryDropDown]
- * 
- * 
  * 
  **/
 import render from './templates/login.jsx';
@@ -76,4 +64,5 @@ class LoginForm {
         this.render = () => render(this.props, this.state, this.actions);
     }
 }
+
 export default LoginForm;

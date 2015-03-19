@@ -20,6 +20,7 @@ var options = {
         './lib/js/react.js',
         './lib/js/react-intl.js',
         './lib/js/component-stage.js',
+        './lib/js/component-centeredbox.js',
         './lib/js/component-checkbox.js',
         './lib/js/component-fieldset.js',
         './lib/js/component-textinput.js',

@@ -7,6 +7,7 @@
     "react": "global:React",
     "react-intl": "global:ReactIntl",
     "mnmo-components/lib/themes/mnmo/stage": "global:MNMOStage",
+    "mnmo-components/lib/themes/mnmo/centeredbox": "global:MNMOCenteredBox",
     "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox",
     "mnmo-components/lib/fieldset": "global:MNMOFieldSet",
     "mnmo-components/lib/textinput": "global:MNMOTextInput"
