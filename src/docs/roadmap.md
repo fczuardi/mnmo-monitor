@@ -1,7 +1,7 @@
 Nome da tarefa | Trabalho | Início | Término | Progresso |
 ---------------|----------|--------|---------|--------------------|
-Versão do código sem dependencia de ambiente node.js/npm | 35h | Sábado 14/03/2015 | Quarta 18/03 | 71% |
-Tela de login | 25h | Segunda 09/03/2015 | Sexta 20/03/2015 | 68% |
+Versão do código sem dependencia de ambiente node.js/npm | 35h | Sábado 14/03/2015 | Quarta 18/03 | 100% |
+Tela de login | 45h | Segunda 09/03/2015 | Sexta 20/03/2015 | 60% |
 Captcha | 7h | Segunda 23/03 | Terça 24/03 | 0% |
 Side menu | 12h | Terça 24/03 | Quinta 26/03 | 0% |
 App header e paineis | 51h | Sexta 27/03 | Terça 14/04 | 0% |
@@ -10,7 +10,7 @@ Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
 Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
 Splash Screen | 17h | Quarta 27/05 | Terça 02/06 | 0% |
 Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
-Desenvolvimento total | 374h | - | Terça 16/06 | 14% |
+Desenvolvimento total | 394h | - | Terça 16/06 | 15.7% |
 Liberação do código open source | - | 16/09 |  |  |
 
 __última atualização: 19/03/10:02__
@@ -19,18 +19,20 @@ __última atualização: 19/03/10:02__
 
 Total 
 -----
-- 52/374 = 14%
+- 62/394 = 15.7%
 
 Cálculo
 -------
 
-#### Versão do código sem dependencia de ambiente node.js/npm (25/35)
+### Login (27/45)
 
-- migrar o código do projeto xxxxx-login para este novo (10/20)
+- portar/refatorar de xxx-login para o novo estilo classico
     - layout (10/15)
     - stores (5)
-- fazer um pré-repositório que "compila" para um repositório mais tradicional sem dependencia de node e npm (10) = OK
-- reuniao para tentar integrar um projeto dependente de node na IDE do cliente (5) = OK
+- casos de erro
+    - pedir um layout de exemplo (5)
+    - implementar (3)
+- trabalho feito até 16/03 (17) = OK
 
 #### Captcha (0/7)
 
@@ -39,13 +41,6 @@ Cálculo
     - retorno deve trazer 1 pergunta e 3 respostas e talvez algum indicador da sessao?
     - respostas vem como imagem ou texto? (2)
     - feedback de resposta correta vs errada (2)
-
-### Login (17/25)
-
-- trabalho feito até 16/03 (17) = OK
-- casos de erro
-    - pedir um layout de exemplo (5)
-    - implementar (3)
 
 ### Slide menu (12)
 
@@ -128,6 +123,19 @@ Total
 
 ### Versão sem bundle (0/10)
 - usar babel [external helpers][externalhelpers] (10)
+
+-----
+
+Update 16/03-20/03
+==================
+
+
+#### Versão do código sem dependencia de ambiente node.js/npm (35/35)
+
+- migrar o código do projeto xxxxx-login para este novo (20/20) = OK
+- fazer um pré-repositório que "compila" para um repositório mais tradicional sem dependencia de node e npm (10) = OK
+- reuniao para tentar integrar um projeto dependente de node na IDE do cliente (5) = OK
+
 
 
 [externalhelpers]: https://babeljs.io/docs/usage/external-helpers/
