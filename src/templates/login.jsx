@@ -5,7 +5,7 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import CenteredBox from 'mnmo-components/lib/themes/mnmo/centeredbox';
 import FieldSet from 'mnmo-components/lib/themes/mnmo/fieldset';
-import TextInput from 'mnmo-components/lib/textinput';
+import TextInput from 'mnmo-components/lib/themes/mnmo/textinput';
 import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
 export default (p, s, a) =>
 <CenteredBox>
