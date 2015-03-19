@@ -7,7 +7,17 @@ import messages from '../locales/pt/messages.json';
 
 render(
     createElement(LoginForm, {
-        messages: messages
+        messages: messages,
+        countryOptions: [
+            {
+                id: '1',
+                label: 'BRASIL'
+            },
+            {
+                id: '2',
+                label: 'ARGENTINA'
+            }
+        ]
     }),
     document.getElementById('main')
 );

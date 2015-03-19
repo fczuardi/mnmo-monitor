@@ -14,8 +14,8 @@
  * 
  * Properties
  * ----------
+ * @param {Array.<{id:string, label:string}>} [countryOptions]
  * @param {string} [nextPath]
- * @param {object[]} [countryOptions]
  * @param {function} [onSubmit]
  * @param {function} [onInputBlur]
  * @param {function} [onCountryChange]
@@ -50,14 +50,28 @@ class LoginForm {
         this.state = {
             user: {
                 username: null,
-                password: null
-            }    
+                password: null,
+                rememberLogin: null,
+                tosAgree: null
+            },
+            country: {
+                selected: null,
+                tosURL: '#'
+            },
+            loginForm: {
+                submitButtonLabel: null,
+                submitButtonDisabled: null
+            }
         };
         this.actions = {
             usernameChange: null,
             usernameBlur: null,
             passwordChange: null,
-            passwordBlur: null
+            passwordBlur: null,
+            countrySelect: null,
+            countryBlur: null,
+            saveInfoChange: null,
+            agreementChange: null
         };
         this.render = () => render(this.props, this.state, this.actions);
     }
