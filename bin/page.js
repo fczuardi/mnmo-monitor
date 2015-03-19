@@ -11,7 +11,8 @@ import {Page} from 'mnmo-components';
 var options = {
     title: 'unbundled webapp',
     stylesheets: [
-        './lib/css/normalize.css'
+        './lib/css/normalize.css',
+        './lib/css/typography.css'
     ],
     scripts: [
         './lib/js/es5-shim.js',
@@ -32,7 +33,7 @@ var options = {
 console.log( html(
     renderToStaticMarkup(
         createElement(Page, options, 
-            DOM.div({id:'main'},
+            DOM.div({id:'main', className: 'mnmo-root'},
                 DOM.p(null, 'carregando...')
             )
         )
