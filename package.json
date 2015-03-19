@@ -9,7 +9,7 @@
     "mnmo-components/lib/themes/mnmo/stage": "global:MNMOStage",
     "mnmo-components/lib/themes/mnmo/centeredbox": "global:MNMOCenteredBox",
     "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox",
-    "mnmo-components/lib/fieldset": "global:MNMOFieldSet",
+    "mnmo-components/lib/themes/mnmo/fieldset": "global:MNMOFieldSet",
     "mnmo-components/lib/textinput": "global:MNMOTextInput"
   },
   "scripts": {
