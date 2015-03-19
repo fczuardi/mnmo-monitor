@@ -1,6 +1,6 @@
 Nome da tarefa | Trabalho | Início | Término | Progresso |
 ---------------|----------|--------|---------|--------------------|
-Versão do código sem dependencia de ambiente node.js/npm | 30h | Sábado 14/03/2015 | Quarta 18/03 | 50% |
+Versão do código sem dependencia de ambiente node.js/npm | 35h | Sábado 14/03/2015 | Quarta 18/03 | 71% |
 Tela de login | 25h | Segunda 09/03/2015 | Sexta 20/03/2015 | 68% |
 Captcha | 7h | Segunda 23/03 | Terça 24/03 | 0% |
 Side menu | 12h | Terça 24/03 | Quinta 26/03 | 0% |
@@ -10,23 +10,25 @@ Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
 Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
 Splash Screen | 17h | Quarta 27/05 | Terça 02/06 | 0% |
 Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
-Desenvolvimento total | 369h | - | Terça 16/06 | 11.4% |
+Desenvolvimento total | 374h | - | Terça 16/06 | 14% |
 Liberação do código open source | - | 16/09 |  |  |
 
-__última atualização: 16/03/12:00__
+__última atualização: 19/03/10:02__
 
 -----
 
 Total 
 -----
-- 42/369 = 11.4%
+- 52/374 = 14%
 
 Cálculo
 -------
 
-#### Versão do código sem dependencia de ambiente node.js/npm (15/30)
+#### Versão do código sem dependencia de ambiente node.js/npm (25/35)
 
-- migrar o código do projeto xxxxx-login para este novo (15)
+- migrar o código do projeto xxxxx-login para este novo (10/20)
+    - layout (10/15)
+    - stores (5)
 - fazer um pré-repositório que "compila" para um repositório mais tradicional sem dependencia de node e npm (10) = OK
 - reuniao para tentar integrar um projeto dependente de node na IDE do cliente (5) = OK
 
