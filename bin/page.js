@@ -16,6 +16,8 @@ var options = {
         './lib/js/console-polyfill.js',
         './lib/js/react.js',
         './lib/js/component-checkbox.js',
+        './lib/js/component-fieldset.js',
+        './lib/js/component-textinput.js',
         './js/app.js'
     ]
 };

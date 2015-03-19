@@ -5,7 +5,9 @@
   "main": "index.js",
   "browserify-shim": {
     "react": "global:React",
-    "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox"
+    "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox",
+    "mnmo-components/lib/fieldset": "global:MNMOFieldSet",
+    "mnmo-components/lib/textinput": "global:MNMOTextInput"
   },
   "scripts": {
     "clean": "rm -rf ./dist",
@@ -25,11 +27,14 @@
     "www:js:polyfill:es5-sham": "cp node_modules/es5-shim/es5-sham.js ./dist/classic/lib/js/.",
     "www:js:polyfill:console": "cp node_modules/console-polyfill/index.js ./dist/classic/lib/js/console-polyfill.js",
     "www:js:lib:mnmo:checkbox": "browserify -e ./node_modules/mnmo-components/lib/themes/mnmo/checkbox.js -o ./dist/classic/lib/js/component-checkbox.js -t browserify-shim -s MNMOCheckbox",
+    "www:js:lib:mnmo:fieldset": "browserify -e ./node_modules/mnmo-components/lib/fieldset.js -o ./dist/classic/lib/js/component-fieldset.js -t browserify-shim -s MNMOFieldSet",
+    "www:js:lib:mnmo:textinput": "browserify -e ./node_modules/mnmo-components/lib/textinput.js -o ./dist/classic/lib/js/component-textinput.js -t browserify-shim -s MNMOTextInput",
     "www:js:app": "browserify -e ./src/app.js -o ./dist/classic/js/app.js -t babelify -t browserify-shim",
     "www:img:lib": "cp -R ./node_modules/mnmo-components/lib/themes/mnmo/img ./dist/classic/",
     "www:html:index": "babel-node ./bin/page.js > ./dist/classic/index.html",
     "classic:clean": "rm -rf ../monitor-traditional/lib ../monitor-traditional/js ../monitor-traditional/*.html",
     "classic:js:app": "cp -R ./dist/classic/js/app.js ../monitor-traditional/js/.",
+    "classic:js:lib": "cp -R ./dist/classic/lib ../monitor-traditional/.",
     "classic:www": "cp -R ./dist/classic/* ../monitor-traditional/",
     "classic:docs:schedule": "babel-node ./bin/docSchedule.js > ../monitor-traditional/docs/schedule.html",
     "classic:ghpages:check": "cd ../monitor-traditional && git checkout gh-pages && git show master:docs/schedule.html > docs/schedule.html && git status && git checkout . && git checkout master",
@@ -40,9 +45,10 @@
     "predev": "npm run dev:clean && npm run dev:mkdir",
     "dev": "npm run dev:js & npm run dev:img & npm run dev:html",
     "www:js:polyfill": "npm run www:js:polyfill:es5-shim && npm run www:js:polyfill:es5-sham && npm run www:js:polyfill:console",
-    "www:js:lib:mnmo": "npm run www:js:lib:mnmo:checkbox",
+    "www:js:lib:mnmo": "npm run www:js:lib:mnmo:checkbox && npm run www:js:lib:mnmo:fieldset && npm run www:js:lib:mnmo:textinput",
+    "www:js:lib:mnmo2": "babel-node ./bin/export-components.js",
     "www:js:lib": "npm run www:js:lib:react && npm run www:js:lib:mnmo",
-    "www:js": "npm run www:js:app & npm run www:js:lib & npm run www:js:polyfill",
+    "www:js": "npm run www:js:app && npm run www:js:lib && npm run www:js:polyfill",
     "www:img": "npm run www:img:lib",
     "www:html": "npm run www:html:index",
     "prewww": "npm run www:clean && npm run www:mkdir",
