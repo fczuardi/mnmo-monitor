@@ -17,6 +17,7 @@ var options = {
         './lib/js/es5-shim.js',
         './lib/js/es5-sham.js',
         './lib/js/console-polyfill.js',
+        './lib/js/Intl.js',
         './lib/js/react.js',
         './lib/js/react-intl.js',
         './lib/js/component-stage.js',
