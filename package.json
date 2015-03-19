@@ -61,6 +61,7 @@
     "prewww": "npm run www:clean && npm run www:mkdir",
     "www": "npm run www:js && npm run www:html && npm run www:img && npm run www:css",
     "classic:docs": "npm run classic:docs:schedule",
+    "preclassic:js:app": "npm run www:js:app",
     "preclassic:www": "npm run www",
     "preclassic": "npm run classic:clean",
     "classic": "npm run classic:www & npm run classic:docs",
