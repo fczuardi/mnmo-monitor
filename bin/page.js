@@ -10,6 +10,9 @@ import {Page} from 'mnmo-components';
 
 var options = {
     title: 'unbundled webapp',
+    stylesheets: [
+        './lib/css/normalize.css'
+    ],
     scripts: [
         './lib/js/es5-shim.js',
         './lib/js/es5-sham.js',

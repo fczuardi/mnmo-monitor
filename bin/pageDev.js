@@ -10,6 +10,9 @@ import {Page} from 'mnmo-components';
 
 var options = {
     title: 'bundled webapp',
+    stylesheets: [
+        './css/normalize.css'
+    ],
     scripts: [
         './js/polyfills.js',
         './js/vendors.js',
