@@ -18,6 +18,7 @@ var options = {
         './lib/js/es5-sham.js',
         './lib/js/console-polyfill.js',
         './lib/js/react.js',
+        './lib/js/react-intl.js',
         './lib/js/component-checkbox.js',
         './lib/js/component-fieldset.js',
         './lib/js/component-textinput.js',
