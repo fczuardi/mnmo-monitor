@@ -48,6 +48,8 @@ export default (p, s, a) =>
                     {p.messages.login.saveInfo}
                 </Checkbox>
             </div>
+        </FieldSet>
+        <FieldSet>
             <div>
                 <Checkbox
                     id="TOSCheckBox"
