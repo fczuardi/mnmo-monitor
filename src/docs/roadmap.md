@@ -133,16 +133,50 @@ Bikeshedding
 
 Total
 -----
-- 0/15 = 0%
+- 0/32 = 0%
+
+### Componentes
+- migrar os estilos de export default {} para export default function(){} (5)
+- achar uma solucao melhor para merge de styles sem objectAssign (ver /lib/checkbox e /lib/submit) (10)
 
 ### Versão sem bundle (0/15)
 - usar babel [external helpers][externalhelpers] (10)
 - adicionar docblock em todos os estilos para facilitar achar onde está o css (5)
 
+### Build tasks
+- eliminar linhas gigantes que copiam as fontes Roboto (2)
+ 
 -----
 
 Update 16/03-20/03
 ==================
+
+## Mudança de repositório
+
+Foi criado um repositório e versão da app que não requer pré-compilação para funcionar. Basta jogar todos os arquivos em um servidor de arquivos estáticos comum (IIS Server por exemplo) e tudo funciona. O endereço foi enviado por email.
+
+Pode ser acessado em https://github.com/fczuardi/xxx-traditional e quem precisar de acesso pode me enviar um email com o username do github que eu adiciono como colaborador.
+
+A versao da aplicação deste repositório se encontra menos funcional que a versão do bitbucket (que pode ser acessada em http://xxx-login.nulo.com.br ) pois eu aproveitei esta oportunidade para melhorar o código dos componentes e rever algumas dependencias (hoverboar e react-router). Minha previsão é que até segunda o repositório novo "alcance" o velho em termos de funcionalidades.
+
+## Próximas etapas
+
+Para a semana que vem o plano é:
+- terminar de mover as stores do bitbucket (esta aplicação se baseia na arquitetura Flux, ver http://facebook.github.io/flux/docs/overview.html para entender como ela se compara com uma MVC, não estamos usando MVC) para o repositório novo até o fim da segunda feira.
+- matar o captcha até o fim da terça
+- implementar os componentes e design necessários para o menu-gaveta lateral até o fim da semana.
+
+Cronograma sempre atualizado com o progresso disponível em: http://fczuardi.github.io/tcnet-traditional/docs/schedule.html
+
+# Interno 
+
+Por decorrencia desta adaptação o que antes era um único repositório, agora são 3: dois internos totalmente fechados (nem o cliente tem acesso) durante o periodo do desenvolvimento e um privado que o cliente tem acesso que é gerado a partir destes dois.
+    - https://github.com/fczuardi/mnmo-components
+    - https://github.com/fczuardi/mnmo-monitor
+- estes dois repositórios, uma biblioteca de componentes React e uma applicação de monitoramento de dados que utiliza estes componentes já são os que serão lançados com licença open source ao fim do período de exclusividade, estes dois repositórios dependem de um ambiente com node.js instalado, mas é irrelevante, já que o cliente não precisará dar manutenção em nenhum destes.
+- para diferenciar o que é do cliente e o que é patrocinado pelo cliente mas será aberto no futuro, o prefixo mnmo- é usado nos nomes dos repositórios e nas referencias a eles no código.
+
+-----
 
 
 #### Versão do código sem dependencia de ambiente node.js/npm (35/35)
