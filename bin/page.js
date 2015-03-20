@@ -22,6 +22,7 @@ var options = {
         './lib/js/Intl.js',
         './lib/js/react.js',
         './lib/js/react-intl.js',
+        './lib/js/flummox.js',
         './lib/js/component-shared.js',
         './lib/js/component-stage.js',
         './lib/js/component-centeredbox.js',
