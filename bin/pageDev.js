@@ -12,7 +12,8 @@ var options = {
     title: 'bundled webapp',
     stylesheets: [
         './css/normalize.css',
-        './css/typography.css'
+        './css/typography.css',
+        './css/main.css'
     ],
     scripts: [
         './js/polyfills.js',

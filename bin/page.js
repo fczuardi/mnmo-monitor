@@ -12,7 +12,8 @@ var options = {
     title: 'unbundled webapp',
     stylesheets: [
         './lib/css/normalize.css',
-        './lib/css/typography.css'
+        './lib/css/typography.css',
+        './css/main.css'
     ],
     scripts: [
         './lib/js/es5-shim.js',

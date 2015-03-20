@@ -50,7 +50,7 @@ export default (p, s, a) =>
                 </Checkbox>
             </div>
         </FieldSet>
-        <FieldSet>
+        <FieldSet className="no-bg">
             <div>
                 <Checkbox
                     id="TOSCheckBox"
