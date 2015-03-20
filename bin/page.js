@@ -28,6 +28,7 @@ var options = {
         './lib/js/component-textinput.js',
         './lib/js/component-select.js',
         './lib/js/component-checkbox.js',
+        './lib/js/component-submit.js',
         './js/app.js'
     ]
 };

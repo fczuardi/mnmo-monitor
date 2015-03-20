@@ -8,6 +8,7 @@ import FieldSet from 'mnmo-components/lib/themes/mnmo/fieldset';
 import TextInput from 'mnmo-components/lib/themes/mnmo/textinput';
 import Select from 'mnmo-components/lib/themes/mnmo/select';
 import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
+import Submit from 'mnmo-components/lib/themes/mnmo/submit';
 export default (p, s, a) =>
 <CenteredBox>
     <form>
@@ -68,13 +69,10 @@ export default (p, s, a) =>
                     />
                 </Checkbox>
             </div>
-            <div>
-                <input
-                    value={s.loginForm.submitButtonLabel}
-                    disabled={s.loginForm.submitButtonDisabled}
-                    type="submit"
-                />
-            </div>
         </FieldSet>
+        <Submit
+            value={s.loginForm.submitButtonLabel}
+            disabled={s.loginForm.submitButtonDisabled}
+        />
     </form>
 </CenteredBox>;

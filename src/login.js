@@ -34,7 +34,7 @@
  **/
 import render from './templates/login.jsx';
 class LoginForm {
-    constructor() {
+    constructor(props) {
         this.state = {
             user: {
                 username: null,
@@ -47,7 +47,7 @@ class LoginForm {
                 tosURL: '#'
             },
             loginForm: {
-                submitButtonLabel: null,
+                submitButtonLabel: props.messages.login.submit.access,
                 submitButtonDisabled: null
             }
         };
