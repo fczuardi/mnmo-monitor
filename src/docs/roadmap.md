@@ -1,7 +1,7 @@
 Nome da tarefa | Trabalho | Início | Término | Progresso |
 ---------------|----------|--------|---------|--------------------|
 Versão do código sem dependencia de ambiente node.js/npm | 35h | Sábado 14/03/2015 | Quarta 18/03 | 100% |
-Tela de login | 45h | Segunda 09/03/2015 | Sexta 20/03/2015 | 71% |
+Tela de login | 45h | Segunda 09/03/2015 | Sexta 20/03/2015 | 84% |
 Captcha | 7h | Segunda 23/03 | Terça 24/03 | 0% |
 Side menu | 12h | Terça 24/03 | Quinta 26/03 | 0% |
 App header e paineis | 51h | Sexta 27/03 | Terça 14/04 | 0% |
@@ -10,16 +10,16 @@ Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
 Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
 Splash Screen | 17h | Quarta 27/05 | Terça 02/06 | 0% |
 Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
-Desenvolvimento total | 394h | - | Terça 16/06 | 17% |
+Desenvolvimento total | 394h | - | Terça 16/06 | 18.3% |
 Liberação do código open source | - | 16/09 |  |  |
 
-__última atualização: 19/03/17:20__
+__última atualização: 20/03/16:09__
 
 -----
 
 Total 
 -----
-- 67/394 = 15.7%
+- 72/394 = 18.3%
 
 Cálculo
 -------
@@ -33,10 +33,10 @@ Cálculo
 - TextInput = OK
 - Checkbox = OK
 
-### Login (32/45)
+### Login (38/45)
 
 - portar/refatorar de xxx-login para o novo estilo classico
-    - layout (10/15)
+    - layout (15/15) = OK
     - stores (5)
 - casos de erro
     - implementar (3)
