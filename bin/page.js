@@ -23,6 +23,7 @@ var options = {
         './lib/js/react.js',
         './lib/js/react-intl.js',
         './lib/js/flummox.js',
+        './lib/js/flummox-component.js',
         './lib/js/component-shared.js',
         './lib/js/component-stage.js',
         './lib/js/component-centeredbox.js',
