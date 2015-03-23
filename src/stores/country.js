@@ -7,8 +7,10 @@ class CountryStore extends Store {
         this.register(countryActions.select, this.changeSelection);
         this.state = {
             selected: null,
-            tosURL: '#'
+            tosURL: '#',
+            options: []
         };
+        this.fetchOptions();
     }
 
     changeSelection(countryID) {
@@ -16,6 +18,10 @@ class CountryStore extends Store {
         this.setState({
             selected: countryID    
         });
+    }
+    
+    fetchOptions() {
+        console.log('get country options from the api');
     }
 }
 

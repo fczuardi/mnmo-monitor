@@ -17,17 +17,7 @@ render(
                 }
             },
             createElement(LoginForm, {
-                messages: messages,
-                countryOptions: [
-                    {
-                        id: '1',
-                        label: 'BRASIL'
-                    },
-                    {
-                        id: '2',
-                        label: 'ARGENTINA'
-                    }
-                ]
+                messages: messages
             })
         )
     ),

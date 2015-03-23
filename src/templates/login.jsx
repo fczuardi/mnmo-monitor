@@ -35,7 +35,7 @@ export default (p, s, a) =>
                     onBlur={a.countryBlur}
                     name="country"
                 >
-                    {p.countryOptions.map( (country, key) =>
+                    {p.country.options.map( (country, key) =>
                         <option key={key} value={country.id}>
                             {country.label}
                         </option>
