@@ -32,6 +32,8 @@ var options = {
         './lib/js/component-select.js',
         './lib/js/component-checkbox.js',
         './lib/js/component-submit.js',
+        './js/actions/country.js',
+        './js/stores/country.js',
         './js/app.js'
     ]
 };

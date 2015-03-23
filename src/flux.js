@@ -1,12 +1,14 @@
 import {Flummox} from 'flummox';
+import CountryActions from './actions/country';
+import CountryStore from './stores/country';
 
 
 class MonitorFlux extends Flummox {
     
     constructor() {
         super();
-        // this.createActions('messages', MessageActions);
-        // this.createStore('messages', MessageStore, this);
+        this.createActions('country', CountryActions);
+        this.createStore('country', CountryStore, this);
     }
     
 }

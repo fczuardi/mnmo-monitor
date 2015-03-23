@@ -7,13 +7,13 @@
  * @param {string} [user.username]
  * @param {boolean} [user.rememberLogin]
  * @param {boolean} [user.tosAgree]
- * @param {object} [country]
- * @param {string} [country.selected]
  * 
  * 
  * 
  * Properties
  * ----------
+ * @param {object} [country] - the state of the country store, see stores/country.js
+ * @param {string} [country.selected] - the selected country ID
  * @param {Array.<{id:string, label:string}>} [countryOptions]
  * @param {string} [nextPath]
  * @param {function} [onSubmit]
@@ -42,10 +42,6 @@ class LoginForm {
                 rememberLogin: null,
                 tosAgree: null
             },
-            country: {
-                selected: null,
-                tosURL: '#'
-            },
             loginForm: {
                 submitButtonLabel: props.messages.login.submit.access,
                 submitButtonDisabled: null
@@ -56,12 +52,20 @@ class LoginForm {
             usernameBlur: null,
             passwordChange: null,
             passwordBlur: null,
-            countrySelect: null,
+            countrySelect: (event) => {
+                var countryID = event.target.value,
+                    countryActions = this.props.flux.getActions('country');
+                event.preventDefault();
+                countryActions.select(countryID);
+            },
             countryBlur: null,
             saveInfoChange: null,
             agreementChange: null
         };
-        this.render = () => render(this.props, this.state, this.actions);
+        this.render = () => {
+            console.log('render login form:', this.props);
+            return render(this.props, this.state, this.actions);
+        };
     }
 }
 

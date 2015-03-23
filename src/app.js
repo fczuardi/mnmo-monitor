@@ -10,7 +10,12 @@ const flux = new Flux();
 
 render(
     createElement(Stage, null,
-        createElement(FluxComponent, {flux: flux},
+        createElement(FluxComponent, {
+                flux: flux,
+                connectToStores: {
+                    country: (store) => ({ country: store.state})
+                }
+            },
             createElement(LoginForm, {
                 messages: messages,
                 countryOptions: [

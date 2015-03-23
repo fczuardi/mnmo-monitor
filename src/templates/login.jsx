@@ -30,7 +30,7 @@ export default (p, s, a) =>
             />
             <div>
                 <Select
-                    value={s.country.selected}
+                    value={p.country.selected}
                     onChange={a.countrySelect}
                     onBlur={a.countryBlur}
                     name="country"
@@ -62,7 +62,7 @@ export default (p, s, a) =>
                     <FormattedMessage
                         message={p.messages.login.iAgree}
                         tosLink={(
-                            <a href={s.country.tosURL}>
+                            <a href={p.country.tosURL}>
                                 {p.messages.login.tos}
                             </a>
                         )}
