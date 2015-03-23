@@ -122,6 +122,7 @@
     "browserify-shim": "^3.8.3",
     "console-polyfill": "^0.2.1",
     "es5-shim": "^4.1.0",
+    "eslint": "^0.17.1",
     "flummox": "^3.1.1",
     "goog-webfont-dl": "^0.1.1",
     "intl": "^0.1.4",
