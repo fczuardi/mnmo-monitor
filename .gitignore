@@ -3,3 +3,4 @@ node_modules
 dist
 assets/custom
 assets/fonts
+config/secret.*

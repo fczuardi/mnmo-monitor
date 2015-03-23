@@ -1,0 +1,6 @@
+{
+    "baseUrl": "http://localhost:9001",
+    "country": {
+        "list": "/country/list"
+    }
+}
