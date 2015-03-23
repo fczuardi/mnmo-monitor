@@ -1,15 +1,15 @@
 /**
  * Login screen
- * 
+ *
  * State
  * -----
  * @param {object} [user]
  * @param {string} [user.username]
  * @param {boolean} [user.rememberLogin]
  * @param {boolean} [user.tosAgree]
- * 
- * 
- * 
+ *
+ *
+ *
  * Properties
  * ----------
  * @param {object} [country] - the state of the country store, see stores/country.js
@@ -30,7 +30,7 @@
  * @param {string} [messages.login.iAgree]
  * @param {string} [messages.login.tos]
  * @param {object} [styles]
- * 
+ *
  **/
 import render from './templates/login.jsx';
 class LoginForm {

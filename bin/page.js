@@ -1,7 +1,7 @@
 // Generate the main html page for the derived project project-traditional
 import {
     DOM,
-    createElement, 
+    createElement,
     renderToStaticMarkup
 } from 'react';
 import {html} from 'js-beautify';
@@ -42,8 +42,8 @@ var options = {
 
 console.log( html(
     renderToStaticMarkup(
-        createElement(Page, options, 
-            DOM.div({id:'main', className: 'mnmo-root'},
+        createElement(Page, options,
+            DOM.div({id: 'main', className: 'mnmo-root'},
                 DOM.p(null, 'carregando...')
             )
         )

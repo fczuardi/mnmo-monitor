@@ -2,7 +2,7 @@
 import {readFileSync} from 'fs';
 import {
     DOM,
-    createElement, 
+    createElement,
     renderToStaticMarkup
 } from 'react';
 import marked from 'marked';
@@ -14,7 +14,7 @@ var pageOptions = {
     title: 'Cronograma',
     stylesheets: [
         //bootstrap css from CDN
-        "//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
+        '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'
     ]
 };
 
@@ -27,9 +27,9 @@ var htmlTable = marked(mdTable).replace('<table>', '<table  class="table table-s
 
 console.log( html(
     renderToStaticMarkup(
-        createElement(Page, pageOptions, 
+        createElement(Page, pageOptions,
             DOM.div({
-                id:'main',
+                id: 'main',
                 dangerouslySetInnerHTML: {__html: htmlTable}
             })
         )

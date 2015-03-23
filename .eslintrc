@@ -10,5 +10,8 @@
         "classes": true,
         "generators": true,
         "objectLiteralShorthandProperties": true
+    },
+    "env": {
+        "node": true
     }
 }

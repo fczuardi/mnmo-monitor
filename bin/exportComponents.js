@@ -5,8 +5,8 @@ import browserify from 'browserify';
 import packageJSON from '../package.json';
 
 let globalModules = packageJSON['browserify-shim'];
-let modulesPath = join(__dirname,'../node_modules/');
-let srcPath = join(__dirname,'../src/');
+let modulesPath = join(__dirname, '../node_modules/');
+let srcPath = join(__dirname, '../src/');
 let classicPath = join(__dirname, '../dist/classic');
 
 function createUMD(entry, globalName, outFilename, isES6){
@@ -22,7 +22,7 @@ function createUMD(entry, globalName, outFilename, isES6){
 Object.keys(globalModules).forEach((key) => {
     if (key.indexOf('mnmo-') !== -1) {
         let entry = join(modulesPath, key + '.js'),
-            componentName = entry.replace(/(.*)\/(.*)/,'$2'),
+            componentName = entry.replace(/(.*)\/(.*)/, '$2'),
             globalName = globalModules[key].split(':')[1],
             outFilename = join(classicPath, 'lib/js/component-' + componentName);
         console.log(outFilename, globalName);

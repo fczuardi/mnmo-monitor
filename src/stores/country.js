@@ -15,17 +15,16 @@ class CountryStore extends Store {
 
     changeSelection(countryID) {
         this.setState({
-            selected: countryID    
+            selected: countryID
         });
     }
-    
+
     fetchOptions() {
         let store = this;
         /* global fetch */
         /* comes from the polyfill https://github.com/github/fetch */
         fetch(URLs.baseUrl + URLs.country.list)
             .then(function(response) {
-                console.log('response:');
                 console.log(response);
                 return response.json();
             }).then(function(options) {
