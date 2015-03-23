@@ -16,7 +16,9 @@
     "mnmo-components/lib/themes/mnmo/textinput": "global:MNMOTextInput",
     "mnmo-components/lib/themes/mnmo/select": "global:MNMOSelect",
     "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox",
-    "mnmo-components/lib/themes/mnmo/submit": "global:MNMOSubmit"
+    "mnmo-components/lib/themes/mnmo/submit": "global:MNMOSubmit",
+    "./actions/country": "global:ActionsCountry",
+    "./stores/country": "global:StoresCountry"
   },
   "scripts": {
     "clean": "rm -rf ./dist",
@@ -46,7 +48,7 @@
     "predev": "npm run dev:clean && npm run dev:mkdir",
     "dev": "npm run dev:js & npm run dev:img & npm run dev:html && npm run dev:css && npm run dev:fonts",
     "www:clean": "rm -rf ./dist/classic",
-    "www:mkdir": "mkdir -p ./dist/classic/js && mkdir -p ./dist/classic/css && mkdir -p ./dist/classic/lib/js && mkdir -p ./dist/classic/lib/css && mkdir -p ./dist/classic/lib/fonts",
+    "www:mkdir": "mkdir -p ./dist/classic/js/actions && mkdir -p ./dist/classic/js/stores && mkdir -p ./dist/classic/css && mkdir -p ./dist/classic/lib/js && mkdir -p ./dist/classic/lib/css && mkdir -p ./dist/classic/lib/fonts",
     "www:js:lib:react": "cp -f ./node_modules/react/dist/react.js ./dist/classic/lib/js/.",
     "www:js:lib:react-intl": "cp -f ./node_modules/react-intl/dist/react-intl.js ./dist/classic/lib/js/.",
     "www:js:lib:flummox": "cp -f ./node_modules/flummox/dist/flummox.js ./dist/classic/lib/js/.",
