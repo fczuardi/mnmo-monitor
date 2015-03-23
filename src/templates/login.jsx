@@ -14,14 +14,14 @@ export default (p, s, a) =>
     <form>
         <FieldSet legend={p.messages.login.welcome}>
             <TextInput
-                value={s.user.username}
+                value={p.user.username}
                 placeholder={p.messages.login.username}
                 onChange={a.usernameChange}
                 onBlur={a.usernameBlur}
                 name="username"
             />
             <TextInput
-                value={s.user.password}
+                value={p.user.password}
                 placeholder={p.messages.login.password}
                 onChange={a.passwordChange}
                 onBlur={a.passwordBlur}
@@ -43,7 +43,7 @@ export default (p, s, a) =>
                 </Select>
                 <Checkbox
                     id="saveInfoCheckbox"
-                    checked={s.user.rememberLogin}
+                    checked={p.user.rememberLogin}
                     onChange={a.saveInfoChange}
                     name="saveInfo"
                 >
@@ -55,7 +55,7 @@ export default (p, s, a) =>
             <div>
                 <Checkbox
                     id="TOSCheckBox"
-                    checked={s.user.tosAgree}
+                    checked={p.user.tosAgree}
                     onChange={a.agreementChange}
                     name="agree"
                 >

@@ -13,7 +13,8 @@ render(
         createElement(FluxComponent, {
                 flux: flux,
                 connectToStores: {
-                    country: (store) => ({ country: store.state})
+                    country: (store) => ({ country: store.state}),
+                    user: (store) => ({ user: store.state})
                 }
             },
             createElement(LoginForm, {

@@ -1,20 +1,17 @@
 /**
  * Login screen
  *
- * State
- * -----
- * @param {object} [user]
- * @param {string} [user.username]
- * @param {boolean} [user.rememberLogin]
- * @param {boolean} [user.tosAgree]
- *
- *
- *
+ * @class
+ * 
  * Properties
  * ----------
  * @param {object} [country] - the state of the country store, see stores/country.js
  * @param {string} [country.selected] - the selected country ID
- * @param {Array.<{id:string, label:string}>} [countryOptions]
+ * @param {object} [user] - the state of the user store, see stores/user.js
+ * @param {string} [user.username]
+ * @param {string} [user.password]
+ * @param {boolean} [user.rememberLogin]
+ * @param {boolean} [user.tosAgree]
  * @param {string} [nextPath]
  * @param {function} [onSubmit]
  * @param {function} [onInputBlur]
@@ -29,19 +26,12 @@
  * @param {string} [messages.login.saveInfo]
  * @param {string} [messages.login.iAgree]
  * @param {string} [messages.login.tos]
- * @param {object} [styles]
  *
  **/
 import render from './templates/login.jsx';
 class LoginForm {
     constructor(props) {
         this.state = {
-            user: {
-                username: null,
-                password: null,
-                rememberLogin: null,
-                tosAgree: null
-            },
             loginForm: {
                 submitButtonLabel: props.messages.login.submit.access,
                 submitButtonDisabled: null
@@ -52,15 +42,13 @@ class LoginForm {
             usernameBlur: null,
             passwordChange: null,
             passwordBlur: null,
-            countrySelect: (event) => {
-                var countryID = event.target.value,
-                    countryActions = this.props.flux.getActions('country');
-                event.preventDefault();
-                countryActions.select(countryID);
-            },
+            countrySelect: (event) => 
+                this.props.flux.getActions('country').select(event.target.value),
             countryBlur: null,
-            saveInfoChange: null,
-            agreementChange: null
+            saveInfoChange: (event) => 
+                this.props.flux.getActions('user').rememberLoginUpdate(event.target.checked),
+            agreementChange: (event) => 
+                this.props.flux.getActions('user').tosAgreementUpdate(event.target.checked)
         };
         this.render = () => {
             console.log('render login form:', this.props);
