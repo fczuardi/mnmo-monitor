@@ -14,9 +14,12 @@ const submitLabelKeys = {
 class LoginValidationStore extends Store {
     constructor(flux) {
         super();
+        const loginValidationActions = flux.getActions('loginValidation');
+        this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswerIndex);
         this.state = {
             captchaQuestion: null,
             captchaAnswers: [],
+            selectedAnswerIndex: null,
             submitLabelKey: submitLabelKeys.access,
             canSubmit: false
         };
@@ -26,7 +29,6 @@ class LoginValidationStore extends Store {
         this.fetchCaptcha();
     }
     validate() {
-        console.log('validate');
         let userData = this.userStore.state;
         if (userData.username.trim().length === 0){
             this.setState({
@@ -38,12 +40,17 @@ class LoginValidationStore extends Store {
                 canSubmit: false,
                 submitLabelKey: submitLabelKeys.missingPassword
             });
+        } else if (userData.captchaAnswer === null){
+            this.setState({
+                canSubmit: false,
+                submitLabelKey: submitLabelKeys.missingCaptcha
+            });
         } else if (userData.tosAgree === false){
             this.setState({
                 canSubmit: false,
                 submitLabelKey: submitLabelKeys.missingTos
             });
-        } else {
+        }else {
             this.setState({
                 canSubmit: true,
                 submitLabelKey: submitLabelKeys.access
@@ -67,6 +74,17 @@ class LoginValidationStore extends Store {
             });
             //HACK to make response.json work on firefox
             response.text().catch(function(){});
+        });
+    }
+    changeCaptchaAnswerIndex(answer){
+        let answerIndex = null;
+        this.state.captchaAnswers.forEach(function(a, index) {
+            if (a.toString() === answer){
+                answerIndex = index;
+            }
+        });
+        this.setState({
+            selectedAnswerIndex: answerIndex
         });
     }
 }

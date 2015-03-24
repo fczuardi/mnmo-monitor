@@ -58,8 +58,9 @@ export default (p, a) =>
                     id={('radio-' + key)}
                     name="captcha-answer"
                     key={key}
-                    value={key}
+                    value={answer}
                     first={(key === 0)}
+                    checked={(key === p.loginForm.selectedAnswerIndex)}
                     onChange={a.captchaAnswerChange}
                 >
                     {answer}

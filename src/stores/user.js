@@ -4,17 +4,20 @@ class UserStore extends Store {
         super();
         const userActions = flux.getActions('user');
         const countryActions = flux.getActions('country');
+        const loginValidationActions = flux.getActions('loginValidation');
         this.flux = flux;
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
         this.register(userActions.rememberLoginUpdate, this.changeRememberPref);
         this.register(userActions.tosAgreementUpdate, this.changeTosPref);
         this.register(countryActions.select, this.changeCountryPref);
+        this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.state = {
             username: '',
             password: '',
             countryID: null,
             rememberLogin: false,
+            captchaAnswer: null,
             tosAgree: false,
             tosURL: '#'
         };
@@ -30,9 +33,14 @@ class UserStore extends Store {
     loadPreferences() {
         var ls = localStorage.getItem('userPreference'),
             parsedObj = {};
+        if (ls === null) {
+            return false;
+        }
         try{
             parsedObj = JSON.parse(ls);
-            console.log('Preferences loaded:', parsedObj);
+            if (parsedObj.captchaAnswer !== undefined) {
+                delete parsedObj.captchaAnswer;
+            }
             this.setState(parsedObj);
         } catch (e){
             //rubish in the session cookie
@@ -40,7 +48,6 @@ class UserStore extends Store {
         }
     }
     savePreferences() {
-        console.log('save user preference', this.state);
         localStorage.setItem('userPreference', JSON.stringify(this.state));
     }
     clearPreferences() {
@@ -73,6 +80,11 @@ class UserStore extends Store {
         this.setState({
             countryID: countryID,
             tosURL: tosURL
+        });
+    }
+    changeCaptchaAnswer(answer) {
+        this.setState({
+            captchaAnswer: answer
         });
     }
     changeRememberPref(shouldRemember) {

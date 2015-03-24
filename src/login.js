@@ -43,16 +43,14 @@ class LoginForm {
                 this.props.flux.getActions('user').rememberLoginUpdate(event.target.checked),
             agreementChange: (event) =>
                 this.props.flux.getActions('user').tosAgreementUpdate(event.target.checked),
-            captchaAnswerChange: (event) => {
-                console.log(event.target);
-            },
+            captchaAnswerChange: (event) => 
+                this.props.flux.getActions('loginValidation').captchaAnswered(event.target.value),
             formSubmit: (event) => {
                 event.preventDefault();
                 this.props.flux.getActions('session').signIn(event.target);
             }
         };
         this.render = () => {
-            console.log('render login form:', this.props);
             return render(this.props, this.actions);
         };
     }
