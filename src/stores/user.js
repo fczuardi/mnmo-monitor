@@ -4,6 +4,7 @@ class UserStore extends Store {
         super();
         const userActions = flux.getActions('user');
         const countryActions = flux.getActions('country');
+        this.flux = flux;
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
         this.register(userActions.rememberLoginUpdate, this.changeRememberPref);
@@ -12,9 +13,10 @@ class UserStore extends Store {
         this.state = {
             username: '',
             password: '',
-            countryID: '',
+            countryID: null,
             rememberLogin: false,
-            tosAgree: false
+            tosAgree: false,
+            tosURL: '#'
         };
         this.loadPreferences();
         this.addListener('change', function(){
@@ -22,6 +24,8 @@ class UserStore extends Store {
                 this.savePreferences();
             }
         });
+        this.countryStore = flux.getStore('country');
+        this.countryStore.addListener('change', this.countryOptionsLoaded.bind(this));
     }
     loadPreferences() {
         var ls = localStorage.getItem('userPreference'),
@@ -43,6 +47,12 @@ class UserStore extends Store {
         console.log('clear preferences');
         localStorage.removeItem('userPreference');
     }
+    countryOptionsLoaded() {
+        if (this.state.countryID === null){
+            this.flux.getActions('country').select(
+                                        this.countryStore.state.options[0].id);
+        }
+    }
     changeUsernamePref(username) {
         console.log('change username', username);
         this.setState({
@@ -56,8 +66,16 @@ class UserStore extends Store {
         });
     }
     changeCountryPref(countryID) {
+        console.log('change country pref', countryID);
+        let tosURL;
+        this.countryStore.state.options.forEach(function(item){
+            if (item.id === countryID){
+                tosURL = item.tosURL;
+            }
+        });
         this.setState({
-            countryID: countryID
+            countryID: countryID,
+            tosURL: tosURL
         });
     }
     changeRememberPref(shouldRemember) {

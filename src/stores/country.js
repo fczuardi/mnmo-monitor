@@ -3,19 +3,12 @@ import URLs from '../../config/entrypoints.json';
 import {parseCountryList} from '../../config/responseParsers';
 
 class CountryStore extends Store {
-    constructor(flux) {
+    constructor() {
         super();
-        const countryActions = flux.getActions('country');
-        this.register(countryActions.select, this.changeSelection);
         this.state = {
-            tosURL: '#',
             options: []
         };
         this.fetchOptions();
-    }
-
-    changeSelection(countryID) {
-        console.log('TBD: Tos URL state must change', countryID);
     }
 
     fetchOptions() {
@@ -29,9 +22,9 @@ class CountryStore extends Store {
             }
         })
         .then(function (text) {
-            console.log(parseCountryList(text));
+            let options = parseCountryList(text); 
             store.setState({
-                options: parseCountryList(text)
+                options: options
             });
         });
     }
