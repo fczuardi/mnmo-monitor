@@ -15,12 +15,8 @@ class LoginValidationStore extends Store {
     constructor(flux) {
         super();
         this.state = {
-            captchaQuestion: 'Quanto é 3 + 5?',
-            captchaAnswers: [
-                '8',
-                '4',
-                '35'
-            ],
+            captchaQuestion: null,
+            captchaAnswers: [],
             submitLabelKey: submitLabelKeys.access,
             canSubmit: false
         };
@@ -60,16 +56,17 @@ class LoginValidationStore extends Store {
         /* comes from the polyfill https://github.com/github/fetch */
         fetch(URLs.baseUrl + URLs.validation.captcha)
         .then(function(response) {
-            if (response.ok) {
-                return response.text();
-            }
-        })
-        .then(function (text) {
-            let options = parseCaptchaSetup(text);
-            store.setState({
-                captchaQuestion: options.question,
-                captchaAnswers: options.answers
+            response.json().then(function(json) {
+                let options = parseCaptchaSetup(json);
+                store.setState({
+                    captchaQuestion: options.question,
+                    captchaAnswers: options.answers
+                });
+            }).catch(function(ex) {
+                console.log('parsing failed', ex);
             });
+            //HACK to make response.json work on firefox
+            response.text().catch(function(){});
         });
     }
 }
