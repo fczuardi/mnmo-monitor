@@ -15,13 +15,18 @@ class MonitorFlux extends Flummox {
 
     constructor() {
         super();
+        //note: remember to define actions before stores 
+
+        //actions
         this.createActions('country', CountryActions);
-        this.createStore('country', CountryStore, this);
         this.createActions('user', UserActions);
-        this.createStore('user', UserStore, this);
         this.createActions('loginValidation', LoginValidationActions);
-        this.createStore('loginValidation', LoginValidationStore, this);
         this.createActions('session', SessionActions);
+
+        //stores
+        this.createStore('country', CountryStore, this);
+        this.createStore('user', UserStore, this);
+        this.createStore('loginValidation', LoginValidationStore, this);
         this.createStore('session', SessionStore, this);
     }
 
