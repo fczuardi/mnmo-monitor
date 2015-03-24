@@ -18,7 +18,9 @@
     "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox",
     "mnmo-components/lib/themes/mnmo/submit": "global:MNMOSubmit",
     "./actions/country": "global:ActionsCountry",
+    "./actions/user": "global:ActionsUser",
     "./stores/country": "global:StoresCountry",
+    "./stores/user": "global:StoresUser",
     "../../config/entrypoints.json": "global:ConfigEntrypoints"
   },
   "scripts": {
