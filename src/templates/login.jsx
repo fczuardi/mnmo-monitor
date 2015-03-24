@@ -8,6 +8,7 @@ import FieldSet from 'mnmo-components/lib/themes/mnmo/fieldset';
 import TextInput from 'mnmo-components/lib/themes/mnmo/textinput';
 import Select from 'mnmo-components/lib/themes/mnmo/select';
 import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
+import RadioButton from 'mnmo-components/lib/radio';
 import Submit from 'mnmo-components/lib/themes/mnmo/submit';
 export default (p, a) =>
 <CenteredBox>
@@ -50,6 +51,19 @@ export default (p, a) =>
                     {p.messages.login.saveInfo}
                 </Checkbox>
             </div>
+        </FieldSet>
+        <FieldSet legend={p.loginForm.captchaQuestion}>
+            {p.loginForm.captchaAnswers.map( (answer, key) =>
+                <RadioButton 
+                    id={('radio-' + key)}
+                    name="captcha-answer"
+                    key={key}
+                    value={key}
+                    onChange={a.captchaAnswerChange}
+                >
+                    {answer}
+                </RadioButton>
+            )}
         </FieldSet>
         <FieldSet className="no-bg">
             <div>

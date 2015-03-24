@@ -13,7 +13,12 @@ class LoginValidationStore extends Store {
     constructor(flux) {
         super();
         this.state = {
-            captchaQuestion: null,
+            captchaQuestion: 'Quanto é 3 + 5?',
+            captchaAnswers: [
+                '8',
+                '4',
+                '35'
+            ],
             submitLabelKey: submitLabelKeys.access,
             canSubmit: false
         };

@@ -32,6 +32,7 @@ var options = {
         './lib/js/component-textinput.js',
         './lib/js/component-select.js',
         './lib/js/component-checkbox.js',
+        './lib/js/component-radio.js',
         './lib/js/component-submit.js',
         './js/entrypoints.js',
         './js/responseParsers.js',
