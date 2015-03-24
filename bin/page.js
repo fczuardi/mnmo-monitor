@@ -20,6 +20,7 @@ var options = {
         './lib/js/es5-sham.js',
         './lib/js/console-polyfill.js',
         './lib/js/Intl.js',
+        './lib/js/Promise.js',
         './lib/js/fetch.js',
         './lib/js/react-with-addons.js',
         './lib/js/react-intl.js',
