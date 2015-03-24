@@ -22,7 +22,7 @@ class CountryStore extends Store {
             }
         })
         .then(function (text) {
-            let options = parseCountryList(text); 
+            let options = parseCountryList(text);
             store.setState({
                 options: options
             });

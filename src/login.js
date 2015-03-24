@@ -2,7 +2,7 @@
  * Login screen
  *
  * @class
- * 
+ *
  * Properties
  * ----------
  * @param {object} [country] - the state of the country store, see stores/country.js
@@ -33,15 +33,15 @@ import render from './templates/login.jsx';
 class LoginForm {
     constructor() {
         this.actions = {
-            usernameChange: (event) => 
+            usernameChange: (event) =>
                 this.props.flux.getActions('user').usernameInput(event.target.value),
-            passwordChange: (event) => 
+            passwordChange: (event) =>
                 this.props.flux.getActions('user').passwordInput(event.target.value),
-            countrySelect: (event) => 
+            countrySelect: (event) =>
                 this.props.flux.getActions('country').select(event.target.value),
-            saveInfoChange: (event) => 
+            saveInfoChange: (event) =>
                 this.props.flux.getActions('user').rememberLoginUpdate(event.target.checked),
-            agreementChange: (event) => 
+            agreementChange: (event) =>
                 this.props.flux.getActions('user').tosAgreementUpdate(event.target.checked)
         };
         this.render = () => {
