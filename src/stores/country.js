@@ -1,5 +1,7 @@
 import {Store} from 'flummox';
 import URLs from '../../config/entrypoints.json';
+import {parseCountryList} from '../../config/responseParsers';
+
 class CountryStore extends Store {
     constructor(flux) {
         super();
@@ -21,17 +23,17 @@ class CountryStore extends Store {
         /* global fetch */
         /* comes from the polyfill https://github.com/github/fetch */
         fetch(URLs.baseUrl + URLs.country.list)
-            .then(function(response) {
-                console.log(response);
-                return response.json();
-            }).then(function(options) {
-                console.log('parsed json', options, store);
-                store.setState({
-                    options: options
-                });
-            }).catch(function(ex) {
-                console.log('parsing failed', ex);
+        .then(function(response) {
+            if (response.ok) {
+                return response.text();
+            }
+        })
+        .then(function (text) {
+            console.log(parseCountryList(text));
+            store.setState({
+                options: parseCountryList(text)
             });
+        });
     }
 }
 
