@@ -1,7 +1,7 @@
 export function parseCountryList(text){
-    return JSON.parse(text);
+    return ((typeof text === 'string') ? JSON.parse(text) : text);
 }
 
 export function parseCaptchaSetup(text){
-    return JSON.parse(text);
+    return ((typeof text === 'string') ? JSON.parse(text) : text);
 }
