@@ -8,11 +8,13 @@ router.get(URLs.country.list, function *(next){
     this.body = JSON.stringify([
         {
             id: '0',
-            label: 'USA'
+            label: 'USA',
+            tosURL: 'http://example.com/?foo'
         },
         {
             id: '1',
-            label: 'BRASIL'
+            label: 'BRASIL',
+            tosURL: 'http://example.com/?bar'
         }
     ]);
     yield next;
