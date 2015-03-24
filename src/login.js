@@ -29,24 +29,16 @@
  *
  **/
 import render from './templates/login.jsx';
+
 class LoginForm {
-    constructor(props) {
-        this.state = {
-            loginForm: {
-                submitButtonLabel: props.messages.login.submit.access,
-                submitButtonDisabled: null
-            }
-        };
+    constructor() {
         this.actions = {
             usernameChange: (event) => 
                 this.props.flux.getActions('user').usernameInput(event.target.value),
-            usernameBlur: null,
             passwordChange: (event) => 
                 this.props.flux.getActions('user').passwordInput(event.target.value),
-            passwordBlur: null,
             countrySelect: (event) => 
                 this.props.flux.getActions('country').select(event.target.value),
-            countryBlur: null,
             saveInfoChange: (event) => 
                 this.props.flux.getActions('user').rememberLoginUpdate(event.target.checked),
             agreementChange: (event) => 
@@ -54,7 +46,7 @@ class LoginForm {
         };
         this.render = () => {
             console.log('render login form:', this.props);
-            return render(this.props, this.state, this.actions);
+            return render(this.props, this.actions);
         };
     }
 }

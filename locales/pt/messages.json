@@ -7,6 +7,7 @@
         "iAgree": "Li e concordo: {tosLink}",
         "tos": "Termos de uso",
         "submit": {
+            "loading": "Carregando…",
             "missingUsername": "Preencha seu usuário e senha",
             "missingPassword": "Preencha seu usuário e senha",
             "missingTos": "Precisa concordar para usar",

@@ -9,7 +9,7 @@ import TextInput from 'mnmo-components/lib/themes/mnmo/textinput';
 import Select from 'mnmo-components/lib/themes/mnmo/select';
 import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
 import Submit from 'mnmo-components/lib/themes/mnmo/submit';
-export default (p, s, a) =>
+export default (p, a) =>
 <CenteredBox>
     <form>
         <FieldSet legend={p.messages.login.welcome}>
@@ -71,8 +71,8 @@ export default (p, s, a) =>
             </div>
         </FieldSet>
         <Submit
-            value={s.loginForm.submitButtonLabel}
-            disabled={s.loginForm.submitButtonDisabled}
+            value={p.messages.login.submit[p.loginForm.submitLabelKey]}
+            disabled={(! p.loginForm.canSubmit)}
         />
     </form>
 </CenteredBox>;

@@ -19,9 +19,11 @@
     "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox",
     "mnmo-components/lib/themes/mnmo/submit": "global:MNMOSubmit",
     "./actions/country": "global:ActionsCountry",
-    "./actions/user": "global:ActionsUser",
     "./stores/country": "global:StoresCountry",
+    "./actions/user": "global:ActionsUser",
     "./stores/user": "global:StoresUser",
+    "./actions/loginValidation": "global:ActionsLoginValidation",
+    "./stores/loginValidation": "global:StoresLoginValidation",
     "../../config/entrypoints.json": "global:ConfigEntrypoints",
     "../../config/responseParsers": "global:ConfigParsers"
   },

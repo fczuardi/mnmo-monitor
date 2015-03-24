@@ -14,7 +14,8 @@ render(
                 flux: flux,
                 connectToStores: {
                     country: (store) => ({ country: store.state}),
-                    user: (store) => ({ user: store.state})
+                    user: (store) => ({ user: store.state}),
+                    loginValidation: (store) => ({ loginForm: store.state})
                 }
             },
             createElement(LoginForm, {

@@ -36,9 +36,11 @@ var options = {
         './js/entrypoints.js',
         './js/responseParsers.js',
         './js/actions/country.js',
-        './js/actions/user.js',
         './js/stores/country.js',
+        './js/actions/user.js',
         './js/stores/user.js',
+        './js/actions/loginValidation.js',
+        './js/stores/loginValidation.js',
         './js/app.js'
     ]
 };

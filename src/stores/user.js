@@ -54,19 +54,16 @@ class UserStore extends Store {
         }
     }
     changeUsernamePref(username) {
-        console.log('change username', username);
         this.setState({
             username: username
         });
     }
     changePasswordPref(password) {
-        console.log('change password', password);
         this.setState({
             password: password
         });
     }
     changeCountryPref(countryID) {
-        console.log('change country pref', countryID);
         let tosURL;
         this.countryStore.state.options.forEach(function(item){
             if (item.id === countryID){
