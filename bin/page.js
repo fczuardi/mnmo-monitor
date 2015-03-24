@@ -41,6 +41,8 @@ var options = {
         './js/stores/user.js',
         './js/actions/loginValidation.js',
         './js/stores/loginValidation.js',
+        './js/actions/session.js',
+        './js/stores/session.js',
         './js/app.js'
     ]
 };

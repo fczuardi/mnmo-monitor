@@ -11,7 +11,7 @@ import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
 import Submit from 'mnmo-components/lib/themes/mnmo/submit';
 export default (p, a) =>
 <CenteredBox>
-    <form>
+    <form onSubmit={a.formSubmit}>
         <FieldSet legend={p.messages.login.welcome}>
             <TextInput
                 value={p.user.username}

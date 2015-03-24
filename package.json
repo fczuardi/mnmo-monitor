@@ -24,6 +24,8 @@
     "./stores/user": "global:StoresUser",
     "./actions/loginValidation": "global:ActionsLoginValidation",
     "./stores/loginValidation": "global:StoresLoginValidation",
+    "./actions/session": "global:ActionsSession",
+    "./stores/session": "global:StoresSession",
     "../../config/entrypoints.json": "global:ConfigEntrypoints",
     "../../config/responseParsers": "global:ConfigParsers"
   },

@@ -42,7 +42,11 @@ class LoginForm {
             saveInfoChange: (event) =>
                 this.props.flux.getActions('user').rememberLoginUpdate(event.target.checked),
             agreementChange: (event) =>
-                this.props.flux.getActions('user').tosAgreementUpdate(event.target.checked)
+                this.props.flux.getActions('user').tosAgreementUpdate(event.target.checked),
+            formSubmit: (event) => {
+                event.preventDefault();
+                this.props.flux.getActions('session').signIn(event.target);
+            }
         };
         this.render = () => {
             console.log('render login form:', this.props);

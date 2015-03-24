@@ -15,7 +15,8 @@ render(
                 connectToStores: {
                     country: (store) => ({ country: store.state}),
                     user: (store) => ({ user: store.state}),
-                    loginValidation: (store) => ({ loginForm: store.state})
+                    loginValidation: (store) => ({ loginForm: store.state}),
+                    session: (store) => ({ session: store.state})
                 }
             },
             createElement(LoginForm, {
