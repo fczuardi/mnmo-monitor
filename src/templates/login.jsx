@@ -8,7 +8,7 @@ import FieldSet from 'mnmo-components/lib/themes/mnmo/fieldset';
 import TextInput from 'mnmo-components/lib/themes/mnmo/textinput';
 import Select from 'mnmo-components/lib/themes/mnmo/select';
 import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
-import RadioButton from 'mnmo-components/lib/radio';
+import RadioButton from 'mnmo-components/lib/themes/mnmo/radio';
 import Submit from 'mnmo-components/lib/themes/mnmo/submit';
 export default (p, a) =>
 <CenteredBox>
@@ -59,6 +59,7 @@ export default (p, a) =>
                     name="captcha-answer"
                     key={key}
                     value={key}
+                    first={(key === 0)}
                     onChange={a.captchaAnswerChange}
                 >
                     {answer}
