@@ -5,5 +5,8 @@
     },
     "validation": {
         "captcha": "/validation/captcha"
+    },
+    "session": {
+        "login": "/auth/login"
     }
 }

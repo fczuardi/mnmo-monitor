@@ -29,4 +29,11 @@ router.get(URLs.validation.captcha, function*(next) {
     yield next;
 });
 
+router.post(URLs.session.login, function *(next) {
+    this.body = JSON.stringify({
+        token: '123456789'
+    });
+    yield next;
+});
+
 export default router;
