@@ -21,7 +21,7 @@ var options = {
         './lib/js/console-polyfill.js',
         './lib/js/Intl.js',
         './lib/js/fetch.js',
-        './lib/js/react.js',
+        './lib/js/react-with-addons.js',
         './lib/js/react-intl.js',
         './lib/js/flummox.js',
         './lib/js/flummox-component.js',
