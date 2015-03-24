@@ -1,8 +1,8 @@
 Nome da tarefa | Trabalho | Início | Término | Progresso |
 ---------------|----------|--------|---------|--------------------|
 Versão do código sem dependencia de ambiente node.js/npm | 35h | Sábado 14/03/2015 | Quarta 18/03 | 100% |
-Tela de login | 45h | Segunda 09/03/2015 | Sexta 20/03/2015 | 84% |
-Captcha | 7h | Segunda 23/03 | Terça 24/03 | 0% |
+Tela de login | 60h | Segunda 09/03/2015 | Sexta 20/03/2015 | 88% |
+Captcha | 7h | Segunda 23/03 | Terça 24/03 | 42% |
 Side menu | 12h | Terça 24/03 | Quinta 26/03 | 0% |
 App header e paineis | 51h | Sexta 27/03 | Terça 14/04 | 0% |
 Dashboard | 88h | Terça 14/04 | Quarta 06/05 | 0% |
@@ -10,42 +10,33 @@ Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
 Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
 Splash Screen | 17h | Quarta 27/05 | Terça 02/06 | 0% |
 Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
-Desenvolvimento total | 394h | - | Terça 16/06 | 18.3% |
+Desenvolvimento total | 409 | - | Terça 16/06 | 21% |
 Liberação do código open source | - | 16/09 |  |  |
 
-__última atualização: 20/03/16:09__
+__última atualização: 24/03/13:30__
 
 -----
 
 Total 
 -----
-- 72/394 = 18.3%
+- 87/409 = 21.27%
 
 Cálculo
 -------
 
-### Reusable and themed UI Components
-- Select (2)
-- Page = OK
-- Stage = OK
-- CenteredBox = OK
-- FieldSet = OK
-- TextInput = OK
-- Checkbox = OK
-
-### Login (38/45)
+### Login (53/60)
 
 - portar/refatorar de xxx-login para o novo estilo classico
     - layout (15/15) = OK
-    - stores (5)
+    - stores (15/20)
 - casos de erro
     - implementar (3)
     - pedir um layout de exemplo (5) = OK
 - trabalho feito até 16/03 (17) = OK
 
-#### Captcha (0/7)
+#### Captcha (3/7)
 
-- implementar cores, fontes e layout do PSD (3)
+- implementar cores, fontes e layout do PSD (3) = OK
 - API GET call para carregar pergunta
     - retorno deve trazer 1 pergunta e 3 respostas e talvez algum indicador da sessao?
     - respostas vem como imagem ou texto? (2)
