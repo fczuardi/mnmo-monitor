@@ -62,7 +62,7 @@ export default (p, s, a) =>
                     <FormattedMessage
                         message={p.messages.login.iAgree}
                         tosLink={(
-                            <a href={p.country.tosURL}>
+                            <a target='_blank' href={p.user.tosURL}>
                                 {p.messages.login.tos}
                             </a>
                         )}
