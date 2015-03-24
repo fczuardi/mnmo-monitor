@@ -3,7 +3,7 @@ import {render, createElement} from 'react';
 import FluxComponent from 'flummox/component';
 import Flux from './flux';
 import Stage from 'mnmo-components/lib/themes/mnmo/stage';
-import LoginForm from './login';
+import Router from './router';
 import messages from '../locales/pt/messages.json';
 
 const flux = new Flux();
@@ -19,7 +19,7 @@ render(
                     session: (store) => ({ session: store.state})
                 }
             },
-            createElement(LoginForm, {
+            createElement(Router, {
                 messages: messages
             })
         )

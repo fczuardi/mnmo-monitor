@@ -15,7 +15,9 @@ class LoginValidationStore extends Store {
     constructor(flux) {
         super();
         const loginValidationActions = flux.getActions('loginValidation');
+        const sessionActions = flux.getActions('session');
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswerIndex);
+        this.register(sessionActions.signOut, this.fetchCaptcha);
         this.state = {
             captchaQuestion: null,
             captchaAnswers: [],
@@ -58,6 +60,10 @@ class LoginValidationStore extends Store {
         }
     }
     fetchCaptcha() {
+        //clear previous answer selection
+        this.setState({
+            selectedAnswerIndex: null
+        });
         let store = this;
         /* global fetch */
         /* comes from the polyfill https://github.com/github/fetch */

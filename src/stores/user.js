@@ -5,6 +5,7 @@ class UserStore extends Store {
         const userActions = flux.getActions('user');
         const countryActions = flux.getActions('country');
         const loginValidationActions = flux.getActions('loginValidation');
+        const sessionActions = flux.getActions('session');
         this.flux = flux;
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
@@ -12,6 +13,7 @@ class UserStore extends Store {
         this.register(userActions.tosAgreementUpdate, this.changeTosPref);
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
+        this.register(sessionActions.signIn, this.resetCaptchaAnswer);
         this.state = {
             username: '',
             password: '',
@@ -85,6 +87,12 @@ class UserStore extends Store {
     changeCaptchaAnswer(answer) {
         this.setState({
             captchaAnswer: answer
+        });
+    }
+    resetCaptchaAnswer() {
+        console.log('resetCaptchaAnswer');
+        this.setState({
+            captchaAnswer: null
         });
     }
     changeRememberPref(shouldRemember) {
