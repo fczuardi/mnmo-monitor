@@ -1,5 +1,6 @@
 import koa from 'koa';
 import serve from 'koa-static';
+import cors from 'koa-cors';
 import APIRouter from './api';
 
 const PORT = 8001;
@@ -20,7 +21,7 @@ app.use(serve(ROOT));
 // Reference Development API
 //------------------------------------------------------------------------------
 api.use(APIRouter.routes());
-
+api.use(cors());
 
 app.listen(PORT);
 console.log('serving app at http://localhost:' + PORT);

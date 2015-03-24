@@ -1,4 +1,6 @@
 import {Store} from 'flummox';
+import URLs from '../../config/entrypoints.json';
+import {parseCaptchaSetup} from '../../config/responseParsers';
 
 const submitLabelKeys = {
     loading: 'loading',
@@ -25,6 +27,7 @@ class LoginValidationStore extends Store {
         this.userStore = flux.getStore('user');
         this.userStore.addListener('change', this.validate.bind(this));
         this.validate();
+        this.fetchCaptcha();
     }
     validate() {
         console.log('validate');
@@ -49,9 +52,25 @@ class LoginValidationStore extends Store {
                 canSubmit: true,
                 submitLabelKey: submitLabelKeys.access
             });
-
         }
-
+    }
+    fetchCaptcha() {
+        let store = this;
+        /* global fetch */
+        /* comes from the polyfill https://github.com/github/fetch */
+        fetch(URLs.baseUrl + URLs.validation.captcha)
+        .then(function(response) {
+            if (response.ok) {
+                return response.text();
+            }
+        })
+        .then(function (text) {
+            let options = parseCaptchaSetup(text);
+            store.setState({
+                captchaQuestion: options.question,
+                captchaAnswers: options.answers
+            });
+        });
     }
 }
 
