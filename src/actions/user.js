@@ -1,8 +1,11 @@
 import {Actions} from 'flummox';
 
 class UserActions extends Actions {
-    credentialsInput(username, password) {
-        return {username, password}; // jshint ignore:line
+    usernameInput(username) {
+        return username;
+    }
+    passwordInput(password) {
+        return password;
     }
     rememberLoginUpdate(shouldRemember) {
         return shouldRemember;

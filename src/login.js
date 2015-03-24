@@ -38,9 +38,11 @@ class LoginForm {
             }
         };
         this.actions = {
-            usernameChange: null,
+            usernameChange: (event) => 
+                this.props.flux.getActions('user').usernameInput(event.target.value),
             usernameBlur: null,
-            passwordChange: null,
+            passwordChange: (event) => 
+                this.props.flux.getActions('user').passwordInput(event.target.value),
             passwordBlur: null,
             countrySelect: (event) => 
                 this.props.flux.getActions('country').select(event.target.value),
