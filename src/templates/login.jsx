@@ -30,7 +30,7 @@ export default (p, s, a) =>
             />
             <div>
                 <Select
-                    value={p.country.selected}
+                    value={p.user.countryID}
                     onChange={a.countrySelect}
                     onBlur={a.countryBlur}
                     name="country"

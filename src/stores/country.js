@@ -6,7 +6,6 @@ class CountryStore extends Store {
         const countryActions = flux.getActions('country');
         this.register(countryActions.select, this.changeSelection);
         this.state = {
-            selected: null,
             tosURL: '#',
             options: []
         };
@@ -14,9 +13,7 @@ class CountryStore extends Store {
     }
 
     changeSelection(countryID) {
-        this.setState({
-            selected: countryID
-        });
+        console.log('TBD: Tos URL state must change', countryID);
     }
 
     fetchOptions() {
