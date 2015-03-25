@@ -17,16 +17,23 @@ class CountryStore extends Store {
         /* comes from the polyfill https://github.com/github/fetch */
         fetch(URLs.baseUrl + URLs.country.list)
         .then(function(response) {
-            response.json().then(function(json) {
-                let options = parseCountryList(json);
-                store.setState({
-                    options: options
-                });
-            }).catch(function(ex) {
-                console.log('parsing failed', ex);
+            let contentType = response.headers.get('Content-Type'),
+                isJSON = (contentType.indexOf('application/json') > -1);
+            console.log(contentType);
+            if (isJSON) {
+                return response.json();
+            } else {
+                return response.text();
+            }
+        })
+        .then(function(payload){
+            let options = parseCountryList(payload);
+            store.setState({
+                options: options
             });
-            //HACK to make response.json work on firefox
-            response.text().catch(function(){});
+        })
+        .catch(function(e){
+            console.log('parsing failed', e);
         });
     }
 }
