@@ -158,5 +158,8 @@
     "react": "^0.13.1",
     "react-intl": "^1.2.0",
     "whatwg-fetch": "^0.7.0"
+  },
+  "dependencies": {
+    "query-string": "^1.0.0"
   }
 }

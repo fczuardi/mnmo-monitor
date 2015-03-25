@@ -13,7 +13,7 @@ class UserStore extends Store {
         this.register(userActions.tosAgreementUpdate, this.changeTosPref);
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
-        this.register(sessionActions.signIn, this.resetCaptchaAnswer);
+        this.register(sessionActions.signOut, this.resetCaptchaAnswer);
         this.state = {
             username: '',
             password: '',
@@ -90,7 +90,6 @@ class UserStore extends Store {
         });
     }
     resetCaptchaAnswer() {
-        console.log('resetCaptchaAnswer');
         this.setState({
             captchaAnswer: null
         });

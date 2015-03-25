@@ -20,6 +20,7 @@ class LoginValidationStore extends Store {
         this.register(sessionActions.signOut, this.fetchCaptcha);
         this.state = {
             captchaQuestion: null,
+            captchaQuestionID: null,
             captchaAnswers: [],
             selectedAnswerIndex: null,
             submitLabelKey: submitLabelKeys.access,
@@ -72,6 +73,7 @@ class LoginValidationStore extends Store {
             response.json().then(function(json) {
                 let options = parseCaptchaSetup(json);
                 store.setState({
+                    captchaQuestionID: options.questionID,
                     captchaQuestion: options.question,
                     captchaAnswers: options.answers
                 });

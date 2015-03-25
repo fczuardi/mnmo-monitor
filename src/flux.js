@@ -20,8 +20,8 @@ class MonitorFlux extends Flummox {
         //actions
         this.createActions('country', CountryActions);
         this.createActions('user', UserActions);
-        this.createActions('loginValidation', LoginValidationActions);
         this.createActions('session', SessionActions);
+        this.createActions('loginValidation', LoginValidationActions);
 
         //stores
         this.createStore('country', CountryStore, this);

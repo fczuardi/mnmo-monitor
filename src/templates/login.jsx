@@ -90,5 +90,8 @@ export default (p, a) =>
             value={p.messages.login.submit[p.loginForm.submitLabelKey]}
             disabled={(! p.loginForm.canSubmit)}
         />
+        <FieldSet className="no-bg">
+            <p>{p.session.error}</p>
+        </FieldSet>
     </form>
 </CenteredBox>;
