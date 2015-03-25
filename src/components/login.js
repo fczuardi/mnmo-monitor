@@ -28,7 +28,7 @@
  * @param {string} [messages.login.tos]
  *
  **/
-import render from './templates/login.jsx';
+import render from '../templates/login.jsx';
 
 class LoginForm {
     constructor() {

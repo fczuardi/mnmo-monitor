@@ -1,10 +1,10 @@
-import render from './templates/dashboard.jsx';
+import render from '../templates/dashboard.jsx';
 
 class Dashboard {
     constructor(props) {
         const actions = {
             logoutClick: (event) => {
-                event.stopPropagation();
+                event.preventDefault();
                 props.flux.getActions('session').signOut();
             }
         };
