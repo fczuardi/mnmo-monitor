@@ -36,10 +36,10 @@ class SessionStore extends Store {
         .then(function(response) {
             let contentType = response.headers.get('Content-Type'),
                 isJSON = (contentType.indexOf('application/json') > -1);
-            console.log(contentType);
             if (isJSON) {
                 return response.json();
             } else {
+                console.warn(`got ${contentType} instead of application/json`);
                 return response.text();
             }
         })

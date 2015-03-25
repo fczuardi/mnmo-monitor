@@ -10,7 +10,6 @@ function buildSignInRequestBody(validationStore, userStore){
 }
 
 function genericParse(text){
-    console.log('generic parse:', text);
     return ((typeof text === 'string') ? JSON.parse(text) : text);
 }
 

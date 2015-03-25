@@ -1,9 +1,9 @@
 Nome da tarefa | Trabalho | Início | Término | Progresso |
 ---------------|----------|--------|---------|--------------------|
 Versão do código sem dependencia de ambiente node.js/npm | 35h | Sábado 14/03/2015 | Quarta 18/03 | 100% |
-Tela de login | 57h | Segunda 09/03/2015 | Sexta 20/03/2015 | 100% |
-Captcha | 5h | Segunda 23/03 | Terça 24/03 | 100% |
-Side menu | 12h | Terça 24/03 | Quinta 26/03 | 0% |
+Tela de login | 57h | Segunda 09/03/2015 | Quarta 25/03 | 100% |
+Captcha | 5h | Segunda 23/03 | Quarta 25/03 | 100% |
+Side menu | 12h | Quarta 25/03 | Quinta 26/03 | 0% |
 App header e paineis | 51h | Sexta 27/03 | Terça 14/04 | 0% |
 Dashboard | 88h | Terça 14/04 | Quarta 06/05 | 0% |
 Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
@@ -14,7 +14,7 @@ Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
 Desenvolvimento total | 409 | - | Terça 16/06 | 26% |
 Liberação do código open source | - | 16/09 |  |  |
 
-__última atualização: 25/03/14:05__
+__última atualização: 25/03/14:17__
 
 -----
 
@@ -35,12 +35,9 @@ Cálculo
 - decidir se tem feedback de resposta correta/errada antes da submissao (2)
 
 ### Slide menu (12)
-
 - fechar em uma biblioteca para assets mobile, bootstrap? (8)
 - widget botao on-off (2)
 - radio-box na forma de lista, para linguas (2)
-- funcionalidade de logout (OK)
-- clique em emissoras abrir outro menu (OK);
 
 ### App Header + Paineis (51)
 - botao abre-fecha slide (3)
@@ -153,6 +150,9 @@ Detalhes restantes (tratamento de erros e feedback do captcha a serem tratados c
     - retorno deve trazer 1 pergunta e 3 respostas e talvez algum indicador da sessao?
     - respostas vem como imagem ou texto? (2) = OK
 
+### Slide menu (12)
+- funcionalidade de logout (OK)
+- clique em emissoras abrir outro menu (OK);
 
 
 Update 16/03-20/03
