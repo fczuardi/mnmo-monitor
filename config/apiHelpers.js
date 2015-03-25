@@ -6,6 +6,7 @@ function buildSignInRequestBody(validationStore, userStore){
     body.password = userStore.state.password;
     body.captchaID = validationStore.state.captchaQuestionID;
     body.captchaAnswer = userStore.state.captchaAnswer;
+    body.countryID = userStore.state.countryID;
     return queryString.stringify(body);
 }
 
