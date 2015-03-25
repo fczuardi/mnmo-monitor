@@ -1,46 +1,38 @@
 Nome da tarefa | Trabalho | Início | Término | Progresso |
 ---------------|----------|--------|---------|--------------------|
 Versão do código sem dependencia de ambiente node.js/npm | 35h | Sábado 14/03/2015 | Quarta 18/03 | 100% |
-Tela de login | 60h | Segunda 09/03/2015 | Sexta 20/03/2015 | 88% |
-Captcha | 7h | Segunda 23/03 | Terça 24/03 | 42% |
+Tela de login | 57h | Segunda 09/03/2015 | Sexta 20/03/2015 | 100% |
+Captcha | 5h | Segunda 23/03 | Terça 24/03 | 100% |
 Side menu | 12h | Terça 24/03 | Quinta 26/03 | 0% |
 App header e paineis | 51h | Sexta 27/03 | Terça 14/04 | 0% |
 Dashboard | 88h | Terça 14/04 | Quarta 06/05 | 0% |
 Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
 Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
 Splash Screen | 17h | Quarta 27/05 | Terça 02/06 | 0% |
+Bugfixes | 5h | ??? | ??? | 0% |
 Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
-Desenvolvimento total | 409 | - | Terça 16/06 | 21% |
+Desenvolvimento total | 409 | - | Terça 16/06 | 26% |
 Liberação do código open source | - | 16/09 |  |  |
 
-__última atualização: 24/03/13:30__
+__última atualização: 25/03/14:05__
 
 -----
 
 Total 
 -----
-- 87/409 = 21.27%
+- 107/409 = 26.16%
 
 Cálculo
 -------
 
-### Login (53/60)
+### Bogfixes (0/5)
 
-- portar/refatorar de xxx-login para o novo estilo classico
-    - layout (15/15) = OK
-    - stores (15/20)
+#### Login (0/3)
 - casos de erro
     - implementar (3)
-    - pedir um layout de exemplo (5) = OK
-- trabalho feito até 16/03 (17) = OK
 
-#### Captcha (3/7)
-
-- implementar cores, fontes e layout do PSD (3) = OK
-- API GET call para carregar pergunta
-    - retorno deve trazer 1 pergunta e 3 respostas e talvez algum indicador da sessao?
-    - respostas vem como imagem ou texto? (2)
-    - feedback de resposta correta vs errada (2)
+#### Captcha (0/2)
+- decidir se tem feedback de resposta correta/errada antes da submissao (2)
 
 ### Slide menu (12)
 
@@ -138,6 +130,30 @@ Total
 - eliminar linhas gigantes que copiam as fontes Roboto (2)
  
 -----
+
+Update 23/03-27/07
+==================
+
+Milestone = tela de login + captcha prontos;
+Detalhes restantes (tratamento de erros e feedback do captcha a serem tratados como bugfixes mais p/ frente)
+
+### Login (57/57)
+
+- portar/refatorar de xxx-login para o novo estilo classico
+    - layout (15/15) = OK
+    - stores (20/20) = OK
+- casos de erro
+    - pedir um layout de exemplo (5) = OK
+- trabalho feito até 16/03 (17) = OK
+
+#### Captcha (5/5)
+
+- implementar cores, fontes e layout do PSD (3) = OK
+- API GET call para carregar pergunta
+    - retorno deve trazer 1 pergunta e 3 respostas e talvez algum indicador da sessao?
+    - respostas vem como imagem ou texto? (2) = OK
+
+
 
 Update 16/03-20/03
 ==================
