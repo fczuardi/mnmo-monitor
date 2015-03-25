@@ -22,6 +22,10 @@ app.use(serve(ROOT));
 //------------------------------------------------------------------------------
 api.use(APIRouter.routes());
 api.use(cors());
+api.use(function *(next){
+    this.set('Content-Type', 'application/json')
+    yield next;
+});
 
 app.listen(PORT);
 console.log('serving app at http://localhost:' + PORT);
