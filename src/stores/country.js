@@ -1,6 +1,6 @@
 import {Store} from 'flummox';
 import URLs from '../../config/entrypoints.json';
-import {parseCountryList} from '../../config/responseParsers';
+import {parseCountryList} from '../../config/apiHelpers';
 
 class CountryStore extends Store {
     constructor() {

@@ -28,7 +28,7 @@
     "./actions/session": "global:ActionsSession",
     "./stores/session": "global:StoresSession",
     "../../config/entrypoints.json": "global:ConfigEntrypoints",
-    "../../config/responseParsers": "global:ConfigParsers"
+    "../../config/apiHelpers": "global:ConfigHelpers"
   },
   "scripts": {
     "clean": "rm -rf ./dist",
@@ -66,7 +66,7 @@
     "www:js:lib:flummox": "cp -f ./node_modules/flummox/dist/flummox.js ./dist/classic/lib/js/.",
     "www:js:lib:flummox:component": "browserify -o ./dist/classic/lib/js/flummox-component.js -e ./node_modules/flummox/lib/addons/FluxComponent.js -t browserify-shim -s FluxComponent",
     "www:js:lib:entrypoints": "browserify -o ./dist/classic/js/entrypoints.js -e ./config/secret.entrypoints.json -t browserify-shim -s ConfigEntrypoints",
-    "www:js:lib:responseParsers": "browserify -o ./dist/classic/js/responseParsers.js -e ./config/secret.responseParsers.js -t babelify -t browserify-shim -s ConfigParsers",
+    "www:js:lib:apiHelpers": "browserify -o ./dist/classic/js/apiHelpers.js -e ./config/secret.apiHelpers.js -t babelify -t browserify-shim -s ConfigHelpers",
     "www:js:lib:mnmo": "babel-node ./bin/exportComponents.js",
     "www:js:lib:mnmo:shared": "browserify -o ./dist/classic/lib/js/component-shared.js -e node_modules/mnmo-components/lib/themes/mnmo/styles/shared.js -t browserify-shim -s MNMOVariables",
     "www:js:polyfill:es5-shim": "cp node_modules/es5-shim/es5-shim.js ./dist/classic/lib/js/.",
@@ -86,7 +86,7 @@
     "www:js:polyfill": "npm run www:js:polyfill:Promise && npm run www:js:polyfill:fetch && npm run www:js:polyfill:es5-shim && npm run www:js:polyfill:es5-sham && npm run www:js:polyfill:console && npm run www:js:polyfill:Intl",
     "www:js:vendors": "npm run www:js:lib:reactWithAddons && npm run www:js:lib:react-intl && npm run www:js:lib:flummox && npm run www:js:lib:flummox:component",
     "www:js:components": "npm run www:js:lib:mnmo && npm run www:js:lib:mnmo:shared",
-    "www:js:helpers": "npm run www:js:lib:entrypoints && npm run www:js:lib:responseParsers",
+    "www:js:helpers": "npm run www:js:lib:entrypoints && npm run www:js:lib:apiHelpers",
     "www:js:lib": "npm run www:js:vendors && npm run www:js:components && npm run www:js:helpers",
     "www:js": "npm run www:js:app && npm run www:js:lib && npm run www:js:polyfill",
     "www:img": "npm run www:img:lib && npm run www:img:custom",

@@ -1,6 +1,6 @@
 import {Store} from 'flummox';
 import URLs from '../../config/entrypoints.json';
-import {parseCaptchaSetup} from '../../config/responseParsers';
+import {parseCaptchaSetup} from '../../config/apiHelpers';
 
 const submitLabelKeys = {
     loading: 'loading',

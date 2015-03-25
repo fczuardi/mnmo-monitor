@@ -36,7 +36,7 @@ var options = {
         './lib/js/component-radio.js',
         './lib/js/component-submit.js',
         './js/entrypoints.js',
-        './js/responseParsers.js',
+        './js/apiHelpers.js',
         './js/actions/country.js',
         './js/stores/country.js',
         './js/actions/user.js',

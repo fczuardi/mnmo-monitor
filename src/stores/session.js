@@ -1,7 +1,6 @@
 import {Store} from 'flummox';
 import URLs from '../../config/entrypoints.json';
-import {parseLoginResponse} from '../../config/responseParsers';
-import {buildSignInRequestBody} from '../../config/apiHelpers';
+import {buildSignInRequestBody, parseLoginResponse} from '../../config/apiHelpers';
 
 class SessionStore extends Store {
     constructor(flux) {

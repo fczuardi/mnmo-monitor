@@ -1,5 +1,6 @@
 import queryString from 'query-string';
-export function buildSignInRequestBody(validationStore, userStore){
+
+function buildSignInRequestBody(validationStore, userStore){
     let body = {};
     body.username = userStore.state.username;
     body.password = userStore.state.password;
@@ -7,3 +8,15 @@ export function buildSignInRequestBody(validationStore, userStore){
     body.captchaAnswer = userStore.state.captchaAnswer;
     return queryString.stringify(body);
 }
+
+function genericParse(text){
+    console.log('generic parse:', text);
+    return ((typeof text === 'string') ? JSON.parse(text) : text);
+}
+
+export default {
+    buildSignInRequestBody: buildSignInRequestBody,
+    parseCountryList: genericParse,
+    parseCaptchaSetup: genericParse,
+    parseLoginResponse: genericParse
+};
