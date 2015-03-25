@@ -1,36 +1,62 @@
 import {Store} from 'flummox';
 import URLs from '../../config/entrypoints.json';
 import {parseLoginResponse} from '../../config/responseParsers';
+import {buildSignInRequestBody} from '../../config/apiHelpers';
+
 class SessionStore extends Store {
     constructor(flux) {
         super();
         const sessionActions = flux.getActions('session');
+        this.flux = flux;
         this.register(sessionActions.signIn, this.signIn);
         this.register(sessionActions.signOut, this.signOut);
         this.state = {
-            token: null
+            token: null,
+            error: null,
         };
+        this.sessionActions = sessionActions;
     }
-    signIn(form){
-        console.log('get a session token', form);
-        let store = this;
-        
+    signIn(){
+        let store = this,
+            userStore = store.flux.getStore('user'),
+            validationStore = store.flux.getStore('loginValidation');
+
+        store.setState({
+            error: null
+        });
+
         /* global fetch */
         /* comes from the polyfill https://github.com/github/fetch */
         fetch(URLs.baseUrl + URLs.session.login, {
           method: 'post',
-          body: new FormData(form)
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: buildSignInRequestBody(validationStore, userStore)
         })
         .then(function(response) {
-            response.json().then(function(json) {
-                let sessionData = parseLoginResponse(json);
-                console.log(sessionData);
+            let contentType = response.headers.get('Content-Type'),
+                isJSON = (contentType.indexOf('application/json') > -1);
+            console.log(contentType);
+            if (isJSON) {
+                return response.json();
+            } else {
+                return response.text();
+            }
+        })
+        .then(function(payload) {
+            let sessionData = parseLoginResponse(payload);
+            if (sessionData.token){
                 store.setState(sessionData);
-            }).catch(function(ex) {
-                console.log('parsing failed', ex);
-            });
-            //HACK to make response.json work on firefox
-            response.text().catch(function(){});
+            }else if (sessionData.error) {
+                store.setState({
+                    error: sessionData.error
+                });
+                store.sessionActions.signOut();
+            }
+        })
+        .catch(function(e){
+            console.log('Error:', e);
         });
     }
     signOut(){
