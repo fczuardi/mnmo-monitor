@@ -39,6 +39,13 @@ Cálculo
 - widget botao on-off (2)
 - radio-box na forma de lista, para linguas (2)
 
+NOVO
+- escrever a estrutura com elementos HTML (3/3) = OK
+- widget de sidebar (2)
+- widget de listGroup (2)
+- widget de listGroupItem (2)
+
+
 ### App Header + Paineis (51)
 - botao abre-fecha slide (3)
 - botoes que abrem modals de seleção (2)
