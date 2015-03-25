@@ -1,6 +1,13 @@
 import {Store} from 'flummox';
+import {
+    getObject as getLocalItem,
+    setObject as setLocalItem
+} from '../lib/local';
 import URLs from '../../config/entrypoints.json';
-import {buildSignInRequestBody, parseLoginResponse} from '../../config/apiHelpers';
+import {
+    buildSignInRequestBody, 
+    parseLoginResponse
+} from '../../config/apiHelpers';
 
 class SessionStore extends Store {
     constructor(flux) {
@@ -10,7 +17,7 @@ class SessionStore extends Store {
         this.register(sessionActions.signIn, this.signIn);
         this.register(sessionActions.signOut, this.signOut);
         this.state = {
-            token: null,
+            token: getLocalItem('sessionToken'),
             error: null,
         };
         this.sessionActions = sessionActions;
@@ -47,6 +54,7 @@ class SessionStore extends Store {
             let sessionData = parseLoginResponse(payload);
             if (sessionData.token){
                 store.setState(sessionData);
+                setLocalItem('sessionToken', sessionData.token);
             }else if (sessionData.error) {
                 store.setState({
                     error: sessionData.error

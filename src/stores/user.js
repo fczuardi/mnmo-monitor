@@ -1,4 +1,8 @@
 import {Store} from 'flummox';
+import {
+    getObject as getLocalItem,
+    setObject as setLocalItem
+} from '../lib/local';
 class UserStore extends Store {
     constructor(flux) {
         super();
@@ -33,24 +37,10 @@ class UserStore extends Store {
         this.countryStore.addListener('change', this.countryOptionsLoaded.bind(this));
     }
     loadPreferences() {
-        var ls = localStorage.getItem('userPreference'),
-            parsedObj = {};
-        if (ls === null) {
-            return false;
-        }
-        try{
-            parsedObj = JSON.parse(ls);
-            if (parsedObj.captchaAnswer !== undefined) {
-                delete parsedObj.captchaAnswer;
-            }
-            this.setState(parsedObj);
-        } catch (e){
-            //rubish in the session cookie
-            console.log(e.message);
-        }
+        this.setState(getLocalItem('userPreference'));
     }
     savePreferences() {
-        localStorage.setItem('userPreference', JSON.stringify(this.state));
+        setLocalItem('userPreference', this.state);
     }
     clearPreferences() {
         console.log('clear preferences');
