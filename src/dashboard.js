@@ -1,18 +1,14 @@
-import {DOM} from 'react';
+import render from './templates/dashboard.jsx';
 
 class Dashboard {
-    render() {
-        return (
-            DOM.div({},
-                DOM.p({},
-                    'Logado!'
-                ),
-                DOM.button({
-                    onClick: this.props.flux.getActions('session').signOut,
-                    style: { color: '#000' }
-                }, 'Logout')
-            )
-        );
+    constructor(props) {
+        const actions = {
+            logoutClick: (event) => {
+                event.stopPropagation();
+                props.flux.getActions('session').signOut();
+            }
+        };
+        this.render = () => render(props, actions);
     }
 }
 
