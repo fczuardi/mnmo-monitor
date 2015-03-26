@@ -1,7 +1,8 @@
 import {Store} from 'flummox';
 import {
     getObject as getLocalItem,
-    setObject as setLocalItem
+    setObject as setLocalItem,
+    removeObject as removeLocalItem
 } from '../lib/local';
 class UserStore extends Store {
     constructor(flux) {
@@ -43,8 +44,7 @@ class UserStore extends Store {
         setLocalItem('userPreference', this.state);
     }
     clearPreferences() {
-        console.log('clear preferences');
-        localStorage.removeItem('userPreference');
+        removeLocalItem('userPreference');
     }
     countryOptionsLoaded() {
         if (this.state.countryID === null){

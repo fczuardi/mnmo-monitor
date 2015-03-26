@@ -11,3 +11,7 @@ export function getObject(itemName) {
 export function setObject(itemName, obj) {
     localStorage.setItem(itemName, JSON.stringify(obj));
 }
+
+export function removeObject(itemName) {
+    localStorage.removeItem(itemName);
+}

@@ -1,7 +1,8 @@
 import {Store} from 'flummox';
 import {
     getObject as getLocalItem,
-    setObject as setLocalItem
+    setObject as setLocalItem,
+    removeObject as removeLocalItem
 } from '../lib/local';
 import URLs from '../../config/entrypoints.json';
 import {
@@ -70,6 +71,7 @@ class SessionStore extends Store {
         this.setState({
             token:null
         });
+        removeLocalItem('sessionToken');
     }
 }
 
