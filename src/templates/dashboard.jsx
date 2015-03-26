@@ -1,10 +1,11 @@
 import React from 'react';
+import Drawer from 'mnmo-components/lib/themes/mnmo/drawer';
 import List from 'mnmo-components/lib/themes/mnmo/list';
 import LI from 'mnmo-components/lib/themes/mnmo/li';
 
 export default (p, a) =>
-<div>
-    <ol className="list-group">
+<div style={{height: '100%'}}>
+    <Drawer>
         <List>
             <LI type="checkbox" id="onOffSomething">
                 Menu item
@@ -27,5 +28,5 @@ export default (p, a) =>
             <LI type="link" href="#">Menu item</LI>
             <LI type="link" onClick={a.logoutClick}>Logout</LI>
         </List>
-    </ol>
+    </Drawer>
 </div>;

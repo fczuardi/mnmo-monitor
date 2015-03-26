@@ -12,6 +12,7 @@
     "flummox/component": "global:FluxComponent",
     "./shared": "global:MNMOVariables",
     "mnmo-components/lib/themes/mnmo/stage": "global:MNMOStage",
+    "mnmo-components/lib/themes/mnmo/drawer": "global:MNMODrawer",
     "mnmo-components/lib/themes/mnmo/centeredbox": "global:MNMOCenteredBox",
     "mnmo-components/lib/themes/mnmo/fieldset": "global:MNMOFieldSet",
     "mnmo-components/lib/themes/mnmo/textinput": "global:MNMOTextInput",
