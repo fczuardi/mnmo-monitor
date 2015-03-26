@@ -35,6 +35,8 @@ var options = {
         './lib/js/component-checkbox.js',
         './lib/js/component-radio.js',
         './lib/js/component-submit.js',
+        './lib/js/component-list.js',
+        './lib/js/component-li.js',
         './lib/js/local.js',
         './js/entrypoints.js',
         './js/apiHelpers.js',

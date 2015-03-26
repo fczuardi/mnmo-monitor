@@ -19,6 +19,8 @@
     "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox",
     "mnmo-components/lib/themes/mnmo/radio": "global:MNMORadioButton",
     "mnmo-components/lib/themes/mnmo/submit": "global:MNMOSubmit",
+    "mnmo-components/lib/themes/mnmo/list": "global:MNMOList",
+    "mnmo-components/lib/themes/mnmo/li": "global:MNMOLi",
     "../lib/local": "global:LocalStorageHelpers",
     "./actions/country": "global:ActionsCountry",
     "./stores/country": "global:StoresCountry",
