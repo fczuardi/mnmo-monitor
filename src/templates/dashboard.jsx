@@ -1,6 +1,6 @@
 import React from 'react';
 import List from 'mnmo-components/lib/themes/mnmo/list';
-import LI from 'mnmo-components/lib/li';
+import LI from 'mnmo-components/lib/themes/mnmo/li';
 
 export default (p, a) =>
 <div>
