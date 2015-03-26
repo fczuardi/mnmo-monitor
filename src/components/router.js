@@ -4,11 +4,9 @@ import DashboardScreen from './dashboard';
 
 class Router {
     render() {
-        if (this.props.session.token === null){
-            return createElement(LoginForm, this.props);
-        } else {
-            return createElement(DashboardScreen, this.props);
-        }
+        const screen = (this.props.session.token === null) ? 
+            LoginForm : DashboardScreen;
+        return (createElement(screen, this.props));
     }
 }
 
