@@ -42,8 +42,8 @@ Cálculo
 NOVO
 - escrever a estrutura com elementos HTML (3/3) = OK
 - widget de sidebar (2)
-- widget de listGroup (2)
-- widget de listGroupItem (2)
+- widget de listGroup (2) = OK
+- widget de listGroupItem (2) = OK
 
 
 ### App Header + Paineis (51)
