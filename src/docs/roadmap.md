@@ -138,8 +138,57 @@ Total
 Update 23/03-27/07
 ==================
 
-Milestone = tela de login + captcha prontos;
-Detalhes restantes (tratamento de erros e feedback do captcha a serem tratados como bugfixes mais p/ frente)
+## 1. Migração concluída
+
+Terminei a migração do código antigo para o novo, ou seja: o repositório do
+bitbucket foi ultrapassado e é agora obsoleto (o xxx-traditional do github é
+a nova fonte da verdade).
+
+## 2. Tela de login com captcha concluída
+
+O captcha se encontra funcional. Bem como as funcionalidades de obter a 
+lista de paises e seus respectivos links dos termos de aceite da API, e 
+o login/logout em si (obtenção de token).
+
+** 2.1 Tratamento de erros **
+
+Na implementação atual os erros são exibidos como texto abaixo do botão de 
+Acessar. Futuramente voltarei a mexer nisto quando as propostas de design finais
+estiverem aprovadas.
+
+## 3. Sidebar menu iniciado
+
+Trabalho no menu-gaveta iniciado: componentes de UI para menu, listas agrupadas,
+item de lista e switch on/off concluídos. Ítens de menu do tipo radio (escolha
+da língua) a ser concluido ainda. Estimativa: Segunda feira.
+
+** 3.1 Discussão **
+
+https://projects.invisionapp.com/d/main#/console/2082045/46374619/preview
+
+- O layout do menu-gaveta trás 3 opções de língua: Inglês, Espanhol e Português,
+elas serão fixas ou variáveis? Se variáveis, de onde da API devemos buscar esta
+lista de línguas disponíveis? /country ?
+- Para onde deve linkar o item do menu "Termo de confidencialidade"? ```api/Termo?id=[id]&culture=[culture]``` ? Alguma outra URL?
+- Para onde devem linkar os ítens Ajuda e Alterar Senha?
+
+## 4. Bug-tracker
+
+Defeitos e tarefas relativos às implementações entregues podem ser submetidos
+por email ou diretamente via github issues em
+https://github.com/fczuardi/mnmo-monitor/issues que é onde estão sendo
+coletados.
+
+## 5. Próximas etapas
+
+Para semana que vem o plano é:
+- finalizar a implementação inicial do menu-gaveta, ainda que os links possam
+mudar no futuro
+- Iniciar o trabalho na barra de header
+    - botão de abrir/fechar o menu funcional
+    - pelo menos um dos paineis: https://projects.invisionapp.com/d/main#/console/2082045/46608567/preview e https://projects.invisionapp.com/d/main#/console/2082045/46608485/preview
+
+
 
 ### Login (57/57)
 

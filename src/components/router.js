@@ -1,6 +1,6 @@
 import {createElement} from 'react';
-import LoginForm from './login';
-import DashboardScreen from './dashboard';
+import LoginForm from '../components/login';
+import DashboardScreen from '../components/dashboard';
 
 class Router {
     render() {

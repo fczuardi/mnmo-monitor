@@ -27,13 +27,22 @@ Object.keys(globalModules).forEach((key) => {
             outFilename = join(classicPath, 'lib/js/component-' + componentName);
         console.log(outFilename, globalName);
         createUMD(entry, globalName, outFilename);
-    } else if ((key.indexOf('actions') !== -1) || (key.indexOf('stores') !== -1)){
+    } else if (
+            (key.indexOf('actions') !== -1) || 
+            (key.indexOf('stores') !== -1) ||
+            (key.indexOf('./components/') !== -1)
+                                                    ){
         let globalName = globalModules[key].split(':')[1],
             entry = join(srcPath, key + '.js'),
             subfolder = key.split('/')[1],
             filename = key.split('/')[2] + '.js',
             outFilename = join(classicPath, 'js', subfolder, filename);
-        console.log(outFilename, globalName);
+        if (
+                (subfolder === 'components') && 
+                (key.indexOf('../components/') !== -1) ){
+            entry = entry.replace('/components/', '/src/components/');
+        }
+        console.log(entry, outFilename, globalName);
         createUMD(entry, globalName, outFilename, true);
     }
 });

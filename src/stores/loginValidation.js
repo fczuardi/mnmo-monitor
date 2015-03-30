@@ -70,18 +70,24 @@ class LoginValidationStore extends Store {
         /* comes from the polyfill https://github.com/github/fetch */
         fetch(URLs.baseUrl + URLs.validation.captcha)
         .then(function(response) {
-            response.json().then(function(json) {
-                let options = parseCaptchaSetup(json);
-                store.setState({
-                    captchaQuestionID: options.questionID,
-                    captchaQuestion: options.question,
-                    captchaAnswers: options.answers
-                });
-            }).catch(function(ex) {
-                console.log('parsing failed', ex);
+            let contentType = response.headers.get('Content-Type'),
+                isJSON = (contentType.indexOf('application/json') > -1);
+            if (isJSON) {
+                return response.json();
+            } else {
+                console.warn(`got ${contentType} instead of application/json`);
+                return response.text();
+            }
+        })
+        .then(function(payload) {
+            let options = parseCaptchaSetup(payload);
+            store.setState({
+                captchaQuestionID: options.questionID,
+                captchaQuestion: options.question,
+                captchaAnswers: options.answers
             });
-            //HACK to make response.json work on firefox
-            response.text().catch(function(){});
+        }).catch(function(ex) {
+            console.log('parsing failed', ex);
         });
     }
     changeCaptchaAnswerIndex(answer){

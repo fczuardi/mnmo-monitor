@@ -22,10 +22,14 @@ var options = {
         './lib/js/Intl.js',
         './lib/js/Promise.js',
         './lib/js/fetch.js',
-        './lib/js/react-with-addons.js',
-        './lib/js/react-intl.js',
+        '$comment=polyfills',
+        './lib/js/react.js',
         './lib/js/flummox.js',
         './lib/js/flummox-component.js',
+        '$comment=flummox',
+        './lib/js/react-intl.js',
+        '$comment=reactintl',
+        './lib/js/lodash-merge.js',
         './lib/js/component-shared.js',
         './lib/js/component-stage.js',
         './lib/js/component-drawer.js',
@@ -38,22 +42,33 @@ var options = {
         './lib/js/component-submit.js',
         './lib/js/component-list.js',
         './lib/js/component-li.js',
-        './lib/js/local.js',
+        './lib/js/component-switch.js',
+        '$comment=mnmo-components',
         './js/entrypoints.js',
         './js/apiHelpers.js',
         './js/actions/country.js',
-        './js/stores/country.js',
         './js/actions/user.js',
-        './js/stores/user.js',
         './js/actions/loginValidation.js',
-        './js/stores/loginValidation.js',
         './js/actions/session.js',
+        '$comment=actions',
+        './lib/js/local.js',
+        './js/stores/country.js',
+        './js/stores/user.js',
+        './js/stores/loginValidation.js',
         './js/stores/session.js',
-        './js/app.js'
+        '$comment=stores',
+        './js/components/login.js',
+        './js/components/dashboard.js',
+        './js/components/router.js',
+        '$comment=components',
+        './js/flux.js',
+        './js/app.js',
+        '$comment=app'
     ]
 };
 
-console.log( html(
+console.log( 
+html(
     renderToStaticMarkup(
         createElement(Page, options,
             DOM.div({id: 'main', className: 'mnmo-root'},
@@ -61,4 +76,5 @@ console.log( html(
             )
         )
     )
-) );
+).replace(/(<script[^\"]*\"\$comment\=)([^\"]*)(\">[^>]*>)/ig,'<!-- $2 -->\n')
+);
