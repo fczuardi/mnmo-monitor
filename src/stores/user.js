@@ -23,6 +23,7 @@ class UserStore extends Store {
             username: '',
             password: '',
             countryID: null,
+            languageID: '1',
             rememberLogin: false,
             captchaAnswer: null,
             tosAgree: false,

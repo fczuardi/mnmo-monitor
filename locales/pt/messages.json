@@ -15,5 +15,11 @@
             "access": "Acessar"
         },
         "loadingCaptcha": "Carregando a pergunta…"
+    },
+    "settings": {
+        "languages": {
+            "pt-BR": "Português",
+            "en-US": "English"
+        }
     }
 }

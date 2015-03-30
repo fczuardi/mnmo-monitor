@@ -7,10 +7,12 @@ router.get(URLs.country.list, function*(next) {
     this.body = JSON.stringify([{
         id: '0',
         label: 'USA',
+        lang: 'en-US',
         tosURL: 'http://example.com/?foo'
     }, {
         id: '1',
         label: 'BRASIL',
+        lang: 'pt-BR',
         tosURL: 'http://example.com/?bar'
     }]);
     yield next;
