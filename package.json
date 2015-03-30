@@ -18,6 +18,7 @@
     "mnmo-components/lib/themes/mnmo/textinput": "global:MNMOTextInput",
     "mnmo-components/lib/themes/mnmo/select": "global:MNMOSelect",
     "mnmo-components/lib/themes/mnmo/checkbox": "global:MNMOCheckbox",
+    "mnmo-components/lib/themes/mnmo/radiogroup": "global:MNMORadioGroup",
     "mnmo-components/lib/themes/mnmo/radio": "global:MNMORadioButton",
     "mnmo-components/lib/themes/mnmo/submit": "global:MNMOSubmit",
     "mnmo-components/lib/themes/mnmo/list": "global:MNMOList",
