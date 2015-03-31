@@ -18,12 +18,18 @@ class SessionStore extends Store {
         this.register(sessionActions.signIn, this.signIn);
         this.register(sessionActions.signOut, this.signOut);
         this.state = {
-            token: getLocalItem('sessionToken'),
+            token: null,
             error: null,
         };
         this.sessionActions = sessionActions;
+        this.loadSavedToken();
     }
-    signIn(){
+    loadSavedToken() {
+        this.setState({
+            token: getLocalItem('sessionToken')
+        });
+    }
+    signIn() {
         let store = this,
             userStore = store.flux.getStore('user'),
             validationStore = store.flux.getStore('loginValidation');

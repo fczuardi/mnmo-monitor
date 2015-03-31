@@ -18,5 +18,6 @@ export default {
     buildSignInRequestBody: buildSignInRequestBody,
     parseCountryList: genericParse,
     parseCaptchaSetup: genericParse,
-    parseLoginResponse: genericParse
+    parseLoginResponse: genericParse,
+    parseUserPreferences: genericParse
 };

@@ -8,5 +8,8 @@
     },
     "session": {
         "login": "/auth/login"
+    },
+    "user": {
+        "preferences": "/user/preferences"
     }
 }

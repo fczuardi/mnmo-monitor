@@ -14,7 +14,6 @@ class Dashboard {
                 console.log('languageSettingChange',event.target.value);
             }
         };
-        console.log('dashboard', this.props.country.options, this.props.user.languageID);
         return template(this.props, actions);
     }
 }

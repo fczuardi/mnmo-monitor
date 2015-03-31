@@ -18,6 +18,14 @@ router.get(URLs.country.list, function*(next) {
     yield next;
 });
 
+router.get(URLs.user.preferences, function*(next) {
+    this.body = JSON.stringify({
+        languageID: '1',
+        autoUpdate: true
+    });
+    yield next;
+});
+
 router.get(URLs.validation.captcha, function*(next) {
     this.body = JSON.stringify({
         questionID: '12345',

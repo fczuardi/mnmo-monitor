@@ -14,6 +14,7 @@ export default (p, a) =>
                     id="autoUpdateToggle" 
                     onChange={a.autoUpdateChange}
                     isItem={true}
+                    checked={p.user.autoUpdate}
                 >
                     Auto update
                 </Switch>
