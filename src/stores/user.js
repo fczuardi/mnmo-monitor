@@ -168,10 +168,9 @@ class UserStore extends Store {
     changeAutoUpdatePref(autoUpdateState) {
         //optimistically update the client state
         this.setState({
-            tosAgree: autoUpdateState
+            autoUpdate: autoUpdateState
         });
-        //post preference change to the server
-        
+        //TODO post preference change to the server
     }
 }
 

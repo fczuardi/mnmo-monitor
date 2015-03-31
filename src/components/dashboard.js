@@ -7,9 +7,8 @@ class Dashboard {
                 event.preventDefault();
                 this.props.flux.getActions('session').signOut();
             },
-            autoUpdateChange: (event) => {
-                console.log(event.target.checked);
-            },
+            autoUpdateChange: (event) => 
+                this.props.flux.getActions('user').autoUpdateToggle(event.target.checked),
             languageSettingChange: (event) => {
                 console.log('languageSettingChange',event.target.value);
             }
