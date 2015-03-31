@@ -6,7 +6,13 @@ import {
     removeObject as removeLocalItem
 } from '../lib/local';
 import URLs from '../../config/entrypoints.json';
-import {parseUserPreferences} from '../../config/apiHelpers';
+import {
+    parseUserPreferences,
+    buildUserPreferencesPostBody,
+    authHeaders,
+    chooseTextOrJSON
+} from '../../config/apiHelpers';
+
 class UserStore extends Store {
     constructor(flux) {
         super();
@@ -19,6 +25,7 @@ class UserStore extends Store {
         this.register(userActions.passwordInput, this.changePasswordPref);
         this.register(userActions.rememberLoginUpdate, this.changeRememberPref);
         this.register(userActions.tosAgreementUpdate, this.changeTosPref);
+        this.register(userActions.autoUpdateToggle, this.changeAutoUpdatePref);
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
@@ -37,9 +44,7 @@ class UserStore extends Store {
         this.loadSavedPreferences();
         //user preferences state changed
         this.addListener('change', function(){
-            if (this.state.rememberLogin === true) {
-                this.savePreferences();
-            }
+            this.savePreferences();
         });
         this.countryStore = flux.getStore('country');
         this.sessionStore = flux.getStore('session');
@@ -55,7 +60,10 @@ class UserStore extends Store {
     savePreferences() {
         let localUserPreference = merge({}, this.state);
         delete localUserPreference.preferencesLoading;
-        setLocalItem('userPreference', localUserPreference);
+        delete localUserPreference.captchaAnswer;
+        if (this.state.rememberLogin === true) {
+            setLocalItem('userPreference', localUserPreference);
+        }
     }
     sessionStateChanged() {
         if (this.sessionStore.state.token !== null) {
@@ -65,29 +73,14 @@ class UserStore extends Store {
     }
     fetchPreferences(token) {
         let store = this;
-        let headers = {
-            'Authorization': 'Bearer '+ token
-        };
         store.setState({
             preferencesLoading: true
         });
         fetch(URLs.baseUrl + URLs.user.preferences, {
             method: 'GET',
-            headers: headers
+            headers: authHeaders(token)
         })
-        .then(function(response) {
-            let contentType = response.headers.get('Content-Type'),
-                isJSON = (contentType.indexOf('application/json') > -1);
-            store.setState({
-                preferencesLoading: false
-            });
-            if (isJSON) {
-                return response.json();
-            } else {
-                console.warn(`got ${contentType} instead of application/json`);
-                return response.text();
-            }
-        })
+        .then(chooseTextOrJSON)
         .then(function(payload){
             let userPreferences = parseUserPreferences(payload);
             console.log('success', userPreferences);
@@ -99,6 +92,25 @@ class UserStore extends Store {
             console.log('parsing failed', e);
         });
     }
+    // updatePreferences(token) {
+    //     let store = this;
+    //     fetch(URLs.baseUrl + URLs.user.preferences, {
+    //         method: 'POST',
+    //         headers: authHeaders(token),
+    //         body: buildUserPreferencesPostBody(store)
+    //     })
+    //     .then(chooseTextOrJSON)
+    //     .then(function(payload){
+    //         let userPreferences = parseUserPreferences(payload);
+    //         console.log('success', userPreferences);
+    //         //TODO if there were changes while a fetch was going on, we need
+    //         //to compare the different values and sync
+    //         store.setState(userPreferences);
+    //     })
+    //     .catch(function(e){
+    //         console.log('parsing failed', e);
+    //     });
+    // }
     countryOptionsLoaded() {
         if (this.state.countryID === null){
             this.flux.getActions('country').select(
@@ -152,6 +164,14 @@ class UserStore extends Store {
         this.setState({
             tosAgree: haveAgreed
         });
+    }
+    changeAutoUpdatePref(autoUpdateState) {
+        //optimistically update the client state
+        this.setState({
+            tosAgree: autoUpdateState
+        });
+        //post preference change to the server
+        
     }
 }
 

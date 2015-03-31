@@ -13,6 +13,9 @@ class UserActions extends Actions {
     tosAgreementUpdate(haveAgreed) {
         return haveAgreed;
     }
+    autoUpdateToggle(autoUpdateState) {
+        return autoUpdateState;
+    }
 }
 
 export default UserActions;

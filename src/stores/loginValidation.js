@@ -1,6 +1,9 @@
 import {Store} from 'flummox';
 import URLs from '../../config/entrypoints.json';
-import {parseCaptchaSetup} from '../../config/apiHelpers';
+import {
+    chooseTextOrJSON,
+    parseCaptchaSetup
+} from '../../config/apiHelpers';
 
 const submitLabelKeys = {
     loading: 'loading',
@@ -66,19 +69,8 @@ class LoginValidationStore extends Store {
             selectedAnswerIndex: null
         });
         let store = this;
-        /* global fetch */
-        /* comes from the polyfill https://github.com/github/fetch */
         fetch(URLs.baseUrl + URLs.validation.captcha)
-        .then(function(response) {
-            let contentType = response.headers.get('Content-Type'),
-                isJSON = (contentType.indexOf('application/json') > -1);
-            if (isJSON) {
-                return response.json();
-            } else {
-                console.warn(`got ${contentType} instead of application/json`);
-                return response.text();
-            }
-        })
+        .then(chooseTextOrJSON)
         .then(function(payload) {
             let options = parseCaptchaSetup(payload);
             store.setState({

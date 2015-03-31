@@ -7,7 +7,8 @@ import {
 import URLs from '../../config/entrypoints.json';
 import {
     buildSignInRequestBody, 
-    parseLoginResponse
+    parseLoginResponse,
+    chooseTextOrJSON
 } from '../../config/apiHelpers';
 
 class SessionStore extends Store {
@@ -38,8 +39,6 @@ class SessionStore extends Store {
             error: null
         });
 
-        /* global fetch */
-        /* comes from the polyfill https://github.com/github/fetch */
         fetch(URLs.baseUrl + URLs.session.login, {
           method: 'post',
           headers: {
@@ -47,16 +46,7 @@ class SessionStore extends Store {
           },
           body: buildSignInRequestBody(validationStore, userStore)
         })
-        .then(function(response) {
-            let contentType = response.headers.get('Content-Type'),
-                isJSON = (contentType.indexOf('application/json') > -1);
-            if (isJSON) {
-                return response.json();
-            } else {
-                console.warn(`got ${contentType} instead of application/json`);
-                return response.text();
-            }
-        })
+        .then(chooseTextOrJSON)
         .then(function(payload) {
             let sessionData = parseLoginResponse(payload);
             if (sessionData.token){
