@@ -1,0 +1,9 @@
+{
+    "questionID": "12345",
+    "question": "Quanto é 3 + 5?",
+    "answers": [
+        8,
+        4,
+        35
+    ]
+}

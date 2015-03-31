@@ -1,48 +1,31 @@
+import {readFileSync} from 'fs'; 
 import Router from 'koa-router';
 import URLs from './config/entrypoints.json';
+
 
 var router = new Router();
 
 router.get(URLs.country.list, function*(next) {
-    this.body = JSON.stringify([{
-        id: '0',
-        label: 'USA',
-        lang: 'en-US',
-        tosURL: 'http://example.com/?foo'
-    }, {
-        id: '1',
-        label: 'BRASIL',
-        lang: 'pt-BR',
-        tosURL: 'http://example.com/?bar'
-    }]);
+    let filename = './fake-data/country.json';
+    this.body =  readFileSync(filename);
     yield next;
 });
 
 router.get(URLs.user.preferences, function*(next) {
-    this.body = JSON.stringify({
-        languageID: '1',
-        autoUpdate: true
-    });
+    let filename = './fake-data/user.json';
+    this.body =  readFileSync(filename);
     yield next;
 });
 
 router.get(URLs.validation.captcha, function*(next) {
-    this.body = JSON.stringify({
-        questionID: '12345',
-        question: '.Quanto é 3 + 5?',
-        answers: [
-            80,
-            40,
-            350
-        ]
-    });
+    let filename = './fake-data/captcha.json';
+    this.body =  readFileSync(filename);
     yield next;
 });
 
 router.post(URLs.session.login, function *(next) {
-    this.body = JSON.stringify({
-        token: '123456789'
-    });
+    let filename = './fake-data/login.success.json';
+    this.body =  readFileSync(filename);
     yield next;
 });
 
