@@ -8,6 +8,7 @@ import {
 import URLs from '../../config/entrypoints.json';
 import {
     parseUserPreferences,
+    diffUserPreferences,
     buildUserPreferencesPostBody,
     authHeaders,
     chooseTextOrJSON
@@ -51,8 +52,8 @@ class UserStore extends Store {
         //country store changed
         this.countryStore.addListener('change', this.countryOptionsLoaded.bind(this));
         //user session changed
-        this.sessionStore.addListener('change', this.sessionStateChanged.bind(this));
-        this.sessionStateChanged();
+        this.sessionStore.addListener('change', this.fetchPreferences.bind(this));
+        this.fetchPreferences();
     }
     loadSavedPreferences() {
         this.setState(getLocalItem('userPreference'));
@@ -64,15 +65,13 @@ class UserStore extends Store {
         if (this.state.rememberLogin === true) {
             setLocalItem('userPreference', localUserPreference);
         }
+        //post logged-user preference changes to the server
+        this.updatePreferences();
     }
-    sessionStateChanged() {
-        if (this.sessionStore.state.token !== null) {
-            console.log('fetch user preferences from the server');
-            this.fetchPreferences(this.sessionStore.state.token);
-        }
-    }
-    fetchPreferences(token) {
-        let store = this;
+    fetchPreferences() {
+        let store = this,
+            token = store.sessionStore.state.token;
+        if (token === null){ return false; }
         store.setState({
             preferencesLoading: true
         });
@@ -82,7 +81,8 @@ class UserStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
-            let userPreferences = parseUserPreferences(payload);
+            let userPreferences = merge({}, parseUserPreferences(payload));
+            userPreferences.preferencesLoading = false;
             console.log('success', userPreferences);
             //TODO if there were changes while a fetch was going on, we need
             //to compare the different values and sync
@@ -92,25 +92,33 @@ class UserStore extends Store {
             console.log('parsing failed', e);
         });
     }
-    // updatePreferences(token) {
-    //     let store = this;
-    //     fetch(URLs.baseUrl + URLs.user.preferences, {
-    //         method: 'POST',
-    //         headers: authHeaders(token),
-    //         body: buildUserPreferencesPostBody(store)
-    //     })
-    //     .then(chooseTextOrJSON)
-    //     .then(function(payload){
-    //         let userPreferences = parseUserPreferences(payload);
-    //         console.log('success', userPreferences);
-    //         //TODO if there were changes while a fetch was going on, we need
-    //         //to compare the different values and sync
-    //         store.setState(userPreferences);
-    //     })
-    //     .catch(function(e){
-    //         console.log('parsing failed', e);
-    //     });
-    // }
+    updatePreferences() {
+        let store = this,
+            token = store.sessionStore.state.token,
+            hasChanged = diffUserPreferences(store.state),
+            postBody = buildUserPreferencesPostBody(store.state);
+        if (token === null){ return false; }
+        if (store.state.preferencesLoading){ return false; }
+        if (hasChanged === false){ return false; }
+        if (!postBody){ return false; }
+        console.log('updatePreferences', postBody);
+        fetch(URLs.baseUrl + URLs.user.preferences, {
+            method: 'POST',
+            headers: authHeaders(token),
+            body: postBody
+        })
+        .then(chooseTextOrJSON)
+        .then(function(payload){
+            let userPreferences = parseUserPreferences(payload);
+            console.log('success', userPreferences);
+            //TODO if there were changes while a fetch was going on, we need
+            //to compare the different values and sync
+            // store.setState(userPreferences);
+        })
+        .catch(function(e){
+            console.log('parsing failed', e);
+        });
+    }
     countryOptionsLoaded() {
         if (this.state.countryID === null){
             this.flux.getActions('country').select(
@@ -170,7 +178,6 @@ class UserStore extends Store {
         this.setState({
             autoUpdate: autoUpdateState
         });
-        //TODO post preference change to the server
     }
 }
 

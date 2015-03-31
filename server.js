@@ -23,7 +23,7 @@ app.use(serve(ROOT));
 api.use(APIRouter.routes());
 api.use(cors());
 api.use(function *(next){
-    this.set('Content-Type', 'application/json')
+    this.set('Content-Type', 'application/json');
     yield next;
 });
 

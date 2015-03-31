@@ -1,4 +1,8 @@
 import queryString from 'query-string';
+import merge from 'lodash/object/merge';
+
+
+let lastUserPreferenceResponse = null;
 
 function buildSignInRequestBody(validationStore, userStore){
     let body = {
@@ -10,12 +14,21 @@ function buildSignInRequestBody(validationStore, userStore){
     };
     return queryString.stringify(body);
 }
-function buildUserPreferencesPostBody(userStore){
-    let body = {
-        languageID: userStore.state.languageID,
-        autoUpdate: userStore.state.autoUpdate,
-    };
-    return queryString.stringify(body);
+function parseUserPreferences(payload){
+    lastUserPreferenceResponse = genericParse(payload);
+    return lastUserPreferenceResponse;
+}
+function buildUserPreferencesPostBody(state){
+    let newState = merge({}, lastUserPreferenceResponse);
+    newState.languageID = state.languageID;
+    newState.autoUpdate = state.autoUpdate;
+    return newState;
+}
+function diffUserPreferences(state){
+    if (lastUserPreferenceResponse === null){ return false; }
+    let previousString = JSON.stringify(lastUserPreferenceResponse),
+    newString = JSON.stringify(buildUserPreferencesPostBody(state));
+    return (previousString === newString);
 }
 
 function genericParse(text){
@@ -36,16 +49,19 @@ function chooseTextOrJSON(response) {
 
 function authHeaders(token){
     return {
-        'Authorization': 'Bearer '+ token
+        'Authorization': 'Bearer '+ token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
     };
 }
 export default {
     buildSignInRequestBody: buildSignInRequestBody,
+    diffUserPreferences: diffUserPreferences,
     buildUserPreferencesPostBody: buildUserPreferencesPostBody,
+    parseUserPreferences: parseUserPreferences,
     parseCountryList: genericParse,
     parseCaptchaSetup: genericParse,
     parseLoginResponse: genericParse,
-    parseUserPreferences: genericParse,
     authHeaders: authHeaders,
     chooseTextOrJSON: chooseTextOrJSON
 };

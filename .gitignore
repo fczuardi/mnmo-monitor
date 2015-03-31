@@ -5,3 +5,4 @@ assets/custom
 assets/fonts
 config/secret.*
 npm-debug.log
+fake-data/secret.*
