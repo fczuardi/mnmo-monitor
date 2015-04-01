@@ -40,9 +40,9 @@ export default (p, a) =>
             Menu item
         </LI>
         <LI>
-            <button onClick={a.logoutClick}>
+            <a style={{color: '#000'}}onClick={a.logoutClick}>
                 Logout
-            </button>
+            </a>
         </LI>
     </List>
 </Drawer>;
