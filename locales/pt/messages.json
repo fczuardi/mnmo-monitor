@@ -22,6 +22,7 @@
             "pt-BR": "Português",
             "en-US": "English"
         },
+        "changePassword": "Alterar senha",
         "logout": "Sair"
     }
 }

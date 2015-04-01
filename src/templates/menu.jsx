@@ -4,6 +4,7 @@ import List from 'mnmo-components/lib/themes/mnmo/list';
 import LI from 'mnmo-components/lib/themes/mnmo/li';
 import Switch from 'mnmo-components/lib/themes/mnmo/switch';
 import Radio from 'mnmo-components/lib/themes/mnmo/radio';
+import extraLinks from '../../config/menulinks';
 
 export default (p, a) =>
 <Drawer>
@@ -35,11 +36,25 @@ export default (p, a) =>
         </LI>
     ))}
     </List>
+{extraLinks.map( (group) =>
+    <List>
+    {group.map( (item) =>
+        <LI>
+            <a href={item.link} target="blank" style={{color: '#000'}}>
+                {item.label}
+            </a>
+        </LI>
+    )}
+    </List>
+)}
     <List>
         <LI>
+            <a style={{color: '#000'}} >
+                {p.messages.settings.changePassword}
+            </a>
         </LI>
         <LI>
-            <a style={{color: '#000'}}onClick={a.logoutClick}>
+            <a style={{color: '#000'}} onClick={a.logoutClick}>
                 {p.messages.settings.logout}
             </a>
         </LI>
