@@ -25,6 +25,7 @@
     "mnmo-components/lib/themes/mnmo/li": "global:MNMOLi",
     "mnmo-components/lib/themes/mnmo/switch": "global:MNMOSwitch",
     "../components/login": "global:APPLogin",
+    "../components/menu": "global:APPMenu",
     "../components/dashboard": "global:APPDashboard",
     "./components/router": "global:APPRouter",
     "../lib/local": "global:LocalStorageHelpers",
@@ -38,6 +39,7 @@
     "./stores/session": "global:StoresSession",
     "../../config/entrypoints.json": "global:ConfigEntrypoints",
     "../../config/apiHelpers": "global:ConfigHelpers",
+    "../../config/menulinks":"global:ConfigMenulinks",
     "./flux": "global:APPFlux"
   },
   "scripts": {
@@ -75,6 +77,7 @@
     "www:js:lib:react-intl": "browserify -o ./dist/classic/lib/js/react-intl.js -r 'react-intl' -t browserify-shim -s ReactIntl",
     "www:js:lib:lodash:merge": "browserify -o ./dist/classic/lib/js/lodash-merge.js -r 'lodash/object/merge' -t browserify-shim -s LodashMerge",
     "www:js:lib:entrypoints": "browserify -o ./dist/classic/js/entrypoints.js -e ./config/secret.entrypoints.json -t browserify-shim -s ConfigEntrypoints",
+    "www:js:lib:menulinks": "browserify -o ./dist/classic/js/menulinks.js -e ./config/secret.menulinks.js -t babelify -t browserify-shim -s ConfigMenulinks",
     "www:js:lib:apiHelpers": "browserify -o ./dist/classic/js/apiHelpers.js -e ./config/secret.apiHelpers.js -t babelify -t browserify-shim -s ConfigHelpers",
     "www:js:lib:localHelper": "browserify -o ./dist/classic/lib/js/local.js -e ./src/lib/local.js -t babelify -t browserify-shim -s LocalStorageHelpers",
     "www:js:lib:mnmo": "babel-node ./bin/exportComponents.js",
@@ -97,7 +100,7 @@
     "www:js:polyfill": "npm run www:js:polyfill:Promise && npm run www:js:polyfill:fetch && npm run www:js:polyfill:es5-shim && npm run www:js:polyfill:es5-sham && npm run www:js:polyfill:console && npm run www:js:polyfill:Intl",
     "www:js:vendors": "npm run www:js:lib:reactAndFlummox && npm run www:js:lib:react-intl && npm run www:js:lib:lodash:merge",
     "www:js:components": "npm run www:js:lib:mnmo && npm run www:js:lib:mnmo:shared",
-    "www:js:helpers": "npm run www:js:lib:entrypoints && npm run www:js:lib:apiHelpers && npm run www:js:lib:localHelper",
+    "www:js:helpers": "npm run www:js:lib:menulinks && npm run www:js:lib:entrypoints && npm run www:js:lib:apiHelpers && npm run www:js:lib:localHelper",
     "www:js:lib": "npm run www:js:vendors && npm run www:js:components && npm run www:js:helpers",
     "www:js": "npm run www:js:flux && npm run www:js:app && npm run www:js:lib && npm run www:js:polyfill",
     "www:img": "npm run www:img:lib && npm run www:img:custom",

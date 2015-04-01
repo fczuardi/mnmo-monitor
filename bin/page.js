@@ -58,6 +58,8 @@ var options = {
         './js/stores/loginValidation.js',
         './js/stores/session.js',
         '$comment=stores',
+        './js/menulinks.js',
+        './js/components/menu.js',
         './js/components/login.js',
         './js/components/dashboard.js',
         './js/components/router.js',
