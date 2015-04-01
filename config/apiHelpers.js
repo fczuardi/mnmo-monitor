@@ -19,16 +19,17 @@ function parseUserPreferences(payload){
     return lastUserPreferenceResponse;
 }
 function buildUserPreferencesPostBody(state){
-    let newState = merge({}, lastUserPreferenceResponse);
-    newState.languageID = state.languageID;
-    newState.autoUpdate = state.autoUpdate;
-    return newState;
+    let body = merge({}, lastUserPreferenceResponse);
+    body.languageID = state.languageID;
+    body.autoUpdate = state.autoUpdate;
+    return JSON.stringify(body);
 }
 function diffUserPreferences(state){
     if (lastUserPreferenceResponse === null){ return false; }
     let previousString = JSON.stringify(lastUserPreferenceResponse),
-    newString = JSON.stringify(buildUserPreferencesPostBody(state));
-    return (previousString === newString);
+    newString = buildUserPreferencesPostBody(state);
+    console.log('diff', (previousString !== newString));
+    return (previousString !== newString);
 }
 
 function genericParse(text){

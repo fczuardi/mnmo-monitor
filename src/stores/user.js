@@ -101,7 +101,10 @@ class UserStore extends Store {
         if (store.state.preferencesLoading){ return false; }
         if (hasChanged === false){ return false; }
         if (!postBody){ return false; }
-        console.log('updatePreferences', postBody);
+        console.log('POST body =');
+        console.log(postBody);
+        if (postBody.indexOf('Sucesso') !== -1) { return false; }
+        console.log('make post');
         fetch(URLs.baseUrl + URLs.user.preferences, {
             method: 'POST',
             headers: authHeaders(token),
