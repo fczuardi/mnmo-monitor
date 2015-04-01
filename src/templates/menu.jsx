@@ -15,7 +15,7 @@ export default (p, a) =>
                 isItem={true}
                 checked={p.user.autoUpdate}
             >
-                Auto update
+                {p.messages.settings.autoUpdate}
             </Switch>
         </LI>
     </List>
@@ -37,11 +37,10 @@ export default (p, a) =>
     </List>
     <List>
         <LI>
-            Menu item
         </LI>
         <LI>
             <a style={{color: '#000'}}onClick={a.logoutClick}>
-                Logout
+                {p.messages.settings.logout}
             </a>
         </LI>
     </List>

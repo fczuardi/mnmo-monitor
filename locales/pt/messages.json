@@ -17,9 +17,11 @@
         "loadingCaptcha": "Carregando a pergunta…"
     },
     "settings": {
+        "autoUpdate": "Auto-atualizar",
         "languages": {
             "pt-BR": "Português",
             "en-US": "English"
-        }
+        },
+        "logout": "Sair"
     }
 }
