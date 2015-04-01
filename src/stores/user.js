@@ -27,6 +27,7 @@ class UserStore extends Store {
         this.register(userActions.rememberLoginUpdate, this.changeRememberPref);
         this.register(userActions.tosAgreementUpdate, this.changeTosPref);
         this.register(userActions.autoUpdateToggle, this.changeAutoUpdatePref);
+        this.register(userActions.languageUpdate, this.changeLanguagePref);
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
@@ -175,9 +176,13 @@ class UserStore extends Store {
         });
     }
     changeAutoUpdatePref(autoUpdateState) {
-        //optimistically update the client state
         this.setState({
             autoUpdate: autoUpdateState
+        });
+    }
+    changeLanguagePref(languageID) {
+        this.setState({
+            languageID: languageID
         });
     }
 }

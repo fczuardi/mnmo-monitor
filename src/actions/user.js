@@ -16,6 +16,9 @@ class UserActions extends Actions {
     autoUpdateToggle(autoUpdateState) {
         return autoUpdateState;
     }
+    languageUpdate(languageID) {
+        return languageID;
+    }
 }
 
 export default UserActions;
