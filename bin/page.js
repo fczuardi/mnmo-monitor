@@ -43,6 +43,7 @@ var options = {
         './lib/js/component-submit.js',
         './lib/js/component-list.js',
         './lib/js/component-li.js',
+        './lib/js/component-a.js',
         './lib/js/component-switch.js',
         '$comment=mnmo-components',
         './js/entrypoints.js',

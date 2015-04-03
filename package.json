@@ -23,6 +23,7 @@
     "mnmo-components/lib/themes/mnmo/submit": "global:MNMOSubmit",
     "mnmo-components/lib/themes/mnmo/list": "global:MNMOList",
     "mnmo-components/lib/themes/mnmo/li": "global:MNMOLi",
+    "mnmo-components/lib/themes/mnmo/a": "global:MNMOA",
     "mnmo-components/lib/themes/mnmo/switch": "global:MNMOSwitch",
     "../components/login": "global:APPLogin",
     "../components/menu": "global:APPMenu",
@@ -39,7 +40,7 @@
     "./stores/session": "global:StoresSession",
     "../../config/entrypoints.json": "global:ConfigEntrypoints",
     "../../config/apiHelpers": "global:ConfigHelpers",
-    "../../config/menulinks":"global:ConfigMenulinks",
+    "../../config/menulinks": "global:ConfigMenulinks",
     "./flux": "global:APPFlux"
   },
   "scripts": {
