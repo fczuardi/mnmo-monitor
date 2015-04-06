@@ -4,9 +4,9 @@ import {
     setObject as setLocalItem,
     removeObject as removeLocalItem
 } from '../lib/local';
-import URLs from '../../config/entrypoints.json';
+import URLs from '../../config/endpoints.js';
 import {
-    buildSignInRequestBody, 
+    buildSignInRequestBody,
     parseLoginResponse,
     chooseTextOrJSON
 } from '../../config/apiHelpers';
@@ -20,7 +20,7 @@ class SessionStore extends Store {
         this.register(sessionActions.signOut, this.signOut);
         this.state = {
             token: null,
-            error: null,
+            error: null
         };
         this.sessionActions = sessionActions;
         this.loadSavedToken();
@@ -60,12 +60,12 @@ class SessionStore extends Store {
             }
         })
         .catch(function(e){
-            console.log('Error:', e);
+            console.log('Error:', e); // eslint-disable-line
         });
     }
     signOut(){
         this.setState({
-            token:null
+            token: null
         });
         removeLocalItem('sessionToken');
     }

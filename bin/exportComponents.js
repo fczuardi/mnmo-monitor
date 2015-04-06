@@ -28,7 +28,7 @@ Object.keys(globalModules).forEach((key) => {
         console.log(outFilename, globalName);
         createUMD(entry, globalName, outFilename);
     } else if (
-            (key.indexOf('actions') !== -1) || 
+            (key.indexOf('actions') !== -1) ||
             (key.indexOf('stores') !== -1) ||
             (key.indexOf('./components/') !== -1)
                                                     ){
@@ -38,7 +38,7 @@ Object.keys(globalModules).forEach((key) => {
             filename = key.split('/')[2] + '.js',
             outFilename = join(classicPath, 'js', subfolder, filename);
         if (
-                (subfolder === 'components') && 
+                (subfolder === 'components') &&
                 (key.indexOf('../components/') !== -1) ){
             entry = entry.replace('/components/', '/src/components/');
         }

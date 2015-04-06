@@ -43,7 +43,7 @@ class LoginForm {
                 this.props.flux.getActions('user').rememberLoginUpdate(event.target.checked),
             agreementChange: (event) =>
                 this.props.flux.getActions('user').tosAgreementUpdate(event.target.checked),
-            captchaAnswerChange: (event) => 
+            captchaAnswerChange: (event) =>
                 this.props.flux.getActions('loginValidation').captchaAnswered(event.target.value),
             formSubmit: (event) => {
                 event.preventDefault();

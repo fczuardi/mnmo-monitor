@@ -5,7 +5,7 @@ import {
     setObject as setLocalItem,
     removeObject as removeLocalItem
 } from '../lib/local';
-import URLs from '../../config/entrypoints.json';
+import URLs from '../../config/endpoints.js';
 import {
     parseUserPreferences,
     diffUserPreferences,
@@ -84,13 +84,12 @@ class UserStore extends Store {
         .then(function(payload){
             let userPreferences = merge({}, parseUserPreferences(payload));
             userPreferences.preferencesLoading = false;
-            console.log('success', userPreferences);
             //TODO if there were changes while a fetch was going on, we need
             //to compare the different values and sync
             store.setState(userPreferences);
         })
         .catch(function(e){
-            console.log('parsing failed', e);
+            console.log('parsing failed', e); // eslint-disable-line
         });
     }
     updatePreferences() {
@@ -118,7 +117,7 @@ class UserStore extends Store {
             // store.setState(userPreferences);
         })
         .catch(function(e){
-            console.log('parsing failed', e);
+            console.log('parsing failed', e); // eslint-disable-line
         });
     }
     countryOptionsLoaded() {

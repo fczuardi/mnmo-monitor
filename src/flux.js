@@ -15,7 +15,7 @@ class MonitorFlux extends Flummox {
 
     constructor() {
         super();
-        //note: remember to define actions before stores 
+        //note: remember to define actions before stores
 
         //actions
         this.createActions('country', CountryActions);

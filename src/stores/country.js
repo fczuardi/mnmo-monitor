@@ -1,5 +1,5 @@
 import {Store} from 'flummox';
-import URLs from '../../config/entrypoints.json';
+import URLs from '../../config/endpoints.js';
 import {
     chooseTextOrJSON,
     parseCountryList
@@ -25,7 +25,7 @@ class CountryStore extends Store {
             });
         })
         .catch(function(e){
-            console.log('parsing failed', e);
+            console.log('parsing failed', e); // eslint-disable-line
         });
     }
 }

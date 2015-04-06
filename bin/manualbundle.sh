@@ -53,7 +53,7 @@ cat \
 
 cat \
 ./dist/classic/lib/js/local.js \
-./dist/classic/js/entrypoints.js \
+./dist/classic/js/endpoints.js \
 ./dist/classic/js/apiHelpers.js \
 ./dist/classic/js/stores/country.js \
 ./dist/classic/js/stores/user.js \
@@ -117,7 +117,7 @@ cat \
 ./dist/classic/js/actions/session.js \
 \
 ./dist/classic/lib/js/local.js \
-./dist/classic/js/entrypoints.js \
+./dist/classic/js/endpoints.js \
 ./dist/classic/js/apiHelpers.js \
 ./dist/classic/js/stores/country.js \
 ./dist/classic/js/stores/user.js \

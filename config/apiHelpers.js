@@ -14,6 +14,9 @@ function buildSignInRequestBody(validationStore, userStore){
     };
     return queryString.stringify(body);
 }
+function genericParse(text){
+    return ((typeof text === 'string') ? JSON.parse(text) : text);
+}
 function parseUserPreferences(payload){
     lastUserPreferenceResponse = genericParse(payload);
     return lastUserPreferenceResponse;
@@ -28,12 +31,7 @@ function diffUserPreferences(state){
     if (lastUserPreferenceResponse === null){ return false; }
     let previousString = JSON.stringify(lastUserPreferenceResponse),
     newString = buildUserPreferencesPostBody(state);
-    console.log('diff', (previousString !== newString));
     return (previousString !== newString);
-}
-
-function genericParse(text){
-    return ((typeof text === 'string') ? JSON.parse(text) : text);
 }
 
 function chooseTextOrJSON(response) {
@@ -50,8 +48,8 @@ function chooseTextOrJSON(response) {
 
 function authHeaders(token){
     return {
-        'Authorization': 'Bearer '+ token,
-        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
 }

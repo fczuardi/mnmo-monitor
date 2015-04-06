@@ -7,9 +7,9 @@ class Menu {
                 event.preventDefault();
                 this.props.flux.getActions('session').signOut();
             },
-            autoUpdateChange: (event) => 
+            autoUpdateChange: (event) =>
                 this.props.flux.getActions('user').autoUpdateToggle(event.target.checked),
-            languageSettingChange: (event) => 
+            languageSettingChange: (event) =>
                 this.props.flux.getActions('user').languageUpdate(event.target.value)
         };
         return template(this.props, actions);

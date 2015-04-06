@@ -4,7 +4,7 @@ import FluxComponent from 'flummox/component';
 import Flux from './flux';
 import Stage from 'mnmo-components/lib/themes/mnmo/stage';
 import Router from './components/router';
-import messages from '../locales/pt/messages.json';
+import messages from '../locales/pt/messages.js';
 
 const flux = new Flux();
 

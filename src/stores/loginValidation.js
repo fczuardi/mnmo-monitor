@@ -1,5 +1,5 @@
 import {Store} from 'flummox';
-import URLs from '../../config/entrypoints.json';
+import URLs from '../../config/endpoints.js';
 import {
     chooseTextOrJSON,
     parseCaptchaSetup
@@ -79,7 +79,7 @@ class LoginValidationStore extends Store {
                 captchaAnswers: options.answers
             });
         }).catch(function(ex) {
-            console.log('parsing failed', ex);
+            console.log('parsing failed', ex); // eslint-disable-line
         });
     }
     changeCaptchaAnswerIndex(answer){

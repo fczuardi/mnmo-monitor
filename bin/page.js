@@ -43,10 +43,10 @@ var options = {
         './lib/js/component-submit.js',
         './lib/js/component-list.js',
         './lib/js/component-li.js',
-        './lib/js/component-a.js',
         './lib/js/component-switch.js',
+        './lib/js/component-a.js',
         '$comment=mnmo-components',
-        './js/entrypoints.js',
+        './js/endpoints.js',
         './js/apiHelpers.js',
         './js/actions/country.js',
         './js/actions/user.js',
@@ -71,7 +71,7 @@ var options = {
     ]
 };
 
-console.log( 
+console.log(
 html(
     renderToStaticMarkup(
         createElement(Page, options,
@@ -80,5 +80,5 @@ html(
             )
         )
     )
-).replace(/(<script[^\"]*\"\$comment\=)([^\"]*)(\">[^>]*>)/ig,'<!-- $2 -->\n')
+).replace(/(<script[^\"]*\"\$comment\=)([^\"]*)(\">[^>]*>)/ig, '<!-- $2 -->\n')
 );

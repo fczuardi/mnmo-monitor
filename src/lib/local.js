@@ -3,7 +3,7 @@ export function getObject(itemName) {
     try {
         return JSON.parse(itemString);
     }catch (e) {
-        console.log(e);
+        console.log(e); // eslint-disable-line
         return null;
     }
 }
