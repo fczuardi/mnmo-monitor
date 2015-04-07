@@ -29,6 +29,7 @@
     "../components/login": "global:APPLogin",
     "../components/dashboard": "global:APPDashboard",
     "../components/menu": "global:APPMenu",
+    "../components/header": "global:APPHeader",
     "../lib/local": "global:LocalStorageHelpers",
     "./actions/country": "global:ActionsCountry",
     "./stores/country": "global:StoresCountry",
