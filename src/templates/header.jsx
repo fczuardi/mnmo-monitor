@@ -2,7 +2,9 @@ import React from 'react';
 
 export default (p) =>
 <div>
-    <button>
+    <button
+        data-icon="a"
+    >
         Menu
     </button>
 </div>;
