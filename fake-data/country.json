@@ -1,14 +1,20 @@
 [
     {
-        "id": "0",
-        "label": "USA",
-        "lang": "en-US",
-        "tosURL": "http://example.com/?foo"
-    }, 
-    {
         "id": "1",
         "label": "BRASIL",
         "lang": "pt-BR",
-        "tosURL": "http://example.com/?bar"
+        "tosURL": "http://example.com/?bra"
+    },
+    {
+        "id": "2",
+        "label": "ARGENTINA",
+        "lang": "es-ES",
+        "tosURL": "http://example.com/?arg"
+    }, 
+    {
+        "id": "3",
+        "label": "USA",
+        "lang": "en-US",
+        "tosURL": "http://example.com/?usa"
     }
 ]

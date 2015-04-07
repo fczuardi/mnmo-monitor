@@ -4,7 +4,6 @@ import FluxComponent from 'flummox/component';
 import Flux from './flux';
 import Stage from 'mnmo-components/lib/themes/mnmo/stage';
 import Router from './components/router';
-import messages from '../locales/pt/messages.js';
 
 const flux = new Flux();
 
@@ -13,15 +12,14 @@ render(
         createElement(FluxComponent, {
                 flux: flux,
                 connectToStores: {
+                    language: (store) => ({ language: store.state}),
                     country: (store) => ({ country: store.state}),
                     user: (store) => ({ user: store.state}),
                     loginValidation: (store) => ({ loginForm: store.state}),
                     session: (store) => ({ session: store.state})
                 }
             },
-            createElement(Router, {
-                messages: messages
-            })
+            createElement(Router)
         )
     ),
     document.getElementById('main')

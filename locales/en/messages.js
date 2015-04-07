@@ -20,6 +20,7 @@ export default {
         autoUpdate: 'Auto update',
         languages: {
             'pt-BR': 'Português',
+            'es-ES': 'Español',
             'en-US': 'English'
         },
         changePassword: 'Change password',

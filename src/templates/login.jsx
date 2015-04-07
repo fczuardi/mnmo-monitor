@@ -14,17 +14,17 @@ import Submit from 'mnmo-components/lib/themes/mnmo/submit';
 export default (p, a) =>
 <CenteredBox>
     <form onSubmit={a.formSubmit}>
-        <FieldSet legend={p.messages.login.welcome}>
+        <FieldSet legend={p.language.messages.login.welcome}>
             <TextInput
                 value={p.user.username}
-                placeholder={p.messages.login.username}
+                placeholder={p.language.messages.login.username}
                 onChange={a.usernameChange}
                 onBlur={a.usernameBlur}
                 name="username"
             />
             <TextInput
                 value={p.user.password}
-                placeholder={p.messages.login.password}
+                placeholder={p.language.messages.login.password}
                 onChange={a.passwordChange}
                 onBlur={a.passwordBlur}
                 type="password"
@@ -49,7 +49,7 @@ export default (p, a) =>
                     onChange={a.saveInfoChange}
                     name="saveInfo"
                 >
-                    {p.messages.login.saveInfo}
+                    {p.language.messages.login.saveInfo}
                 </Checkbox>
             </div>
         </FieldSet>
@@ -80,10 +80,10 @@ export default (p, a) =>
                     name="agree"
                 >
                     <FormattedMessage
-                        message={p.messages.login.iAgree}
+                        message={p.language.messages.login.iAgree}
                         tosLink={(
                             <a target='_blank' href={p.user.tosURL}>
-                                {p.messages.login.tos}
+                                {p.language.messages.login.tos}
                             </a>
                         )}
                     />
@@ -91,7 +91,7 @@ export default (p, a) =>
             </div>
         </FieldSet>
         <Submit
-            value={p.messages.login.submit[p.loginForm.submitLabelKey]}
+            value={p.language.messages.login.submit[p.loginForm.submitLabelKey]}
             disabled={(! p.loginForm.canSubmit)}
         />
         <FieldSet className="no-bg">

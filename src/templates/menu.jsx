@@ -17,7 +17,7 @@ export default (p, a) =>
                 isItem={true}
                 checked={p.user.autoUpdate}
             >
-                {p.messages.settings.autoUpdate}
+                {p.language.messages.settings.autoUpdate}
             </Switch>
         </LI>
     </List>
@@ -32,7 +32,7 @@ export default (p, a) =>
                 isItem={true}
                 onChange={a.languageSettingChange}
             >
-                {p.messages.settings.languages[country.lang]}
+                {p.language.messages.settings.languages[country.lang]}
             </Radio>
         </LI>
     ))}
@@ -51,12 +51,12 @@ export default (p, a) =>
     <List>
         <LI>
             <A href='http://example.com'>
-                {p.messages.settings.changePassword}
+                {p.language.messages.settings.changePassword}
             </A>
         </LI>
         <LI>
             <A href='#' onClick={a.logoutClick}>
-                {p.messages.settings.logout}
+                {p.language.messages.settings.logout}
             </A>
         </LI>
     </List>

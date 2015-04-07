@@ -28,6 +28,7 @@ class UserStore extends Store {
         this.register(userActions.tosAgreementUpdate, this.changeTosPref);
         this.register(userActions.autoUpdateToggle, this.changeAutoUpdatePref);
         this.register(userActions.languageUpdate, this.changeLanguagePref);
+        this.userActions = userActions;
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
@@ -57,7 +58,9 @@ class UserStore extends Store {
         this.fetchPreferences();
     }
     loadSavedPreferences() {
-        this.setState(getLocalItem('userPreference'));
+        let preferences = getLocalItem('userPreference');
+        this.setState(preferences);
+        this.userActions.languageUpdate(preferences.languageID);
     }
     savePreferences() {
         let localUserPreference = merge({}, this.state);
@@ -87,6 +90,7 @@ class UserStore extends Store {
             //TODO if there were changes while a fetch was going on, we need
             //to compare the different values and sync
             store.setState(userPreferences);
+            store.userActions.languageUpdate(userPreferences.languageID);
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line
