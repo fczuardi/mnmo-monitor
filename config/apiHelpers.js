@@ -33,7 +33,16 @@ function diffUserPreferences(state){
     newString = buildUserPreferencesPostBody(state);
     return (previousString !== newString);
 }
-
+function userPreferencesPostResponseOK(payload){
+    let response = genericParse(payload),
+        result = response.languageID !== undefined;
+    if (!result){
+        console.log(response);
+    } else {
+        lastUserPreferenceResponse = response;
+    }
+    return result;
+}
 function chooseTextOrJSON(response) {
     let contentType = response.headers.get('Content-Type'),
         isJSON = (contentType.indexOf('application/json') > -1);
@@ -58,6 +67,7 @@ export default {
     diffUserPreferences: diffUserPreferences,
     buildUserPreferencesPostBody: buildUserPreferencesPostBody,
     parseUserPreferences: parseUserPreferences,
+    userPreferencesPostResponseOK: userPreferencesPostResponseOK,
     parseCountryList: genericParse,
     parseCaptchaSetup: genericParse,
     parseLoginResponse: genericParse,

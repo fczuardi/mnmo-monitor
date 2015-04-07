@@ -28,7 +28,7 @@ export default (p, a) =>
                 name="settings-language"
                 id={'settings-language-' + key}
                 value={country.id}
-                checked={(country.id === p.user.languageID)}
+                checked={(country.id == p.user.languageID)}
                 isItem={true}
                 onChange={a.languageSettingChange}
             >

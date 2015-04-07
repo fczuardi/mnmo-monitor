@@ -10,6 +10,7 @@ import {
     parseUserPreferences,
     diffUserPreferences,
     buildUserPreferencesPostBody,
+    userPreferencesPostResponseOK,
     authHeaders,
     chooseTextOrJSON
 } from '../../config/apiHelpers';
@@ -105,8 +106,8 @@ class UserStore extends Store {
         if (store.state.preferencesLoading){ return false; }
         if (hasChanged === false){ return false; }
         if (!postBody){ return false; }
-        console.log('make post');
-        console.log(postBody);
+        // console.log('make post');
+        // console.log(postBody);
         fetch(URLs.baseUrl + URLs.user.preferences, {
             method: 'POST',
             headers: authHeaders(token),
@@ -114,11 +115,7 @@ class UserStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
-            let userPreferences = parseUserPreferences(payload);
-            console.log('success', userPreferences);
-            //TODO if there were changes while a fetch was going on, we need
-            //to compare the different values and sync
-            // store.setState(userPreferences);
+            return userPreferencesPostResponseOK(payload);
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line

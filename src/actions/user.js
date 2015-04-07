@@ -17,7 +17,7 @@ class UserActions extends Actions {
         return autoUpdateState;
     }
     languageUpdate(languageID) {
-        return languageID;
+        return parseInt(languageID);
     }
 }
 
