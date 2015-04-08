@@ -3,24 +3,24 @@ Nome da tarefa | Trabalho | Início | Término | Progresso |
 Versão do código sem dependencia de ambiente node.js/npm | 35h | Sábado 14/03/2015 | Quarta 18/03 | 100% |
 Tela de login | 57h | Segunda 09/03/2015 | Quarta 25/03 | 100% |
 Captcha | 5h | Segunda 23/03 | Quarta 25/03 | 100% |
-Side menu | 12h | Quarta 25/03 | Quinta 26/03 | 0% |
-App header e paineis | 51h | Sexta 27/03 | Terça 14/04 | 0% |
+Side menu | 12h | Quarta 25/03 | Quinta 26/03 | 100% |
+App header e paineis | 51h | Sexta 27/03 | Terça 14/04 | 5% |
 Dashboard | 88h | Terça 14/04 | Quarta 06/05 | 0% |
 Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
 Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
 Splash Screen | 17h | Quarta 27/05 | Terça 02/06 | 0% |
 Bugfixes | 5h | ??? | ??? | 0% |
 Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
-Desenvolvimento total | 409 | - | Terça 16/06 | 26% |
+Desenvolvimento total | 409 | - | Terça 16/06 | 29% |
 Liberação do código open source | - | 16/09 |  |  |
 
-__última atualização: 25/03/14:17__
+__última atualização: 08/04/15:58__
 
 -----
 
 Total 
 -----
-- 107/409 = 26.16%
+- 119/409 = 29.09%
 
 Cálculo
 -------
@@ -34,20 +34,8 @@ Cálculo
 #### Captcha (0/2)
 - decidir se tem feedback de resposta correta/errada antes da submissao (2)
 
-### Slide menu (12)
-- fechar em uma biblioteca para assets mobile, bootstrap? (8)
-- widget botao on-off (2)
-- radio-box na forma de lista, para linguas (2)
-
-NOVO
-- escrever a estrutura com elementos HTML (3/3) = OK
-- widget de sidebar (2)
-- widget de listGroup (2) = OK
-- widget de listGroupItem (2) = OK
-
-
-### App Header + Paineis (51)
-- botao abre-fecha slide (3)
+### App Header + Paineis (3/51)
+- botao abre-fecha slide (3) = OK
 - botoes que abrem modals de seleção (2)
 - paineis de selecao:
     - P (6)
@@ -133,7 +121,40 @@ Total
 ### Build tasks
 - eliminar linhas gigantes que copiam as fontes Roboto (2)
  
------
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+Update 05/04-10/04
+==================
+
+
+
+Update 30/03-03/04
+==================
+
+### Slide menu (12/12)
+- fechar em uma biblioteca para assets mobile, bootstrap? (8) = OK
+- widget botao on-off (2) = OK
+- radio-box na forma de lista, para linguas (2) = OK
+
+NOVO
+- escrever a estrutura com elementos HTML (3/3) = OK
+- widget de sidebar (2) = OK
+- widget de listGroup (2) = OK
+- widget de listGroupItem (2) = OK
+
+
+
 
 Update 23/03-27/07
 ==================
