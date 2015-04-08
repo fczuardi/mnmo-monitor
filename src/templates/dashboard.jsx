@@ -5,5 +5,7 @@ import Header from '../components/header';
 export default (p) =>
 <div style={{height: '100%'}}>
     <Menu {...p} />
-    <Header {...p} />
+    <div style={{float: 'left'}}>
+        <Header {...p} />
+    </div>
 </div>;
