@@ -60,6 +60,7 @@ class UserStore extends Store {
     }
     loadSavedPreferences() {
         let preferences = getLocalItem('userPreference');
+        if (preferences === null) { return false; }
         this.setState(preferences);
         this.userActions.languageUpdate(preferences.languageID);
     }
@@ -115,7 +116,7 @@ class UserStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
-            return userPreferencesPostResponseOK(payload);
+            store.setState(userPreferencesPostResponseOK(payload));
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line

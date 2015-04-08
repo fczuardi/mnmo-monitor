@@ -37,11 +37,11 @@ function userPreferencesPostResponseOK(payload){
     let response = genericParse(payload),
         result = response.languageID !== undefined;
     if (!result){
-        console.log(response);
+        console.log('Not the expected response', payload);
     } else {
         lastUserPreferenceResponse = response;
     }
-    return result;
+    return parseUserPreferences(lastUserPreferenceResponse);
 }
 function chooseTextOrJSON(response) {
     let contentType = response.headers.get('Content-Type'),
