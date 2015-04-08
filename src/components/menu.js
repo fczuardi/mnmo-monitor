@@ -10,7 +10,11 @@ class Menu {
             autoUpdateChange: (event) =>
                 this.props.flux.getActions('user').autoUpdateToggle(event.target.checked),
             languageSettingChange: (event) =>
-                this.props.flux.getActions('user').languageUpdate(event.target.value)
+                this.props.flux.getActions('user').languageUpdate(event.target.value),
+            openColumnsSelection: (event) => {
+                event.preventDefault();
+                console.log('open column selection panel');
+            }
         };
         return template(this.props, actions);
     }

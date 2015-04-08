@@ -37,6 +37,13 @@ export default (p, a) =>
         </LI>
     ))}
     </List>
+    <List>
+        <LI>
+            <A onClick={a.openColumnsSelection}>
+                {p.language.messages.settings.columns}
+            </A>
+        </LI>
+    </List>
 {extraLinks.map( (group, key) =>
     <List key={key}>
     {group.map( (item, key) =>

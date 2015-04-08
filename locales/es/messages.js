@@ -23,6 +23,7 @@ export default {
             'es-ES': 'Español',
             'en-US': 'English'
         },
+        columns: 'Columnas',
         changePassword: 'Cambiar contraseña',
         logout: 'Cerrar sesión'
     }

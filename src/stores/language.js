@@ -1,7 +1,6 @@
 import {Store} from 'flummox';
-import messagesPt from '../../locales/pt/messages.js';
-import messagesEs from '../../locales/es/messages.js';
-import messagesEn from '../../locales/en/messages.js';
+
+import {messagesPt, messagesEs, messagesEn} from '../../config/languageHelpers';
 
 const defaultMessages = messagesPt;
 
