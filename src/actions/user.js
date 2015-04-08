@@ -19,6 +19,9 @@ class UserActions extends Actions {
     languageUpdate(languageID) {
         return parseInt(languageID);
     }
+    menuVisibilityToggle() {
+        return true;
+    }
 }
 
 export default UserActions;

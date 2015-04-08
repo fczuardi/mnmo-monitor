@@ -41,6 +41,7 @@
     "./actions/session": "global:ActionsSession",
     "./stores/session": "global:StoresSession",
     "./stores/language": "global:StoresLanguage",
+    "./stores/ui": "global:StoresUI",
     "../../locales/pt/messages.js": "global:LocalePT",
     "../../locales/es/messages.js": "global:LocaleES",
     "../../locales/en/messages.js": "global:LocaleEN",

@@ -9,6 +9,7 @@ import LoginValidationStore from './stores/loginValidation';
 import SessionActions from './actions/session';
 import SessionStore from './stores/session';
 import LanguageStore from './stores/language';
+import UIStore from './stores/ui';
 
 
 
@@ -30,6 +31,7 @@ class MonitorFlux extends Flummox {
         this.createStore('user', UserStore, this);
         this.createStore('loginValidation', LoginValidationStore, this);
         this.createStore('language', LanguageStore, this);
+        this.createStore('ui', UIStore, this);
     }
 
 }

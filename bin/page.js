@@ -63,6 +63,7 @@ var options = {
         './js/stores/loginValidation.js',
         './js/stores/session.js',
         './js/stores/language.js',
+        './js/stores/ui.js',
         '$comment=stores',
         './js/menulinks.js',
         './js/components/menu.js',

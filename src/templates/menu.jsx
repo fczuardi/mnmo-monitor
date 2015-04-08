@@ -8,7 +8,7 @@ import A from 'mnmo-components/lib/themes/mnmo/a';
 import extraLinks from '../../config/menulinks';
 
 export default (p, a) =>
-<Drawer>
+<Drawer closed={p.ui.menuClosed}>
     <List>
         <LI>
             <Switch 

@@ -16,7 +16,8 @@ render(
                     country: (store) => ({ country: store.state}),
                     user: (store) => ({ user: store.state}),
                     loginValidation: (store) => ({ loginForm: store.state}),
-                    session: (store) => ({ session: store.state})
+                    session: (store) => ({ session: store.state}),
+                    ui: (store) => ({ ui: store.state})
                 }
             },
             createElement(Router)
