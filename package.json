@@ -25,6 +25,7 @@
     "mnmo-components/lib/themes/mnmo/li": "global:MNMOLi",
     "mnmo-components/lib/themes/mnmo/switch": "global:MNMOSwitch",
     "mnmo-components/lib/themes/mnmo/a": "global:MNMOA",
+    "mnmo-components/lib/themes/mnmo/toolbar": "global:MNMOToolbar",
     "./components/router": "global:APPRouter",
     "../components/login": "global:APPLogin",
     "../components/dashboard": "global:APPDashboard",
