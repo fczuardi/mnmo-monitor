@@ -11,5 +11,8 @@ export default {
     },
     user: {
         preferences: '/user/preferences'
+    },
+    columns: {
+        list: '/columns/list'
     }
 };

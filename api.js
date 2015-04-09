@@ -8,18 +8,24 @@ import URLs from './config/endpoints.js';
 const router = new Router();
 const koaBody = requestbody();
 
-router.get(URLs.country.list, function *(next) {
+console.log(URLs.country.list);
+
+router.get(URLs.country.list, function* countryList(next) {
     let filename = './fake-data/country.json';
     this.body = readFileSync(filename);
     yield next;
 });
-
-router.get(URLs.user.preferences, function *(next) {
+router.get(URLs.columns.list, function* columnList(next) {
+    let filename = './fake-data/columns.json';
+    this.body = readFileSync(filename);
+    yield next;
+});
+router.get(URLs.user.preferences, function* getUserPref(next) {
     let filename = './fake-data/user.json';
     this.body = readFileSync(filename);
     yield next;
 });
-router.post(URLs.user.preferences, koaBody, function *(next) {
+router.post(URLs.user.preferences, koaBody, function* postUserPref(next) {
     let filename = './fake-data/user.json';
     let file = yield jsonFile(filename);
     if ((this.request.body.autoUpdate !== undefined) &&
@@ -32,13 +38,13 @@ router.post(URLs.user.preferences, koaBody, function *(next) {
     yield next;
 });
 
-router.get(URLs.validation.captcha, function *(next) {
+router.get(URLs.validation.captcha, function* getCaptcha(next) {
     let filename = './fake-data/captcha.json';
     this.body = readFileSync(filename);
     yield next;
 });
 
-router.post(URLs.session.login, function *(next) {
+router.post(URLs.session.login, function* makeLogin(next) {
     let filename = './fake-data/login.success.json';
     this.body = readFileSync(filename);
     yield next;
