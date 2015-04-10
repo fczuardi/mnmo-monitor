@@ -69,6 +69,7 @@ export default {
     parseUserPreferences: parseUserPreferences,
     userPreferencesPostResponseOK: userPreferencesPostResponseOK,
     parseCountryList: genericParse,
+    parseColumnsList: genericParse,
     parseCaptchaSetup: genericParse,
     parseLoginResponse: genericParse,
     authHeaders: authHeaders,

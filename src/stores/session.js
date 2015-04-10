@@ -52,6 +52,7 @@ class SessionStore extends Store {
             if (sessionData.token){
                 store.setState(sessionData);
                 setLocalItem('sessionToken', sessionData.token);
+                store.flux.getActions('session').tokenGranted(sessionData.token);
             }else if (sessionData.error) {
                 store.setState({
                     error: sessionData.error

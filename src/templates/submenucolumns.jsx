@@ -14,6 +14,7 @@ export default (p, a) =>
     {p.columns.enabled.map( (column, key) =>
         <LI key={key}>
             <Checkbox
+                id={('column-enabled-' + key)}
                 isItem={true}
                 checked={true}
             >
@@ -24,6 +25,7 @@ export default (p, a) =>
     {p.columns.disabled.map( (column, key) =>
         <LI key={key}>
             <Checkbox
+                id={('column-disabled-' + key)}
                 isItem={true}
                 checked={false}
             >

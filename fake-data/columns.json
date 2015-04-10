@@ -1,11 +1,28 @@
 [
     {
-        "label": "A"
+        "id": 0,
+        "label": "A",
+        "enabled": true
     },
     {
-        "label": "B"
+        "id": 4,
+        "label": "E",
+        "enabled": true
+    },
+    {
+        "id": 1,
+        "label": "B",
+        "enabled": false
     }, 
     {
-        "label": "C"
+        "id": 3,
+        "label": "D",
+        "enabled": false
+    }, 
+    {
+        "id": 2,
+        "label": "C",
+        "enabled": false
+
     }
 ]

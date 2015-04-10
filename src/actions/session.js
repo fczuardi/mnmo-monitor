@@ -7,6 +7,9 @@ class SessionActions extends Actions {
     signOut() {
         return true;
     }
+    tokenGranted(token) {
+        return token;
+    }
 }
 
 export default SessionActions;
