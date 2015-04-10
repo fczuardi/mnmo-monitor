@@ -11,6 +11,7 @@
     "lodash/object/merge": "global:LodashMerge",
     "flummox/component": "global:FluxComponent",
     "./shared": "global:MNMOVariables",
+    "./styles/shared": "global:MNMOVariables",
     "mnmo-components/lib/themes/mnmo/stage": "global:MNMOStage",
     "mnmo-components/lib/themes/mnmo/drawer": "global:MNMODrawer",
     "mnmo-components/lib/themes/mnmo/centeredbox": "global:MNMOCenteredBox",
