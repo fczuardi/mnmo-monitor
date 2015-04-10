@@ -18,6 +18,20 @@ __última atualização: 08/04/15:58__
 
 -----
 
+Quinta
+-----------
+
+- click abre emissoras = OK
+- click em voltar, fecha = OK
+- setinha indicando submenu = OK
+- get emissoras da api
+
+
+Sexta
+------
+- reuniao
+
+
 Total 
 -----
 - 119/409 = 29.09%
