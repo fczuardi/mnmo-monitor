@@ -172,9 +172,9 @@
   },
   "homepage": "https://github.com/fczuardi/mnmo-monitor",
   "devDependencies": {
-    "babel": "^5.0.10",
+    "babel": "^5.0.12",
     "babelify": "^6.0.2",
-    "browserify": "^9.0.7",
+    "browserify": "^9.0.8",
     "browserify-shim": "^3.8.3",
     "console-polyfill": "^0.2.1",
     "es5-shim": "^4.1.0",
