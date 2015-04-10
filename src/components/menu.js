@@ -1,22 +1,25 @@
 import template from '../templates/menu.jsx';
+import merge from 'lodash/object/merge';
 
 class Menu {
     render() {
+        const p = merge({}, this.props);
         const actions = {
             logoutClick: (event) => {
                 event.preventDefault();
-                this.props.flux.getActions('session').signOut();
+                p.flux.getActions('session').signOut();
             },
             autoUpdateChange: (event) =>
-                this.props.flux.getActions('user').autoUpdateToggle(event.target.checked),
+                p.flux.getActions('user').autoUpdateToggle(event.target.checked),
             languageSettingChange: (event) =>
-                this.props.flux.getActions('user').languageUpdate(event.target.value),
+                p.flux.getActions('user').languageUpdate(event.target.value),
             openColumnsSelection: (event) => {
                 event.preventDefault();
-                console.log('open column selection panel');
+                p.flux.getActions('user').openSubmenu('columns');
             }
         };
-        return template(this.props, actions);
+        p.panelsOpened = (p.ui.submenu !== null) ? 2 : 1;
+        return template(p, actions);
     }
 }
 

@@ -2,7 +2,10 @@ import template from '../templates/submenucolumns.jsx';
 
 class ColumnsSubmenu {
     render() {
-        return template(this.props);
+        const actions = {
+            closeDrawer: () => this.props.flux.getActions('user').closeSubmenu()
+        };
+        return template(this.props, actions);
     }
 }
 

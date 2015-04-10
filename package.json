@@ -33,6 +33,7 @@
     "../components/menu": "global:APPMenu",
     "../components/header": "global:APPHeader",
     "../components/submenucolumns": "global:APPColumnsPanel",
+    "../components/submenurouter": "global:APPPanelsRouter",
     "../lib/local": "global:LocalStorageHelpers",
     "./actions/country": "global:ActionsCountry",
     "./stores/country": "global:StoresCountry",

@@ -73,6 +73,7 @@ var options = {
         '$comment=stores',
         './js/menulinks.js',
         './js/components/submenucolumns.js',
+        './js/components/submenurouter.js',
         './js/components/menu.js',
         './js/components/header.js',
         './js/components/login.js',

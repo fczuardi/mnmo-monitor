@@ -22,6 +22,12 @@ class UserActions extends Actions {
     menuVisibilityToggle() {
         return true;
     }
+    openSubmenu(name) {
+        return name;
+    }
+    closeSubmenu() {
+        return null;
+    }
 }
 
 export default UserActions;

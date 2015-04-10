@@ -4,9 +4,11 @@ import List from 'mnmo-components/lib/themes/mnmo/list';
 import LI from 'mnmo-components/lib/themes/mnmo/li';
 import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
 
-export default (p) =>
+export default (p, a) =>
 <Drawer
     title={p.language.messages.settings.columns}
+    closeLabel={p.language.messages.settings.close}
+    onCloseClick={a.closeDrawer}
 >
     <List>
     {p.columns.enabled.map( (column, key) =>

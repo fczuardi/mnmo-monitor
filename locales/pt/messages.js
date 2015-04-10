@@ -24,6 +24,7 @@ export default {
             'en-US': 'English'
         },
         columns: 'Colunas',
+        close: 'Fechar',
         changePassword: 'Alterar senha',
         logout: 'Sair'
     }

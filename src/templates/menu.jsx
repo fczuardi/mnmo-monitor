@@ -6,10 +6,13 @@ import Switch from 'mnmo-components/lib/themes/mnmo/switch';
 import Radio from 'mnmo-components/lib/themes/mnmo/radio';
 import A from 'mnmo-components/lib/themes/mnmo/a';
 import extraLinks from '../../config/menulinks';
-import ColumnsSubmenu from '../components/submenucolumns';
+import SubmenuRouter from '../components/submenurouter';
 
 export default (p, a) =>
-<Drawer closed={p.ui.menuClosed} container={true}>
+<Drawer 
+    closed={p.ui.menuClosed} 
+    container={true} 
+    panelsOpened={p.panelsOpened}>
     <Drawer>
         <List>
             <LI>
@@ -70,5 +73,5 @@ export default (p, a) =>
             </LI>
         </List>
     </Drawer>
-    <ColumnsSubmenu {...p} />
+    <SubmenuRouter {...p} />
 </Drawer>;
