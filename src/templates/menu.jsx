@@ -44,7 +44,7 @@ export default (p, a) =>
         </List>
         <List>
             <LI>
-                <A type="panel" onClick={a.openColumnsSelection}>
+                <A type="panel" href="#" onClick={a.openColumnsSelection}>
                     {p.language.messages.settings.columns}
                 </A>
             </LI>
