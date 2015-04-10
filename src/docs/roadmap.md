@@ -4,7 +4,7 @@ Versão do código sem dependencia de ambiente node.js/npm | 35h | Sábado 14/03
 Tela de login | 57h | Segunda 09/03/2015 | Quarta 25/03 | 100% |
 Captcha | 5h | Segunda 23/03 | Quarta 25/03 | 100% |
 Side menu | 12h | Quarta 25/03 | Quinta 26/03 | 100% |
-App header e paineis | 61h | Sexta 27/03 | Terça 14/04 | 5% |
+App header e paineis | 61h | Sexta 27/03 | Terça 14/04 | 8% |
 Dashboard | 88h | Terça 14/04 | Quarta 06/05 | 0% |
 Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
 Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
@@ -18,44 +18,29 @@ __última atualização: 08/04/15:58__
 
 -----
 
-Quinta
------------
-
-- click abre emissoras = OK
-- click em voltar, fecha = OK
-- setinha indicando submenu = OK
-- get emissoras da api
-
-
 Sexta
 ------
+- cache local de colunas
+- ícones das colunas (API)
+- pedir icones novos (menu)
 - reuniao
 
 
 Total 
 -----
-- 119/409 = 29.09%
+- 121/409 = 29.58%
 
 Cálculo
 -------
 
-### Bogfixes (0/5)
-
-#### Login (0/3)
-- casos de erro
-    - implementar (3)
-
-#### Captcha (0/2)
-- decidir se tem feedback de resposta correta/errada antes da submissao (2)
-
-### App Header + Paineis (3/61)
+### App Header + Paineis (5/61)
 - botao abre-fecha slide (3) = OK
-- botoes que abrem modals de seleção (2)
+- botoes que abrem modals de seleção (2) = OK
 - paineis de selecao:
+    - E (10)
     - P (6)
     - I (6)
     - M (34)
-    - E (10)
 
 ### Dashboard (52 + 36 = 88)
 - chamadas a API para montar o load inicial (5)
@@ -118,12 +103,24 @@ Bookmarks
 
 - Matterial UI = http://material-ui.com/#/components/date-picker
 
+
+### Bogfixes (0/5)
+
+#### Login (0/3)
+- casos de erro
+    - implementar (3)
+
+
 Bikeshedding
 ============
 
 Total
 -----
 - 0/32 = 0%
+
+#### Captcha (0/2)
+- decidir se tem feedback de resposta correta/errada antes da submissao (2)
+
 
 ### Componentes
 - migrar os estilos de export default {} para export default function(){} (5)
@@ -154,6 +151,13 @@ Update 05/04-10/04
 
 - User preferences salvando pela API (Auto-update e possívelmente Língua)
 - Botão de abrir/fechar menu gaveta
+- click abre colunas = OK
+- click em voltar, fecha = OK
+- setinha indicando submenu = OK
+- get colunas da api = OK
+- checkbox colunas funcionando = OK
+- POST na API /columns/list = OK
+
 
 
 

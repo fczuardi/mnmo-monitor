@@ -38,6 +38,18 @@ router.post(URLs.user.preferences, koaBody, function* postUserPref(next) {
     yield next;
 });
 
+router.post(URLs.columns.list, koaBody, function* postColumnsList(next) {
+    let filename = './fake-data/columns.json';
+    let file = yield jsonFile(filename);
+    if (Array.isArray(this.request.body.columns)) {
+        console.log(this.request.body);
+        file.set(this.request.body);
+    }
+    yield file.save();
+    this.body = JSON.stringify(file.data);
+    yield next;
+});
+
 router.get(URLs.validation.captcha, function* getCaptcha(next) {
     let filename = './fake-data/captcha.json';
     this.body = readFileSync(filename);

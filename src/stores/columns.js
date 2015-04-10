@@ -3,7 +3,10 @@ import URLs from '../../config/endpoints.js';
 import {
     authHeaders,
     chooseTextOrJSON,
-    parseColumnsList
+    parseColumnsList,
+    diffColumnsList,
+    buildColumnsListPostBody,
+    columnListPostResponseOK
 } from '../../config/apiHelpers';
 import partition from 'lodash/collection/partition';
 import sortBy from 'lodash/collection/sortBy';
@@ -22,7 +25,16 @@ class ColumnsStore extends Store {
             disabled: [
             ]
         };
+        this.sessionStore = sessionStore;
         this.fetchColumns(sessionStore.state.token);
+        //columns state changed
+        this.addListener('change', function(){
+            this.savePreferences();
+        });
+    }
+    savePreferences() {
+        //post logged-user columns changes to the server
+        this.publishChanges();
     }
     fetchColumns(token) {
         let store = this;
@@ -33,7 +45,7 @@ class ColumnsStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
-            let columns = parseColumnsList(payload),
+            let columns = parseColumnsList(payload).columns,
                 groupedColumns = partition(columns, 'enabled');
             store.setState({
                 enabled: groupedColumns[0],
@@ -43,6 +55,30 @@ class ColumnsStore extends Store {
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line
         });
+    }
+    publishChanges() {
+        let store = this,
+            token = store.sessionStore.state.token,
+            hasChanged = diffColumnsList(store.state),
+            postBody = buildColumnsListPostBody(store.state);
+        if (token === null){ return false; }
+        if (hasChanged === false){ return false; }
+        if (!postBody){ return false; }
+        console.log('make post');
+        console.log(postBody);
+        fetch(URLs.baseUrl + URLs.columns.list, {
+            method: 'POST',
+            headers: authHeaders(token),
+            body: postBody
+        })
+        .then(chooseTextOrJSON)
+        .then(function(payload){
+            store.setState(columnListPostResponseOK(payload));
+        })
+        .catch(function(e){
+            console.log('parsing failed', e); // eslint-disable-line
+        });
+        
     }
     updateSelection(obj) {
         let groupToInclude = (obj.checked === true) ? 
