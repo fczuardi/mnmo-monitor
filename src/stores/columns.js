@@ -13,7 +13,9 @@ class ColumnsStore extends Store {
         super();
         const sessionStore = flux.getStore('session');
         const sessionActions = flux.getActions('session');
+        const columnsActions = flux.getActions('columns');
         this.register(sessionActions.tokenGranted, this.fetchColumns);
+        this.register(columnsActions.updateColumnSelectedState, this.updateSelection);
         this.state = {
             enabled: [
             ],
@@ -41,6 +43,26 @@ class ColumnsStore extends Store {
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line
         });
+    }
+    updateSelection(obj) {
+        let groupToInclude = (obj.checked === true) ? 
+                                this.state.enabled : this.state.disabled,
+            groupToExclude = (obj.checked === true) ? 
+                                this.state.disabled : this.state.enabled,
+            partitionedGroup = partition(
+                groupToExclude, 'id', parseInt(obj.columnID)
+            );
+        if (obj.checked === true){
+            this.setState({
+                enabled: groupToInclude.concat(partitionedGroup[0]),
+                disabled: partitionedGroup[1]
+            });
+        } else {
+            this.setState({
+                enabled: partitionedGroup[1],
+                disabled: sortBy(groupToInclude.concat(partitionedGroup[0]), 'label')
+            });
+        }
     }
 }
 

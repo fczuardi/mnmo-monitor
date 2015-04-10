@@ -57,6 +57,7 @@ var options = {
         './js/actions/user.js',
         './js/actions/loginValidation.js',
         './js/actions/session.js',
+        './js/actions/columns.js',
         '$comment=actions',
         './lib/js/local.js',
         './js/messages-pt.js',

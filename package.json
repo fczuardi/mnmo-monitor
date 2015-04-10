@@ -48,6 +48,7 @@
     "./stores/session": "global:StoresSession",
     "./stores/language": "global:StoresLanguage",
     "./stores/ui": "global:StoresUI",
+    "./actions/columns": "global:ActionsColumns",
     "./stores/columns": "global:StoresColumns",
     "../locales/pt/messages": "global:LocalePT",
     "../locales/es/messages": "global:LocaleES",

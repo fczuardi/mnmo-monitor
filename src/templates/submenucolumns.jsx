@@ -15,8 +15,10 @@ export default (p, a) =>
         <LI key={key}>
             <Checkbox
                 id={('column-enabled-' + key)}
+                value={column.id}
                 isItem={true}
                 checked={true}
+                onChange={a.columnChange}
             >
                 {column.label}
             </Checkbox>
@@ -26,8 +28,10 @@ export default (p, a) =>
         <LI key={key}>
             <Checkbox
                 id={('column-disabled-' + key)}
+                value={column.id}
                 isItem={true}
                 checked={false}
+                onChange={a.columnChange}
             >
                 {column.label}
             </Checkbox>
