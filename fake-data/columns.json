@@ -1,14 +1,26 @@
 {
-    "columns": [
-        {
-            "id": 0,
-            "label": "A",
-            "enabled": true
-        },
+    "enabled": [
         {
             "id": 4,
             "label": "E",
             "enabled": true
+        },
+        {
+            "id": 3,
+            "label": "D",
+            "enabled": true
+        },
+        {
+            "id": 2,
+            "label": "C",
+            "enabled": false
+        }
+    ],
+    "disabled": [
+        {
+            "id": 0,
+            "label": "A",
+            "enabled": false
         },
         {
             "id": 1,
@@ -18,11 +30,6 @@
         {
             "id": 2,
             "label": "C",
-            "enabled": false
-        },
-        {
-            "id": 3,
-            "label": "D",
             "enabled": false
         }
     ]

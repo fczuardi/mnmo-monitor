@@ -45,12 +45,9 @@ class ColumnsStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
-            let columns = parseColumnsList(payload).columns,
-                groupedColumns = partition(columns, 'enabled');
-            store.setState({
-                enabled: groupedColumns[0],
-                disabled: sortBy(groupedColumns[1], 'label')
-            });
+            let columns = parseColumnsList(payload);
+            console.log('columns', columns);
+            store.setState(columns);
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line
@@ -65,7 +62,7 @@ class ColumnsStore extends Store {
         if (hasChanged === false){ return false; }
         if (!postBody){ return false; }
         console.log('make post');
-        console.log(postBody);
+        // console.log(postBody);
         fetch(URLs.baseUrl + URLs.columns.list, {
             method: 'POST',
             headers: authHeaders(token),
@@ -73,7 +70,8 @@ class ColumnsStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
-            store.setState(columnListPostResponseOK(payload));
+            let response = columnListPostResponseOK(payload);
+            console.log(response);
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line

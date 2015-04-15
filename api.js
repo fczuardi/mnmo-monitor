@@ -41,7 +41,7 @@ router.post(URLs.user.preferences, koaBody, function* postUserPref(next) {
 router.post(URLs.columns.list, koaBody, function* postColumnsList(next) {
     let filename = './fake-data/columns.json';
     let file = yield jsonFile(filename);
-    if (Array.isArray(this.request.body.columns)) {
+    if (Array.isArray(this.request.body.enabled)) {
         console.log(this.request.body);
         file.set(this.request.body);
     }

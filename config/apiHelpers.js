@@ -59,18 +59,16 @@ function buildUserPreferencesPostBody(state){
     return JSON.stringify(body);
 }
 function buildColumnsListPostBody(state){
-    let columns = [];
-    state.enabled.forEach( (column) => {
-        column.enabled = true;
-        columns.push(column);
-    });
-    state.disabled.forEach( (column) => {
-        column.enabled = false;
-        columns.push(column);
-    });
-    return JSON.stringify({
-        columns: columns
-    });
+    // let columns = [];
+    // state.enabled.forEach( (column) => {
+    //     column.enabled = true;
+    //     columns.push(column);
+    // });
+    // state.disabled.forEach( (column) => {
+    //     column.enabled = false;
+    //     columns.push(column);
+    // });
+    return JSON.stringify(state);
 }
 function diffUserPreferences(state){
     return diffPayloads(
@@ -97,7 +95,7 @@ function userPreferencesPostResponseOK(payload){
 }
 function columnListPostResponseOK(payload){
     let response = genericParse(payload),
-        result = Array.isArray(response.columns);
+        result = Array.isArray(response.enabled);
     if (!result){
         console.log('Not the expected response', payload);
     } else {
