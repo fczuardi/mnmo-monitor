@@ -186,7 +186,7 @@
     "console-polyfill": "^0.2.1",
     "es5-shim": "^4.1.1",
     "eslint": "^0.18.0",
-    "flummox": "^3.5.1",
+    "flummox": "^3.5.2",
     "goog-webfont-dl": "^0.1.1",
     "intl": "^0.1.4",
     "js-beautify": "^1.5.5",
