@@ -46,7 +46,6 @@ class ColumnsStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             let columns = parseColumnsList(payload);
-            console.log('columns', columns);
             store.setState(columns);
         })
         .catch(function(e){
