@@ -59,6 +59,8 @@ function buildUserPreferencesPostBody(state){
     let body = merge({}, lastUserPreferenceResponse);
     body.languageID = state.languageID;
     body.autoUpdate = state.autoUpdate;
+    body.groupID = state.groupID;
+    body.groupShortLabel = state.groupShortLabel;
     return JSON.stringify(body);
 }
 function buildColumnsListPostBody(state){

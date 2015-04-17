@@ -30,11 +30,8 @@ class GroupsStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('paylaod', payload);
             let groups = parseGroups(payload).groups,
                 partitionedGroups = partition(groups, 'type', 1);
-            console.log('groups:', groups);
-            console.log('partition', partitionedGroups);
             store.setState({
                 type1: partitionedGroups[0],
                 type2: partitionedGroups[1]

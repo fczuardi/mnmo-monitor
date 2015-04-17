@@ -48,7 +48,7 @@ class UserStore extends Store {
             languageID: null,
             autoUpdate: null,
             groupID: 1,
-            groupShortLabel: 'FOO'
+            groupShortLabel: ''
         };
         this.loadSavedPreferences();
         //user preferences state changed
