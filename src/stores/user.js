@@ -47,7 +47,7 @@ class UserStore extends Store {
             preferencesLoading: false,
             languageID: null,
             autoUpdate: null,
-            groupID: 1,
+            groupID: null,
             groupShortLabel: ''
         };
         this.loadSavedPreferences();
@@ -55,10 +55,16 @@ class UserStore extends Store {
         this.addListener('change', function(){
             this.savePreferences();
         });
+        //TODO this can be better:
+        //as it is currently, the 3 stores below are required to be
+        //created before this one in the flux.js file
         this.countryStore = flux.getStore('country');
         this.sessionStore = flux.getStore('session');
+        this.groupsStore = flux.getStore('groups');
         //country store changed
         this.countryStore.addListener('change', this.countryOptionsLoaded.bind(this));
+        //groups store changed
+        this.groupsStore.addListener('change', this.groupsChanged.bind(this));
         //user session changed
         this.sessionStore.addListener('change', this.fetchPreferences.bind(this));
         this.fetchPreferences();
@@ -112,7 +118,7 @@ class UserStore extends Store {
         if (store.state.preferencesLoading){ return false; }
         if (hasChanged === false){ return false; }
         if (!postBody){ return false; }
-        // console.log('make post');
+        console.log('make post');
         // console.log(postBody);
         fetch(URLs.baseUrl + URLs.user.preferences, {
             method: 'POST',
@@ -132,6 +138,9 @@ class UserStore extends Store {
             this.flux.getActions('country').select(
                                         this.countryStore.state.options[0].id);
         }
+    }
+    groupsChanged() {
+        this.changeGroupPref(this.state.groupID);
     }
     changeUsernamePref(username) {
         this.setState({
@@ -191,11 +200,15 @@ class UserStore extends Store {
             languageID: languageID
         });
     }
+    getGroupFromStore(groupID) {
+        let groupsState = this.flux.getStore('groups').state;
+        let allGroups = groupsState.type1.concat(groupsState.type2);
+        let selectedGroup = find(allGroups, 'id', groupID);
+        return selectedGroup;
+    }
     changeGroupPref(groupID){
-        let intGroupID = parseInt(groupID),
-            groupsState = this.flux.getStore('groups').state,
-            allGroups = groupsState.type1.concat(groupsState.type2),
-            selectedGroup = find(allGroups, 'id', intGroupID);
+        let intGroupID = parseInt(groupID);
+        let selectedGroup = this.getGroupFromStore(intGroupID);
         this.setState({
             groupID: intGroupID,
             groupShortLabel: selectedGroup.shortLabel

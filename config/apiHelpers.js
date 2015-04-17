@@ -73,7 +73,7 @@ function diffUserPreferences(state){
     );
 }
 function diffColumnsList(state){
-    console.log('state', state);
+    // console.log('state', state);
     return diffPayloads(
         lastColumnsResponse, 
         buildColumnsListPostBody(state)

@@ -23,7 +23,6 @@ class GroupsStore extends Store {
     fetchGroups(token) {
         let store = this;
         if (token === null){ return false; }
-        console.log('getGroups');
         fetch(URLs.baseUrl + URLs.filters.groups, {
             method: 'GET',
             headers: authHeaders(token)

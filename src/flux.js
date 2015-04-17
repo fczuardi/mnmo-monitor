@@ -34,12 +34,12 @@ class MonitorFlux extends Flummox {
         //stores
         this.createStore('country', CountryStore, this);
         this.createStore('session', SessionStore, this);
+        this.createStore('groups', GroupsStore, this);
         this.createStore('user', UserStore, this);
         this.createStore('loginValidation', LoginValidationStore, this);
         this.createStore('language', LanguageStore, this);
         this.createStore('ui', UIStore, this);
         this.createStore('columns', ColumnsStore, this);
-        this.createStore('groups', GroupsStore, this);
     }
 
 }
