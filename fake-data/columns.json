@@ -1,36 +1,26 @@
 {
     "enabled": [
         {
-            "id": 4,
-            "label": "E",
-            "enabled": true
+            "id": 0,
+            "label": "A"
         },
         {
             "id": 3,
-            "label": "D",
-            "enabled": true
-        },
-        {
-            "id": 2,
-            "label": "C",
-            "enabled": false
+            "label": "D"
         }
     ],
     "disabled": [
         {
-            "id": 0,
-            "label": "A",
-            "enabled": false
-        },
-        {
             "id": 1,
-            "label": "B",
-            "enabled": false
+            "label": "B"
         },
         {
             "id": 2,
-            "label": "C",
-            "enabled": false
+            "label": "C"
+        },
+        {
+            "id": 4,
+            "label": "E"
         }
     ]
 }
