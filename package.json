@@ -50,6 +50,7 @@
     "./stores/ui": "global:StoresUI",
     "./actions/columns": "global:ActionsColumns",
     "./stores/columns": "global:StoresColumns",
+    "./stores/groups": "global:StoresGroups",
     "../locales/pt/messages": "global:LocalePT",
     "../locales/es/messages": "global:LocaleES",
     "../locales/en/messages": "global:LocaleEN",

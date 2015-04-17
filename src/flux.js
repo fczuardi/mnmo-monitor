@@ -12,6 +12,7 @@ import LanguageStore from './stores/language';
 import UIStore from './stores/ui';
 import ColumnsActions from './actions/columns';
 import ColumnsStore from './stores/columns';
+import GroupsStore from './stores/groups';
 
 
 
@@ -36,6 +37,7 @@ class MonitorFlux extends Flummox {
         this.createStore('language', LanguageStore, this);
         this.createStore('ui', UIStore, this);
         this.createStore('columns', ColumnsStore, this);
+        this.createStore('groups', GroupsStore, this);
     }
 
 }

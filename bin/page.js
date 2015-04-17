@@ -74,6 +74,7 @@ var options = {
         './js/stores/language.js',
         './js/stores/ui.js',
         './js/stores/columns.js',
+        './js/stores/groups.js',
         '$comment=stores',
         './js/menulinks.js',
         './js/components/submenucolumns.js',

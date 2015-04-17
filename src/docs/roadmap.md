@@ -4,48 +4,53 @@ Versão do código sem dependencia de ambiente node.js/npm | 35h | Sábado 14/03
 Tela de login | 57h | Segunda 09/03/2015 | Quarta 25/03 | 100% |
 Captcha | 5h | Segunda 23/03 | Quarta 25/03 | 100% |
 Side menu | 12h | Quarta 25/03 | Quinta 26/03 | 100% |
-App header e paineis | 61h | Sexta 27/03 | Terça 14/04 | 8% |
+App header e paineis | 61h | Sexta 27/03 | Terça 14/04 | 16% |
 Dashboard | 88h | Terça 14/04 | Quarta 06/05 | 0% |
 Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
 Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
 Splash Screen | 17h | Quarta 27/05 | Terça 02/06 | 0% |
 Bugfixes | 5h | ??? | ??? | 0% |
 Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
-Desenvolvimento total | 409 | - | Terça 16/06 | 29% |
+Desenvolvimento total | 409 | - | Terça 16/06 | 30% |
 Liberação do código open source | - | 16/09 |  |  |
 
-__última atualização: 08/04/15:58__
+__última atualização: 15/04/10:54__
 
 -----
 
-Sexta
+Quarta
+------
+- filtro 1 (P)
+- filtro 2 (I)
+- indicador de auto-update
+
+Later
 ------
 - cache local de colunas
 - ícones das colunas (API)
 - pedir icones novos (menu)
-- reuniao
 
 
 Total 
 -----
-- 121/409 = 29.58%
+- 126/409 = 30.80%
 
 Cálculo
 -------
 
-### App Header + Paineis (5/61)
+### App Header + Paineis (10/61)
 - botao abre-fecha slide (3) = OK
 - botoes que abrem modals de seleção (2) = OK
 - paineis de selecao:
-    - E (10)
+    - E (5/10)
     - P (6)
     - I (6)
     - M (34)
 
 ### Dashboard (52 + 36 = 88)
+- indicador de auto update (1)
 - chamadas a API para montar o load inicial (5)
     - depois chamar a cada minuto (2)
-- indicador de auto update (1)
 - botao "ver medias" (4)
 - header da tabela com ícones (3)
     - ir diminuindo até caberem 5 na largura da tela (3)
@@ -157,6 +162,10 @@ Update 05/04-10/04
 - get colunas da api = OK
 - checkbox colunas funcionando = OK
 - POST na API /columns/list = OK
+- reuniao
+
+
+
 
 
 

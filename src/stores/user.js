@@ -43,7 +43,9 @@ class UserStore extends Store {
             tosURL: '#',
             preferencesLoading: false,
             languageID: null,
-            autoUpdate: null
+            autoUpdate: null,
+            groupID: null,
+            contentID: null
         };
         this.loadSavedPreferences();
         //user preferences state changed

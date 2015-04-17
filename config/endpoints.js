@@ -13,6 +13,10 @@ export default {
         preferences: '/user/preferences'
     },
     columns: {
-        list: '/columns/list'
+        list: '/columns'
+    },
+    filters: {
+        groups: '/filters/groups',
+        variables: '/filters/variables'
     }
 };
