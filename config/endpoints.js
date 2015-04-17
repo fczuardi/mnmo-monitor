@@ -1,5 +1,5 @@
 export default {
-    baseUrl: 'http://localhost:9001',
+    baseUrl: 'http://192.168.1.132:9001',
     country: {
         list: '/country/list'
     },
