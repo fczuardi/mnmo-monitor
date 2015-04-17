@@ -27,5 +27,10 @@ export default {
         close: 'Close',
         changePassword: 'Change password',
         logout: 'Logout'
+    },
+    groups: {
+        title: 'Groups',
+        type1: 'Type 1',
+        type2: 'Type 2'
     }
 };

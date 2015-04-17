@@ -2,15 +2,27 @@
     "groups": [
         {
             "id": 1,
-            "label": "GROUP A"
+            "label": "GROUP A",
+            "shortLabel": "GRA",
+            "type": 1
         },
         {
             "id": 2,
-            "label": "GROUP B"
+            "label": "GROUP B",
+            "shortLabel": "GRB",
+            "type": 1
         },
         {
             "id": 3,
-            "label": "GROUP C"
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 4,
+            "label": "GROUP D",
+            "shortLabel": "GRD",
+            "type": 2
         }
     ]
 }

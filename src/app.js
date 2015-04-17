@@ -18,7 +18,8 @@ render(
                     loginValidation: (store) => ({ loginForm: store.state}),
                     session: (store) => ({ session: store.state}),
                     ui: (store) => ({ ui: store.state}),
-                    columns: (store) => ({ columns: store.state})
+                    columns: (store) => ({ columns: store.state}),
+                    groups: (store) => ({ groups: store.state})
                 }
             },
             createElement(Router)

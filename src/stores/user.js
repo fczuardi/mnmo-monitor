@@ -44,7 +44,8 @@ class UserStore extends Store {
             preferencesLoading: false,
             languageID: null,
             autoUpdate: null,
-            groupID: null,
+            groupID: 1,
+            groupShortLabel: 'FOO',
             contentID: null
         };
         this.loadSavedPreferences();

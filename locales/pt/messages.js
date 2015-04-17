@@ -27,5 +27,10 @@ export default {
         close: 'Fechar',
         changePassword: 'Alterar senha',
         logout: 'Sair'
+    },
+    groups: {
+        title: 'Grupos',
+        type1: 'Tipo 1',
+        type2: 'Tipo 2'
     }
 };

@@ -14,7 +14,7 @@ export default (p, a) =>
     container={true} 
     panelsOpened={p.panelsOpened}>
     <Drawer>
-        <List>
+        <List bottomSpace={true}>
             <LI>
                 <Switch 
                     id="autoUpdateToggle" 
@@ -26,7 +26,7 @@ export default (p, a) =>
                 </Switch>
             </LI>
         </List>
-        <List>
+        <List bottomSpace={true}>
         {p.country.options.map( (country, key) => (
             <LI key={key}>
                 <Radio 
@@ -42,7 +42,7 @@ export default (p, a) =>
             </LI>
         ))}
         </List>
-        <List>
+        <List bottomSpace={true}>
             <LI>
                 <A type="panel" href="#" onClick={a.openColumnsSelection}>
                     {p.language.messages.settings.columns}
@@ -50,7 +50,7 @@ export default (p, a) =>
             </LI>
         </List>
     {extraLinks.map( (group, key) =>
-        <List key={key}>
+        <List key={key} bottomSpace={true}>
         {group.map( (item, key) =>
             <LI key={key}>
                 <A href={item.link}>
