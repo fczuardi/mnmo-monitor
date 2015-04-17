@@ -8,5 +8,7 @@ export default (p, a) =>
         type="menuToggle"
         onClick={a.menuToggleClicked}
     />
-    <button>{p.user.groupShortLabel}</button>
+    <button style={{background: 'none', border: 0}}>
+        {p.user.groupShortLabel}
+    </button>
 </Toolbar>;

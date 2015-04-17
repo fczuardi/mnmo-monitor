@@ -28,10 +28,10 @@ function authHeaders(token){
 function diffPayloads(previous, current){
     if (previous === null){ return false; }
     let previousString = JSON.stringify(previous);
-    console.log('diffPayloads');
-    console.log(previousString);
-    console.log(current);
-    console.log(previousString !== current);
+    // console.log('diffPayloads');
+    // console.log(previousString);
+    // console.log(current);
+    // console.log(previousString !== current);
     return (previousString !== current);
 }
 function buildSignInRequestBody(validationStore, userStore){
@@ -52,6 +52,9 @@ function parseColumnsList(payload){
     lastColumnsResponse = genericParse(payload);
     return lastColumnsResponse;
 }
+function parseGroups(payload){
+    return genericParse(payload);
+}
 function buildUserPreferencesPostBody(state){
     let body = merge({}, lastUserPreferenceResponse);
     body.languageID = state.languageID;
@@ -59,15 +62,6 @@ function buildUserPreferencesPostBody(state){
     return JSON.stringify(body);
 }
 function buildColumnsListPostBody(state){
-    // let columns = [];
-    // state.enabled.forEach( (column) => {
-    //     column.enabled = true;
-    //     columns.push(column);
-    // });
-    // state.disabled.forEach( (column) => {
-    //     column.enabled = false;
-    //     columns.push(column);
-    // });
     return JSON.stringify(state);
 }
 function diffUserPreferences(state){
@@ -113,6 +107,7 @@ export default {
     parseLoginResponse: genericParse,
     parseUserPreferences: parseUserPreferences,
     parseColumnsList: parseColumnsList,
+    parseGroups: parseGroups,
     buildSignInRequestBody: buildSignInRequestBody,
     buildUserPreferencesPostBody: buildUserPreferencesPostBody,
     buildColumnsListPostBody: buildColumnsListPostBody,

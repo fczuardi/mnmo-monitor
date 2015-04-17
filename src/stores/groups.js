@@ -5,6 +5,7 @@ import {
     chooseTextOrJSON,
     parseGroups
 } from '../../config/apiHelpers';
+import partition from 'lodash/collection/partition';
 
 class GroupsStore extends Store {
     constructor(flux) {
@@ -13,28 +14,8 @@ class GroupsStore extends Store {
         const sessionActions = flux.getActions('session');
         this.register(sessionActions.tokenGranted, this.fetchGroups);
         this.state = {
-            type1: [
-                {
-                    "id": 1,
-                    "label": "GROUP A",
-                    "shortLabel": "GRA",
-                    "type": 1
-                },
-                {
-                    "id": 2,
-                    "label": "GROUP B",
-                    "shortLabel": "GRB",
-                    "type": 1
-                }
-            ],
-            type2: [
-                {
-                    "id": 3,
-                    "label": "GROUP C",
-                    "shortLabel": "GRC",
-                    "type": 2
-                }
-            ]
+            type1: [],
+            type2: []
         };
         this.fetchGroups(sessionStore.state.token);
     }
@@ -50,8 +31,14 @@ class GroupsStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('paylaod', payload);
-            let groups = parseGroups(payload);
+            let groups = parseGroups(payload).groups,
+                partitionedGroups = partition(groups, 'type', 1);
             console.log('groups:', groups);
+            console.log('partition', partitionedGroups);
+            store.setState({
+                type1: partitionedGroups[0],
+                type2: partitionedGroups[1]
+            });
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line

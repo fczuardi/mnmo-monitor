@@ -20,6 +20,11 @@ router.get(URLs.columns.list, function* columnList(next) {
     this.body = readFileSync(filename);
     yield next;
 });
+router.get(URLs.filters.groups, function* groupsList(next) {
+    let filename = './fake-data/groups.json';
+    this.body = readFileSync(filename);
+    yield next;
+});
 router.get(URLs.user.preferences, function* getUserPref(next) {
     let filename = './fake-data/user.json';
     this.body = readFileSync(filename);

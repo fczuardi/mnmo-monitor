@@ -1,5 +1,6 @@
 import {Store} from 'flummox';
 import merge from 'lodash/object/merge';
+import find from 'lodash/collection/find';
 import {
     getObject as getLocalItem,
     setObject as setLocalItem,
@@ -22,6 +23,7 @@ class UserStore extends Store {
         const countryActions = flux.getActions('country');
         const loginValidationActions = flux.getActions('loginValidation');
         const sessionActions = flux.getActions('session');
+        const groupsActions = flux.getActions('groups');
         this.flux = flux;
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
@@ -33,6 +35,7 @@ class UserStore extends Store {
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
+        this.register(groupsActions.changeGroupSelection, this.changeGroupPref);
         this.state = {
             username: '',
             password: '',
@@ -45,8 +48,7 @@ class UserStore extends Store {
             languageID: null,
             autoUpdate: null,
             groupID: 1,
-            groupShortLabel: 'FOO',
-            contentID: null
+            groupShortLabel: 'FOO'
         };
         this.loadSavedPreferences();
         //user preferences state changed
@@ -187,6 +189,16 @@ class UserStore extends Store {
     changeLanguagePref(languageID) {
         this.setState({
             languageID: languageID
+        });
+    }
+    changeGroupPref(groupID){
+        let intGroupID = parseInt(groupID),
+            groupsState = this.flux.getStore('groups').state,
+            allGroups = groupsState.type1.concat(groupsState.type2),
+            selectedGroup = find(allGroups, 'id', intGroupID);
+        this.setState({
+            groupID: intGroupID,
+            groupShortLabel: selectedGroup.shortLabel
         });
     }
 }

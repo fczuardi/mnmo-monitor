@@ -4,9 +4,7 @@ import List from 'mnmo-components/lib/themes/mnmo/list';
 import LI from 'mnmo-components/lib/themes/mnmo/li';
 import Radio from 'mnmo-components/lib/themes/mnmo/radio';
 
-let key = 1;
-
-export default (p) =>
+export default (p, a) =>
 <div style={{
     position: 'absolute',
     marginTop: 57
@@ -26,6 +24,7 @@ export default (p) =>
                 value={group.id}
                 isItem={true}
                 checked={(group.id === p.user.groupID)}
+                onChange={a.groupChange}
             >
                 {group.label} ({group.shortLabel})
             </Radio>
@@ -43,6 +42,7 @@ export default (p) =>
                 value={group.id}
                 isItem={true}
                 checked={(group.id === p.user.groupID)}
+                onChange={a.groupChange}
             >
                 {group.label} ({group.shortLabel})
             </Radio>
