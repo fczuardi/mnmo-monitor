@@ -43,6 +43,7 @@ router.post(URLs.columns.list, koaBody, function* postColumnsList(next) {
     let file = yield jsonFile(filename);
     if (Array.isArray(this.request.body.enabled)) {
         console.log(this.request.body);
+        file.data = {};
         file.set(this.request.body);
     }
     yield file.save();
