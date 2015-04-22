@@ -108,6 +108,7 @@ export default {
     parseCaptchaSetup: genericParse,
     parseLoginResponse: genericParse,
     parseUserPreferences: parseUserPreferences,
+    parseLanguages: genericParse,
     parseColumnsList: parseColumnsList,
     parseGroups: parseGroups,
     buildSignInRequestBody: buildSignInRequestBody,

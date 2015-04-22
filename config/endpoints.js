@@ -12,6 +12,9 @@ export default {
     user: {
         preferences: '/user/preferences'
     },
+    languages: {
+        list: '/languages'
+    },
     columns: {
         list: '/columns'
     },

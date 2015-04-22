@@ -18,11 +18,6 @@ export default {
     },
     settings: {
         autoUpdate: 'Auto-atualizar',
-        languages: {
-            'pt-BR': 'Português',
-            'es-ES': 'Español',
-            'en-US': 'English'
-        },
         columns: 'Colunas',
         close: 'Fechar',
         changePassword: 'Alterar senha',

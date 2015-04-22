@@ -27,17 +27,17 @@ export default (p, a) =>
             </LI>
         </List>
         <List bottomSpace={true}>
-        {p.country.options.map( (country, key) => (
+        {p.language.list.map( (language, key) => (
             <LI key={key}>
                 <Radio 
                     name="settings-language"
                     id={'settings-language-' + key}
-                    value={country.id}
-                    checked={(country.id == p.user.languageID)}
+                    value={language.id}
+                    checked={(language.id == p.user.languageID)}
                     isItem={true}
                     onChange={a.languageSettingChange}
                 >
-                    {p.language.messages.settings.languages[country.lang]}
+                    {language.label}
                 </Radio>
             </LI>
         ))}

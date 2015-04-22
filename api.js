@@ -15,6 +15,11 @@ router.get(URLs.country.list, function* countryList(next) {
     this.body = readFileSync(filename);
     yield next;
 });
+router.get(URLs.languages.list, function* languagesList(next) {
+    let filename = './fake-data/languages.json';
+    this.body = readFileSync(filename);
+    yield next;
+});
 router.get(URLs.columns.list, function* columnList(next) {
     let filename = './fake-data/columns.json';
     this.body = readFileSync(filename);
