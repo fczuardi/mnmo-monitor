@@ -31,11 +31,11 @@ class UserStore extends Store {
         this.register(userActions.tosAgreementUpdate, this.changeTosPref);
         this.register(userActions.autoUpdateToggle, this.changeAutoUpdatePref);
         this.register(userActions.languageUpdate, this.changeLanguagePref);
-        this.userActions = userActions;
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
         this.register(groupsActions.changeGroupSelection, this.changeGroupPref);
+        this.userActions = userActions;
         this.state = {
             username: '',
             password: '',
@@ -127,7 +127,8 @@ class UserStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
-            store.setState(userPreferencesPostResponseOK(payload));
+            let newState = userPreferencesPostResponseOK(payload);
+            console.log(newState);
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line
@@ -207,6 +208,7 @@ class UserStore extends Store {
         return selectedGroup;
     }
     changeGroupPref(groupID){
+        if (groupID === null) { return false }
         let intGroupID = parseInt(groupID);
         let selectedGroup = this.getGroupFromStore(intGroupID);
         this.setState({

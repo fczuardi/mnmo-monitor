@@ -15,6 +15,7 @@ class ColumnsStore extends Store {
     constructor(flux) {
         super();
         const sessionStore = flux.getStore('session');
+        const userStore = flux.getStore('user');
         const sessionActions = flux.getActions('session');
         const columnsActions = flux.getActions('columns');
         this.register(sessionActions.tokenGranted, this.fetchColumns);
@@ -26,26 +27,38 @@ class ColumnsStore extends Store {
             ]
         };
         this.sessionStore = sessionStore;
-        this.fetchColumns(sessionStore.state.token);
+        this.userStore = userStore;
+        // this.fetchColumns(sessionStore.state.token);
         //columns state changed
         this.addListener('change', function(){
             this.savePreferences();
         });
+        this.previousSelectedGroup = userStore.state.groupID;
+        this.userStore.addListener('change', this.userChanged.bind(this));
     }
     savePreferences() {
         //post logged-user columns changes to the server
         this.publishChanges();
     }
+    userChanged() {
+        if (this.userStore.state.groupID !== this.previousSelectedGroup){
+            this.fetchColumns(this.sessionStore.state.token);
+        }
+        this.previousSelectedGroup = this.userStore.state.groupID;
+    }
     fetchColumns(token) {
         let store = this;
         if (token === null){ return false; }
+        console.log('GET', URLs.columns.list);
         fetch(URLs.baseUrl + URLs.columns.list, {
             method: 'GET',
             headers: authHeaders(token)
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
+            console.log('result', payload);
             let columns = parseColumnsList(payload);
+            console.log('columns', columns);
             store.setState(columns);
         })
         .catch(function(e){
