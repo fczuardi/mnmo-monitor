@@ -33,6 +33,7 @@ var options = {
         './lib/js/lodash-partition.js',
         './lib/js/lodash-sortby.js',
         './lib/js/lodash-find.js',
+        './lib/js/lodash-capitalize.js',
         '$comment=lodash',
         './lib/js/component-shared.js',
         './lib/js/component-stage.js',
