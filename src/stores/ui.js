@@ -7,9 +7,12 @@ class UIStore extends Store {
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.openSubmenu, this.changeSubmenu);
         this.register(userActions.closeSubmenu, this.changeSubmenu);
+        this.register(userActions.openPanel, this.changePanel);
+        this.register(userActions.closePanel, this.changePanel);
         this.state = {
             menuClosed: true,
-            submenu: null
+            submenu: null,
+            panel: null
         };
     }
     changeMenuState() {
@@ -23,6 +26,11 @@ class UIStore extends Store {
     changeSubmenu(name) {
         this.setState({
             submenu: name
+        });
+    }
+    changePanel(name) {
+        this.setState({
+            panel: name
         });
     }
 }

@@ -28,6 +28,12 @@ class UserActions extends Actions {
     closeSubmenu() {
         return null;
     }
+    openPanel(name) {
+        return name;
+    }
+    closePanel() {
+        return null;
+    }
 }
 
 export default UserActions;

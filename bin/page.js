@@ -83,6 +83,7 @@ var options = {
         './js/components/submenucolumns.js',
         './js/components/submenurouter.js',
         './js/components/groupselect.js',
+        './js/components/panelrouter.js',
         './js/components/menu.js',
         './js/components/header.js',
         './js/components/login.js',

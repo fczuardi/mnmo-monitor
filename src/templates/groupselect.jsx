@@ -15,6 +15,7 @@ export default (p, a) =>
 <Drawer
     title={p.language.messages.groups.title}
     closeLabel={p.language.messages.settings.close}
+    onCloseClick={a.closePanel}
 >
     <div style={{
         height: '90%',
