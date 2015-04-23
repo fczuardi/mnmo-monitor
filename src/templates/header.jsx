@@ -14,4 +14,16 @@ export default (p, a) =>
     >
         {p.user.groupShortLabel}
     </button>
+    <button 
+        style={{background: 'none', border: 0, float: 'right'}}
+        onClick={a.varsButtonClicked}
+    >
+        {p.user.primaryVarLabel}
+        <span style={{
+            opacity: 0.5
+        }}>
+            {(p.user.secondaryVarLabel !== null) ? ' | ' : null}
+        </span>
+        {p.user.secondaryVarLabel}
+    </button>
 </Toolbar>;

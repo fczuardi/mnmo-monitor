@@ -48,7 +48,10 @@ class UserStore extends Store {
             languageID: null,
             autoUpdate: null,
             groupID: null,
-            groupShortLabel: ''
+            groupShortLabel: '',
+            primaryVarLabel: '',
+            secondaryVarLabel: null,
+            compareVariables: true
         };
         this.loadSavedPreferences();
         //user preferences state changed

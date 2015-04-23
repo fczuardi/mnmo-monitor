@@ -27,5 +27,11 @@ export default {
         title: 'Grupos',
         type1: 'Tipo 1',
         type2: 'Tipo 2'
+    },
+    vars: {
+        title: "Variáveis",
+        input1: "Primária",
+        input2: "Secundária",
+        displaySecondary: "Exibir variável secundária na tabela"
     }
 };

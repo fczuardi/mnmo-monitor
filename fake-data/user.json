@@ -1,6 +1,9 @@
 {
-    "languageID": 3,
+    "languageID": 1,
     "autoUpdate": false,
     "groupID": 2,
-    "groupShortLabel": "GRB"
+    "groupShortLabel": "GRB",
+    "primaryVarLabel": "VarA",
+    "secondaryVarLabel": "VarB",
+    "compareVariables": true
 }
