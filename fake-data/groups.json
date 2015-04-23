@@ -23,6 +23,114 @@
             "label": "GROUP D",
             "shortLabel": "GRD",
             "type": 2
+        },
+        {
+            "id": 5,
+            "label": "GROUP E",
+            "shortLabel": "GRE",
+            "type": 2
+        },
+        {
+            "id": 6,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 7,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 8,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 9,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 10,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 11,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 12,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 13,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 14,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 15,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 16,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 17,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 18,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 19,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 20,
+            "label": "GROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 21,
+            "label": "GROUP D",
+            "shortLabel": "GRD",
+            "type": 2
+        },
+        {
+            "id": 22,
+            "label": "LAST GROUP",
+            "shortLabel": "LAST",
+            "type": 2
         }
     ]
 }

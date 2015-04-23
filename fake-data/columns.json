@@ -7,13 +7,13 @@
         {
             "id": 4,
             "label": "E"
-        }
-    ],
-    "disabled": [
+        },
         {
             "id": 0,
             "label": "A"
-        },
+        }
+    ],
+    "disabled": [
         {
             "id": 2,
             "label": "C"

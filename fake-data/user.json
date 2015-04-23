@@ -1,6 +1,6 @@
 {
     "languageID": 3,
-    "autoUpdate": true,
+    "autoUpdate": false,
     "groupID": 2,
     "groupShortLabel": "GRB"
 }

@@ -7,12 +7,19 @@ import Radio from 'mnmo-components/lib/themes/mnmo/radio';
 export default (p, a) =>
 <div style={{
     position: 'absolute',
-    marginTop: 57
+    paddingTop: 53,
+    boxSizing: 'border-box',
+    height: '100%',
+    overflow: 'hidden'
 }}>
 <Drawer
     title={p.language.messages.groups.title}
     closeLabel={p.language.messages.settings.close}
 >
+    <div style={{
+        height: '90%',
+        overflow: 'auto'
+    }}>
     <List 
         title={p.language.messages.groups.type1}
     >
@@ -49,5 +56,6 @@ export default (p, a) =>
         </LI>
         )}
     </List>
+    </div>
 </Drawer>
 </div>;
