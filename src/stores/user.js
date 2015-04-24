@@ -45,6 +45,7 @@ class UserStore extends Store {
             tosAgree: false,
             tosURL: '#',
             preferencesLoading: false,
+            preferencesUpdating: false,
             languageID: null,
             autoUpdate: null,
             groupID: null,
@@ -81,6 +82,7 @@ class UserStore extends Store {
     savePreferences() {
         let localUserPreference = merge({}, this.state);
         delete localUserPreference.preferencesLoading;
+        delete localUserPreference.preferencesUpdating;
         delete localUserPreference.captchaAnswer;
         if (this.state.rememberLogin === true) {
             setLocalItem('userPreference', localUserPreference);
@@ -113,15 +115,15 @@ class UserStore extends Store {
         });
     }
     updatePreferences() {
-        let store = this,
-            token = store.sessionStore.state.token,
-            hasChanged = diffUserPreferences(store.state),
-            postBody = buildUserPreferencesPostBody(store.state);
-        if (token === null){ return false; }
+        let store = this;
         if (store.state.preferencesLoading){ return false; }
+        let token = store.sessionStore.state.token;
+        if (token === null){ return false; }
+        let hasChanged = diffUserPreferences(store.state);
         if (hasChanged === false){ return false; }
+        let postBody = buildUserPreferencesPostBody(store.state);
         if (!postBody){ return false; }
-        console.log('make post');
+        console.log('make post', URLs.user.preferences);
         // console.log(postBody);
         fetch(URLs.baseUrl + URLs.user.preferences, {
             method: 'POST',
@@ -131,10 +133,12 @@ class UserStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             let newState = userPreferencesPostResponseOK(payload);
-            console.log(newState);
+            console.log('post success');
+            store.setState({ preferencesUpdating: false });
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line
+            store.setState({ preferencesUpdating: false });
         });
     }
     countryOptionsLoaded() {
@@ -144,7 +148,7 @@ class UserStore extends Store {
         }
     }
     groupsChanged() {
-        this.changeGroupPref(this.state.groupID);
+        this.changeGroupPref(this.state.groupID, true);
     }
     changeUsernamePref(username) {
         this.setState({
@@ -210,11 +214,13 @@ class UserStore extends Store {
         let selectedGroup = find(allGroups, 'id', groupID);
         return selectedGroup;
     }
-    changeGroupPref(groupID){
+    changeGroupPref(groupID, changedByCode){
         if (groupID === null) { return false }
         let intGroupID = parseInt(groupID);
         let selectedGroup = this.getGroupFromStore(intGroupID);
+        let changedByHuman = (changedByCode !== true);
         this.setState({
+            preferencesUpdating: changedByHuman,
             groupID: intGroupID,
             groupShortLabel: selectedGroup.shortLabel
         });

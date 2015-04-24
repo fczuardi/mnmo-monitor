@@ -34,6 +34,7 @@ class ColumnsStore extends Store {
             this.savePreferences();
         });
         this.previousSelectedGroup = userStore.state.groupID;
+        this.waitingForPostResult = false;
         this.userStore.addListener('change', this.userChanged.bind(this));
     }
     savePreferences() {
@@ -42,9 +43,19 @@ class ColumnsStore extends Store {
     }
     userChanged() {
         if (this.userStore.state.groupID !== this.previousSelectedGroup){
-            this.fetchColumns(this.sessionStore.state.token);
+            if (this.userStore.state.preferencesUpdating === false){
+                if (this.waitingForPostResult === true){
+                    console.log('fetch columns');
+                    this.fetchColumns(this.sessionStore.state.token);
+                    this.waitingForPostResult = false;
+                    this.previousSelectedGroup = this.userStore.state.groupID;
+                }
+            }
         }
-        this.previousSelectedGroup = this.userStore.state.groupID;
+        
+        if (this.userStore.state.preferencesUpdating === true){
+            this.waitingForPostResult = true;
+        }
     }
     fetchColumns(token) {
         let store = this;
@@ -58,7 +69,7 @@ class ColumnsStore extends Store {
         .then(function(payload){
             console.log('result', payload);
             let columns = parseColumnsList(payload);
-            console.log('columns', columns);
+            // console.log('columns', columns);
             store.setState(columns);
         })
         .catch(function(e){
