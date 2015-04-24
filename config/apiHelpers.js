@@ -64,6 +64,9 @@ function buildUserPreferencesPostBody(state){
     body.autoUpdate = state.autoUpdate;
     body.groupID = state.groupID;
     body.groupShortLabel = state.groupShortLabel;
+    body.primaryVarLabel = state.primaryVarLabel;
+    body.secondaryVarLabel = state.secondaryVarLabel;
+    body.variableComboID = state.variableComboID;
     return JSON.stringify(body);
 }
 function buildColumnsListPostBody(state){

@@ -224,11 +224,10 @@ class UserStore extends Store {
         let selectedGroup = find(allGroups, 'id', groupID);
         return selectedGroup;
     }
-    changeGroupPref(groupID, changedByCode){
+    changeGroupPref(groupID){
         if (groupID === null) { return false }
         let intGroupID = parseInt(groupID);
         let selectedGroup = this.getGroupFromStore(intGroupID);
-        let changedByHuman = (changedByCode !== true);
         this.setState({
             groupID: intGroupID,
             groupShortLabel: selectedGroup.shortLabel

@@ -1,9 +1,9 @@
 {
     "languageID": 1,
-    "autoUpdate": false,
+    "autoUpdate": true,
     "groupID": 2,
     "groupShortLabel": "GRB",
-    "primaryVarLabel": "VarA",
+    "primaryVarLabel": "VarB",
     "secondaryVarLabel": "VarC",
-    "compareVariables": true
+    "variableComboID": 6
 }
