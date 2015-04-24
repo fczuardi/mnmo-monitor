@@ -34,6 +34,8 @@ var options = {
         './lib/js/lodash-sortby.js',
         './lib/js/lodash-find.js',
         './lib/js/lodash-capitalize.js',
+        './lib/js/lodash-keys.js',
+        './lib/js/lodash-pluck.js',
         '$comment=lodash',
         './lib/js/component-shared.js',
         './lib/js/component-stage.js',

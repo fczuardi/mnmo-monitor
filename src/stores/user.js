@@ -47,7 +47,6 @@ class UserStore extends Store {
             tosAgree: false,
             tosURL: '#',
             preferencesLoading: false,
-            preferencesUpdating: false,
             languageID: null,
             autoUpdate: null,
             groupID: null,
@@ -88,7 +87,6 @@ class UserStore extends Store {
     savePreferences() {
         let localUserPreference = merge({}, this.state);
         delete localUserPreference.preferencesLoading;
-        delete localUserPreference.preferencesUpdating;
         delete localUserPreference.captchaAnswer;
         if (this.state.rememberLogin === true) {
             setLocalItem('userPreference', localUserPreference);
@@ -103,6 +101,7 @@ class UserStore extends Store {
         store.setState({
             preferencesLoading: true
         });
+        console.log('GET', URLs.user.preferences);
         fetch(URLs.baseUrl + URLs.user.preferences, {
             method: 'GET',
             headers: authHeaders(token)
@@ -115,6 +114,8 @@ class UserStore extends Store {
             //to compare the different values and sync
             store.setState(userPreferences);
             store.userActions.languageUpdate(userPreferences.languageID);
+            store.userActions.variableComboUpdate(userPreferences.variableComboID);
+            
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line
@@ -122,11 +123,14 @@ class UserStore extends Store {
     }
     updatePreferences() {
         let store = this;
-        if (store.state.preferencesLoading){ return false; }
+        if (store.state.preferencesLoading === true){ return false; }
+        // console.log('updatePreferences.');
         let token = store.sessionStore.state.token;
         if (token === null){ return false; }
+        // console.log('updatePreferences..');
         let hasChanged = diffUserPreferences(store.state);
         if (hasChanged === false){ return false; }
+        // console.log('updatePreferences...');
         let postBody = buildUserPreferencesPostBody(store.state);
         if (!postBody){ return false; }
         console.log('make post', URLs.user.preferences);
@@ -139,12 +143,12 @@ class UserStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             let newState = userPreferencesPostResponseOK(payload);
-            console.log('post success');
-            store.setState({ preferencesUpdating: false });
+            console.log('post success', payload, newState);
+            store.userActions.preferencesPublished();
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line
-            store.setState({ preferencesUpdating: false });
+            store.userActions.preferencesPublished();
         });
     }
     countryOptionsLoaded() {
@@ -226,7 +230,6 @@ class UserStore extends Store {
         let selectedGroup = this.getGroupFromStore(intGroupID);
         let changedByHuman = (changedByCode !== true);
         this.setState({
-            preferencesUpdating: changedByHuman,
             groupID: intGroupID,
             groupShortLabel: selectedGroup.shortLabel
         });

@@ -16,10 +16,12 @@ class ColumnsStore extends Store {
         super();
         const sessionStore = flux.getStore('session');
         const userStore = flux.getStore('user');
+        const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
         const columnsActions = flux.getActions('columns');
         this.register(sessionActions.tokenGranted, this.fetchColumns);
         this.register(columnsActions.updateColumnSelectedState, this.updateSelection);
+        this.register(userActions.preferencesPublished, this.userChanged);
         this.state = {
             enabled: [
             ],
@@ -34,8 +36,6 @@ class ColumnsStore extends Store {
             this.savePreferences();
         });
         this.previousSelectedGroup = userStore.state.groupID;
-        this.waitingForPostResult = false;
-        this.userStore.addListener('change', this.userChanged.bind(this));
     }
     savePreferences() {
         //post logged-user columns changes to the server
@@ -43,18 +43,9 @@ class ColumnsStore extends Store {
     }
     userChanged() {
         if (this.userStore.state.groupID !== this.previousSelectedGroup){
-            if (this.userStore.state.preferencesUpdating === false){
-                if (this.waitingForPostResult === true){
-                    console.log('fetch columns');
-                    this.fetchColumns(this.sessionStore.state.token);
-                    this.waitingForPostResult = false;
-                    this.previousSelectedGroup = this.userStore.state.groupID;
-                }
-            }
-        }
-        
-        if (this.userStore.state.preferencesUpdating === true){
-            this.waitingForPostResult = true;
+            console.log(this.userStore.state.groupID, this.previousSelectedGroup, 'fetch columns');
+            this.fetchColumns(this.sessionStore.state.token);
+            this.previousSelectedGroup = this.userStore.state.groupID;
         }
     }
     fetchColumns(token) {
@@ -67,7 +58,7 @@ class ColumnsStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', payload);
+            // console.log('result', payload);
             let columns = parseColumnsList(payload);
             // console.log('columns', columns);
             store.setState(columns);

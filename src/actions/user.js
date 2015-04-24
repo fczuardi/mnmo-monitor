@@ -19,6 +19,13 @@ class UserActions extends Actions {
     languageUpdate(languageID) {
         return parseInt(languageID);
     }
+    variableComboUpdate(comboID) {
+        return parseInt(comboID);
+    }
+    preferencesPublished() {
+        console.log('preferencesPublished');
+        return true;
+    }
     menuVisibilityToggle() {
         return true;
     }

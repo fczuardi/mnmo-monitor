@@ -55,6 +55,9 @@ function parseColumnsList(payload){
 function parseGroups(payload){
     return genericParse(payload);
 }
+function parseVariables(payload){
+    return genericParse(payload);
+}
 function buildUserPreferencesPostBody(state){
     let body = merge({}, lastUserPreferenceResponse);
     body.languageID = state.languageID;
@@ -111,6 +114,7 @@ export default {
     parseLanguages: genericParse,
     parseColumnsList: parseColumnsList,
     parseGroups: parseGroups,
+    parseVariables: parseVariables,
     buildSignInRequestBody: buildSignInRequestBody,
     buildUserPreferencesPostBody: buildUserPreferencesPostBody,
     buildColumnsListPostBody: buildColumnsListPostBody,
