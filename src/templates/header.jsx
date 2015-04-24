@@ -22,8 +22,8 @@ export default (p, a) =>
         <span style={{
             opacity: 0.5
         }}>
-            {(p.user.secondaryVarLabel !== null) ? ' | ' : null}
+            {(p.user.secondaryVarLabel !== '-') ? ' | ' : null}
         </span>
-        {p.user.secondaryVarLabel}
+        {((p.user.secondaryVarLabel !== '-') ? p.user.secondaryVarLabel : null)}
     </button>
 </Toolbar>;

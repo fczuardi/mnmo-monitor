@@ -24,6 +24,7 @@ class UserStore extends Store {
         const loginValidationActions = flux.getActions('loginValidation');
         const sessionActions = flux.getActions('session');
         const groupsActions = flux.getActions('groups');
+        const varsActions = flux.getActions('vars');
         this.flux = flux;
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
@@ -35,6 +36,7 @@ class UserStore extends Store {
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
         this.register(groupsActions.changeGroupSelection, this.changeGroupPref);
+        this.register(varsActions.updateVars, this.changeVarsPref);
         this.userActions = userActions;
         this.state = {
             username: '',
@@ -52,6 +54,7 @@ class UserStore extends Store {
             groupShortLabel: '',
             primaryVarLabel: '',
             secondaryVarLabel: null,
+            variableComboID: null,
             compareVariables: true
         };
         this.loadSavedPreferences();
@@ -60,17 +63,20 @@ class UserStore extends Store {
             this.savePreferences();
         });
         //TODO this can be better:
-        //as it is currently, the 3 stores below are required to be
+        //as it is currently, the stores below are required to be
         //created before this one in the flux.js file
         this.countryStore = flux.getStore('country');
         this.sessionStore = flux.getStore('session');
         this.groupsStore = flux.getStore('groups');
+        this.varsStore = flux.getStore('vars');
         //country store changed
         this.countryStore.addListener('change', this.countryOptionsLoaded.bind(this));
         //groups store changed
         this.groupsStore.addListener('change', this.groupsChanged.bind(this));
         //user session changed
         this.sessionStore.addListener('change', this.fetchPreferences.bind(this));
+        //variables store changed
+        this.varsStore.addListener('change', this.changeVarsPref.bind(this));
         this.fetchPreferences();
     }
     loadSavedPreferences() {
@@ -224,6 +230,15 @@ class UserStore extends Store {
             groupID: intGroupID,
             groupShortLabel: selectedGroup.shortLabel
         });
+    }
+    changeVarsPref(){
+        let newVars = this.varsStore.state.combo;
+        this.setState({
+            primaryVarLabel: newVars.first,
+            secondaryVarLabel: newVars.second,
+            variableComboID: newVars.comboID,
+        });
+
     }
 }
 

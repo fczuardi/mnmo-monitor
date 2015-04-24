@@ -4,6 +4,6 @@
     "groupID": 2,
     "groupShortLabel": "GRB",
     "primaryVarLabel": "VarA",
-    "secondaryVarLabel": "VarB",
+    "secondaryVarLabel": "VarC",
     "compareVariables": true
 }

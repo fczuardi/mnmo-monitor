@@ -19,18 +19,30 @@ export default (p, a) =>
 <div>
     <div>
         <label>{p.language.messages.vars.input1}</label>
-        <select>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
+        <select 
+            onChange={a.firstVarChange}
+            value={p.user.primaryVarLabel}
+        >
+        {p.vars.primary.map( (variable, key) => (
+            <option 
+                key={key} 
+                value={variable}
+            >{variable}</option>
+        ))}
         </select>
     </div>
     <div>
         <label>{p.language.messages.vars.input2}</label>
-        <select>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
+        <select
+            onChange={a.secondVarChange}
+            value={p.user.secondaryVarLabel}
+        >
+        {p.vars.secondary.map( (variable, key) => (
+            <option 
+                key={key} 
+                value={variable}
+            >{variable}</option>
+        ))}
         </select>
     </div>
 </div>

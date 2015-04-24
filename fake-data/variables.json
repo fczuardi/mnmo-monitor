@@ -1,0 +1,34 @@
+{
+    "combos": {
+        "VarA": [
+            {
+                "label": "-",
+                "id": 1
+            },
+            {
+                "label": "VarB",
+                "id": 4
+            },
+            {
+                "label": "VarC",
+                "id": 5
+            }
+        ],
+        "VarB": [
+            {
+                "label": "-",
+                "id": 2
+            },
+            {
+                "label": "VarC",
+                "id": 6
+            }
+        ],
+        "VarC": [
+            {
+                "label": "-",
+                "id": 3
+            }
+        ]
+    }
+}
