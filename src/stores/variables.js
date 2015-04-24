@@ -22,18 +22,10 @@ class VariablesStore extends Store {
         this.register(userActions.variableComboUpdate, this.updateCombo);
         this.state = {
             combos: null,
-            primary: [
-                // 'VarA',
-                // 'VarB',
-                // 'VarC'
-            ],
-            secondary: [
-                // '-',
-                // 'VarB',
-                // 'VarC'
-            ],
+            primary: [],
+            secondary: [],
             combo: {
-                first: '',
+                first: '-',
                 second: '-',
                 comboID: null
             }
