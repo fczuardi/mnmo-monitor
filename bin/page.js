@@ -54,6 +54,7 @@ var options = {
         './lib/js/component-a.js',
         './lib/js/component-toolbar.js',
         './lib/js/component-toolbarbutton.js',
+        './lib/js/component-multipicker.js',
         '$comment=mnmo-components',
         './js/endpoints.js',
         './js/apiHelpers.js',

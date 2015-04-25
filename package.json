@@ -34,6 +34,7 @@
     "mnmo-components/lib/themes/mnmo/a": "global:MNMOA",
     "mnmo-components/lib/themes/mnmo/toolbar": "global:MNMOToolbar",
     "mnmo-components/lib/themes/mnmo/toolbarbutton": "global:MNMOToolbarButton",
+    "mnmo-components/lib/themes/mnmo/multipicker": "global:MNMOMultiPicker",
     "./components/router": "global:APPRouter",
     "../components/login": "global:APPLogin",
     "../components/dashboard": "global:APPDashboard",

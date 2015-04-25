@@ -47,7 +47,11 @@ class VariablesStore extends Store {
             console.log('result', payload);
             let newCombos = parseVariables(payload).combos;
             // console.log('newCombos', newCombos);
-            let primaryOptions = keys(newCombos);
+            let primaryOptions = keys(
+                                    newCombos
+                                ).map( 
+                                    (label) => ({ label: label, value: label}) 
+                                );
             // console.log('primaryOptions', primaryOptions);
             let userState = store.flux.getStore('user').state;
             // let userPrimary = userState.primaryVarLabel;
@@ -87,7 +91,11 @@ class VariablesStore extends Store {
                 second: secondOption,
                 comboID: comboID
             },
-            secondary: pluck(secondOptions, 'label')
+            secondary: pluck(
+                        secondOptions, 'label'
+                    ).map( 
+                        (label) => ({ label: label, value: label}) 
+                    )
         });
     }
     
@@ -122,7 +130,11 @@ class VariablesStore extends Store {
                         second: item.label,
                         comboID: comboID
                     };
-                    secondary = pluck(this.state.combos[i], 'label');
+                    secondary = pluck(
+                                    this.state.combos[i], 'label'
+                                ).map( 
+                                    (label) => ({ label: label, value: label}) 
+                                );
                 }
             }
         }

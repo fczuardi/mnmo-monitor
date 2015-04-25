@@ -3,7 +3,7 @@
     "autoUpdate": true,
     "groupID": 2,
     "groupShortLabel": "GRB",
-    "primaryVarLabel": "VarB",
+    "primaryVarLabel": "VarA",
     "secondaryVarLabel": "VarC",
-    "variableComboID": 6
+    "variableComboID": 5
 }
