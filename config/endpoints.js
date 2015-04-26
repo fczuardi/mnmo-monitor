@@ -21,5 +21,9 @@ export default {
     filters: {
         groups: '/filters/groups',
         variables: '/filters/variables'
+    },
+    rows: {
+        list: '/rows',
+        grouped: '/rows/grouped'
     }
 };

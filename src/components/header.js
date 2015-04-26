@@ -10,8 +10,10 @@ class Header {
             groupsButtonClicked: () =>
                 this.props.flux.getActions('user').openPanel('groups'),
             varsButtonClicked: () => {
-                console.log('varsButtonClicked');
                 this.props.flux.getActions('user').openPanel('vars');
+            },
+            rowsButtonClicked: () => {
+                this.props.flux.getActions('user').openPanel('rows');
             }
         };
         return template(this.props, actions);

@@ -118,6 +118,7 @@ export default {
     parseColumnsList: parseColumnsList,
     parseGroups: parseGroups,
     parseVariables: parseVariables,
+    parseRows: genericParse,
     buildSignInRequestBody: buildSignInRequestBody,
     buildUserPreferencesPostBody: buildUserPreferencesPostBody,
     buildColumnsListPostBody: buildColumnsListPostBody,

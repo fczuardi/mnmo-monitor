@@ -35,6 +35,16 @@ router.get(URLs.filters.variables, function* variables(next) {
     this.body = readFileSync(filename);
     yield next;
 });
+router.get(URLs.rows.list, function* rows(next) {
+    let filename = './fake-data/rows.json';
+    this.body = readFileSync(filename);
+    yield next;
+});
+router.get(URLs.rows.grouped, function* rows(next) {
+    let filename = './fake-data/rows.grouped.json';
+    this.body = readFileSync(filename);
+    yield next;
+});
 router.get(URLs.user.preferences, function* getUserPref(next) {
     let filename = './fake-data/user.json';
     this.body = readFileSync(filename);

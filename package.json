@@ -62,6 +62,8 @@
     "./stores/groups": "global:StoresGroups",
     "./actions/variables": "global:ActionsVariables",
     "./stores/variables": "global:StoresVariables",
+    "./stores/rows": "global:StoresRows",
+    "./actions/rows": "global:ActionsRows",
     "../locales/pt/messages": "global:LocalePT",
     "../locales/es/messages": "global:LocaleES",
     "../locales/en/messages": "global:LocaleEN",

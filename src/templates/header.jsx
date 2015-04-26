@@ -14,6 +14,23 @@ export default (p, a) =>
     >
         {p.user.groupShortLabel}
     </button>
+    <div style={{
+        position: 'absolute',
+        top: 0,
+        left: '50%',
+        width: '40%',
+        marginLeft: '-20%',
+        textAlign: 'center',
+        lineHeight: '35px',
+        paddingTop: 8
+    }}>
+        <button 
+            style={{background: 'none', border: 0}}
+            onClick={a.rowsButtonClicked}
+        >
+            {p.rows.menuLabel}
+        </button>
+    </div>
     <button 
         style={{background: 'none', border: 0, float: 'right'}}
         onClick={a.varsButtonClicked}

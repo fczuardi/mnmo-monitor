@@ -16,6 +16,8 @@ import GroupsStore from './stores/groups';
 import GroupsActions from './actions/groups';
 import VariablesStore from './stores/variables';
 import VariablesActions from './actions/variables';
+import RowsStore from './stores/rows';
+import RowsActions from './actions/rows';
 
 
 
@@ -33,6 +35,7 @@ class MonitorFlux extends Flummox {
         this.createActions('columns', ColumnsActions);
         this.createActions('groups', GroupsActions);
         this.createActions('vars', VariablesActions);
+        this.createActions('rows', RowsActions);
 
         //stores
         this.createStore('country', CountryStore, this);
@@ -44,6 +47,7 @@ class MonitorFlux extends Flummox {
         this.createStore('language', LanguageStore, this);
         this.createStore('ui', UIStore, this);
         this.createStore('columns', ColumnsStore, this);
+        this.createStore('rows', RowsStore, this);
     }
 
 }

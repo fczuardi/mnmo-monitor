@@ -20,7 +20,8 @@ render(
                     ui: (store) => ({ ui: store.state}),
                     columns: (store) => ({ columns: store.state}),
                     groups: (store) => ({ groups: store.state}),
-                    vars: (store) => ({ vars: store.state})
+                    vars: (store) => ({ vars: store.state}),
+                    rows: (store) => ({ rows: store.state})
                 }
             },
             createElement(Router)
