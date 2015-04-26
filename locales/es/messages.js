@@ -33,5 +33,17 @@ export default {
         input1: "Primaria",
         input2: "Secundaria",
         displaySecondary: "Ver variable secundaria en la tabla"
+    },
+    rows: {
+        title: {
+            list: 'Filas',
+            grouped: 'Filas Agrupadas',
+        },
+        date: 'Fecha',
+        hour: 'Hora',
+        minute: 'Minuto',
+        startingTime: 'Hora de Inicio',
+        endingTime: 'Hora de Finalización',
+        interval: 'Periodicidad (en minutos)',
     }
 };

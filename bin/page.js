@@ -93,6 +93,7 @@ var options = {
         '$comment=sidebar-menu',
         './js/components/groupselect.js',
         './js/components/varspanel.js',
+        './js/components/rowspanel.js',
         './js/components/panelrouter.js',
         '$comment=dialogs',
         './js/components/header.js',

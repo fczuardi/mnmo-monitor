@@ -33,5 +33,17 @@ export default {
         input1: "Primary",
         input2: "Secondary",
         displaySecondary: "Display secondary variable on the table"
+    },
+    rows: {
+        title: {
+            list: 'Rows',
+            grouped: 'Grouped Rows',
+        },
+        date: 'Date',
+        hour: 'Hour',
+        minute: 'Minute',
+        startingTime: 'Starting Hour',
+        endingTime: 'Ending Hour',
+        interval: 'Frequency (in minutes)',
     }
 };

@@ -33,5 +33,17 @@ export default {
         input1: "Primária",
         input2: "Secundária",
         displaySecondary: "Exibir variável secundária na tabela"
+    },
+    rows: {
+        title: {
+            list: 'Linhas',
+            grouped: 'Linhas Agrupadas',
+        },
+        date: 'Data',
+        hour: 'Hora',
+        minute: 'Minuto',
+        startingTime: 'Hora Inicial',
+        endingTime: 'Hora Final',
+        interval: 'Periodicidade (em minutos)',
     }
 };

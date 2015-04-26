@@ -44,6 +44,7 @@
     "../components/submenurouter": "global:APPSubmenuRouter",
     "../components/groupselect": "global:APPGroupsPanel",
     "../components/varspanel": "global:APPVarsPanel",
+    "../components/rowspanel": "global:APPRowsPanel",
     "../components/panelrouter": "global:APPPanelsRouter",
     "../lib/local": "global:LocalStorageHelpers",
     "./actions/country": "global:ActionsCountry",
