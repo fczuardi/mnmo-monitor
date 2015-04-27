@@ -32,11 +32,12 @@ class UserStore extends Store {
         this.register(userActions.tosAgreementUpdate, this.changeTosPref);
         this.register(userActions.autoUpdateToggle, this.changeAutoUpdatePref);
         this.register(userActions.languageUpdate, this.changeLanguagePref);
+        this.register(userActions.preferencesFetched, this.preferencesFetched);
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
+        this.register(sessionActions.tokenGranted, this.fetchPreferences);
         this.register(groupsActions.changeGroupSelection, this.changeGroupPref);
-        this.register(varsActions.updateVars, this.changeVarsPref);
         this.userActions = userActions;
         this.state = {
             username: '',
@@ -53,8 +54,8 @@ class UserStore extends Store {
             mergedRows: null,
             groupID: null,
             groupShortLabel: '',
-            primaryVarLabel: '',
-            secondaryVarLabel: null,
+            primaryVarLabel: '-',
+            secondaryVarLabel: '-',
             variableComboID: null,
             compareVariables: true
         };
@@ -74,8 +75,6 @@ class UserStore extends Store {
         this.countryStore.addListener('change', this.countryOptionsLoaded.bind(this));
         //groups store changed
         this.groupsStore.addListener('change', this.groupsChanged.bind(this));
-        //user session changed
-        this.sessionStore.addListener('change', this.fetchPreferences.bind(this));
         //variables store changed
         this.varsStore.addListener('change', this.changeVarsPref.bind(this));
         this.fetchPreferences();
@@ -96,9 +95,9 @@ class UserStore extends Store {
         //post logged-user preference changes to the server
         this.updatePreferences();
     }
-    fetchPreferences() {
-        let store = this,
-            token = store.sessionStore.state.token;
+    fetchPreferences(token) {
+        let store = this;
+        token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
         store.setState({
             preferencesLoading: true
@@ -110,18 +109,19 @@ class UserStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
+            console.log('result', URLs.user.preferences, payload);
             let userPreferences = merge({}, parseUserPreferences(payload));
             userPreferences.preferencesLoading = false;
             //TODO if there were changes while a fetch was going on, we need
             //to compare the different values and sync
-            store.setState(userPreferences);
-            store.userActions.languageUpdate(userPreferences.languageID);
-            store.userActions.variableComboUpdate(userPreferences.variableComboID);
-            
+            store.userActions.preferencesFetched(userPreferences);
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line
         });
+    }
+    preferencesFetched(preferences) {
+        this.setState(preferences);
     }
     updatePreferences() {
         let store = this;

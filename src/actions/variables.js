@@ -7,9 +7,6 @@ class VariablesActions extends Actions {
     changeSecondarySelection(label) {
         return label;
     }
-    updateVars(combo) {
-        return combo;
-    }
 }
 
 export default VariablesActions;

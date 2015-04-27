@@ -1,5 +1,5 @@
 {
-    "languageID": 1,
+    "languageID": 3,
     "autoUpdate": true,
     "archivedReport": {
         "date": "2015-04-27",
@@ -10,9 +10,9 @@
         "frequencyID": 1,
         "mergeFunctionID": 0
     },
-    "groupID": 2,
-    "groupShortLabel": "GRB",
-    "primaryVarLabel": "VarB",
-    "secondaryVarLabel": "VarC",
-    "variableComboID": 6
+    "groupID": 3,
+    "groupShortLabel": "GRC",
+    "primaryVarLabel": "VarA",
+    "secondaryVarLabel": "VarB",
+    "variableComboID": 4
 }

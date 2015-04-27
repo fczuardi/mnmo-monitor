@@ -11,24 +11,31 @@ class GroupsStore extends Store {
     constructor(flux) {
         super();
         const sessionStore = flux.getStore('session');
-        const sessionActions = flux.getActions('session');
-        this.register(sessionActions.tokenGranted, this.fetchGroups);
+        const userActions = flux.getActions('user');
+        this.sessionStore = sessionStore;
+        this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.state = {
             type1: [],
             type2: []
         };
-        this.fetchGroups(sessionStore.state.token);
     }
 
+    userPreferencesFetched() {
+        this.fetchGroups();
+    }
+    
     fetchGroups(token) {
         let store = this;
+        token = token || this.sessionStore.state.token;
         if (token === null){ return false; }
+        console.log('GET', URLs.filters.groups);
         fetch(URLs.baseUrl + URLs.filters.groups, {
             method: 'GET',
             headers: authHeaders(token)
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
+            console.log('result', URLs.filters.groups, payload);
             let groups = parseGroups(payload).groups,
                 partitionedGroups = partition(groups, 'type', 1);
             store.setState({

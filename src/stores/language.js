@@ -21,27 +21,33 @@ class LanguageStore extends Store {
     constructor(flux) {
         super();
         const sessionStore = flux.getStore('session');
-        const sessionActions = flux.getActions('session');
         const userActions = flux.getActions('user');
-        this.userStore = flux.getStore('user');
+        this.sessionStore = sessionStore;
+        this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.languageUpdate, this.changeLanguage);
-        this.register(sessionActions.tokenGranted, this.fetchLanguages);
         this.state = {
             messages: defaultMessages,
             list: []
         };
-        this.fetchLanguages(sessionStore.state.token);
+    }
+    
+    userPreferencesFetched(pref){
+        this.changeLanguage(pref.languageID);
+        this.fetchLanguages();
     }
     
     fetchLanguages(token) {
         let store = this;
+        token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
+        console.log('GET', URLs.languages.list);
         fetch(URLs.baseUrl + URLs.languages.list, {
             method: 'GET',
             headers: authHeaders(token)
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
+            console.log('result', URLs.languages.list, payload);
             let languages = parseLanguages(payload).languages;
             store.setState({
                 list: languages
@@ -52,10 +58,9 @@ class LanguageStore extends Store {
         });
     }
 
-    changeLanguage() {
-        let self = this;
+    changeLanguage(languageID) {
         this.setState({
-            messages: locales[self.userStore.state.languageID]
+            messages: locales[languageID]
         });
     }
 }
