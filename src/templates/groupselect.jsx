@@ -7,7 +7,6 @@ import Radio from 'mnmo-components/lib/themes/mnmo/radio';
 export default (p, a) =>
 <div style={{
     position: 'absolute',
-    paddingTop: 53,
     boxSizing: 'border-box',
     height: '100%',
     overflow: 'hidden'

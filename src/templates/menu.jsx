@@ -10,7 +10,6 @@ import SubmenuRouter from '../components/submenurouter';
 
 export default (p, a) =>
 <Drawer 
-    closed={p.ui.menuClosed} 
     container={true} 
     panelsOpened={p.panelsOpened}>
     <Drawer>

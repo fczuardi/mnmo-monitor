@@ -19,9 +19,11 @@ class ColumnsStore extends Store {
         const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
         const columnsActions = flux.getActions('columns');
+        const rowsActions = flux.getActions('rows');
         this.register(sessionActions.tokenGranted, this.fetchColumns);
         this.register(columnsActions.updateColumnSelectedState, this.updateSelection);
         this.register(userActions.preferencesPublished, this.userChanged);
+        this.register(rowsActions.rowsFetchCompleted, this.replaceEnabledColumns);
         this.state = {
             enabled: [
             ],
@@ -111,6 +113,12 @@ class ColumnsStore extends Store {
                 disabled: sortBy(groupToInclude.concat(partitionedGroup[0]), 'label')
             });
         }
+    }
+    replaceEnabledColumns(data) {
+        let enabled = data.rows.columns;
+        this.setState({
+            enabled: enabled
+        });
     }
 }
 

@@ -46,6 +46,7 @@
     "../components/varspanel": "global:APPVarsPanel",
     "../components/rowspanel": "global:APPRowsPanel",
     "../components/panelrouter": "global:APPPanelsRouter",
+    "../components/datatable": "global:APPDataTable",
     "../lib/local": "global:LocalStorageHelpers",
     "./actions/country": "global:ActionsCountry",
     "./stores/country": "global:StoresCountry",

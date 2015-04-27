@@ -5,7 +5,6 @@ import MultiPicker from 'mnmo-components/lib/themes/mnmo/multipicker';
 export default (p, a) =>
 <div style={{
     position: 'absolute',
-    paddingTop: 53,
     boxSizing: 'border-box',
     height: '100%',
     overflow: 'hidden',

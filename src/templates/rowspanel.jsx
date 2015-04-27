@@ -16,7 +16,6 @@ for (let m = 0; m < 60; m++){
 export default (p, a) =>
 <div style={{
     position: 'absolute',
-    paddingTop: 53,
     boxSizing: 'border-box',
     height: '100%',
     overflow: 'hidden',

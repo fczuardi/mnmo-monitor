@@ -98,6 +98,7 @@ var options = {
         '$comment=dialogs',
         './js/components/header.js',
         './js/components/login.js',
+        './js/components/datatable.js',
         './js/components/dashboard.js',
         './js/components/router.js',
         '$comment=components',

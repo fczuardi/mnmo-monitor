@@ -17,7 +17,9 @@ class RowsStore extends Store {
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.state = {
             type: 'list', // grouped | list
-            menuLabel: '…'
+            menuLabel: '…',
+            headers: [],
+            data: []
         };
         this.fetchRows(sessionStore.state.token);
     }
@@ -44,8 +46,13 @@ class RowsStore extends Store {
     
     updateMenuLabel(data) {
         let newLabel = data.rows.headers[0][0];
+        let rows = (this.state.type === 'list') ? 
+                                                    data.rows.data : 
+                                                    data.rows.groupedData;
         this.setState({
-            menuLabel: newLabel
+            menuLabel: newLabel,
+            headers: data.rows.headers,
+            data: rows
         });
     }
 }
