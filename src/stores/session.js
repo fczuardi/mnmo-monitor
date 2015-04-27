@@ -38,7 +38,7 @@ class SessionStore extends Store {
         store.setState({
             error: null
         });
-
+        console.log('POST', URLs.session.login);
         fetch(URLs.baseUrl + URLs.session.login, {
           method: 'post',
           headers: {
@@ -48,6 +48,7 @@ class SessionStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload) {
+            console.log('result', URLs.session.login, payload);
             let sessionData = parseLoginResponse(payload);
             if (sessionData.token){
                 store.setState(sessionData);

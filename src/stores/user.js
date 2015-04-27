@@ -24,7 +24,6 @@ class UserStore extends Store {
         const loginValidationActions = flux.getActions('loginValidation');
         const sessionActions = flux.getActions('session');
         const groupsActions = flux.getActions('groups');
-        const varsActions = flux.getActions('vars');
         this.flux = flux;
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);

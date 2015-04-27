@@ -26,7 +26,7 @@ export default (p, a) =>
     }}>
         <button 
             style={{background: 'none', border: 0}}
-            disabled={(! p.user.autoUpdate && p.rows.type === 'list' )}
+            disabled={(p.user.autoUpdate && p.rows.type === 'list' )}
             onClick={a.rowsButtonClicked}
         >
             {p.rows.menuLabel}

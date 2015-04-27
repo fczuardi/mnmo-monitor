@@ -23,15 +23,18 @@ class RowsStore extends Store {
             headers: [],
             data: []
         };
-        this.fetchRows(sessionStore.state.token, this.state.type);
+        // this.fetchRows(sessionStore.state.token, this.state.type);
     }
 
-    fetchRows(token, type) {
+    fetchRows(token, newType) {
         let store = this;
+        let type = store.state.type;
+        if (typeof newType === 'string'){
+            type = newType;
+        }
         token = token || store.sessionStore.state.token;
-        type = type || store.state.type;
         if (token === null){ return false; }
-        console.log('GET', URLs.rows[type]);
+        console.log('GET rows', type, URLs.rows[type]);
         if (URLs.rows[type] === undefined){ return false; }
         fetch(URLs.baseUrl + URLs.rows[type], {
             method: 'GET',
@@ -63,7 +66,13 @@ class RowsStore extends Store {
     
     updateRowsType(newType) {
         this.setState({
-            type: newType
+            type: newType,
+            headers: [
+                ['…']
+            ],
+            data: [
+                ['']
+            ]
         });
         this.fetchRows(this.sessionStore.state.token, newType);
     }
