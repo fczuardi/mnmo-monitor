@@ -13,28 +13,33 @@ class RowsStore extends Store {
         const sessionActions = flux.getActions('session');
         const rowsActions = flux.getActions('rows');
         this.rowsActions = rowsActions;
+        this.sessionStore = sessionStore;
         this.register(sessionActions.tokenGranted, this.fetchRows);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
+        this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
         this.state = {
             type: 'list', // merged | list
             menuLabel: '…',
             headers: [],
             data: []
         };
-        this.fetchRows(sessionStore.state.token);
+        this.fetchRows(sessionStore.state.token, this.state.type);
     }
 
-    fetchRows(token) {
+    fetchRows(token, type) {
         let store = this;
+        token = token || store.sessionStore.state.token;
+        type = type || store.state.type;
         if (token === null){ return false; }
-        console.log('GET', URLs.rows[store.state.type]);
-        fetch(URLs.baseUrl + URLs.rows[store.state.type], {
+        console.log('GET', URLs.rows[type]);
+        if (URLs.rows[type] === undefined){ return false; }
+        fetch(URLs.baseUrl + URLs.rows[type], {
             method: 'GET',
             headers: authHeaders(token)
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.rows[store.state.type], payload);
+            console.log('result', URLs.rows[type], payload);
             store.rowsActions.rowsFetchCompleted(
                 parseRows(payload)
             );
@@ -47,13 +52,20 @@ class RowsStore extends Store {
     updateMenuLabel(data) {
         let newLabel = data.rows.headers[0][0];
         let rows = (this.state.type === 'list') ? 
-                                                    data.rows.data : 
-                                                    data.rows.groupedData;
+                                            data.rows.data : 
+                                            data.rows.mergedData;
         this.setState({
             menuLabel: newLabel,
             headers: data.rows.headers,
             data: rows
         });
+    }
+    
+    updateRowsType(newType) {
+        this.setState({
+            type: newType
+        });
+        this.fetchRows(this.sessionStore.state.token, newType);
     }
 }
 

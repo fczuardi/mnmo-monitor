@@ -37,7 +37,7 @@ export default {
     rows: {
         title: {
             list: 'Linhas',
-            grouped: 'Linhas Agrupadas',
+            merged: 'Linhas Agrupadas',
         },
         date: 'Data',
         hour: 'Hora',
@@ -45,5 +45,7 @@ export default {
         startingTime: 'Hora Inicial',
         endingTime: 'Hora Final',
         interval: 'Periodicidade (em minutos)',
+        mergeRows: 'Agrupar linhas',
+        unmergeRows: 'Ver todas'
     }
 };

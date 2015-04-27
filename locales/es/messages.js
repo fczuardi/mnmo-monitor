@@ -37,7 +37,7 @@ export default {
     rows: {
         title: {
             list: 'Filas',
-            grouped: 'Filas Agrupadas',
+            merged: 'Filas Agrupadas',
         },
         date: 'Fecha',
         hour: 'Hora',
@@ -45,5 +45,7 @@ export default {
         startingTime: 'Hora de Inicio',
         endingTime: 'Hora de Finalización',
         interval: 'Periodicidad (en minutos)',
-    }
+        mergeRows: 'Agrupar filas',
+        unmergeRows: 'Ver todas'
+   }
 };

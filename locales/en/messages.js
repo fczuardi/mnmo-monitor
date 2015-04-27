@@ -37,7 +37,7 @@ export default {
     rows: {
         title: {
             list: 'Rows',
-            grouped: 'Grouped Rows',
+            merged: 'Grouped Rows',
         },
         date: 'Date',
         hour: 'Hour',
@@ -45,5 +45,7 @@ export default {
         startingTime: 'Starting Hour',
         endingTime: 'Ending Hour',
         interval: 'Frequency (in minutes)',
+        mergeRows: 'Merge rows',
+        unmergeRows: 'All rows'
     }
 };
