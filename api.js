@@ -40,8 +40,8 @@ router.get(URLs.rows.list, function* rows(next) {
     this.body = readFileSync(filename);
     yield next;
 });
-router.get(URLs.rows.grouped, function* rows(next) {
-    let filename = './fake-data/rows.grouped.json';
+router.get(URLs.rows.merged, function* mergedRows(next) {
+    let filename = './fake-data/rows.merged.json';
     this.body = readFileSync(filename);
     yield next;
 });

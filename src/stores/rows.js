@@ -16,7 +16,7 @@ class RowsStore extends Store {
         this.register(sessionActions.tokenGranted, this.fetchRows);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.state = {
-            type: 'list', // grouped | list
+            type: 'list', // merged | list
             menuLabel: '…',
             headers: [],
             data: []

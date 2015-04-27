@@ -24,6 +24,6 @@ export default {
     },
     rows: {
         list: '/rows',
-        grouped: '/rows/grouped'
+        merged: '/rows/merged'
     }
 };
