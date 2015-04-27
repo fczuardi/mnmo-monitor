@@ -28,10 +28,10 @@ function authHeaders(token){
 function diffPayloads(previous, current){
     if (previous === null){ return false; }
     let previousString = JSON.stringify(previous);
-    // console.log('diffPayloads');
-    // console.log(previousString);
-    // console.log(current);
-    // console.log(previousString !== current);
+    if (previousString !== current) {
+        // console.log(previousString);
+        // console.log(current);
+    }
     return (previousString !== current);
 }
 function buildSignInRequestBody(validationStore, userStore){
