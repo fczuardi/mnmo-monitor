@@ -49,6 +49,8 @@ class UserStore extends Store {
             preferencesLoading: false,
             languageID: null,
             autoUpdate: null,
+            archivedReport: null,
+            mergedRows: null,
             groupID: null,
             groupShortLabel: '',
             primaryVarLabel: '',

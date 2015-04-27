@@ -1,6 +1,15 @@
 {
     "languageID": 1,
     "autoUpdate": true,
+    "archivedReport": {
+        "date": "2015-04-27",
+        "start": "07:00:00",
+        "end": "10:30:00"
+    },
+    "mergedRows": {
+        "frequencyID": 1,
+        "mergeFunctionID": 0
+    },
     "groupID": 2,
     "groupShortLabel": "GRB",
     "primaryVarLabel": "VarB",
