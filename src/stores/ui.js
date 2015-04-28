@@ -14,8 +14,10 @@ class UIStore extends Store {
         this.state = {
             menuClosed: true,
             submenu: null,
-            panel: null
+            panel: null,
+            screenWidth: window.innerWidth
         };
+        window.addEventListener('resize', this.widthChange.bind(this));
     }
     changeMenuState() {
         this.setState({
@@ -32,7 +34,8 @@ class UIStore extends Store {
     }
     changePanel(name) {
         this.setState({
-            panel: name
+            panel: name,
+            menuClosed: true
         });
     }
     resetState() {
@@ -40,6 +43,12 @@ class UIStore extends Store {
             menuClosed: true,
             submenu: null,
             panel: null
+        });
+    }
+    widthChange() {
+        console.log('widthChange');
+        this.setState({
+            screenWidth: window.innerWidth
         });
     }
 }

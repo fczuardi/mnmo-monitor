@@ -8,8 +8,8 @@ export default (p) => {
     let marginLeft = 0,
         toggleButtonSpace = 50,
         borderWidth = 2,
-        minWidth = window.innerWidth > 320 ? 300 : 270,
-        maxWidth = window.innerWidth - toggleButtonSpace,
+        minWidth = p.ui.screenWidth > 320 ? 300 : 270,
+        maxWidth = p.ui.screenWidth - toggleButtonSpace,
         panelsOpened = (p.ui.submenu !== null) ? 2 : 1,
         drawerWidth = panelsOpened * minWidth;
     if (! p.ui.menuClosed) {

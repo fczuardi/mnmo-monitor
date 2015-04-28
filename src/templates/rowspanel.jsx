@@ -5,6 +5,8 @@ import List from 'mnmo-components/lib/themes/mnmo/list';
 import MultiPicker from 'mnmo-components/lib/themes/mnmo/multipicker';
 import Radio from 'mnmo-components/lib/themes/mnmo/radio';
 
+const fullScreenLimit = 400;
+
 let hours = [],
     minutes = [];
 
@@ -107,12 +109,14 @@ export default (p, a) => {
         </List>
     );
     
+    let isFullscreen = p.ui.screenWidth < fullScreenLimit;
     return (
-        <Dialog align='center'>
+        <Dialog align='center' fullscreen={isFullscreen}>
             <Drawer
                 title={p.language.messages.rows.title[p.rows.type]}
                 closeLabel={p.language.messages.settings.close}
                 onCloseClick={a.closePanel}
+                fullscreen={isFullscreen}
             >
             <div style={{
                 height: '90%',
