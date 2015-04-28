@@ -12,7 +12,7 @@ export default (p, a) =>
         style={{background: 'none', border: 0}}
         onClick={a.groupsButtonClicked}
     >
-        {p.user.groupShortLabel}
+        {p.user.groupShortLabel || '…'}
     </button>
     <div style={{
         position: 'absolute',
