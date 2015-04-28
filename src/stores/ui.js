@@ -46,7 +46,6 @@ class UIStore extends Store {
         });
     }
     widthChange() {
-        console.log('widthChange');
         this.setState({
             screenWidth: window.innerWidth
         });

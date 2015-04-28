@@ -1,0 +1,137 @@
+{
+    "groups": [
+        {
+            "id": 1,
+            "label": "SUBGROUP A",
+            "shortLabel": "GRA",
+            "subgroupsCount": 5,
+            "type": 1
+        },
+        {
+            "id": 2,
+            "label": "SUBGROUP B",
+            "shortLabel": "GRB",
+            "type": 1
+        },
+        {
+            "id": 3,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 4,
+            "label": "SUBGROUP D",
+            "shortLabel": "GRD",
+            "type": 2
+        },
+        {
+            "id": 5,
+            "label": "SUBGROUP E",
+            "shortLabel": "GRE",
+            "type": 2
+        },
+        {
+            "id": 6,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 7,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 8,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 9,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 10,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 11,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 12,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 13,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 14,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 15,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 16,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 17,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 18,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 19,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 20,
+            "label": "SUBGROUP C",
+            "shortLabel": "GRC",
+            "type": 2
+        },
+        {
+            "id": 21,
+            "label": "SUBGROUP D",
+            "shortLabel": "GRD",
+            "type": 2
+        },
+        {
+            "id": 22,
+            "label": "LAST SUBGROUP",
+            "shortLabel": "LAST",
+            "type": 2
+        }
+    ]
+}

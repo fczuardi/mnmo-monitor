@@ -20,6 +20,7 @@ export default {
     },
     filters: {
         groups: '/filters/groups',
+        subgroups: '/filters/subgroups',
         variables: '/filters/variables'
     },
     rows: {

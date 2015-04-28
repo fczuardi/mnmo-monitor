@@ -30,7 +30,6 @@ function statusRouter(response, callback401) {
         return response;
     } else {
         if (response.status === 401){
-            console.log('session expired', response.status);
             callback401();
         }
         throw response.status;
@@ -45,16 +44,7 @@ function diffPayloads(previous, current){
     }
     return (previousString !== current);
 }
-function buildSignInRequestBody(validationStore, userStore){
-    let body = {
-        username: userStore.state.username,
-        password: userStore.state.password,
-        captchaID: validationStore.state.captchaQuestionID,
-        captchaAnswer: userStore.state.captchaAnswer,
-        countryID: userStore.state.countryID
-    };
-    return queryString.stringify(body);
-}
+
 function parseUserPreferences(payload){
     lastUserPreferenceResponse = genericParse(payload);
     return lastUserPreferenceResponse;
@@ -68,6 +58,17 @@ function parseGroups(payload){
 }
 function parseVariables(payload){
     return genericParse(payload);
+}
+
+function buildSignInRequestBody(validationStore, userStore){
+    let body = {
+        username: userStore.state.username,
+        password: userStore.state.password,
+        captchaID: validationStore.state.captchaQuestionID,
+        captchaAnswer: userStore.state.captchaAnswer,
+        countryID: userStore.state.countryID
+    };
+    return queryString.stringify(body);
 }
 function buildUserPreferencesPostBody(state){
     let body = merge({}, lastUserPreferenceResponse);

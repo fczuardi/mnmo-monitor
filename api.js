@@ -30,6 +30,11 @@ router.get(URLs.filters.groups, function* groupsList(next) {
     this.body = readFileSync(filename);
     yield next;
 });
+router.get(URLs.filters.subgroups, function* subgroupsList(next) {
+    let filename = './fake-data/subgroups.json';
+    this.body = readFileSync(filename);
+    yield next;
+});
 router.get(URLs.filters.variables, function* variables(next) {
     let filename = './fake-data/variables.json';
     this.body = readFileSync(filename);

@@ -63,13 +63,13 @@ class ColumnsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            // console.log('result', payload);
+            console.log('result', URLs.columns.list, payload);
             let columns = parseColumnsList(payload);
             // console.log('columns', columns);
             store.setState(columns);
         })
         .catch(function(e){
-            console.log('parsing failed', e); // eslint-disable-line
+            console.log('fetch error', e); // eslint-disable-line
         });
     }
     publishChanges() {

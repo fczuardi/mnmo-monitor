@@ -124,7 +124,7 @@ class UserStore extends Store {
             store.userActions.preferencesFetched(userPreferences);
         })
         .catch(function(e){
-            console.log('parsing failed', e); // eslint-disable-line
+            console.log('fetch error', e); // eslint-disable-line
         });
     }
     preferencesFetched(preferences) {

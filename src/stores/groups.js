@@ -24,7 +24,8 @@ class GroupsStore extends Store {
         this.state = {
             type1: [],
             type2: [],
-            selected: null
+            selected: null,
+            selectedGroupSubgroups: null
         };
     }
 
@@ -57,10 +58,34 @@ class GroupsStore extends Store {
             }
         })
         .catch(function(e){
-            console.log('parsing failed', e); // eslint-disable-line
+            console.log('fetch error', e); // eslint-disable-line
         });
     }
     
+    fetchSubGroups(token) {
+        let store = this;
+        token = token || this.sessionStore.state.token;
+        if (token === null){ return false; }
+        console.log('GET', URLs.filters.subgroups);
+        fetch(URLs.baseUrl + URLs.filters.subgroups, {
+            method: 'GET',
+            headers: authHeaders(token)
+        })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
+        .then(chooseTextOrJSON)
+        .then(function(payload){
+            console.log('result', URLs.filters.subgroups, payload);
+            let groups = parseGroups(payload).groups;
+            console.log('subgroups', groups);
+            this.setState({
+                selectedGroupSubgroups: groups
+            });
+        })
+        .catch(function(e){
+            console.log('fetch error', e); // eslint-disable-line
+        });
+    }
+
     selectGroup(groupID) {
         let selected = find(
             this.state.type1.concat(this.state.type2), 
@@ -71,6 +96,9 @@ class GroupsStore extends Store {
         this.setState({
             selected: selected
         });
+        if (selected.subgroupsCount > 0) {
+            this.fetchSubGroups();
+        }
     }
 }
 
