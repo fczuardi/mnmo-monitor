@@ -4,11 +4,13 @@ class UIStore extends Store {
     constructor(flux) {
         super();
         const userActions = flux.getActions('user');
+        const sessionActions = flux.getActions('session');
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.openSubmenu, this.changeSubmenu);
         this.register(userActions.closeSubmenu, this.changeSubmenu);
         this.register(userActions.openPanel, this.changePanel);
         this.register(userActions.closePanel, this.changePanel);
+        this.register(sessionActions.signOut, this.resetState);
         this.state = {
             menuClosed: true,
             submenu: null,
@@ -31,6 +33,13 @@ class UIStore extends Store {
     changePanel(name) {
         this.setState({
             panel: name
+        });
+    }
+    resetState() {
+        this.setState({
+            menuClosed: true,
+            submenu: null,
+            panel: null
         });
     }
 }
