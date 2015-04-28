@@ -34,6 +34,7 @@ class UserStore extends Store {
         this.register(userActions.autoUpdateToggle, this.changeAutoUpdatePref);
         this.register(userActions.languageUpdate, this.changeLanguagePref);
         this.register(userActions.preferencesFetched, this.preferencesFetched);
+        this.register(userActions.dateUpdated, this.changeDate);
         this.register(userActions.startHourUpdated, this.changeStartHour);
         this.register(userActions.startMinuteUpdated, this.changeStartMinute);
         this.register(userActions.endHourUpdated, this.changeEndHour);
@@ -281,6 +282,17 @@ class UserStore extends Store {
             mergedRows: {
                 frequencyID: frequencyID
             }
+        });
+    }
+    changeDate(day) {
+        //day is expected to be a string like 2015-04-25
+        if (day.length !== 10) {
+            return false;
+        }
+        let archivedReport = merge({}, this.state.archivedReport);
+        archivedReport.date = day;
+        this.setState({
+            archivedReport: archivedReport
         });
     }
 }

@@ -6,6 +6,8 @@ class RowsPanel {
         const actions = {
             closePanel: () => 
                 userActions.closePanel(),
+            dateChange: (event) =>
+                userActions.dateUpdated(event.target.value),
             startHourChange: (event) => 
                 userActions.startHourUpdated(event.target.value),
             startMinuteChange: (event) => 

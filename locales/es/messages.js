@@ -40,6 +40,7 @@ export default {
             merged: 'Filas Agrupadas',
         },
         date: 'Fecha',
+        datePlaceholder: 'AAAA-MM-DD',
         hour: 'Hora',
         minute: 'Minuto',
         startingTime: 'Hora de Inicio',

@@ -19,6 +19,9 @@ class UserActions extends Actions {
     languageUpdate(languageID) {
         return parseInt(languageID);
     }
+    dateUpdated(day) {
+        return day;
+    }
     startHourUpdated(hour) {
         return hour;
     }

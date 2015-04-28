@@ -40,6 +40,7 @@ export default {
             merged: 'Grouped Rows',
         },
         date: 'Date',
+        datePlaceholder: 'YYYY-MM-DD',
         hour: 'Hour',
         minute: 'Minute',
         startingTime: 'Starting Hour',

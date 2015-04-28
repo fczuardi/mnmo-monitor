@@ -19,11 +19,25 @@ for (let m = 0; m < 60; m++){
 }
 
 export default (p, a) => {
+    let day = (p.user.archivedReport && p.user.archivedReport.date) ? 
+                                            p.user.archivedReport.date : null;
     let datePicker = (p.user.autoUpdate === true) ? null : (
         <List 
             title={p.language.messages.rows.date}
         >
-            <span>Foo</span>
+            <input 
+                type='date'
+                value={day}
+                style={{
+                    marginTop: 30,
+                    marginBottom: 30,
+                    marginLeft: 0,
+                    width: '50%'
+                }}
+                placeholder={p.language.messages.rows.datePlaceholder}
+                onChange={a.dateChange}
+            />
+            {p.language.messages.rows.datePlaceholder}
         </List>
     );
     let startingHour = (p.user.archivedReport &&
