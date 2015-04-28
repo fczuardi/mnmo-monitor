@@ -18,6 +18,7 @@ import VariablesStore from './stores/variables';
 import VariablesActions from './actions/variables';
 import RowsStore from './stores/rows';
 import RowsActions from './actions/rows';
+import FrequencyStore from './stores/frequency';
 
 
 
@@ -48,6 +49,7 @@ class MonitorFlux extends Flummox {
         this.createStore('ui', UIStore, this);
         this.createStore('columns', ColumnsStore, this);
         this.createStore('rows', RowsStore, this);
+        this.createStore('frequency', FrequencyStore, this);
     }
 
 }

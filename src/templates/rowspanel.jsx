@@ -3,11 +3,12 @@ import Dialog from 'mnmo-components/lib/themes/mnmo/dialog';
 import Drawer from 'mnmo-components/lib/themes/mnmo/drawer';
 import List from 'mnmo-components/lib/themes/mnmo/list';
 import MultiPicker from 'mnmo-components/lib/themes/mnmo/multipicker';
+import Radio from 'mnmo-components/lib/themes/mnmo/radio';
 
 let hours = [],
     minutes = [];
 
-for (let h = 1; h <= 24; h++){
+for (let h = 0; h < 24; h++){
     hours.push({label: h < 10 ? '0' + h : '' + h, value: h});
 }
 
@@ -76,10 +77,33 @@ export default (p, a) => {
         />
     );
     let frequencyPicker = (p.rows.type === 'list') ? null : (
-        <List 
+        <List
             title={p.language.messages.rows.interval}
         >
-            <span>Foo</span>
+            <div style={{
+                color: '#000',
+                display: 'table',
+                backgroundColor: '#fff',
+                boxSizing: 'border-box',
+                padding: '30px',
+                paddingRight: 0,
+                width: '100%',
+                marginLeft: -40
+            }}>
+            {p.frequency.options.map( (freq, key) => (
+                <Radio  
+                    key={key}
+                    name='settings-frequency' 
+                    id={'settings-frequency-' + key} 
+                    value={freq.id}
+                    checked={(freq.id == p.user.mergedRows.frequencyID)}
+                    isRowCell={true}
+                    onChange={a.frequencyChange}
+                >
+                    {freq.value}
+                </Radio>
+            ))}
+            </div>
         </List>
     );
     

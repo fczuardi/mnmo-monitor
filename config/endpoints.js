@@ -25,5 +25,9 @@ export default {
     rows: {
         list: '/rows',
         merged: '/rows/merged'
+    },
+    frequency: {
+        list: '/frequencies',
+        countryParam: 'countryID'
     }
 };

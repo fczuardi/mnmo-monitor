@@ -86,6 +86,7 @@ var options = {
         './js/stores/groups.js',
         './js/stores/variables.js',
         './js/stores/rows.js',
+        './js/stores/frequency.js',
         '$comment=stores',
         './js/menulinks.js',
         './js/components/submenucolumns.js',

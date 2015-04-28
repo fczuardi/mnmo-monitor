@@ -31,6 +31,9 @@ class UserActions extends Actions {
     endMinuteUpdated(minute) {
         return minute;
     }
+    frequencyUpdated(frequencyID) {
+        return parseInt(frequencyID);
+    }
     preferencesPublished() {
         return true;
     }

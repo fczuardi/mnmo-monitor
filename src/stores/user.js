@@ -38,6 +38,7 @@ class UserStore extends Store {
         this.register(userActions.startMinuteUpdated, this.changeStartMinute);
         this.register(userActions.endHourUpdated, this.changeEndHour);
         this.register(userActions.endMinuteUpdated, this.changeEndMinute);
+        this.register(userActions.frequencyUpdated, this.changeFrequency);
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
@@ -274,6 +275,13 @@ class UserStore extends Store {
     }
     changeEndMinute(m) {
         this.changeTime('minute', m, 'end');
+    }
+    changeFrequency(frequencyID) {
+        this.setState({
+            mergedRows: {
+                frequencyID: frequencyID
+            }
+        });
     }
 }
 

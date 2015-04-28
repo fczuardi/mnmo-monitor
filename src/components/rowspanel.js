@@ -14,6 +14,8 @@ class RowsPanel {
                 userActions.endHourUpdated(event.target.value),
             endMinuteChange: (event) => 
                 userActions.endMinuteUpdated(event.target.value),
+            frequencyChange: (event) => 
+                userActions.frequencyUpdated(event.target.value)
         };
         return template(this.props, actions);
     }
