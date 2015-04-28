@@ -114,10 +114,15 @@ export default (p, a) => {
                 closeLabel={p.language.messages.settings.close}
                 onCloseClick={a.closePanel}
             >
+            <div style={{
+                height: '90%',
+                overflow: 'auto'
+            }}>
                 {datePicker}
                 {startingTime}
                 {endingTime}
                 {frequencyPicker}
+            </div>
             </Drawer>
         </Dialog>
     );
