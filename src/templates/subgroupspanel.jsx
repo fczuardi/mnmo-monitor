@@ -18,24 +18,10 @@ export default (p, a) =>
                 {
                     label: p.language.messages.subgroups.subgroup,
                     value: null,
-                    options: [
-                        {
-                            label: 'SubGroup A',
-                            id: 1
-                        },
-                        {
-                            label: 'SubGroup B',
-                            id: 2
-                        },
-                        {
-                            label: 'SubGroup C',
-                            id: 3
-                        },
-                        {
-                            label: 'SubGroup D',
-                            id: 4
-                        }
-                    ],
+                    options: p.groups.selectedGroupSubgroups.map( (group) => ({
+                        label: group.label,
+                        value: group.id
+                    })),
                     onChange: null
                 }
             ]}

@@ -25,7 +25,7 @@ class GroupsStore extends Store {
             type1: [],
             type2: [],
             selected: null,
-            selectedGroupSubgroups: null
+            selectedGroupSubgroups: []
         };
     }
 
@@ -77,7 +77,7 @@ class GroupsStore extends Store {
             console.log('result', URLs.filters.subgroups, payload);
             let groups = parseGroups(payload).groups;
             console.log('subgroups', groups);
-            this.setState({
+            store.setState({
                 selectedGroupSubgroups: groups
             });
         })
