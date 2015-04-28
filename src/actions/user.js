@@ -19,6 +19,18 @@ class UserActions extends Actions {
     languageUpdate(languageID) {
         return parseInt(languageID);
     }
+    startHourUpdated(hour) {
+        return hour;
+    }
+    startMinuteUpdated(minute) {
+        return minute;
+    }
+    endHourUpdated(hour) {
+        return hour;
+    }
+    endMinuteUpdated(minute) {
+        return minute;
+    }
     preferencesPublished() {
         return true;
     }

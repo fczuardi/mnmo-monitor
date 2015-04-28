@@ -10,10 +10,12 @@ class RowsStore extends Store {
     constructor(flux) {
         super();
         const sessionStore = flux.getStore('session');
+        const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
         const rowsActions = flux.getActions('rows');
         this.rowsActions = rowsActions;
         this.sessionStore = sessionStore;
+        this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(sessionActions.tokenGranted, this.fetchRows);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
@@ -23,7 +25,10 @@ class RowsStore extends Store {
             headers: [],
             data: []
         };
-        // this.fetchRows(sessionStore.state.token, this.state.type);
+    }
+
+    userPreferencesFetched() {
+        this.fetchRows();
     }
 
     fetchRows(token, newType) {

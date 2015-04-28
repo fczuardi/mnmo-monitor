@@ -32,6 +32,10 @@ class UserStore extends Store {
         this.register(userActions.autoUpdateToggle, this.changeAutoUpdatePref);
         this.register(userActions.languageUpdate, this.changeLanguagePref);
         this.register(userActions.preferencesFetched, this.preferencesFetched);
+        this.register(userActions.startHourUpdated, this.changeStartHour);
+        this.register(userActions.startMinuteUpdated, this.changeStartMinute);
+        this.register(userActions.endHourUpdated, this.changeEndHour);
+        this.register(userActions.endMinuteUpdated, this.changeEndMinute);
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
@@ -134,7 +138,7 @@ class UserStore extends Store {
         // console.log('updatePreferences...');
         let postBody = buildUserPreferencesPostBody(store.state);
         if (!postBody){ return false; }
-        console.log('make post', URLs.user.preferences);
+        console.log('POST', URLs.user.preferences);
         // console.log(postBody);
         fetch(URLs.baseUrl + URLs.user.preferences, {
             method: 'POST',
@@ -143,6 +147,7 @@ class UserStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload){
+            console.log('result', URLs.user.preferences, payload);
             let newState = userPreferencesPostResponseOK(payload);
             console.log('post success', payload, newState);
             store.userActions.preferencesPublished();
@@ -241,7 +246,30 @@ class UserStore extends Store {
             secondaryVarLabel: newVars.second,
             variableComboID: newVars.comboID,
         });
-
+    }
+    changeTime(hourOrMinute, value, startOrEnd) {
+        let archivedReport = merge({}, this.state.archivedReport);
+        let newValue = archivedReport[startOrEnd].split(':');
+        value = (value < 10) ? ('0' + value) : value;
+        newValue[(hourOrMinute === 'hour') ? 0 : 1] = value;
+        archivedReport[startOrEnd] = newValue.join(':');
+        console.log('changeTime', archivedReport);
+        this.setState({
+            archivedReport: archivedReport
+        });
+    }
+    changeStartHour(h) {
+        this.changeTime('hour', h, 'start');
+    }
+    changeStartMinute(m) {
+        this.changeTime('minute', m, 'start');
+    }
+    changeEndHour(h) {
+        console.log('changeEndHour', h);
+        this.changeTime('hour', h, 'end');
+    }
+    changeEndMinute(m) {
+        this.changeTime('minute', m, 'end');
     }
 }
 

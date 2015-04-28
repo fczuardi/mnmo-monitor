@@ -62,6 +62,8 @@ function buildUserPreferencesPostBody(state){
     let body = merge({}, lastUserPreferenceResponse);
     body.languageID = state.languageID;
     body.autoUpdate = state.autoUpdate;
+    body.archivedReport = state.archivedReport;
+    body.mergedRows = state.mergedRows;
     body.groupID = state.groupID;
     body.groupShortLabel = state.groupShortLabel;
     body.primaryVarLabel = state.primaryVarLabel;
