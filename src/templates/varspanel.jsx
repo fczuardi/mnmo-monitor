@@ -1,15 +1,10 @@
 import React from 'react';
+import Dialog from 'mnmo-components/lib/themes/mnmo/dialog';
 import Drawer from 'mnmo-components/lib/themes/mnmo/drawer';
 import MultiPicker from 'mnmo-components/lib/themes/mnmo/multipicker';
 
 export default (p, a) =>
-<div style={{
-    position: 'absolute',
-    boxSizing: 'border-box',
-    height: '100%',
-    overflow: 'hidden',
-    right: 0
-}}>
+<Dialog align='right'>
     <Drawer
         title={p.language.messages.vars.title}
         closeLabel={p.language.messages.settings.close}
@@ -33,4 +28,4 @@ export default (p, a) =>
         />
 
     </Drawer>
-</div>;
+</Dialog>;

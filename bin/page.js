@@ -40,6 +40,7 @@ var options = {
         './lib/js/component-shared.js',
         './lib/js/component-stage.js',
         './lib/js/component-drawer.js',
+        './lib/js/component-dialog.js',
         './lib/js/component-centeredbox.js',
         './lib/js/component-fieldset.js',
         './lib/js/component-textinput.js',

@@ -1,4 +1,5 @@
 import React from 'react';
+import Dialog from 'mnmo-components/lib/themes/mnmo/dialog';
 import Drawer from 'mnmo-components/lib/themes/mnmo/drawer';
 import List from 'mnmo-components/lib/themes/mnmo/list';
 import MultiPicker from 'mnmo-components/lib/themes/mnmo/multipicker';
@@ -83,14 +84,7 @@ export default (p, a) => {
     );
     
     return (
-        <div style={{
-            position: 'absolute',
-            boxSizing: 'border-box',
-            height: '100%',
-            overflow: 'hidden',
-            left: '50%',
-            marginLeft: -150
-        }}>
+        <Dialog align='center'>
             <Drawer
                 title={p.language.messages.rows.title[p.rows.type]}
                 closeLabel={p.language.messages.settings.close}
@@ -101,6 +95,6 @@ export default (p, a) => {
                 {endingTime}
                 {frequencyPicker}
             </Drawer>
-        </div>
+        </Dialog>
     );
 }
