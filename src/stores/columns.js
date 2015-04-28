@@ -2,6 +2,7 @@ import {Store} from 'flummox';
 import URLs from '../../config/endpoints.js';
 import {
     authHeaders,
+    statusRouter,
     chooseTextOrJSON,
     parseColumnsList,
     diffColumnsList,
@@ -31,6 +32,7 @@ class ColumnsStore extends Store {
             ]
         };
         this.sessionStore = sessionStore;
+        this.sessionActions = sessionActions;
         this.userStore = userStore;
         // this.fetchColumns(sessionStore.state.token);
         //columns state changed
@@ -58,6 +60,7 @@ class ColumnsStore extends Store {
             method: 'GET',
             headers: authHeaders(token)
         })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
             // console.log('result', payload);
@@ -84,6 +87,7 @@ class ColumnsStore extends Store {
             headers: authHeaders(token),
             body: postBody
         })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
             let response = columnListPostResponseOK(payload);

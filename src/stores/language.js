@@ -13,6 +13,7 @@ const locales = {
 
 import {
     authHeaders,
+    statusRouter,
     chooseTextOrJSON,
     parseLanguages
 } from '../../config/apiHelpers';
@@ -22,7 +23,9 @@ class LanguageStore extends Store {
         super();
         const sessionStore = flux.getStore('session');
         const userActions = flux.getActions('user');
+        const sessionActions = flux.getActions('session');
         this.sessionStore = sessionStore;
+        this.sessionActions = sessionActions;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.languageUpdate, this.changeLanguage);
         this.state = {
@@ -45,6 +48,7 @@ class LanguageStore extends Store {
             method: 'GET',
             headers: authHeaders(token)
         })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('result', URLs.languages.list, payload);

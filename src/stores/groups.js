@@ -2,6 +2,7 @@ import {Store} from 'flummox';
 import URLs from '../../config/endpoints.js';
 import {
     authHeaders,
+    statusRouter,
     chooseTextOrJSON,
     parseGroups
 } from '../../config/apiHelpers';
@@ -11,8 +12,10 @@ class GroupsStore extends Store {
     constructor(flux) {
         super();
         const sessionStore = flux.getStore('session');
+        const sessionActions = flux.getActions('session');
         const userActions = flux.getActions('user');
         this.sessionStore = sessionStore;
+        this.sessionActions = sessionActions;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.state = {
             type1: [],
@@ -33,6 +36,7 @@ class GroupsStore extends Store {
             method: 'GET',
             headers: authHeaders(token)
         })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('result', URLs.filters.groups, payload);

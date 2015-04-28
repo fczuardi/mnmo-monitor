@@ -13,6 +13,7 @@ import {
     buildUserPreferencesPostBody,
     userPreferencesPostResponseOK,
     authHeaders,
+    statusRouter,
     chooseTextOrJSON
 } from '../../config/apiHelpers';
 
@@ -24,6 +25,7 @@ class UserStore extends Store {
         const loginValidationActions = flux.getActions('loginValidation');
         const sessionActions = flux.getActions('session');
         const groupsActions = flux.getActions('groups');
+        this.sessionActions = sessionActions;
         this.flux = flux;
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
@@ -110,6 +112,7 @@ class UserStore extends Store {
             method: 'GET',
             headers: authHeaders(token)
         })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('result', URLs.user.preferences, payload);
@@ -145,6 +148,7 @@ class UserStore extends Store {
             headers: authHeaders(token),
             body: postBody
         })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('result', URLs.user.preferences, payload);

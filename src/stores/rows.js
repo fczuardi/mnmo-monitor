@@ -2,6 +2,7 @@ import {Store} from 'flummox';
 import URLs from '../../config/endpoints.js';
 import {
     authHeaders,
+    statusRouter,
     chooseTextOrJSON,
     parseRows
 } from '../../config/apiHelpers';
@@ -15,6 +16,7 @@ class RowsStore extends Store {
         const rowsActions = flux.getActions('rows');
         this.rowsActions = rowsActions;
         this.sessionStore = sessionStore;
+        this.sessionActions = sessionActions;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(sessionActions.tokenGranted, this.fetchRows);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
@@ -45,6 +47,7 @@ class RowsStore extends Store {
             method: 'GET',
             headers: authHeaders(token)
         })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('result', URLs.rows[type], payload);
@@ -53,7 +56,7 @@ class RowsStore extends Store {
             );
         })
         .catch(function(e){
-            console.log('parsing failed', e); // eslint-disable-line
+            console.log('fetch error', e); // eslint-disable-line
         });
     }
     

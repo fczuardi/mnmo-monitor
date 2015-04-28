@@ -25,6 +25,17 @@ function authHeaders(token){
         'Content-Type': 'application/json'
     };
 }
+function statusRouter(response, callback401) {
+    if (response.status === 200){
+        return response;
+    } else {
+        if (response.status === 401){
+            console.log('session expired', response.status);
+            callback401();
+        }
+        throw response.status;
+    }
+}
 function diffPayloads(previous, current){
     if (previous === null){ return false; }
     let previousString = JSON.stringify(previous);
@@ -111,6 +122,7 @@ function columnListPostResponseOK(payload){
 
 export default {
     authHeaders: authHeaders,
+    statusRouter: statusRouter,
     chooseTextOrJSON: chooseTextOrJSON,
     parseCountryList: genericParse,
     parseCaptchaSetup: genericParse,

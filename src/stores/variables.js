@@ -2,6 +2,7 @@ import {Store} from 'flummox';
 import URLs from '../../config/endpoints.js';
 import {
     authHeaders,
+    statusRouter,
     chooseTextOrJSON,
     parseVariables
 } from '../../config/apiHelpers';
@@ -14,7 +15,9 @@ class VariablesStore extends Store {
         const sessionStore = flux.getStore('session');
         const varsActions = flux.getActions('vars');
         const userActions = flux.getActions('user');
+        const sessionActions = flux.getActions('session');
         this.varsActions = varsActions;
+        this.sessionActions = sessionActions;
         this.sessionStore = sessionStore;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(varsActions.changePrimarySelection, this.firstVarChange);
@@ -45,6 +48,7 @@ class VariablesStore extends Store {
             method: 'GET',
             headers: authHeaders(token)
         })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('result', URLs.filters.variables, payload);
