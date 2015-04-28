@@ -4,6 +4,7 @@
             "id": 1,
             "label": "GROUP A",
             "shortLabel": "GRA",
+            "subgroupsCount": 5,
             "type": 1
         },
         {

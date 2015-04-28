@@ -7,6 +7,7 @@ import {
     parseGroups
 } from '../../config/apiHelpers';
 import partition from 'lodash/collection/partition';
+import find from 'lodash/collection/find';
 
 class GroupsStore extends Store {
     constructor(flux) {
@@ -14,12 +15,16 @@ class GroupsStore extends Store {
         const sessionStore = flux.getStore('session');
         const sessionActions = flux.getActions('session');
         const userActions = flux.getActions('user');
+        const groupsActions = flux.getActions('groups');
         this.sessionStore = sessionStore;
         this.sessionActions = sessionActions;
+        this.flux = flux;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
+        this.register(groupsActions.changeGroupSelection, this.selectGroup);
         this.state = {
             type1: [],
-            type2: []
+            type2: [],
+            selected: null
         };
     }
 
@@ -41,14 +46,30 @@ class GroupsStore extends Store {
         .then(function(payload){
             console.log('result', URLs.filters.groups, payload);
             let groups = parseGroups(payload).groups,
-                partitionedGroups = partition(groups, 'type', 1);
+                partitionedGroups = partition(groups, 'type', 1),
+                userStore = store.flux.getStore('user');
             store.setState({
                 type1: partitionedGroups[0],
                 type2: partitionedGroups[1]
             });
+            if (userStore.state.groupID !== null){
+                store.selectGroup(userStore.state.groupID);
+            }
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line
+        });
+    }
+    
+    selectGroup(groupID) {
+        let selected = find(
+            this.state.type1.concat(this.state.type2), 
+            'id', 
+            groupID
+        );
+        console.log('selectGroup', groupID, selected);
+        this.setState({
+            selected: selected
         });
     }
 }

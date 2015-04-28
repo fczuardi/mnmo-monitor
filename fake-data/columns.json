@@ -2,15 +2,27 @@
     "enabled": [
         {
             "id": 1,
-            "label": "B"
+            "label": "BABAAAA"
         },
         {
             "id": 4,
-            "label": "E"
+            "label": "EBAAAAA"
         },
         {
             "id": 0,
-            "label": "A"
+            "label": "ABAAAAA"
+        },
+        {
+            "id": 5,
+            "label": "BEBAAA"
+        },
+        {
+            "id": 6,
+            "label": "EBEAAA"
+        },
+        {
+            "id": 7,
+            "label": "AAAAAA"
         }
     ],
     "disabled": [

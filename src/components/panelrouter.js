@@ -2,6 +2,7 @@ import {createElement} from 'react';
 import GroupsPanel from '../components/groupselect';
 import VarsPanel from '../components/varspanel';
 import RowsPanel from '../components/rowspanel';
+import SubgroupsPanel from '../components/subgroupspanel';
 
 class PanelRouter {
     render() {
@@ -11,6 +12,8 @@ class PanelRouter {
                 createElement(VarsPanel, this.props) : 
             (this.props.ui.panel === 'rows') ? 
                 createElement(RowsPanel, this.props) : 
+            (this.props.ui.panel === 'subgroups') ? 
+                createElement(SubgroupsPanel, this.props) : 
             null;
         return component;
     }

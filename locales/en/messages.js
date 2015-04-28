@@ -47,5 +47,9 @@ export default {
         interval: 'Frequency (in minutes)',
         mergeRows: 'Merge rows',
         unmergeRows: 'All rows'
+    },
+    subgroups: {
+        title: 'Subgroups',
+        subgroup: 'Subgroup'
     }
 };

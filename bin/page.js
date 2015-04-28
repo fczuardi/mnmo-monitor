@@ -96,6 +96,7 @@ var options = {
         './js/components/groupselect.js',
         './js/components/varspanel.js',
         './js/components/rowspanel.js',
+        './js/components/subgroupspanel.js',
         './js/components/panelrouter.js',
         '$comment=dialogs',
         './js/components/header.js',

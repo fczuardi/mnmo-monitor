@@ -2,7 +2,11 @@ import template from '../templates/dashboard.jsx';
 
 class Dashboard {
     render() {
-        return template(this.props);
+        const actions = {
+            subgroupsButtonClicked: () =>
+                this.props.flux.getActions('user').openPanel('subgroups')
+        };
+        return template(this.props, actions);
     }
 }
 

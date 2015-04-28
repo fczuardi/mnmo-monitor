@@ -4,7 +4,7 @@ import Header from '../components/header';
 import PanelRouter from '../components/panelrouter';
 import DataTable from '../components/datatable';
 
-export default (p) => {
+export default (p, a) => {
     let marginLeft = 0,
         toggleButtonSpace = 50,
         borderWidth = 2,
@@ -21,6 +21,17 @@ export default (p) => {
             marginLeft = drawerWidth;
         }
     }
+    let subgroupsButton = (p.groups.selected &&
+                            p.groups.selected.subgroupsCount > 0) ? (
+        <button
+            style={{
+                background: 'none',
+            }}
+            onClick={a.subgroupsButtonClicked}
+        >
+            Subgroups
+        </button>
+                            ) : null;
     return (
 <div style={{
     height: '100%',
@@ -34,6 +45,7 @@ export default (p) => {
     <div style={{float: 'left', paddingTop: 53, width: '100%'}}>
         <Header {...p} />
         <PanelRouter {...p} />
+        {subgroupsButton}
         <DataTable {...p} />
     </div>
 </div>

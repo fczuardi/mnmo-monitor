@@ -46,6 +46,7 @@
     "../components/groupselect": "global:APPGroupsPanel",
     "../components/varspanel": "global:APPVarsPanel",
     "../components/rowspanel": "global:APPRowsPanel",
+    "../components/subgroupspanel": "global:APPSubgroupsPanel",
     "../components/panelrouter": "global:APPPanelsRouter",
     "../components/datatable": "global:APPDataTable",
     "../lib/local": "global:LocalStorageHelpers",

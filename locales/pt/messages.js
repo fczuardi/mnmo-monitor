@@ -47,5 +47,9 @@ export default {
         interval: 'Periodicidade (em minutos)',
         mergeRows: 'Agrupar linhas',
         unmergeRows: 'Ver todas'
+    },
+    subgroups: {
+        title: 'Sub-grupos',
+        subgroup: 'Sub-grupo'
     }
 };
