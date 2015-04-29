@@ -25,7 +25,8 @@ export default (p, a) => {
                                             p.user.archivedReport.date : null;
     let initialMonth = moment(selectedDay);
     let modifiers = {
-        selected: (day) => (selectedDay === day.format('YYYY-MM-DD'))
+        selected: (day) => (selectedDay === day.format('YYYY-MM-DD')),
+        disabled: (day) => (day.startOf('day').isAfter(moment().startOf('day')))
     };
 
     let datePicker = (p.user.autoUpdate === true) ? null : (
@@ -46,7 +47,6 @@ export default (p, a) => {
     let startingMinute = (p.user.archivedReport &&
                         p.user.archivedReport.start) ? 
                             parseInt(p.user.archivedReport.start.split(':')[1]) : null;
-    console.log('startingHour', startingHour);
     let startingTime = ( (p.rows.type === 'list') ||
                          (p.user.autoUpdate === true) ) ? null : (
         <MultiPicker 

@@ -61,23 +61,20 @@
   line-height: 36px;
   border: 1px solid #dce0e0;
   cursor: pointer;
+  text-align: center;
 
-  &:hover:not(.DayPicker-day--outside):not(.DayPicker-day--disabled) {
-    background-color: #FF0000;
-    color: white;
-  }
+  /*&:hover:not(.DayPicker-day--outside):not(.DayPicker-day--disabled) {*/
+  /*  background-color: #FF0000;*/
+  /*  color: white;*/
+  /*}*/
 }
 
 /* Modifiers */
 
-// reserved for days outside the current months
-
 .DayPicker-day--outside {
-  color: #dce0e0 !important;
+  color: #dce0e0;
   cursor: default;
 }
-
-// custom modifiers
 
 .DayPicker-day--disabled {
   cursor: default;
@@ -89,7 +86,7 @@
   color: #FF0000;
 }
 
-.DayPicker-day--selected:not(.DayPicker-day--outside) {
+.DayPicker-day--selected {
   color: white;
-  background-color: #FF0000;
+  background-color: #F27A72;
 }

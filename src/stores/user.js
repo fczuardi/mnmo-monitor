@@ -260,7 +260,6 @@ class UserStore extends Store {
         value = (value < 10) ? ('0' + value) : value;
         newValue[(hourOrMinute === 'hour') ? 0 : 1] = value;
         archivedReport[startOrEnd] = newValue.join(':');
-        console.log('changeTime', archivedReport);
         this.setState({
             archivedReport: archivedReport
         });
@@ -272,7 +271,6 @@ class UserStore extends Store {
         this.changeTime('minute', m, 'start');
     }
     changeEndHour(h) {
-        console.log('changeEndHour', h);
         this.changeTime('hour', h, 'end');
     }
     changeEndMinute(m) {

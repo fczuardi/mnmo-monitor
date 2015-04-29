@@ -229,6 +229,7 @@
     "lodash": "^3.7.0",
     "marked": "^0.3.3",
     "mnmo-components": "file:../mnmo-components/dist/npm",
+    "moment": "^2.10.2",
     "normalize.css": "^3.0.3",
     "object-assign": "^2.0.0",
     "promise-polyfill": "^2.0.2",
