@@ -2,6 +2,8 @@ import React from 'react';
 import Dialog from 'mnmo-components/lib/themes/mnmo/dialog';
 import Drawer from 'mnmo-components/lib/themes/mnmo/drawer';
 import List from 'mnmo-components/lib/themes/mnmo/list';
+import DayPicker from 'react-day-picker';
+import moment from 'moment';
 import MultiPicker from 'mnmo-components/lib/themes/mnmo/multipicker';
 import Radio from 'mnmo-components/lib/themes/mnmo/radio';
 
@@ -19,25 +21,23 @@ for (let m = 0; m < 60; m++){
 }
 
 export default (p, a) => {
-    let day = (p.user.archivedReport && p.user.archivedReport.date) ? 
+    let selectedDay = (p.user.archivedReport && p.user.archivedReport.date) ? 
                                             p.user.archivedReport.date : null;
+    let initialMonth = moment(selectedDay);
+    let modifiers = {
+        selected: (day) => (selectedDay === day.format('YYYY-MM-DD'))
+    };
+
     let datePicker = (p.user.autoUpdate === true) ? null : (
         <List 
             title={p.language.messages.rows.date}
         >
-            <input 
-                type='date'
-                value={day}
-                style={{
-                    marginTop: 30,
-                    marginBottom: 30,
-                    marginLeft: 0,
-                    width: '50%'
-                }}
-                placeholder={p.language.messages.rows.datePlaceholder}
-                onChange={a.dateChange}
+            <DayPicker 
+                initialMonth={initialMonth}
+                modifiers={modifiers}
+                onDayClick={a.calendarDayClick}
+                enableOutsideDays={true}
             />
-            {p.language.messages.rows.datePlaceholder}
         </List>
     );
     let startingHour = (p.user.archivedReport &&

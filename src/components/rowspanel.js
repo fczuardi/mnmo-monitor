@@ -6,8 +6,8 @@ class RowsPanel {
         const actions = {
             closePanel: () => 
                 userActions.closePanel(),
-            dateChange: (event) =>
-                userActions.dateUpdated(event.target.value),
+            calendarDayClick: (day) =>
+                userActions.dateUpdated(day.format('YYYY-MM-DD')),
             startHourChange: (event) => 
                 userActions.startHourUpdated(event.target.value),
             startMinuteChange: (event) => 

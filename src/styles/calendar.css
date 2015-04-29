@@ -1,0 +1,95 @@
+
+/* DayPicker styles */
+
+.DayPicker {
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: inline-block;
+  margin: 24px 10px;
+  user-select: none;
+  vertical-align: top;
+}
+
+/* Caption & navigation buttons */
+
+.DayPicker-caption {
+  line-height: 36px;
+}
+
+.DayPicker-weekday {
+  width: 36px;
+  line-height: 36px;
+  font-size: 0.875em;
+  color: #82888a;
+  font-weight: normal;
+}
+
+.DayPicker-nav {
+  display: block;
+  border: 0;
+  background-color: transparent;
+  position: relative;
+  height: 36px;
+  width: 36px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 25%;
+  cursor: pointer;
+    font-family: "Custom-Entypo-mnmo" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    text-align: center;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+.DayPicker-nav--right:before {
+    content: 'e';
+}
+.DayPicker-nav--left:before {
+    content: 'f';
+}
+
+/* Days */
+
+.DayPicker-day {
+  width: 36px;
+  line-height: 36px;
+  border: 1px solid #dce0e0;
+  cursor: pointer;
+
+  &:hover:not(.DayPicker-day--outside):not(.DayPicker-day--disabled) {
+    background-color: #FF0000;
+    color: white;
+  }
+}
+
+/* Modifiers */
+
+// reserved for days outside the current months
+
+.DayPicker-day--outside {
+  color: #dce0e0 !important;
+  cursor: default;
+}
+
+// custom modifiers
+
+.DayPicker-day--disabled {
+  cursor: default;
+  color: #dce0e0;
+  background-color: #F1F1F1;
+}
+
+.DayPicker-day--today {
+  color: #FF0000;
+}
+
+.DayPicker-day--selected:not(.DayPicker-day--outside) {
+  color: white;
+  background-color: #FF0000;
+}

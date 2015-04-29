@@ -60,6 +60,7 @@ class UserStore extends Store {
             archivedReport: null,
             mergedRows: null,
             groupID: null,
+            subgroupID: null,
             groupShortLabel: '',
             primaryVarLabel: '-',
             secondaryVarLabel: '-',

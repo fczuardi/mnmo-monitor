@@ -13,6 +13,7 @@ var options = {
     stylesheets: [
         './lib/css/normalize.css',
         './lib/css/typography.css',
+        './lib/css/calendar.css',
         './css/main.css'
     ],
     scripts: [
@@ -29,6 +30,9 @@ var options = {
         '$comment=flummox',
         './lib/js/react-intl.js',
         '$comment=reactintl',
+        './lib/js/moment.js',
+        './lib/js/react-day-picker.js',
+        '$comment=react-day-picker',
         './lib/js/lodash-merge.js',
         './lib/js/lodash-partition.js',
         './lib/js/lodash-sortby.js',

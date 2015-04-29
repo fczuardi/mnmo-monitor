@@ -13,6 +13,7 @@ var options = {
     stylesheets: [
         './css/normalize.css',
         './css/typography.css',
+        './css/calendar.css',
         './css/main.css'
     ],
     scripts: [
