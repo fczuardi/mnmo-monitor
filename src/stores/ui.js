@@ -21,6 +21,7 @@ class UIStore extends Store {
     }
     changeMenuState() {
         this.setState({
+            panel: null,
             menuClosed: !this.state.menuClosed
         });
         if (!this.state.menuClosed) {
