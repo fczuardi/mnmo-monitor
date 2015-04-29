@@ -34,7 +34,7 @@ export default (p, a) =>
                     )}
                 </button>
             </td>
-        {p.columns.enabled.map( (column, key) => (
+        {p.rows.columns.map( (column, key) => (
             <td key={key} style={style.td}>
                 {
                     column.icons ? 

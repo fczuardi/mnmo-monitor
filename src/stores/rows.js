@@ -23,8 +23,9 @@ class RowsStore extends Store {
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
         this.state = {
             type: 'list', // merged | list
-            menuLabel: '…',
-            headers: [],
+            menuLabel: '…', //the little clock on the header
+            headers: [], //row headers
+            columns: [], //column headers
             data: []
         };
     }
@@ -68,6 +69,7 @@ class RowsStore extends Store {
         this.setState({
             menuLabel: newLabel,
             headers: data.rows.headers,
+            columns: data.rows.columns,
             data: rows
         });
     }

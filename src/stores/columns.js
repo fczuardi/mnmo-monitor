@@ -24,7 +24,7 @@ class ColumnsStore extends Store {
         this.register(sessionActions.tokenGranted, this.fetchColumns);
         this.register(columnsActions.updateColumnSelectedState, this.updateSelection);
         this.register(userActions.preferencesPublished, this.userChanged);
-        this.register(rowsActions.rowsFetchCompleted, this.replaceEnabledColumns);
+        // this.register(rowsActions.rowsFetchCompleted, this.replaceEnabledColumns);
         this.state = {
             enabled: [
             ],
@@ -34,7 +34,7 @@ class ColumnsStore extends Store {
         this.sessionStore = sessionStore;
         this.sessionActions = sessionActions;
         this.userStore = userStore;
-        // this.fetchColumns(sessionStore.state.token);
+        this.fetchColumns(sessionStore.state.token);
         //columns state changed
         this.addListener('change', function(){
             this.savePreferences();
@@ -80,7 +80,8 @@ class ColumnsStore extends Store {
         if (token === null){ return false; }
         if (hasChanged === false){ return false; }
         if (!postBody){ return false; }
-        console.log('make post');
+        console.log('POST', URLs.columns.list);
+        return false;
         // console.log(postBody);
         fetch(URLs.baseUrl + URLs.columns.list, {
             method: 'POST',
@@ -118,12 +119,12 @@ class ColumnsStore extends Store {
             });
         }
     }
-    replaceEnabledColumns(data) {
-        let enabled = data.rows.columns;
-        this.setState({
-            enabled: enabled
-        });
-    }
+    // replaceEnabledColumns(data) {
+    //     let enabled = data.rows.columns;
+    //     this.setState({
+    //         enabled: enabled
+    //     });
+    // }
 }
 
 export default ColumnsStore;
