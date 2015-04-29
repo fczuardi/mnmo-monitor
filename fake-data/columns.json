@@ -15,6 +15,19 @@
             }
         },
         {
+            "id": 6,
+            "label": "EBEAAA",
+            "icons": {
+                "legacy": "https://openclipart.org/download/169910/kitchen-egg.svg"
+            }
+        },
+        {
+            "id": 7,
+            "label": "AAAAAA"
+        }
+    ],
+    "disabled": [
+        {
             "id": 0,
             "label": "ABAAAAA",
             "icons": {
@@ -28,19 +41,6 @@
                 "legacy": "https://openclipart.org/download/169911/kitchen-fish.svg"
             }
         },
-        {
-            "id": 6,
-            "label": "EBEAAA",
-            "icons": {
-                "legacy": "https://openclipart.org/download/169910/kitchen-egg.svg"
-            }
-        },
-        {
-            "id": 7,
-            "label": "AAAAAA"
-        }
-    ],
-    "disabled": [
         {
             "id": 2,
             "label": "C"
