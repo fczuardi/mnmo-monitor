@@ -32,15 +32,12 @@ export default (p, a) => {
             Subgroups
         </button>
                             ) : null;
+    let dashboardStyle = {
+        height: '100%',
+        marginLeft: marginLeft
+    };
     return (
-<div style={{
-    height: '100%',
-    marginLeft: marginLeft,
-    transitionProperty: 'margin-left',
-    transitionDuration: '0.5s',
-    transitionTimingFunction: 'ease',
-    transitionDelay: '0s'
-}}>
+<div style={dashboardStyle}>
     <Menu {...p} />
     <div style={{float: 'left', paddingTop: 53, width: '100%'}}>
         <Header {...p} />
