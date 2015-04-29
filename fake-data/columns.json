@@ -4,35 +4,35 @@
             "id": 1,
             "label": "hasLegacyIcon",
             "icons": {
-                "legacy": "https://openclipart.org/download/169937/kitchen-frenchpress.svg"
+                "legacy": "https://openclipart.org/download/169922/kitchen-scale.svg"
             }
         },
         {
             "id": 4,
             "label": "My Cupcake is very special",
             "icons": {
-                "legacy": "https://openclipart.org/image/300px/svg_to_png/169917/kitchen-muffin.png"
+                "legacy": "https://openclipart.org/download/169936/kitchen-dinercoffee.svg"
             }
         },
         {
             "id": 0,
             "label": "ABAAAAA",
             "icons": {
-                "legacy": "https://openclipart.org/image/300px/svg_to_png/169912/kitchen-grater.png"
+                "legacy": "https://openclipart.org/download/169907/kitchen-coffee-perc.svg"
             }
         },
         {
             "id": 5,
             "label": "BEBAAA",
             "icons": {
-                "legacy": "https://openclipart.org/image/300px/svg_to_png/169909/kitchen-coffee-cup.png"
+                "legacy": "https://openclipart.org/download/169911/kitchen-fish.svg"
             }
         },
         {
             "id": 6,
             "label": "EBEAAA",
             "icons": {
-                "legacy": "https://openclipart.org/image/300px/svg_to_png/169936/kitchen-dinercoffee.png"
+                "legacy": "https://openclipart.org/download/169910/kitchen-egg.svg"
             }
         },
         {
