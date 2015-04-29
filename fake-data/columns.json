@@ -2,23 +2,38 @@
     "enabled": [
         {
             "id": 1,
-            "label": "BABAAAA"
+            "label": "hasLegacyIcon",
+            "icons": {
+                "legacy": "https://openclipart.org/download/169937/kitchen-frenchpress.svg"
+            }
         },
         {
             "id": 4,
-            "label": "EBAAAAA"
+            "label": "My Cupcake is very special",
+            "icons": {
+                "legacy": "https://openclipart.org/image/300px/svg_to_png/169917/kitchen-muffin.png"
+            }
         },
         {
             "id": 0,
-            "label": "ABAAAAA"
+            "label": "ABAAAAA",
+            "icons": {
+                "legacy": "https://openclipart.org/image/300px/svg_to_png/169912/kitchen-grater.png"
+            }
         },
         {
             "id": 5,
-            "label": "BEBAAA"
+            "label": "BEBAAA",
+            "icons": {
+                "legacy": "https://openclipart.org/image/300px/svg_to_png/169909/kitchen-coffee-cup.png"
+            }
         },
         {
             "id": 6,
-            "label": "EBEAAA"
+            "label": "EBEAAA",
+            "icons": {
+                "legacy": "https://openclipart.org/image/300px/svg_to_png/169936/kitchen-dinercoffee.png"
+            }
         },
         {
             "id": 7,

@@ -36,7 +36,14 @@ export default (p, a) =>
             </td>
         {p.columns.enabled.map( (column, key) => (
             <td key={key} style={style.td}>
-                {column.label}
+                {
+                    column.icons ? 
+                        React.DOM.img({
+                            src: column.icons.legacy,
+                            width: 50,
+                            height: 50
+                        }) : column.label
+                }
             </td>
         ))}
         </tr>

@@ -2,12 +2,12 @@
     "languageID": 3,
     "autoUpdate": false,
     "archivedReport": {
-        "date": "2015-04-30",
+        "date": "2015-04-29",
         "start": "07:10:00",
         "end": "09:06:00"
     },
     "mergedRows": {
-        "frequencyID": 2,
+        "frequencyID": 3,
         "mergeFunctionID": 0
     },
     "groupID": 2,

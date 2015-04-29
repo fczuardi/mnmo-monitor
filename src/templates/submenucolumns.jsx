@@ -20,6 +20,14 @@ export default (p, a) =>
                 checked={true}
                 onChange={a.columnChange}
             >
+            {
+            column.icons ? 
+                React.DOM.img({
+                    src: column.icons.legacy,
+                    width: 50,
+                    height: 50
+                }) : null
+            }
                 {column.label}
             </Checkbox>
         </LI>
@@ -33,6 +41,14 @@ export default (p, a) =>
                 checked={false}
                 onChange={a.columnChange}
             >
+            {
+                column.icons ? 
+                    React.DOM.img({
+                        src: column.icons.legacy,
+                        width: 50,
+                        height: 50
+                    }) : null
+                }
                 {column.label}
             </Checkbox>
         </LI>
