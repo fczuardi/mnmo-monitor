@@ -104,7 +104,7 @@ export default (p, a) => {
                 padding: '30px',
                 paddingRight: 0,
                 width: '100%',
-                marginLeft: -40
+                marginLeft: -10
             }}>
             {p.frequency.options.map( (freq, key) => (
                 <Radio  
