@@ -81,7 +81,6 @@ class ColumnsStore extends Store {
         if (hasChanged === false){ return false; }
         if (!postBody){ return false; }
         console.log('POST', URLs.columns.list);
-        return false;
         // console.log(postBody);
         fetch(URLs.baseUrl + URLs.columns.list, {
             method: 'POST',
