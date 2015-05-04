@@ -45,6 +45,7 @@ class UserStore extends Store {
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
         this.register(sessionActions.tokenGranted, this.fetchPreferences);
         this.register(groupsActions.changeGroupSelection, this.changeGroupPref);
+        this.register(groupsActions.changeClassSelection, this.changeClassPref);
         this.userActions = userActions;
         this.state = {
             username: '',
@@ -61,6 +62,7 @@ class UserStore extends Store {
             mergedRows: null,
             groupID: null,
             subgroupID: null,
+            classID: null,
             groupShortLabel: '',
             primaryVarLabel: '-',
             secondaryVarLabel: '-',
@@ -241,9 +243,17 @@ class UserStore extends Store {
         if (groupID === null) { return false }
         let intGroupID = parseInt(groupID);
         let selectedGroup = this.getGroupFromStore(intGroupID);
+        let classID = selectedGroup.classes.length === 1 ? 
+                        selectedGroup.classes[0].id : this.state.classID;
         this.setState({
             groupID: intGroupID,
-            groupShortLabel: selectedGroup.shortLabel
+            groupShortLabel: selectedGroup.shortLabel,
+            classID: classID
+        });
+    }
+    changeClassPref(classID) {
+        this.setState({
+            classID: classID
         });
     }
     changeVarsPref(){

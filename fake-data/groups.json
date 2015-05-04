@@ -5,133 +5,158 @@
             "label": "GROUP A",
             "shortLabel": "GRA",
             "subgroupsCount": 5,
-            "type": 1
+            "type": 1,
+            "classes": [
+                {"id": 1, "label": "Class A"}, 
+                {"id": 2, "label": "Class B"}
+            ]
         },
         {
             "id": 2,
             "label": "GROUP B",
             "shortLabel": "",
-            "type": 1
+            "type": 1,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 3,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 4,
             "label": "GROUP D",
             "shortLabel": "GRD",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 5,
             "label": "GROUP E",
             "shortLabel": "GRE",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 6,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 7,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 8,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 9,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 10,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 11,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 12,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 13,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 14,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 15,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 16,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 17,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 18,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 19,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 20,
             "label": "GROUP C",
             "shortLabel": "GRC",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 21,
             "label": "GROUP D",
             "shortLabel": "GRD",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         },
         {
             "id": 22,
             "label": "LAST GROUP",
             "shortLabel": "LAST",
-            "type": 2
+            "type": 2,
+            "classes": [{"id": 1, "label": "Class A"}]
         }
     ]
 }

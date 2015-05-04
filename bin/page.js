@@ -101,6 +101,7 @@ var options = {
         './js/components/varspanel.js',
         './js/components/rowspanel.js',
         './js/components/subgroupspanel.js',
+        './js/components/classespanel.js',
         './js/components/panelrouter.js',
         '$comment=dialogs',
         './js/components/header.js',

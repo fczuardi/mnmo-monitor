@@ -44,4 +44,14 @@ export default (p, a) =>
         </span>
         {((p.user.secondaryVarLabel !== '-') ? p.user.secondaryVarLabel : null)}
     </button>
+
+    <button 
+        className={(p.user.classID !== null) ? 
+                        ('header-icon-' + p.user.classID) : ''}
+        style={{background: 'none', border: 0, float: 'right'}}
+        onClick={a.classButtonClicked}
+        disabled={(p.groups.selected && p.groups.selected.classes.length < 2 )}
+    >
+    </button>
+
 </Toolbar>;

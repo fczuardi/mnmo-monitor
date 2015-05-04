@@ -78,6 +78,7 @@ function buildUserPreferencesPostBody(state){
     body.mergedRows = state.mergedRows;
     body.groupID = state.groupID;
     body.groupShortLabel = state.groupShortLabel;
+    body.classID = state.classID;
     body.primaryVarLabel = state.primaryVarLabel;
     body.secondaryVarLabel = state.secondaryVarLabel;
     body.variableComboID = state.variableComboID;

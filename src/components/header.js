@@ -12,6 +12,9 @@ class Header {
             varsButtonClicked: () => {
                 this.props.flux.getActions('user').openPanel('vars');
             },
+            classButtonClicked: () => {
+                this.props.flux.getActions('user').openPanel('classes');
+            },
             rowsButtonClicked: () => {
                 this.props.flux.getActions('user').openPanel('rows');
             }

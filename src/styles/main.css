@@ -2,3 +2,23 @@
     background: none !important;
     box-shadow: none !important;
 }
+.header-icon-1,
+.header-icon-2,
+.header-icon-13{
+    font-family: "Custom-Entypo-mnmo" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    text-align: center;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.header-icon-1:before {
+  content: "g";
+}
+.header-icon-2:before,
+.header-icon-13:before {
+  content: "h";
+}

@@ -1,6 +1,7 @@
 import {createElement} from 'react';
 import GroupsPanel from '../components/groupselect';
 import VarsPanel from '../components/varspanel';
+import ClassesPanel from '../components/classespanel';
 import RowsPanel from '../components/rowspanel';
 import SubgroupsPanel from '../components/subgroupspanel';
 
@@ -10,6 +11,8 @@ class PanelRouter {
                 createElement(GroupsPanel, this.props) : 
             (this.props.ui.panel === 'vars') ? 
                 createElement(VarsPanel, this.props) : 
+            (this.props.ui.panel === 'classes') ? 
+                createElement(ClassesPanel, this.props) : 
             (this.props.ui.panel === 'rows') ? 
                 createElement(RowsPanel, this.props) : 
             (this.props.ui.panel === 'subgroups') ? 

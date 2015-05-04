@@ -52,5 +52,8 @@ export default {
     subgroups: {
         title: 'Subgroups',
         subgroup: 'Subgroup'
+    },
+    classes: {
+        title: 'Class'
     }
 };
