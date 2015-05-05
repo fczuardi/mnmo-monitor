@@ -18,7 +18,7 @@ class RowsStore extends Store {
         this.sessionStore = sessionStore;
         this.sessionActions = sessionActions;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
-        this.register(sessionActions.tokenGranted, this.fetchRows);
+        // this.register(sessionActions.tokenGranted, this.fetchRows);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
         this.state = {
@@ -42,7 +42,7 @@ class RowsStore extends Store {
         }
         token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
-        console.log('GET rows', type, URLs.rows[type]);
+        console.log('GET', type, URLs.rows[type]);
         if (URLs.rows[type] === undefined){ return false; }
         fetch(URLs.baseUrl + URLs.rows[type], {
             method: 'GET',
@@ -51,7 +51,8 @@ class RowsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.rows[type], payload);
+            // console.log('result', URLs.rows[type], payload);
+            console.log('OK', URLs.rows[type]);
             store.rowsActions.rowsFetchCompleted(
                 parseRows(payload)
             );

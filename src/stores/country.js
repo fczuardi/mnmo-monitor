@@ -16,9 +16,11 @@ class CountryStore extends Store {
 
     fetchOptions() {
         let store = this;
+        console.log('GET', URLs.country.list);
         fetch(URLs.baseUrl + URLs.country.list)
         .then(chooseTextOrJSON)
         .then(function(payload){
+            console.log('OK', URLs.country.list);
             let options = parseCountryList(payload);
             store.setState({
                 options: options

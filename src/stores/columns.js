@@ -20,11 +20,9 @@ class ColumnsStore extends Store {
         const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
         const columnsActions = flux.getActions('columns');
-        const rowsActions = flux.getActions('rows');
         this.register(sessionActions.tokenGranted, this.fetchColumns);
         this.register(columnsActions.updateColumnSelectedState, this.updateSelection);
         this.register(userActions.preferencesPublished, this.userChanged);
-        // this.register(rowsActions.rowsFetchCompleted, this.replaceEnabledColumns);
         this.state = {
             enabled: [
             ],
@@ -47,7 +45,6 @@ class ColumnsStore extends Store {
     }
     userChanged() {
         if (this.userStore.state.groupID !== this.previousSelectedGroup){
-            console.log(this.userStore.state.groupID, this.previousSelectedGroup, 'fetch columns');
             this.fetchColumns(this.sessionStore.state.token);
             this.previousSelectedGroup = this.userStore.state.groupID;
         }
@@ -63,9 +60,9 @@ class ColumnsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.columns.list, payload);
+            // console.log('result', URLs.columns.list, payload);
+            console.log('OK', URLs.columns.list);
             let columns = parseColumnsList(payload);
-            // console.log('columns', columns);
             store.setState(columns);
         })
         .catch(function(e){
@@ -81,7 +78,6 @@ class ColumnsStore extends Store {
         if (hasChanged === false){ return false; }
         if (!postBody){ return false; }
         console.log('POST', URLs.columns.list);
-        // console.log(postBody);
         fetch(URLs.baseUrl + URLs.columns.list, {
             method: 'POST',
             headers: authHeaders(token),
@@ -90,8 +86,10 @@ class ColumnsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            let response = columnListPostResponseOK(payload);
-            console.log(response);
+            // let response = columnListPostResponseOK(payload);
+            // console.log('result (post)', URLs.columns.list, response);
+            columnListPostResponseOK(payload);
+            console.log('OK (post)', URLs.columns.list);
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line

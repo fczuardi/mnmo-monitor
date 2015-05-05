@@ -51,7 +51,8 @@ class LanguageStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.languages.list, payload);
+            // console.log('result', URLs.languages.list, payload);
+            console.log('OK', URLs.languages.list);
             let languages = parseLanguages(payload).languages;
             store.setState({
                 list: languages

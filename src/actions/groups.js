@@ -4,6 +4,9 @@ class GroupsActions extends Actions {
     changeGroupSelection(groupID) {
         return parseInt(groupID);
     }
+    changeSubGroupSelection(subGroupID) {
+        return parseInt(subGroupID);
+    }
     changeClassSelection(classID) {
         return parseInt(classID);
     }

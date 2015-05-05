@@ -69,9 +69,11 @@ class LoginValidationStore extends Store {
             selectedAnswerIndex: null
         });
         let store = this;
+        console.log('GET', URLs.validation.captcha);
         fetch(URLs.baseUrl + URLs.validation.captcha)
         .then(chooseTextOrJSON)
         .then(function(payload) {
+            console.log('OK', URLs.validation.captcha);
             let options = parseCaptchaSetup(payload);
             store.setState({
                 captchaQuestionID: options.questionID,

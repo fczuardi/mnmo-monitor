@@ -30,7 +30,7 @@ class FrequencyStore extends Store {
             url = URLs.baseUrl + 
                     URLs.frequency.list + '?' + 
                     URLs.frequency.countryParam + '=' + countryID;
-        console.log('GET', url);
+        console.log('GET', URLs.frequency.list);
         fetch(url, {
             method: 'GET',
             headers: authHeaders(token)
@@ -38,7 +38,8 @@ class FrequencyStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.frequency.list, payload);
+            // console.log('result', URLs.frequency.list, payload);
+            console.log('OK', URLs.frequency.list);
             let newState = parseFrequencies(payload);
             store.setState(newState);
         })

@@ -17,12 +17,12 @@ export default (p, a) =>
             cells={[
                 {
                     label: p.language.messages.subgroups.subgroup,
-                    value: null,
+                    value: p.user.subgroupID,
                     options: p.groups.selectedGroupSubgroups.map( (group) => ({
                         label: group.label,
                         value: group.id
                     })),
-                    onChange: null
+                    onChange: a.changeSubGroup
                 }
             ]}
         />

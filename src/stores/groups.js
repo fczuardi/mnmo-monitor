@@ -4,7 +4,8 @@ import {
     authHeaders,
     statusRouter,
     chooseTextOrJSON,
-    parseGroups
+    parseGroups,
+    parseSubGroups
 } from '../../config/apiHelpers';
 import partition from 'lodash/collection/partition';
 import find from 'lodash/collection/find';
@@ -20,6 +21,7 @@ class GroupsStore extends Store {
         this.sessionActions = sessionActions;
         this.flux = flux;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
+        this.register(userActions.preferencesPublished, this.userPreferencesPublished);
         this.register(groupsActions.changeGroupSelection, this.selectGroup);
         this.state = {
             type1: [],
@@ -31,6 +33,12 @@ class GroupsStore extends Store {
 
     userPreferencesFetched() {
         this.fetchGroups();
+    }
+
+    userPreferencesPublished() {
+        if (this.state.selected.subgroupsCount > 0) {
+            this.fetchSubGroups();
+        }
     }
     
     fetchGroups(token) {
@@ -45,7 +53,8 @@ class GroupsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.filters.groups, payload);
+            // console.log('result', URLs.filters.groups, payload);
+            console.log('OK', URLs.filters.groups);
             let groups = parseGroups(payload).groups,
                 partitionedGroups = partition(groups, 'type', 1),
                 userStore = store.flux.getStore('user');
@@ -54,7 +63,7 @@ class GroupsStore extends Store {
                 type2: partitionedGroups[1]
             });
             if (userStore.state.groupID !== null){
-                store.selectGroup(userStore.state.groupID);
+                store.selectGroup(userStore.state.groupID, true);
             }
         })
         .catch(function(e){
@@ -74,9 +83,9 @@ class GroupsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.filters.subgroups, payload);
-            let groups = parseGroups(payload).groups;
-            console.log('subgroups', groups);
+            // console.log('result', URLs.filters.subgroups, payload);
+            console.log('OK', URLs.filters.subgroups);
+            let groups = parseSubGroups(payload).groups;
             store.setState({
                 selectedGroupSubgroups: groups
             });
@@ -86,17 +95,16 @@ class GroupsStore extends Store {
         });
     }
 
-    selectGroup(groupID) {
+    selectGroup(groupID, fetchSubGroups) {
         let selected = find(
             this.state.type1.concat(this.state.type2), 
             'id', 
             groupID
         );
-        console.log('selectGroup', groupID, selected);
         this.setState({
             selected: selected
         });
-        if (selected.subgroupsCount > 0) {
+        if (fetchSubGroups === true && selected.subgroupsCount > 0) {
             this.fetchSubGroups();
         }
     }

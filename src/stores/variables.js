@@ -51,7 +51,8 @@ class VariablesStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.filters.variables, payload);
+            // console.log('result', URLs.filters.variables, payload);
+            console.log('OK', URLs.filters.variables);
             let newCombos = parseVariables(payload).combos;
             let primaryOptions = keys(
                                     newCombos

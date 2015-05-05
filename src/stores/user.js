@@ -45,6 +45,7 @@ class UserStore extends Store {
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
         this.register(sessionActions.tokenGranted, this.fetchPreferences);
         this.register(groupsActions.changeGroupSelection, this.changeGroupPref);
+        this.register(groupsActions.changeSubGroupSelection, this.changeSubGroupPref);
         this.register(groupsActions.changeClassSelection, this.changeClassPref);
         this.userActions = userActions;
         this.state = {
@@ -120,7 +121,8 @@ class UserStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.user.preferences, payload);
+            // console.log('result', URLs.user.preferences, payload);
+            console.log('OK', URLs.user.preferences);
             let userPreferences = merge({}, parseUserPreferences(payload));
             userPreferences.preferencesLoading = false;
             //TODO if there were changes while a fetch was going on, we need
@@ -156,9 +158,11 @@ class UserStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.user.preferences, payload);
-            let newState = userPreferencesPostResponseOK(payload);
-            console.log('post success', payload, newState);
+            // console.log('result (post)', URLs.user.preferences, payload);
+            console.log('OK (post)', URLs.user.preferences);
+            // let newState = userPreferencesPostResponseOK(payload);
+            // console.log('post success', payload, newState);
+            userPreferencesPostResponseOK(payload);
             store.userActions.preferencesPublished();
         })
         .catch(function(e){
@@ -249,6 +253,11 @@ class UserStore extends Store {
             groupID: intGroupID,
             groupShortLabel: selectedGroup.shortLabel,
             classID: classID
+        });
+    }
+    changeSubGroupPref(subGroupID) {
+        this.setState({
+            subgroupID: subGroupID
         });
     }
     changeClassPref(classID) {
