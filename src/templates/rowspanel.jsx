@@ -135,7 +135,7 @@ export default (p, a) => {
                     isMiddleSwitch={true}
                     isItem={false}
                     checked={
-                        (p.user.mergedRows && 
+                        (p.user.mergedRows !== null && 
                             p.user.mergedRows.mergeFunctionID === 1)
                     }
                 >
