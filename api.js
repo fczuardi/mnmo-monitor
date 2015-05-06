@@ -55,6 +55,11 @@ router.get(URLs.frequency.list, function* freq(next) {
     this.body = readFileSync(filename);
     yield next;
 });
+router.get(URLs.calendar.days, function* days(next) {
+    let filename = './fake-data/calendar.json';
+    this.body = readFileSync(filename);
+    yield next;
+});
 router.get(URLs.user.preferences, function* getUserPref(next) {
     let filename = './fake-data/user.json';
     this.body = readFileSync(filename);

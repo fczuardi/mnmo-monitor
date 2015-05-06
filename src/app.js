@@ -22,7 +22,8 @@ render(
                     groups: (store) => ({ groups: store.state}),
                     vars: (store) => ({ vars: store.state}),
                     rows: (store) => ({ rows: store.state}),
-                    frequency: (store) => ({ frequency: store.state})
+                    frequency: (store) => ({ frequency: store.state}),
+                    calendar: (store) => ({ calendar: store.state})
                 }
             },
             createElement(Router)

@@ -44,7 +44,7 @@ class FrequencyStore extends Store {
             store.setState(newState);
         })
         .catch(function(e){
-            console.log('parsing failed', e); // eslint-disable-line
+            console.log('fetch error', e); // eslint-disable-line
         });
     }
 }

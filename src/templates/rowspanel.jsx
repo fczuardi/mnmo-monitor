@@ -28,7 +28,19 @@ export default (p, a) => {
     let initialMonth = moment(selectedDay);
     let modifiers = {
         selected: (day) => (selectedDay === day.format('YYYY-MM-DD')),
-        disabled: (day) => (day.startOf('day').isAfter(moment().startOf('day')))
+        disabled: (day) => {
+            let result = false,
+                month = day.format('YYYYMM'),
+                dayIndex = (day.date() - 1),
+                storedMonth = p.calendar.months[month];
+            if (day.startOf('day').isAfter(moment().startOf('day'))) {
+                return true;
+            }
+            if (storedMonth && storedMonth[dayIndex]){
+                result = (storedMonth[dayIndex] === '0');
+            }
+            return result;
+        }
     };
 
     let datePicker = (p.user.autoUpdate === true) ? null : (
@@ -39,6 +51,8 @@ export default (p, a) => {
                 initialMonth={initialMonth}
                 modifiers={modifiers}
                 onDayClick={a.calendarDayClick}
+                onPrevMonthClick={a.monthChange}
+                onNextMonthClick={a.monthChange}
                 enableOutsideDays={true}
             />
         </List>

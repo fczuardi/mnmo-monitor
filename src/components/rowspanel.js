@@ -8,6 +8,8 @@ class RowsPanel {
                 userActions.closePanel(),
             calendarDayClick: (day) =>
                 userActions.dateUpdated(day.format('YYYY-MM-DD')),
+            monthChange: (day) =>
+                userActions.monthUpdated(day.format('YYYY-MM-DD')),
             startHourChange: (event) => 
                 userActions.startHourUpdated(event.target.value),
             startMinuteChange: (event) => 

@@ -91,6 +91,7 @@ var options = {
         './js/stores/variables.js',
         './js/stores/rows.js',
         './js/stores/frequency.js',
+        './js/stores/calendar.js',
         '$comment=stores',
         './js/menulinks.js',
         './js/components/submenucolumns.js',

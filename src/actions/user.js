@@ -22,6 +22,9 @@ class UserActions extends Actions {
     dateUpdated(day) {
         return day;
     }
+    monthUpdated(month) {
+        return month;
+    }
     startHourUpdated(hour) {
         return hour;
     }

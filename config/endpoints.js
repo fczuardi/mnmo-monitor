@@ -30,5 +30,10 @@ export default {
     frequency: {
         list: '/frequencies',
         countryParam: 'countryID'
+    },
+    calendar: {
+        days: '/calendar/days',
+        monthParam: 'm',
+        yearParam: 'y'
     }
 };
