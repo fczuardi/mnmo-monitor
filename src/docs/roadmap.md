@@ -4,61 +4,39 @@ Versão do código sem dependencia de ambiente node.js/npm | 35h | Sábado 14/03
 Tela de login | 57h | Segunda 09/03/2015 | Quarta 25/03 | 100% |
 Captcha | 5h | Segunda 23/03 | Quarta 25/03 | 100% |
 Side menu | 12h | Quarta 25/03 | Quinta 26/03 | 100% |
-App header e paineis | 61h | Sexta 27/03 | Terça 14/04 | 16% |
-Dashboard | 88h | Terça 14/04 | Quarta 06/05 | 0% |
+App header e paineis | 61h | Sexta 27/03 | Quarta 06/05 | 100% |
+Dashboard | 88h | Terça 14/04 | Quarta 06/05 | 19% |
 Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
 Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
 Splash Screen | 17h | Quarta 27/05 | Terça 02/06 | 0% |
 Bugfixes | 5h | ??? | ??? | 0% |
 Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
-Desenvolvimento total | 409 | - | Terça 16/06 | 30% |
+Desenvolvimento total | 409 | - | Terça 16/06 | 47% |
 Liberação do código open source | - | 16/09 |  |  |
 
-__última atualização: 15/04/10:54__
+__última atualização: 06/05/16:50__
 
 -----
-
-Quarta
-------
-- filtro 1 (P)
-- filtro 2 (I)
-- indicador de auto-update
-
-Later
-------
-- cache local de colunas
-- ícones das colunas (API)
-- pedir icones novos (menu)
-
 
 Total 
 -----
-- 126/409 = 30.80%
+- 177/409 = 47.43%
 
 Cálculo
 -------
 
-### App Header + Paineis (10/61)
-- botao abre-fecha slide (3) = OK
-- botoes que abrem modals de seleção (2) = OK
-- paineis de selecao:
-    - E (5/10)
-    - P (6)
-    - I (6)
-    - M (34)
-
-### Dashboard (52 + 36 = 88)
+### Dashboard (17 / (52 + 36 = 88))
 - indicador de auto update (1)
-- chamadas a API para montar o load inicial (5)
+- chamadas a API para montar o load inicial (5/5) = OK
     - depois chamar a cada minuto (2)
-- botao "ver medias" (4)
-- header da tabela com ícones (3)
+- botao "ver medias" (4/4) = OK
+- header da tabela com ícones (3/3) = OK
     - ir diminuindo até caberem 5 na largura da tela (3)
 - primeira coluna com label duplo em cada celula e icone (3)
 - linhas zebra (1)
 - versao que compara duas variaveis em cada linha (10)
 - cor ao lado para indicar estado dos dados (3)
-- scroll horizontal p/ quando forem mais de 5 colunas (5)
+- scroll horizontal p/ quando forem mais de 5 colunas (5/5) = OK
 - scroll vertical que leva o grafico junto e para na altura (10)
 - retangulo extra mostrando o dia (2)
 
@@ -146,6 +124,15 @@ Total
 
 --------------------------------------------------------------------------------
 
+
+### App Header + Paineis (61/61)
+- botao abre-fecha slide (3) = OK
+- botoes que abrem modals de seleção (2) = OK
+- paineis de selecao:
+    - E (10/10)
+    - P (6/6)
+    - I (6/6)
+    - M (34/34)
 
 
 
