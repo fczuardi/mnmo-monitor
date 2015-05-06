@@ -36,7 +36,6 @@ class CalendarStore extends Store {
         let token = this.sessionStore.state.token;
         if (token === null){ return false; }
         let dateParts = dateString.split('-');
-        console.log(dateString);
         let url = URLs.baseUrl + 
                     URLs.calendar.days + '?' + 
                     URLs.calendar.monthParam + '=' + dateParts[1] + '&' +
