@@ -1,4 +1,5 @@
 import {Store} from 'flummox';
+import merge from 'lodash/object/merge';
 import URLs from '../../config/endpoints.js';
 import {
     authHeaders,
@@ -29,15 +30,22 @@ class GroupsStore extends Store {
             selected: null,
             selectedGroupSubgroups: []
         };
+        this.previousUserState = {groupID: null};
     }
 
-    userPreferencesFetched() {
+    userPreferencesFetched(preferences) {
         this.fetchGroups();
+        this.previousUserState = merge({}, preferences);
     }
 
-    userPreferencesPublished() {
-        if (this.state.selected.subgroupsCount > 0) {
+    userPreferencesPublished(newState) {
+        let needsRefetching = (
+            (this.state.selected.subgroupsCount > 0) &&
+            (newState.groupID !== this.previousUserState.groupID)
+        );
+        if (needsRefetching) {
             this.fetchSubGroups();
+            this.previousUserState = merge({}, newState);
         }
     }
     

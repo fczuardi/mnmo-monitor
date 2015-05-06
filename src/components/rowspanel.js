@@ -17,7 +17,9 @@ class RowsPanel {
             endMinuteChange: (event) => 
                 userActions.endMinuteUpdated(event.target.value),
             frequencyChange: (event) => 
-                userActions.frequencyUpdated(event.target.value)
+                userActions.frequencyUpdated(event.target.value),
+            mergeFunctionChange: (event) => 
+                userActions.mergeFunctionUpdated(event.target.checked ? 1: 0)
         };
         return template(this.props, actions);
     }

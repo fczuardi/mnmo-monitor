@@ -37,6 +37,9 @@ class UserActions extends Actions {
     frequencyUpdated(frequencyID) {
         return parseInt(frequencyID);
     }
+    mergeFunctionUpdated(functionID) {
+        return parseInt(functionID);
+    }
     preferencesPublished(preferences) {
         return preferences;
     }

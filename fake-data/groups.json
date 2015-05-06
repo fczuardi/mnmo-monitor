@@ -22,6 +22,7 @@
             "id": 3,
             "label": "GROUP C",
             "shortLabel": "GRC",
+            "subgroupsCount": 2,
             "type": 2,
             "classes": [{"id": 1, "label": "Class A"}]
         },

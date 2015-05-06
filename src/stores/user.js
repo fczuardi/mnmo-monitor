@@ -40,6 +40,7 @@ class UserStore extends Store {
         this.register(userActions.endHourUpdated, this.changeEndHour);
         this.register(userActions.endMinuteUpdated, this.changeEndMinute);
         this.register(userActions.frequencyUpdated, this.changeFrequency);
+        this.register(userActions.mergeFunctionUpdated, this.changeMergeFunction);
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
@@ -161,7 +162,7 @@ class UserStore extends Store {
             // console.log('result (post)', URLs.user.preferences, payload);
             console.log('OK (post)', URLs.user.preferences);
             let newState = userPreferencesPostResponseOK(payload);
-            console.log('newState', newState);
+            // console.log('newState', newState);
             // console.log('post success', payload, newState);
             // userPreferencesPostResponseOK(payload);
             store.userActions.preferencesPublished(newState);
@@ -297,10 +298,17 @@ class UserStore extends Store {
         this.changeTime('minute', m, 'end');
     }
     changeFrequency(frequencyID) {
+        let mergedRows = merge({}, this.state.mergedRows);
+        mergedRows.frequencyID = frequencyID;
         this.setState({
-            mergedRows: {
-                frequencyID: frequencyID
-            }
+            mergedRows: mergedRows
+        });
+    }
+    changeMergeFunction(functionID) {
+        let mergedRows = merge({}, this.state.mergedRows);
+        mergedRows.mergeFunctionID = functionID;
+        this.setState({
+            mergedRows: mergedRows
         });
     }
     changeDate(day) {

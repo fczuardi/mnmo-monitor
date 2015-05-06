@@ -6,6 +6,8 @@ import DayPicker from 'react-day-picker';
 import moment from 'moment';
 import MultiPicker from 'mnmo-components/lib/themes/mnmo/multipicker';
 import Radio from 'mnmo-components/lib/themes/mnmo/radio';
+import Switch from 'mnmo-components/lib/themes/mnmo/switch';
+
 
 const fullScreenLimit = 400;
 
@@ -92,6 +94,7 @@ export default (p, a) => {
             ]}
         />
     );
+    
     let frequencyPicker = (p.rows.type === 'list') ? null : (
         <List
             title={p.language.messages.rows.interval}
@@ -119,6 +122,30 @@ export default (p, a) => {
                     {freq.value}
                 </Radio>
             ))}
+            </div>
+            <div style={{
+                color: '#000',
+                marginBottom: 30,
+                marginLeft: -20,
+                textAlign: 'center'
+            }}>
+                <Switch 
+                    id="merge-function-toggle" 
+                    onChange={a.mergeFunctionChange}
+                    isMiddleSwitch={true}
+                    isItem={false}
+                    checked={
+                        (p.user.mergedRows && 
+                            p.user.mergedRows.mergeFunctionID === 1)
+                    }
+                >
+                    <span style={{margin: 10}}>
+                        {p.language.messages.rows.startingTime}
+                    </span>
+                    <span style={{margin: 10}}>
+                        {p.language.messages.rows.endingTime}
+                    </span>
+                </Switch>
             </div>
         </List>
     );

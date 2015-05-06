@@ -38,7 +38,7 @@ class RowsStore extends Store {
         this.fetchRows();
     }
     userChanged(newState) {
-        console.log('userChanged', newState);
+        // console.log('userChanged', newState);
         let oldState = this.previousUserState;
         let needsRefetching = ( 
             (newState.groupID !== oldState.groupID) ||
@@ -50,7 +50,7 @@ class RowsStore extends Store {
                                         JSON.stringify(oldState.mergedRows) )
         );
         if (needsRefetching) {
-            console.log('fetch rows again');
+            // console.log('fetch rows again');
             this.fetchRows();
             this.previousUserState = merge({}, newState);
         }
