@@ -1,4 +1,5 @@
 import {Store} from 'flummox';
+import merge from 'lodash/object/merge';
 import URLs from '../../config/endpoints.js';
 import {
     authHeaders,
@@ -11,6 +12,7 @@ class RowsStore extends Store {
     constructor(flux) {
         super();
         const sessionStore = flux.getStore('session');
+        const userStore = flux.getStore('user');
         const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
         const rowsActions = flux.getActions('rows');
@@ -18,6 +20,7 @@ class RowsStore extends Store {
         this.sessionStore = sessionStore;
         this.sessionActions = sessionActions;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
+        this.register(userActions.preferencesPublished, this.userChanged);
         // this.register(sessionActions.tokenGranted, this.fetchRows);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
@@ -28,10 +31,29 @@ class RowsStore extends Store {
             columns: [], //column headers
             data: []
         };
+        this.previousUserState = userStore.state;
     }
 
     userPreferencesFetched() {
         this.fetchRows();
+    }
+    userChanged(newState) {
+        console.log('userChanged', newState);
+        let oldState = this.previousUserState;
+        let needsRefetching = ( 
+            (newState.groupID !== oldState.groupID) ||
+            (newState.classID !== oldState.classID) ||
+            (newState.variableComboID !== oldState.variableComboID) ||
+            (JSON.stringify(newState.archivedReport) !== 
+                                    JSON.stringify(oldState.archivedReport) ) ||
+            (JSON.stringify(newState.mergedRows) !== 
+                                        JSON.stringify(oldState.mergedRows) )
+        );
+        if (needsRefetching) {
+            console.log('fetch rows again');
+            this.fetchRows();
+            this.previousUserState = merge({}, newState);
+        }
     }
 
     fetchRows(token, newType) {
@@ -63,7 +85,7 @@ class RowsStore extends Store {
     }
     
     updateMenuLabel(data) {
-        let newLabel = data.rows.headers[0][0];
+        let newLabel = data.rows.headers[0] ? data.rows.headers[0][0] : null;
         let rows = (this.state.type === 'list') ? 
                                             data.rows.data : 
                                             data.rows.mergedData;

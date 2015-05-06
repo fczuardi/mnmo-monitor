@@ -43,10 +43,10 @@ class ColumnsStore extends Store {
         //post logged-user columns changes to the server
         this.publishChanges();
     }
-    userChanged() {
-        if (this.userStore.state.groupID !== this.previousSelectedGroup){
+    userChanged(newState) {
+        if (newState.groupID !== this.previousSelectedGroup){
             this.fetchColumns(this.sessionStore.state.token);
-            this.previousSelectedGroup = this.userStore.state.groupID;
+            this.previousSelectedGroup = newState.groupID;
         }
     }
     fetchColumns(token) {

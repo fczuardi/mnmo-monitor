@@ -160,10 +160,11 @@ class UserStore extends Store {
         .then(function(payload){
             // console.log('result (post)', URLs.user.preferences, payload);
             console.log('OK (post)', URLs.user.preferences);
-            // let newState = userPreferencesPostResponseOK(payload);
+            let newState = userPreferencesPostResponseOK(payload);
+            console.log('newState', newState);
             // console.log('post success', payload, newState);
-            userPreferencesPostResponseOK(payload);
-            store.userActions.preferencesPublished();
+            // userPreferencesPostResponseOK(payload);
+            store.userActions.preferencesPublished(newState);
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line
