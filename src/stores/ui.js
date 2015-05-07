@@ -34,6 +34,9 @@ class UIStore extends Store {
         });
     }
     changePanel(name) {
+        if (this.state.panel === name) {
+            name = null;
+        }
         this.setState({
             panel: name,
             menuClosed: true
