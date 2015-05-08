@@ -57,7 +57,6 @@ class UserStore extends Store {
             captchaAnswer: null,
             tosAgree: false,
             tosURL: '#',
-            preferencesLoading: false,
             languageID: null,
             autoUpdate: null,
             archivedReport: null,
@@ -99,7 +98,6 @@ class UserStore extends Store {
     }
     savePreferences() {
         let localUserPreference = merge({}, this.state);
-        delete localUserPreference.preferencesLoading;
         delete localUserPreference.captchaAnswer;
         if (this.state.rememberLogin === true) {
             setLocalItem('userPreference', localUserPreference);
@@ -111,9 +109,6 @@ class UserStore extends Store {
         let store = this;
         token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
-        store.setState({
-            preferencesLoading: true
-        });
         console.log('GET', URLs.user.preferences);
         fetch(URLs.baseUrl + URLs.user.preferences, {
             method: 'GET',
@@ -122,12 +117,10 @@ class UserStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            // console.log('result', URLs.user.preferences, payload);
             console.log('OK', URLs.user.preferences);
+            // console.log('result', payload);
             let userPreferences = merge({}, parseUserPreferences(payload));
-            userPreferences.preferencesLoading = false;
-            //TODO if there were changes while a fetch was going on, we need
-            //to compare the different values and sync
+            // console.log('userPreferences', userPreferences);
             store.userActions.preferencesFetched(userPreferences);
         })
         .catch(function(e){
@@ -139,7 +132,6 @@ class UserStore extends Store {
     }
     updatePreferences() {
         let store = this;
-        if (store.state.preferencesLoading === true){ return false; }
         // console.log('updatePreferences.');
         let token = store.sessionStore.state.token;
         if (token === null){ return false; }
@@ -150,7 +142,7 @@ class UserStore extends Store {
         let postBody = buildUserPreferencesPostBody(store.state);
         if (!postBody){ return false; }
         console.log('POST', URLs.user.preferences);
-        // console.log(postBody);
+        // console.log('postBody', postBody);
         fetch(URLs.baseUrl + URLs.user.preferences, {
             method: 'POST',
             headers: authHeaders(token),
@@ -159,8 +151,8 @@ class UserStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            // console.log('result (post)', URLs.user.preferences, payload);
             console.log('OK (post)', URLs.user.preferences);
+            // console.log('result (post)', URLs.user.preferences, payload);
             let newState = userPreferencesPostResponseOK(payload);
             // console.log('newState', newState);
             // console.log('post success', payload, newState);
@@ -248,11 +240,13 @@ class UserStore extends Store {
     changeGroupPref(groupID){
         if (groupID === null) { return false }
         let intGroupID = parseInt(groupID);
+        if (intGroupID === this.state.groupID){ return false; }
         let selectedGroup = this.getGroupFromStore(intGroupID);
         let classID = selectedGroup.classes.length === 1 ? 
                         selectedGroup.classes[0].id : this.state.classID;
         this.setState({
             groupID: intGroupID,
+            subgroupID: null,
             groupShortLabel: selectedGroup.shortLabel,
             classID: classID
         });
