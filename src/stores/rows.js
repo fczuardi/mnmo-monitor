@@ -73,8 +73,9 @@ class RowsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            // console.log('result', URLs.rows[type], payload);
             console.log('OK', URLs.rows[type]);
+            // console.log('result', payload);
+            // console.log('parsed result', parseRows(payload));
             store.rowsActions.rowsFetchCompleted(
                 parseRows(payload)
             );
