@@ -35,6 +35,8 @@ var options = {
         './lib/js/moment.js',
         './lib/js/react-day-picker.js',
         '$comment=react-day-picker',
+        './lib/js/fixed-data-table.js',
+        '$comment=fixed-data-table',
         './lib/js/lodash-merge.js',
         './lib/js/lodash-partition.js',
         './lib/js/lodash-sortby.js',
