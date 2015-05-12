@@ -14,6 +14,8 @@ var options = {
         './lib/css/normalize.css',
         './lib/css/typography.css',
         './lib/css/calendar.css',
+        './lib/css/fixed-data-table.css',
+        './lib/css/fixed-data-table-override.css',
         './css/main.css'
     ],
     scripts: [

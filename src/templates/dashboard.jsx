@@ -21,17 +21,17 @@ export default (p, a) => {
             marginLeft = drawerWidth;
         }
     }
-    let subgroupsButton = (p.groups.selected &&
-                            p.groups.selected.subgroupsCount > 0) ? (
-        <button
-            style={{
-                background: 'none',
-            }}
-            onClick={a.subgroupsButtonClicked}
-        >
-            Subgroups
-        </button>
-                            ) : null;
+    // let subgroupsButton = (p.groups.selected &&
+    //                         p.groups.selected.subgroupsCount > 0) ? (
+    //     <button
+    //         style={{
+    //             background: 'none',
+    //         }}
+    //         onClick={a.subgroupsButtonClicked}
+    //     >
+    //         Subgroups
+    //     </button>
+    //                         ) : null;
     let dashboardStyle = {
         height: '100%',
         marginLeft: marginLeft
@@ -42,7 +42,6 @@ export default (p, a) => {
     <div style={{float: 'left', paddingTop: 53, width: '100%'}}>
         <Header {...p} />
         <PanelRouter {...p} />
-        {subgroupsButton}
         <DataTable {...p} />
     </div>
 </div>

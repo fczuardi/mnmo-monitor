@@ -13,6 +13,8 @@ var options = {
     stylesheets: [
         './css/normalize.css',
         './css/typography.css',
+        './css/fixed-data-table.css',
+        './css/fixed-data-table-override.css',
         './css/calendar.css',
         './css/main.css'
     ],

@@ -15,7 +15,8 @@ class UIStore extends Store {
             menuClosed: true,
             submenu: null,
             panel: null,
-            screenWidth: window.innerWidth
+            screenWidth: window.innerWidth,
+            screenHeight: window.innerHeight
         };
         window.addEventListener('resize', this.widthChange.bind(this));
     }
