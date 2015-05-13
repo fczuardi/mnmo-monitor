@@ -1,34 +1,6 @@
 {
     "enabled": [
         {
-            "id": 1,
-            "label": "hasLegacyIcon",
-            "icons": {
-                "menu": "https://openclipart.org/download/169922/kitchen-scale.svg",
-                "table": "https://openclipart.org/download/16864/sebek-white-lotus-flower.svg"
-            }
-        },
-        {
-            "id": 4,
-            "label": "My Cupcake is very special",
-            "icons": {
-                "menu": "https://openclipart.org/download/169936/kitchen-dinercoffee.svg",
-                "table": "https://openclipart.org/download/191506/bunny.svg"
-            }
-        },
-        {
-            "id": 6,
-            "label": "EBEAAA",
-            "icons": {
-                "menu": "https://openclipart.org/download/169910/kitchen-egg.svg",
-                "table": "https://openclipart.org/download/191507/1393792283.svg"
-            }
-        },
-        {
-            "id": 7,
-            "label": "AAAAAA"
-        },
-        {
             "id": 0,
             "label": "ABAAAAA",
             "icons": {
@@ -45,14 +17,42 @@
             }
         },
         {
-            "id": 2,
-            "label": "C"
+            "id": 6,
+            "label": "EBEAAA",
+            "icons": {
+                "menu": "https://openclipart.org/download/169910/kitchen-egg.svg",
+                "table": "https://openclipart.org/download/191507/1393792283.svg"
+            }
+        },
+        {
+            "id": 4,
+            "label": "My Cupcake is very special",
+            "icons": {
+                "menu": "https://openclipart.org/download/169936/kitchen-dinercoffee.svg",
+                "table": "https://openclipart.org/download/191506/bunny.svg"
+            }
         }
     ],
     "disabled": [
         {
+            "id": 7,
+            "label": "AAAAAA"
+        },
+        {
+            "id": 2,
+            "label": "C"
+        },
+        {
             "id": 3,
             "label": "D"
+        },
+        {
+            "id": 1,
+            "label": "hasLegacyIcon",
+            "icons": {
+                "menu": "https://openclipart.org/download/169922/kitchen-scale.svg",
+                "table": "https://openclipart.org/download/16864/sebek-white-lotus-flower.svg"
+            }
         }
     ]
 }

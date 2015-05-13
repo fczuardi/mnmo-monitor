@@ -22,6 +22,7 @@ class ColumnsStore extends Store {
         const columnsActions = flux.getActions('columns');
         this.register(sessionActions.tokenGranted, this.fetchColumns);
         this.register(columnsActions.updateColumnSelectedState, this.updateSelection);
+        this.register(columnsActions.columnsFetched, this.columnsFetched);
         this.register(userActions.preferencesPublished, this.userChanged);
         this.state = {
             enabled: [
@@ -31,6 +32,7 @@ class ColumnsStore extends Store {
         };
         this.sessionStore = sessionStore;
         this.sessionActions = sessionActions;
+        this.columnsActions = columnsActions;
         this.userStore = userStore;
         this.fetchColumns(sessionStore.state.token);
         //columns state changed
@@ -63,11 +65,14 @@ class ColumnsStore extends Store {
             // console.log('result', URLs.columns.list, payload);
             console.log('OK', URLs.columns.list);
             let columns = parseColumnsList(payload);
-            store.setState(columns);
+            store.columnsActions.columnsFetched(columns);
         })
         .catch(function(e){
             console.log('fetch error', e); // eslint-disable-line
         });
+    }
+    columnsFetched(columns) {
+        this.setState(columns);
     }
     publishChanges() {
         let store = this,
@@ -88,8 +93,9 @@ class ColumnsStore extends Store {
         .then(function(payload){
             // let response = columnListPostResponseOK(payload);
             // console.log('result (post)', URLs.columns.list, response);
-            columnListPostResponseOK(payload);
+            let newState = columnListPostResponseOK(payload);
             console.log('OK (post)', URLs.columns.list);
+            store.columnsActions.columnsPublished(newState);
         })
         .catch(function(e){
             console.log('parsing failed', e); // eslint-disable-line

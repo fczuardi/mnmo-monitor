@@ -7,6 +7,12 @@ class ColumnActions extends Actions {
             checked: checked
         };
     }
+    columnsFetched(columns) {
+        return columns;
+    }
+    columnsPublished(columns){
+        return columns;
+    }
 }
 
 export default ColumnActions;

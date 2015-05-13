@@ -14,6 +14,8 @@ class RowsStore extends Store {
         const sessionStore = flux.getStore('session');
         const userStore = flux.getStore('user');
         const userActions = flux.getActions('user');
+        const columnsStore = flux.getStore('columns');
+        const columnsActions = flux.getActions('columns');
         const sessionActions = flux.getActions('session');
         const rowsActions = flux.getActions('rows');
         this.rowsActions = rowsActions;
@@ -21,6 +23,8 @@ class RowsStore extends Store {
         this.sessionActions = sessionActions;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.preferencesPublished, this.userChanged);
+        this.register(columnsActions.columnsPublished, this.columnsChanged);
+        this.register(columnsActions.columnsFetched, this.columnsFetched);
         // this.register(sessionActions.tokenGranted, this.fetchRows);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
@@ -31,11 +35,13 @@ class RowsStore extends Store {
             data: []
         };
         this.previousUserState = userStore.state;
+        this.previousColumnsState = columnsStore.state;
     }
 
     userPreferencesFetched() {
         this.fetchRows();
     }
+    
     userChanged(newState) {
         // console.log('userChanged', newState);
         let oldState = this.previousUserState;
@@ -54,6 +60,25 @@ class RowsStore extends Store {
             this.fetchRows();
             this.previousUserState = merge({}, newState);
         }
+    }
+    
+    columnsFetched(newState) {
+        this.previousColumnsState = merge({}, newState);
+    }
+    
+    columnsChanged(newState) {
+        let oldState = this.previousColumnsState;
+        // console.log('columnsChanged', newState, oldState);
+        let needsRefetching = ( 
+            (newState.enabled.length > oldState.enabled.length) ||
+            (JSON.stringify(newState.enabled) !== 
+            JSON.stringify(oldState.enabled.slice(0, newState.enabled.length)) )
+        );
+        if (needsRefetching) {
+            // console.log('fetch rows again');
+            this.fetchRows();
+        }
+        this.previousColumnsState = merge({}, newState);
     }
 
     fetchRows(token, newType, endTime) {
