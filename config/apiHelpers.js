@@ -88,6 +88,7 @@ function buildUserPreferencesPostBody(state){
 function buildColumnsListPostBody(state){
     return JSON.stringify(state);
 }
+
 function diffUserPreferences(state){
     return diffPayloads(
         lastUserPreferenceResponse, 

@@ -28,7 +28,6 @@ class RowsStore extends Store {
             type: 'list', // merged | list
             menuLabel: '…', //the little clock on the header
             headers: [], //row headers
-            // columns: [], //column headers
             data: []
         };
         this.previousUserState = userStore.state;
@@ -94,7 +93,6 @@ class RowsStore extends Store {
         this.setState({
             menuLabel: newLabel,
             headers: data.rows.headers,
-            // columns: data.rows.columns,
             data: rows
         });
     }
