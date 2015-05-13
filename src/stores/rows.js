@@ -56,7 +56,7 @@ class RowsStore extends Store {
         }
     }
 
-    fetchRows(token, newType) {
+    fetchRows(token, newType, endTime) {
         let store = this;
         let type = store.state.type;
         if (typeof newType === 'string'){
@@ -65,8 +65,11 @@ class RowsStore extends Store {
         token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
         console.log('GET', type, URLs.rows[type]);
+        endTime = endTime || '';
+        let url = URLs.baseUrl + URLs.rows[type] + '?' + 
+                        URLs.rows.endTimeParam + '=' + endTime;
         if (URLs.rows[type] === undefined){ return false; }
-        fetch(URLs.baseUrl + URLs.rows[type], {
+        fetch(url, {
             method: 'GET',
             headers: authHeaders(token)
         })

@@ -25,7 +25,8 @@ export default {
     },
     rows: {
         list: '/rows',
-        merged: '/rows/merged'
+        merged: '/rows/merged',
+        endTimeParam: 'time'
     },
     frequency: {
         list: '/frequencies',
