@@ -23,7 +23,7 @@ export default (p, a) =>
             {
             column.icons ? 
                 React.DOM.img({
-                    src: column.icons.legacy,
+                    src: column.icons.menu,
                     width: 50,
                     height: 50
                 }) : null
@@ -44,7 +44,7 @@ export default (p, a) =>
             {
                 column.icons ? 
                     React.DOM.img({
-                        src: column.icons.legacy,
+                        src: column.icons.menu,
                         width: 50,
                         height: 50
                     }) : null

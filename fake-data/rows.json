@@ -1,46 +1,5 @@
 {
     "rows": {
-        "columns": [
-            {
-                "id": 1,
-                "label": "hasLegacyIcon",
-                "icons": {
-                    "legacy": "https://openclipart.org/download/16864/sebek-white-lotus-flower.svg"
-                }
-            },
-            {
-                "id": 4,
-                "label": "The cupcake is very good",
-                "icons": {
-                    "legacy": "https://openclipart.org/download/191506/bunny.svg"
-                }
-            },
-            {
-                "id": 0,
-                "label": "ABAAAAA",
-                "icons": {
-                    "legacy": "https://openclipart.org/download/191507/1393792283.svg"
-                }
-            },
-            {
-                "id": 5,
-                "label": "BEBAAA",
-                "icons": {
-                    "legacy": "https://openclipart.org/download/212651/Game-Controller-Outline-White.svg"
-                }
-            },
-            {
-                "id": 6,
-                "label": "EBEAAA",
-                "icons": {
-                    "legacy": "https://openclipart.org/download/193560/1400625045.svg"
-                }
-            },
-            {
-                "id": 7,
-                "label": "AAAAAA"
-            }
-        ],
         "headers": [
             ["10:07", "200", 1],
             ["10:06", "3550", 1],
