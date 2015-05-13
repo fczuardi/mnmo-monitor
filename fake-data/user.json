@@ -1,6 +1,6 @@
 {
     "languageID": 1,
-    "autoUpdate": true,
+    "autoUpdate": false,
     "archivedReport": {
         "date": "2015-04-07",
         "start": "07:11:00",
@@ -10,9 +10,9 @@
         "frequencyID": 4,
         "mergeFunctionID": 1
     },
-    "groupID": 3,
-    "groupShortLabel": "GRC",
-    "subgroupID": 5,
+    "groupID": 4,
+    "groupShortLabel": "GRD",
+    "subgroupID": null,
     "classID": 1,
     "primaryVarLabel": "VarA",
     "secondaryVarLabel": "VarB",

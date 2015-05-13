@@ -1,79 +1,84 @@
 import React from 'react';
 import {Table, Column} from 'fixed-data-table';
 
-// Table data as a list of array.
-
-function firstCell(p, a){
-    return (
-<button
-    className='headerCell'
-    style={{border: 'none'}}
-    data-type={p.rows.type}
-    onClick={a.firstHeaderButtonClick}
->
-    {( p.rows.type === 'list' ?
-        p.language.messages.rows.mergeRows :
-        p.language.messages.rows.unmergeRows
-    )}
-</button>
-    );
-}
-
-function columnHeaderRenderer(column){
-    return column.icons ? (
-<div className='headerCell'>
-    <img 
-        src={column.icons.table}
-        width={50}
-        height={50}
-    />
-</div>
-    ) : (
-<div className='headerCell'>
-    <p>
-        {column.label}
-    </p>
-</div>
-    );
-}
-
-let chartHeight = 264;
-
 export default (p,a) => {
-    let headerHeight = 50 + 2 * 8;
-    let columnWidth = 106;
-    
+
     // HACK: while fixed-data-table doesn't properly support touch devices
     // see: https://github.com/facebook/fixed-data-table/issues/84
     let overflowY = 'hidden';
     let overflowX = 'hidden';
-    // let overflowX = 'auto';
+
+    const smallColumnWidth = 53;
+    const mediumColumnWidth = 106;
+    const mobileBreakpointWidth = 599;
+    const cellPadding = 8;
+    
+    let columnWidth = p.ui.screenWidth > mobileBreakpointWidth ? 
+                                            mediumColumnWidth : smallColumnWidth;
+    let headerHeight = smallColumnWidth;
+    let iconWidth = smallColumnWidth - 2 * cellPadding;
     let tableHeight = p.ui.screenHeight - 56;
     let columnsCount = p.columns.enabled.length;
     let rowsCount = p.rows.data.length;
     let tableWidth = p.ui.screenWidth;
-    // let tableWidth = (columnsCount + 1) * columnWidth;
+
+    let firstCell = (
+        <button
+            className='headerCell'
+            style={{
+                border: 'none', 
+                width: '100%', 
+                backgroundColor: 'inherit',
+                color: '#767677',
+                textTransform: 'uppercase'
+            }}
+            data-type={p.rows.type}
+            onClick={a.firstHeaderButtonClick}
+        >
+            {( p.rows.type === 'list' ?
+                p.language.messages.rows.mergeRows :
+                p.language.messages.rows.unmergeRows
+            )}
+        </button>
+    );
+
+    let columnHeaderRenderer = (column) => ( (column.icons) ? 
+        (
+            <img 
+                src={column.icons.table}
+                width={iconWidth}
+                height={iconWidth}
+                alt={column.label}
+                title={column.label}
+            />
+        ) : (
+            <span>
+                {column.label}
+            </span>
+        )
+    );
 
     let draggableArea = (
-<div style={{
-    height: (tableHeight - headerHeight - 20),
-    width: (tableWidth - columnWidth),
-    position: 'absolute',
-    top: headerHeight,
-    left: columnWidth,
-    opacity: 0.5,
-    overflow: 'auto'
-}}>
-    <img 
-        style={{
+        <div style={{
+            height: (tableHeight - headerHeight - 20),
+            width: (tableWidth - columnWidth),
             position: 'absolute',
-            width: columnsCount * columnWidth,
-            height: rowsCount * columnWidth,
-        }}
-        src="./img/bg01.jpg" 
-    />
-</div>
+            top: headerHeight,
+            left: columnWidth,
+            opacity: 0.5,
+            overflow: 'auto'
+        }}>
+            <img 
+                style={{
+                    position: 'absolute',
+                    width: columnsCount * columnWidth,
+                    height: rowsCount * columnWidth,
+                }}
+                src="./img/bg01.jpg" 
+            />
+        </div>
     );
+
     return (
 <div style={{
     position: 'relative'
@@ -89,11 +94,12 @@ export default (p,a) => {
         overflowX={overflowX}
     >
         <Column
-            dataKey={0}
             fixed={true}
+            dataKey={0}
+            flexGrow={1}
             align='center'
             width={columnWidth}
-            headerRenderer={() => firstCell(p,a) }
+            headerRenderer={() => (firstCell) }
             cellRenderer={(cellData, cellDataKey, rowData, rowIndex) => 
                                             (p.rows.headers[rowIndex][0]) }
         />

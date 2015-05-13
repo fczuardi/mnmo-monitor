@@ -27,9 +27,7 @@
         {
             "id": 7,
             "label": "AAAAAA"
-        }
-    ],
-    "disabled": [
+        },
         {
             "id": 0,
             "label": "ABAAAAA",
@@ -49,7 +47,9 @@
         {
             "id": 2,
             "label": "C"
-        },
+        }
+    ],
+    "disabled": [
         {
             "id": 3,
             "label": "D"
