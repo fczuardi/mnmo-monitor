@@ -1,6 +1,6 @@
 {
     "languageID": 1,
-    "autoUpdate": false,
+    "autoUpdate": true,
     "archivedReport": {
         "date": "2015-04-07",
         "start": "07:11:00",

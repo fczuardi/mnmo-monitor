@@ -40,6 +40,7 @@ class RowsStore extends Store {
         // console.log('userChanged', newState);
         let oldState = this.previousUserState;
         let needsRefetching = ( 
+            (newState.autoUpdate !== oldState.autoUpdate) ||
             (newState.groupID !== oldState.groupID) ||
             (newState.classID !== oldState.classID) ||
             (newState.variableComboID !== oldState.variableComboID) ||
