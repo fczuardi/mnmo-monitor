@@ -14,7 +14,12 @@
 
 .public_fixedDataTable_header {
     border-bottom: none;
+}
+
+.public_fixedDataTable_header .headerCell {
     background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 66px;
 }
 
 .fixedDataTable_hasBottomBorder,
