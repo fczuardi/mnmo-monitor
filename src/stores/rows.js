@@ -90,9 +90,7 @@ class RowsStore extends Store {
     
     updateMenuLabel(data) {
         let newLabel = data.rows.headers[0] ? data.rows.headers[0][0] : null;
-        let rows = (this.state.type === 'list') ? 
-                                            data.rows.data : 
-                                            data.rows.mergedData;
+        let rows = data.rows.data;
         this.setState({
             menuLabel: newLabel,
             headers: data.rows.headers,
