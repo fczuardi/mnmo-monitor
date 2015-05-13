@@ -39,9 +39,14 @@ export default (p, a) => {
     return (
 <div style={dashboardStyle}>
     <Menu {...p} />
-    <div style={{float: 'left', paddingTop: 53, width: '100%'}}>
+    <div style={{paddingTop: 53, width: '100%'}}>
         <Header {...p} />
         <PanelRouter {...p} />
+        <div style={{height: 264}}>
+            <p>
+                [BarChart]
+            </p>
+        </div>
         <DataTable {...p} />
     </div>
 </div>
