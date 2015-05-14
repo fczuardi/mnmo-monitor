@@ -27,6 +27,8 @@ class UIStore extends Store {
         });
         if (!this.state.menuClosed) {
             this.changeSubmenu(null);
+        }else{
+            document.body.scrollTop = 0;
         }
     }
     changeSubmenu(name) {
@@ -52,7 +54,8 @@ class UIStore extends Store {
     }
     widthChange() {
         this.setState({
-            screenWidth: window.innerWidth
+            screenWidth: window.innerWidth,
+            screenHeight: window.innerHeight
         });
     }
 }

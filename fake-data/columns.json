@@ -31,9 +31,7 @@
                 "menu": "https://openclipart.org/download/169936/kitchen-dinercoffee.svg",
                 "table": "https://openclipart.org/download/191506/bunny.svg"
             }
-        }
-    ],
-    "disabled": [
+        },
         {
             "id": 7,
             "label": "AAAAAA"
@@ -54,5 +52,6 @@
                 "table": "https://openclipart.org/download/16864/sebek-white-lotus-flower.svg"
             }
         }
-    ]
+    ],
+    "disabled": []
 }
