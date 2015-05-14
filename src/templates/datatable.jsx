@@ -22,10 +22,12 @@ export default (p,a) => {
     let tableHeight = p.ui.screenHeight - 
                         appHeaderHeight - 
                         (isMobile ? 0 : chartHeight);
+    let tableContentHeight = rowsCount * rowHeight;
     // HACK: while fixed-data-table doesn't properly support touch devices
     // see: https://github.com/facebook/fixed-data-table/issues/84
-    let overflowY = isMobile ? 'hidden' : 'auto';
-    let overflowX = isMobile ? 'hidden' : 'auto';
+    let overflowY = (isMobile || rowsCount === 0) ? 'hidden' : 'auto';
+    let overflowX = (isMobile || rowsCount === 0) ? 'hidden' : 'auto';
+    let tableClassName = rowsCount === 0 ? 'emptyTable' : '';
 
     let rowClassNameGetter = (index) => (
         (p.rows.headers[index] && p.rows.headers[index][2]) ? 
@@ -68,11 +70,14 @@ export default (p,a) => {
         )
     );
     
-    let rowHeaderRenderer = (cellData, cellDataKey, rowData, rowIndex) => (
-        <div>
+    let rowHeaderRenderer = (cellData, cellDataKey, rowData, rowIndex) => {
+        let value = parseFloat(p.rows.headers[rowIndex][1]);
+        let mainHeader = (
             <p style={{margin: 0, fontSize: 17}}>
                 {p.rows.headers[rowIndex][0]}
             </p>
+        );
+        let secondHeader = isNaN(value) ? (null) : (
             <p style={{margin: 0, fontSize: 15}}>
                 <i 
                     className={(p.user.classID !== null) ? 
@@ -93,8 +98,14 @@ export default (p,a) => {
                     />
                 </span>
             </p>
-        </div>
-    );
+        );
+        return (
+            <div>
+                {mainHeader}
+                {secondHeader}
+            </div>
+        );
+    };
     
     let cellRenderer = (cellData, cellDataKey, rowData, rowIndex) => {
         let value = parseFloat(p.rows.data[rowIndex][cellDataKey]);
@@ -129,43 +140,44 @@ export default (p,a) => {
         </div>
     );
 
-
+    let table = (
+        <Table
+            width={tableWidth}
+            maxHeight={tableHeight}
+            rowsCount={rowsCount}
+            rowHeight={rowHeight}
+            headerHeight={headerHeight}
+            rowGetter={(index) => (p.rows.data[index]) }
+            rowClassNameGetter={rowClassNameGetter}
+            overflowY={overflowY}
+            overflowX={overflowX}
+        >
+            <Column
+                fixed={true}
+                dataKey={0}
+                flexGrow={1}
+                align='center'
+                width={columnWidth}
+                cellClassName='columnHeader'
+                headerRenderer={() => (firstCell) }
+                cellRenderer={rowHeaderRenderer}
+            />
+        {p.columns.enabled.map( (column, key) => (
+            <Column
+                key={key}
+                dataKey={key}
+                flexGrow={1}
+                align='center'
+                width={columnWidth}
+                headerRenderer={() => columnHeaderRenderer(column) }
+                cellRenderer={cellRenderer}
+            />
+        ))}
+        </Table>
+    );
     return (
-<div style={{
-}}>
-    <Table
-        width={tableWidth}
-        height={tableHeight}
-        rowsCount={rowsCount}
-        rowHeight={rowHeight}
-        headerHeight={headerHeight}
-        rowGetter={(index) => (p.rows.data[index]) }
-        rowClassNameGetter={rowClassNameGetter}
-        overflowY={overflowY}
-        overflowX={overflowX}
-    >
-        <Column
-            fixed={true}
-            dataKey={0}
-            flexGrow={1}
-            align='center'
-            width={columnWidth}
-            cellClassName='columnHeader'
-            headerRenderer={() => (firstCell) }
-            cellRenderer={rowHeaderRenderer}
-        />
-    {p.columns.enabled.map( (column, key) => (
-        <Column
-            key={key}
-            dataKey={key}
-            flexGrow={1}
-            align='center'
-            width={columnWidth}
-            headerRenderer={() => columnHeaderRenderer(column) }
-            cellRenderer={cellRenderer}
-        />
-    ))}
-    </Table>
-</div>
+        <div className={tableClassName}>
+            {table}
+        </div>
     );
 }

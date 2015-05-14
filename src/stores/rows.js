@@ -130,12 +130,8 @@ class RowsStore extends Store {
     updateRowsType(newType) {
         this.setState({
             type: newType,
-            headers: [
-                ['…']
-            ],
-            data: [
-                ['']
-            ]
+            headers: [],
+            data: []
         });
         this.fetchRows(this.sessionStore.state.token, newType);
     }

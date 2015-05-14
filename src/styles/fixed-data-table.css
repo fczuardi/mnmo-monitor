@@ -104,7 +104,9 @@ color and borders
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.8);
 }
-
+.emptyTable {
+    opacity: 0.7;
+}
 /*
 fonts
 */
