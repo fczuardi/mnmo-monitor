@@ -95,6 +95,18 @@ export default (p,a) => {
             </p>
         </div>
     );
+    
+    let cellRenderer = (cellData, cellDataKey, rowData, rowIndex) => {
+        let value = parseFloat(p.rows.data[rowIndex][cellDataKey]);
+        return isNaN(value) ? (
+            p.rows.data[rowIndex][cellDataKey]
+        ) : (
+            <FormattedNumber 
+                locales={p.language.messages.locale} 
+                value={value}
+            />
+        )
+    };
 
     let draggableArea = (
         <div style={{
@@ -150,8 +162,7 @@ export default (p,a) => {
             align='center'
             width={columnWidth}
             headerRenderer={() => columnHeaderRenderer(column) }
-            cellRenderer={(cellData, cellDataKey, rowData, rowIndex) => 
-                                            (p.rows.data[rowIndex][cellDataKey]) }
+            cellRenderer={cellRenderer}
         />
     ))}
     </Table>
