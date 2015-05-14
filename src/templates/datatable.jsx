@@ -107,6 +107,7 @@ export default (p,a) => {
             flexGrow={1}
             align='center'
             width={columnWidth}
+            cellClassName='columnHeader'
             headerRenderer={() => (firstCell) }
             cellRenderer={(cellData, cellDataKey, rowData, rowIndex) => 
                                             (p.rows.headers[rowIndex][0]) }
