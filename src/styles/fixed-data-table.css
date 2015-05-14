@@ -36,6 +36,12 @@ color and borders
 .fixedDataTableRow_fixedColumnsDivider {
   border-left: none;
 }
+.fixedDataTable_horizontalScrollbar .public_Scrollbar_mainHorizontal {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.fixedDataTable_horizontalScrollbar .public_Scrollbar_mainHorizontal:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
 
 .public_fixedDataTableRow_main .public_fixedDataTableCell_main {
     background-color: #2D2D2D;
