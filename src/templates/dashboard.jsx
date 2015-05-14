@@ -43,7 +43,7 @@ export default (p, a) => {
         <Header {...p} />
         <PanelRouter {...p} />
         <div style={{height: 264}}>
-            <p>
+            <p style={{margin: 0}}>
                 [BarChart]
             </p>
         </div>

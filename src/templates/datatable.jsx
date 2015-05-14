@@ -3,26 +3,29 @@ import {Table, Column} from 'fixed-data-table';
 
 export default (p,a) => {
 
-    // HACK: while fixed-data-table doesn't properly support touch devices
-    // see: https://github.com/facebook/fixed-data-table/issues/84
-    let overflowY = 'hidden';
-    let overflowX = 'hidden';
-
     const smallColumnWidth = 53;
     const mediumColumnWidth = 106;
     const mobileBreakpointWidth = 599;
     const cellPadding = 8;
     const rowHeight = 60;
-    
-    let columnWidth = p.ui.screenWidth > mobileBreakpointWidth ? 
-                                            mediumColumnWidth : smallColumnWidth;
+    const appHeaderHeight = 56;
+    const chartHeight = 264;
+
+    let isMobile = (p.ui.screenWidth <= mobileBreakpointWidth);
+    let columnWidth = isMobile ? smallColumnWidth : mediumColumnWidth;
     let headerHeight = smallColumnWidth;
     let iconWidth = smallColumnWidth - 2 * cellPadding;
-    let tableHeight = p.ui.screenHeight - 56;
     let columnsCount = p.columns.enabled.length;
     let rowsCount = p.rows.data.length;
     let tableWidth = p.ui.screenWidth;
-    
+    let tableHeight = p.ui.screenHeight - 
+                        appHeaderHeight - 
+                        (isMobile ? 0 : chartHeight);
+    // HACK: while fixed-data-table doesn't properly support touch devices
+    // see: https://github.com/facebook/fixed-data-table/issues/84
+    let overflowY = isMobile ? 'hidden' : 'auto';
+    let overflowX = isMobile ? 'hidden' : 'auto';
+
     let rowClassNameGetter = (index) => (
         (p.rows.headers[index] && p.rows.headers[index][2]) ? 
                                     'rowType' + p.rows.headers[index][2] : ''
@@ -88,7 +91,6 @@ export default (p,a) => {
 
     return (
 <div style={{
-    position: 'relative'
 }}>
     <Table
         width={tableWidth}
