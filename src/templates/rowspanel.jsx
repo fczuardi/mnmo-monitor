@@ -11,13 +11,17 @@ import Switch from 'mnmo-components/lib/themes/mnmo/switch';
 
 const fullScreenLimit = 400;
 
-let hours = [],
+let startHours =[],
+    endHours = [],
     minutes = [];
 
-for (let h = 0; h < 24; h++){
-    hours.push({label: h < 10 ? '0' + h : '' + h, value: h});
+for (let h = 6; h < 24; h++){
+    startHours.push({label: h < 10 ? '0' + h : '' + h, value: h});
 }
-
+for (let h = 0; h < 24; h++){
+    let f = (h + 6) % 24;
+    endHours.push({label: f < 10 ? '0' + f : '' + f, value: f});
+}
 for (let m = 0; m < 60; m++){
     minutes.push({label: m < 10 ? '0' + m : '' + m, value: m});
 }
@@ -71,7 +75,7 @@ export default (p, a) => {
                 {
                     label: p.language.messages.rows.hour,
                     value: startingHour,
-                    options: hours,
+                    options: startHours,
                     onChange: a.startHourChange
                 },
                 {
@@ -96,7 +100,7 @@ export default (p, a) => {
                 {
                     label: p.language.messages.rows.hour,
                     value: endingHour,
-                    options: hours,
+                    options: endHours.slice(startingHour - 6),
                     onChange: a.endHourChange
                 },
                 {

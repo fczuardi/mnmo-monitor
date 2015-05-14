@@ -121,7 +121,7 @@ class RowsStore extends Store {
         let newLabel = data.rows.headers[0] ? data.rows.headers[0][0] : null;
         let rows = data.rows.data;
         this.setState({
-            menuLabel: newLabel,
+            menuLabel: (newLabel || '-'),
             headers: data.rows.headers,
             data: rows
         });
@@ -129,6 +129,7 @@ class RowsStore extends Store {
     
     updateRowsType(newType) {
         this.setState({
+            menuLabel: '…',
             type: newType,
             headers: [],
             data: []
