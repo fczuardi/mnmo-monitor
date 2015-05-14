@@ -86,6 +86,14 @@ color and borders
     background-color: #003C5A;
     background-color: rgba(0, 60, 90, 0.9);
 }
+.public_fixedDataTableRow_main.rowType1 .columnHeader,
+.public_fixedDataTableRow_highlighted.rowType1 .columnHeader {
+    color: #FF0000;
+}
+.public_fixedDataTableRow_main.rowType2 .columnHeader,
+.public_fixedDataTableRow_highlighted.rowType2 .columnHeader {
+    color: #00AEFF;
+}
 .public_fixedDataTable_header .public_fixedDataTableCell_main {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.8);

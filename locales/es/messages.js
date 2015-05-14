@@ -1,4 +1,5 @@
 export default {
+    locale: 'es-ES',
     login: {
         welcome: 'Bienvenidos',
         username: 'usuario',

@@ -1,9 +1,10 @@
 import React from 'react';
 import {Table, Column} from 'fixed-data-table';
+import {FormattedNumber} from 'react-intl';
 
 export default (p,a) => {
 
-    const smallColumnWidth = 53;
+    const smallColumnWidth = 60;
     const mediumColumnWidth = 106;
     const mobileBreakpointWidth = 599;
     const cellPadding = 8;
@@ -66,6 +67,34 @@ export default (p,a) => {
             </span>
         )
     );
+    
+    let rowHeaderRenderer = (cellData, cellDataKey, rowData, rowIndex) => (
+        <div>
+            <p style={{margin: 0, fontSize: 17}}>
+                {p.rows.headers[rowIndex][0]}
+            </p>
+            <p style={{margin: 0, fontSize: 15}}>
+                <i 
+                    className={(p.user.classID !== null) ? 
+                            ('header-icon-' + p.user.classID) : ''}
+                    style={{
+                        fontSize: 12, 
+                        marginRight: 3
+                    }} 
+                />
+                <span style={{
+                        lineHeight: '15px',
+                        verticalAlign: 'text-top'
+                    }}
+                >
+                    <FormattedNumber 
+                        locales={p.language.messages.locale} 
+                        value={p.rows.headers[rowIndex][1]} 
+                    />
+                </span>
+            </p>
+        </div>
+    );
 
     let draggableArea = (
         <div style={{
@@ -111,8 +140,7 @@ export default (p,a) => {
             width={columnWidth}
             cellClassName='columnHeader'
             headerRenderer={() => (firstCell) }
-            cellRenderer={(cellData, cellDataKey, rowData, rowIndex) => 
-                                            (p.rows.headers[rowIndex][0]) }
+            cellRenderer={rowHeaderRenderer}
         />
     {p.columns.enabled.map( (column, key) => (
         <Column
