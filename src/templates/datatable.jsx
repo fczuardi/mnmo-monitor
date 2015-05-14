@@ -30,9 +30,10 @@ export default (p,a) => {
     let overflowX = (isMobile || rowsCount === 0) ? 'hidden' : 'auto';
     let tableClassName = rowsCount === 0 ? 'emptyTable' : '';
 
-    let rowClassNameGetter = (index) => (
+    let rowClassNameGetter = (index) => ( 
+        (p.rows.type === 'merged' && index === 0) ? 'firstMergedRow' :
         (p.rows.headers[index] && p.rows.headers[index][2]) ? 
-                                    'rowType' + p.rows.headers[index][2] : ''
+            'rowType' + p.rows.headers[index][2] : ''
     );
 
     let firstCell = (

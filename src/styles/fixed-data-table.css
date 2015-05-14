@@ -112,6 +112,21 @@ color and borders
     background-color: rgba(0, 0, 0, 0.8);
 }
 
+.public_fixedDataTableRow_main.firstMergedRow {
+    border-bottom: 1px solid #fff;
+    border-bottom-color: rgba(255, 255, 255, 0.6);
+}
+.public_fixedDataTableRow_main.firstMergedRow .public_fixedDataTableCell_main {
+    border-top: 2px solid #fff;
+    border-top-color: rgba(255, 255, 255, 0.6);
+    background-color: #1A1A1A;
+    background-color: rgba(201, 201, 201, 0.1);
+}
+.public_fixedDataTableRow_main.firstMergedRow .columnHeader {
+    background-color: #1A1A1A;
+    background-color: rgba(26, 26, 26, 0.9);
+}
+
 .public_fixedDataTableRow_main.rowType1 .public_fixedDataTableCell_cellContent .secondary{
     color: #FF8585;
 }
