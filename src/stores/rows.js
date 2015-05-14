@@ -1,5 +1,6 @@
 import {Store} from 'flummox';
 import merge from 'lodash/object/merge';
+import pluck from 'lodash/collection/pluck';
 import URLs from '../../config/endpoints.js';
 import {
     authHeaders,
@@ -67,12 +68,15 @@ class RowsStore extends Store {
     }
     
     columnsChanged(newState) {
-        let oldState = this.previousColumnsState;
-        // console.log('columnsChanged', newState, oldState);
+        let newSequence = newState.enabled;
+        let oldSequence = this.previousColumnsState.enabled;
+        // console.log('columnsChanged', oldSequence, newSequence);
         let needsRefetching = ( 
-            (newState.enabled.length > oldState.enabled.length) ||
-            (JSON.stringify(newState.enabled) !== 
-            JSON.stringify(oldState.enabled.slice(0, newState.enabled.length)) )
+            (newSequence.length > oldSequence.length) ||
+            (
+                pluck(newSequence, 'id').join(',') !== 
+                pluck(oldSequence.slice(0, newSequence.length), 'id').join(',') 
+            )
         );
         if (needsRefetching) {
             // console.log('fetch rows again');

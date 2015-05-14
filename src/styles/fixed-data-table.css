@@ -42,6 +42,32 @@ color and borders
   border-left: none;
 }
 
+.public_fixedDataTableRow_main {
+    background-color: '#2d2e2f';
+    background-color: rgba(201, 201, 201, 0.2);
+}
+.public_fixedDataTableRow_highlighted {
+    background-color: '#3d3f40';
+    background-color: rgba(201, 201, 201, 0.3);
+}
+.public_fixedDataTableRow_main.rowType1 {
+    background-color: '#370506';
+    background-color: rgba(255, 0, 0, 0.2);
+}
+.public_fixedDataTableRow_highlighted.rowType1 {
+    background-color: '#4e0606';
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
+.public_fixedDataTableRow_main.rowType2 {
+    background-color: '#042230';
+    background-color: rgba(0, 174, 255, 0.2);
+}
+.public_fixedDataTableRow_highlighted.rowType2 {
+    background-color: '#052839';
+    background-color: rgba(0, 174, 255, 0.3);
+}
+
 /*
 fonts
 */

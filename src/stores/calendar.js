@@ -49,7 +49,7 @@ class CalendarStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK', URLs.calendar.days);
-            console.log('result', payload);
+            // console.log('result', payload);
             let stateUpdate = parseCalendar(payload);
             let newState = merge(store.state, stateUpdate);
             store.setState(newState);

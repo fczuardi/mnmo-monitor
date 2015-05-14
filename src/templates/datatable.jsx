@@ -12,6 +12,7 @@ export default (p,a) => {
     const mediumColumnWidth = 106;
     const mobileBreakpointWidth = 599;
     const cellPadding = 8;
+    const rowHeight = 60;
     
     let columnWidth = p.ui.screenWidth > mobileBreakpointWidth ? 
                                             mediumColumnWidth : smallColumnWidth;
@@ -21,6 +22,11 @@ export default (p,a) => {
     let columnsCount = p.columns.enabled.length;
     let rowsCount = p.rows.data.length;
     let tableWidth = p.ui.screenWidth;
+    
+    let rowClassNameGetter = (index) => (
+        (p.rows.headers[index] && p.rows.headers[index][2]) ? 
+                                    'rowType' + p.rows.headers[index][2] : ''
+    );
 
     let firstCell = (
         <button
@@ -79,6 +85,7 @@ export default (p,a) => {
         </div>
     );
 
+
     return (
 <div style={{
     position: 'relative'
@@ -87,9 +94,10 @@ export default (p,a) => {
         width={tableWidth}
         height={tableHeight}
         rowsCount={rowsCount}
-        rowHeight={columnWidth}
+        rowHeight={rowHeight}
         headerHeight={headerHeight}
         rowGetter={(index) => (p.rows.data[index]) }
+        rowClassNameGetter={rowClassNameGetter}
         overflowY={overflowY}
         overflowX={overflowX}
     >
@@ -105,6 +113,7 @@ export default (p,a) => {
         />
     {p.columns.enabled.map( (column, key) => (
         <Column
+            key={key}
             dataKey={key}
             flexGrow={1}
             align='center'
