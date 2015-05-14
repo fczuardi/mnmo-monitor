@@ -7,3 +7,4 @@ config/secret.*
 npm-debug.log
 fake-data/secret.*
 secret.*
+test.json
