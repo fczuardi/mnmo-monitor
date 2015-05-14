@@ -1,6 +1,12 @@
 import queryString from 'query-string';
 import merge from 'lodash/object/merge';
 
+const VAR_TYPES = {
+    '-': 'number',
+    'VarA': 'number',
+    'VarB': 'percent',
+    'VarC': 'percent'
+};
 
 let lastUserPreferenceResponse = null,
     lastColumnsResponse = null;
@@ -125,6 +131,7 @@ function columnListPostResponseOK(payload){
 
 
 export default {
+    varTypes: VAR_TYPES,
     authHeaders: authHeaders,
     statusRouter: statusRouter,
     chooseTextOrJSON: chooseTextOrJSON,

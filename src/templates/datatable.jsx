@@ -1,6 +1,7 @@
 import React from 'react';
 import {Table, Column} from 'fixed-data-table';
 import {FormattedNumber} from 'react-intl';
+import {varTypes} from '../../config/apiHelpers';
 
 export default (p,a) => {
 
@@ -107,77 +108,114 @@ export default (p,a) => {
         );
     };
     
-    let cellRenderer = (cellData, cellDataKey, rowData, rowIndex) => {
-        let value = parseFloat(p.rows.data[rowIndex][cellDataKey]);
-        return isNaN(value) ? (
-            p.rows.data[rowIndex][cellDataKey]
-        ) : (
-            <FormattedNumber 
-                locales={p.language.messages.locale} 
-                value={value}
-            />
+    let numberElement = (value, valueString, isPercent) => (
+        isNaN(value) ? (valueString) : (
+            (isPercent) ? (
+                <FormattedNumber 
+                    locales={p.language.messages.locale} 
+                    value={value}
+                    style="percent"
+                    minimumFractionDigits={0}
+                    maximumFractionDigits={2}
+                />
+            ) : (
+                <FormattedNumber 
+                    locales={p.language.messages.locale} 
+                    value={value}
+                />
+            )
         )
+    );
+
+    let cellRenderer = (cellData, cellDataKey, rowData, rowIndex) => {
+        let content = p.rows.data[rowIndex][cellDataKey] ? p.rows.data[rowIndex][cellDataKey] : '';
+        let values = content.split('|');
+        let mainValue = parseFloat(values[0]);
+        let secondaryValue = (values[1] !== undefined) ? parseFloat(values[1]) : undefined;
+        let isFirstValuePercent = varTypes[p.vars.combo.first] === 'percent';
+        let isSecondValuePercent = varTypes[p.vars.combo.second] === 'percent';
+        mainValue = (isFirstValuePercent) ? mainValue / 100 : mainValue;
+        secondaryValue = (isSecondValuePercent) ? secondaryValue / 100 : secondaryValue;
+        
+        let firstLine = numberElement(
+                mainValue, 
+                values[0], 
+                isFirstValuePercent
+        );
+        let secondLine = (secondaryValue !== undefined) ? (numberElement(
+                secondaryValue, 
+                values[1], 
+                isSecondValuePercent
+        )) : (null);
+
+        return (! secondLine) ? (
+            <span>
+                {firstLine}
+            </span>
+        ) : (
+            <div>
+                <span>{firstLine}</span><br/>
+                <span className="secondary">{secondLine}</span>
+            </div>
+        );
     };
 
-    let draggableArea = (
-        <div style={{
-            height: (tableHeight - headerHeight - 20),
-            width: (tableWidth - columnWidth),
-            position: 'absolute',
-            top: headerHeight,
-            left: columnWidth,
-            opacity: 0.5,
-            overflow: 'auto'
-        }}>
-            <img 
-                style={{
-                    position: 'absolute',
-                    width: columnsCount * columnWidth,
-                    height: rowsCount * columnWidth,
-                }}
-                src="./img/bg01.jpg" 
-            />
-        </div>
-    );
+    // let draggableArea = (
+    //     <div style={{
+    //         height: (tableHeight - headerHeight - 20),
+    //         width: (tableWidth - columnWidth),
+    //         position: 'absolute',
+    //         top: headerHeight,
+    //         left: columnWidth,
+    //         opacity: 0.5,
+    //         overflow: 'auto'
+    //     }}>
+    //         <img 
+    //             style={{
+    //                 position: 'absolute',
+    //                 width: columnsCount * columnWidth,
+    //                 height: rowsCount * columnWidth,
+    //             }}
+    //             src="./img/bg01.jpg" 
+    //         />
+    //     </div>
+    // );
 
-    let table = (
-        <Table
-            width={tableWidth}
-            maxHeight={tableHeight}
-            rowsCount={rowsCount}
-            rowHeight={rowHeight}
-            headerHeight={headerHeight}
-            rowGetter={(index) => (p.rows.data[index]) }
-            rowClassNameGetter={rowClassNameGetter}
-            overflowY={overflowY}
-            overflowX={overflowX}
-        >
-            <Column
-                fixed={true}
-                dataKey={0}
-                flexGrow={1}
-                align='center'
-                width={columnWidth}
-                cellClassName='columnHeader'
-                headerRenderer={() => (firstCell) }
-                cellRenderer={rowHeaderRenderer}
-            />
-        {p.columns.enabled.map( (column, key) => (
-            <Column
-                key={key}
-                dataKey={key}
-                flexGrow={1}
-                align='center'
-                width={columnWidth}
-                headerRenderer={() => columnHeaderRenderer(column) }
-                cellRenderer={cellRenderer}
-            />
-        ))}
-        </Table>
-    );
     return (
         <div className={tableClassName}>
-            {table}
+            <Table
+                width={tableWidth}
+                maxHeight={tableHeight}
+                rowsCount={rowsCount}
+                rowHeight={rowHeight}
+                headerHeight={headerHeight}
+                rowGetter={(index) => (p.rows.data[index]) }
+                rowClassNameGetter={rowClassNameGetter}
+                overflowY={overflowY}
+                overflowX={overflowX}
+            >
+                <Column
+                    fixed={true}
+                    dataKey={0}
+                    flexGrow={1}
+                    align='center'
+                    width={columnWidth}
+                    cellClassName='columnHeader'
+                    headerRenderer={() => (firstCell) }
+                    cellRenderer={rowHeaderRenderer}
+                />
+            {p.columns.enabled.map( (column, key) => (
+                <Column
+                    key={('column-' + key)}
+                    dataKey={key}
+                    flexGrow={1}
+                    align='center'
+                    width={columnWidth}
+                    headerRenderer={() => columnHeaderRenderer(column) }
+                    cellRenderer={cellRenderer}
+                />
+            ))}
+            </Table>
         </div>
     );
 }
