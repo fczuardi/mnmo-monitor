@@ -5,49 +5,53 @@ Tela de login | 57h | Segunda 09/03/2015 | Quarta 25/03 | 100% |
 Captcha | 5h | Segunda 23/03 | Quarta 25/03 | 100% |
 Side menu | 12h | Quarta 25/03 | Quinta 26/03 | 100% |
 App header e paineis | 61h | Sexta 27/03 | Quarta 06/05 | 100% |
-Dashboard | 88h | Terça 14/04 | Quarta 06/05 | 19% |
+Dashboard | 52h | Terça 14/04 | Quarta 06/05 | 71% |
 Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
 Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
 Splash Screen | 17h | Quarta 27/05 | Terça 02/06 | 0% |
 Bugfixes | 5h | ??? | ??? | 0% |
 Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
-Desenvolvimento total | 409 | - | Terça 16/06 | 47% |
+Desenvolvimento total | 409 | - | Terça 16/06 | 50% |
 Liberação do código open source | - | 16/09 |  |  |
 
-__última atualização: 06/05/16:50__
+__última atualização: 14/05/20:23__
 
 -----
 
 Total 
 -----
-- 177/409 = 47.43%
+- 207/409 = 50.61%
 
 Cálculo
 -------
 
-### Dashboard (17 / (52 + 36 = 88))
+### Dashboard (37 / (52 + 36 = 88))
 - indicador de auto update (1)
+- retangulo extra mostrando o dia (2)
+- chamar API a cada minuto (2)
+- scroll vertical que leva o grafico junto e para na altura (10)
+
+Feito
 - chamadas a API para montar o load inicial (5/5) = OK
-    - depois chamar a cada minuto (2)
 - botao "ver medias" (4/4) = OK
 - header da tabela com ícones (3/3) = OK
-    - ir diminuindo até caberem 5 na largura da tela (3)
-- primeira coluna com label duplo em cada celula e icone (3)
-- linhas zebra (1)
-- versao que compara duas variaveis em cada linha (10)
-- cor ao lado para indicar estado dos dados (3)
+    - ir diminuindo até caberem 5 na largura da tela (3) = OK
+- primeira coluna com label duplo em cada celula e icone (3) = OK
+- linhas zebra (1) = OK
+- versao que compara duas variaveis em cada linha (10) = OK
 - scroll horizontal p/ quando forem mais de 5 colunas (5/5) = OK
-- scroll vertical que leva o grafico junto e para na altura (10)
-- retangulo extra mostrando o dia (2)
+
+Fora:
+- cor ao lado para indicar estado dos dados (3) = OK
 
 #### Gráficos (36)
+- barras com as cores de legenda na largura das colunas da tabela (3)
 - integrar d3 com react (10)
 - graficos de barra (4)
 - graficos de linha sobre as barras (8)
 - labels numericos segundo o layout (5)
 - largura das barras na mesma das colunas (2)
 - grafico de pizza (4)
-- barras com as cores de legenda na largura das colunas da tabela (3)
 
 ### Detalhe (53)
 - chamadas a API (6)
@@ -78,6 +82,7 @@ Cálculo
 - css alternativos (10)
 - markups alternativos (10)
 - hacks (20)
+
 
 -----
 
