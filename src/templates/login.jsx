@@ -82,9 +82,13 @@ export default (p, a) =>
                     <FormattedMessage
                         message={p.language.messages.login.iAgree}
                         tosLink={(
-                            <a target='_blank' href={p.user.tosURL}>
-                                {p.language.messages.login.tos}
-                            </a>
+                            p.user.tosURL ? (
+                                    <a target='_blank' href={p.user.tosURL}>
+                                        {p.language.messages.login.tos}
+                                    </a>
+                                ) : (
+                                    p.language.messages.login.tos
+                                )
                         )}
                     />
                 </Checkbox>
