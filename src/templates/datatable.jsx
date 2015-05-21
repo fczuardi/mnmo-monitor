@@ -113,7 +113,7 @@ export default (p,a) => {
         isNaN(value) ? (valueString) : (
             (isPercent) ? (
                 <FormattedNumber 
-                    locales={p.language.messages.locale} 
+                    locales={'en-US'/* p.language.messages.locale */} 
                     value={value}
                     style="percent"
                     minimumFractionDigits={0}
@@ -121,7 +121,7 @@ export default (p,a) => {
                 />
             ) : (
                 <FormattedNumber 
-                    locales={p.language.messages.locale} 
+                    locales={'en-US'/* p.language.messages.locale */} 
                     value={value}
                 />
             )
