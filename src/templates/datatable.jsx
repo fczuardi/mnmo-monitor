@@ -26,9 +26,13 @@ export default (p,a) => {
     let tableContentHeight = rowsCount * rowHeight;
     // HACK: while fixed-data-table doesn't properly support touch devices
     // see: https://github.com/facebook/fixed-data-table/issues/84
-    let overflowY = (isMobile || rowsCount === 0) ? 'hidden' : 'auto';
-    let overflowX = (isMobile || rowsCount === 0) ? 'hidden' : 'auto';
-    let tableClassName = rowsCount === 0 ? 'emptyTable' : '';
+    // let overflowY = (isMobile || rowsCount === 0) ? 'hidden' : 'auto';
+    // let overflowX = (isMobile || rowsCount === 0) ? 'hidden' : 'auto';
+    // let overflowY = 'auto';
+    // let overflowX = 'auto';
+    let overflowY = 'hidden';
+    let overflowX = 'hidden';
+    let tableClassName = rowsCount === 0 ? 'emptyTable' : 'fixedDataTable';
 
     let rowClassNameGetter = (index) => ( 
         (p.rows.type === 'merged' && index === 0) ? 'firstMergedRow' :
@@ -95,7 +99,7 @@ export default (p,a) => {
                     }}
                 >
                     <FormattedNumber 
-                        locales={p.language.messages.locale} 
+                        locales={'en-US'/*p.language.messages.locale*/} 
                         value={p.rows.headers[rowIndex][1]} 
                     />
                 </span>
@@ -161,26 +165,29 @@ export default (p,a) => {
         );
     };
 
-    // let draggableArea = (
-    //     <div style={{
-    //         height: (tableHeight - headerHeight - 20),
-    //         width: (tableWidth - columnWidth),
-    //         position: 'absolute',
-    //         top: headerHeight,
-    //         left: columnWidth,
-    //         opacity: 0.5,
-    //         overflow: 'auto'
-    //     }}>
-    //         <img 
-    //             style={{
-    //                 position: 'absolute',
-    //                 width: columnsCount * columnWidth,
-    //                 height: rowsCount * columnWidth,
-    //             }}
-    //             src="./img/bg01.jpg" 
-    //         />
-    //     </div>
-    // );
+    let draggableArea = (
+        <div 
+            style={{
+                height: (tableHeight - headerHeight - 20),
+                width: (tableWidth - columnWidth),
+                position: 'absolute',
+                top: headerHeight,
+                left: columnWidth,
+                opacity: 0.5,
+                overflow: 'auto'
+            }}
+            onScroll={a.draggableAreaScroll}
+        >
+            <div
+                style={{
+                    position: 'absolute',
+                    width: columnsCount * columnWidth,
+                    height: rowsCount * columnWidth,
+                }}
+            />
+        </div>
+    );
+                // src="./img/bg01.jpg" 
 
     return (
         <div className={tableClassName}>
@@ -217,6 +224,7 @@ export default (p,a) => {
                 />
             ))}
             </Table>
+            {draggableArea}
         </div>
     );
 }

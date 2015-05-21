@@ -10,13 +10,16 @@ class UIStore extends Store {
         this.register(userActions.closeSubmenu, this.changeSubmenu);
         this.register(userActions.openPanel, this.changePanel);
         this.register(userActions.closePanel, this.changePanel);
+        this.register(userActions.tableScroll, this.changeDraggableAreaValues);
         this.register(sessionActions.signOut, this.resetState);
         this.state = {
             menuClosed: true,
             submenu: null,
             panel: null,
             screenWidth: window.innerWidth,
-            screenHeight: window.innerHeight
+            screenHeight: window.innerHeight,
+            tableDraggableAreaTop: 0,
+            tableDraggableAreaLeft: 0
         };
         window.addEventListener('resize', this.widthChange.bind(this));
     }
@@ -56,6 +59,12 @@ class UIStore extends Store {
         this.setState({
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight
+        });
+    }
+    changeDraggableAreaValues(coord){
+        this.setState({
+            tableDraggableAreaTop: coord.top,
+            tableDraggableAreaLeft: coord.left
         });
     }
 }

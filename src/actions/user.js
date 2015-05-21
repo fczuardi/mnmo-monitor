@@ -64,6 +64,12 @@ class UserActions extends Actions {
     closePanel() {
         return null;
     }
+    tableScroll(top, left){
+        return {
+            top: top,
+            left: left
+        };
+    }
 }
 
 export default UserActions;
