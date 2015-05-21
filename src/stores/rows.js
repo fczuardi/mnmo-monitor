@@ -113,7 +113,7 @@ class RowsStore extends Store {
             );
         })
         .catch(function(e){
-            console.log('fetch error', e); // eslint-disable-line
+            console.log('fetch error ' + URLs.rows[store.state.type], e); // eslint-disable-line
         });
     }
     

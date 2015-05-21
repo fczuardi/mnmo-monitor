@@ -81,7 +81,7 @@ class LoginValidationStore extends Store {
                 captchaAnswers: options.answers
             });
         }).catch(function(ex) {
-            console.log('parsing failed', ex); // eslint-disable-line
+            console.log('parsing failed ' + URLs.validation.captcha, ex); // eslint-disable-line
         });
     }
     changeCaptchaAnswerIndex(answer){

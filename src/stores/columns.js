@@ -63,12 +63,12 @@ class ColumnsStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             // console.log('result', URLs.columns.list, payload);
-            console.log('OK', URLs.columns.list);
+            console.log('OK ' + URLs.columns.list);
             let columns = parseColumnsList(payload);
             store.columnsActions.columnsFetched(columns);
         })
         .catch(function(e){
-            console.log('fetch error', e); // eslint-disable-line
+            console.log('fetch error ' + URLs.columns.list, e); // eslint-disable-line
         });
     }
     columnsFetched(columns) {
@@ -82,7 +82,7 @@ class ColumnsStore extends Store {
         if (token === null){ return false; }
         if (hasChanged === false){ return false; }
         if (!postBody){ return false; }
-        console.log('POST', URLs.columns.list);
+        console.log('POST ' + URLs.columns.list);
         fetch(URLs.baseUrl + URLs.columns.list, {
             method: 'POST',
             headers: authHeaders(token),
@@ -98,7 +98,7 @@ class ColumnsStore extends Store {
             store.columnsActions.columnsPublished(newState);
         })
         .catch(function(e){
-            console.log('parsing failed', e); // eslint-disable-line
+            console.log('POST error ' + URLs.columns.list, e); // eslint-disable-line
         });
         
     }

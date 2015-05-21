@@ -55,7 +55,7 @@ class CalendarStore extends Store {
             store.setState(newState);
         })
         .catch(function(e){
-            console.log('fetch error', e); // eslint-disable-line
+            console.log('fetch error ' + URLs.calendar.days, e); // eslint-disable-line
         });
     }
 }

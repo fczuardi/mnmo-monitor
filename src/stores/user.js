@@ -160,7 +160,7 @@ class UserStore extends Store {
             store.userActions.preferencesPublished(newState);
         })
         .catch(function(e){
-            console.log('parsing failed', e); // eslint-disable-line
+            console.log('parsing failed ' + URLs.user.preferences, e); // eslint-disable-line
             store.userActions.preferencesPublished();
         });
     }

@@ -75,7 +75,7 @@ class GroupsStore extends Store {
             }
         })
         .catch(function(e){
-            console.log('fetch error', e); // eslint-disable-line
+            console.log('fetch error ' + URLs.filters.groups, e); // eslint-disable-line
         });
     }
     
@@ -99,7 +99,7 @@ class GroupsStore extends Store {
             });
         })
         .catch(function(e){
-            console.log('fetch error', e); // eslint-disable-line
+            console.log('fetch error ' + URLs.filters.subgroups, e); // eslint-disable-line
         });
     }
 

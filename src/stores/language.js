@@ -59,7 +59,7 @@ class LanguageStore extends Store {
             });
         })
         .catch(function(e){
-            console.log('parsing failed', e); // eslint-disable-line
+            console.log('parsing failed ' + URLs.languages.list, e); // eslint-disable-line
         });
     }
 

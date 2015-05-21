@@ -63,7 +63,7 @@ class SessionStore extends Store {
             }
         })
         .catch(function(e){
-            console.log('Error:', e); // eslint-disable-line
+            console.log('Error: ' + URLs.session.login, e); // eslint-disable-line
         });
     }
     signOut(){
