@@ -3,14 +3,14 @@ import {Table, Column} from 'fixed-data-table';
 import {FormattedNumber} from 'react-intl';
 import {varTypes} from '../../config/apiHelpers';
 
-export default (p,a) => {
+export default (p, a, s) => {
 
     const smallColumnWidth = 60;
     const mediumColumnWidth = 106;
     const mobileBreakpointWidth = 599;
     const cellPadding = 8;
     const rowHeight = 60;
-    const appHeaderHeight = 56;
+    const appHeaderHeight = 55;
     const chartHeight = 264;
 
     let isMobile = (p.ui.screenWidth <= mobileBreakpointWidth);
@@ -24,14 +24,17 @@ export default (p,a) => {
                         appHeaderHeight - 
                         (isMobile ? 0 : chartHeight);
     let tableContentHeight = rowsCount * rowHeight;
+    let isTouchDevice = 'ontouchstart' in document.documentElement // works on most browsers
+                      || 'onmsgesturechange' in window; // works on ie10
     // HACK: while fixed-data-table doesn't properly support touch devices
     // see: https://github.com/facebook/fixed-data-table/issues/84
-    // let overflowY = (isMobile || rowsCount === 0) ? 'hidden' : 'auto';
-    // let overflowX = (isMobile || rowsCount === 0) ? 'hidden' : 'auto';
+    // console.log('isTouchDevice', isTouchDevice);
+    let overflowY = (isTouchDevice || isMobile || rowsCount === 0) ? 'hidden' : 'auto';
+    let overflowX = (isTouchDevice || isMobile || rowsCount === 0) ? 'hidden' : 'auto';
     // let overflowY = 'auto';
     // let overflowX = 'auto';
-    let overflowY = 'hidden';
-    let overflowX = 'hidden';
+    // let overflowY = 'hidden';
+    // let overflowX = 'hidden';
     let tableClassName = rowsCount === 0 ? 'emptyTable' : 'fixedDataTable';
 
     let rowClassNameGetter = (index) => ( 
@@ -165,32 +168,55 @@ export default (p,a) => {
         );
     };
 
-    let draggableArea = (
-        <div 
-            style={{
-                height: (tableHeight - headerHeight - 20),
-                width: (tableWidth - columnWidth),
-                position: 'absolute',
-                top: headerHeight,
-                left: columnWidth,
-                opacity: 0.5,
-                overflow: 'auto'
-            }}
-            onScroll={a.draggableAreaScroll}
-        >
-            <div
-                style={{
-                    position: 'absolute',
-                    width: columnsCount * columnWidth,
-                    height: rowsCount * columnWidth,
-                }}
-            />
-        </div>
-    );
-                // src="./img/bg01.jpg" 
+    // let draggableArea = (
+    //     <div 
+    //         style={{
+    //             height: (tableHeight - headerHeight - 20),
+    //             width: (tableWidth - columnWidth),
+    //             position: 'absolute',
+    //             top: headerHeight,
+    //             left: columnWidth,
+    //             opacity: 0.5,
+    //             overflow: 'auto'
+    //         }}
+    //         onScroll={a.draggableAreaScroll}
+    //     >
+    //         <div
+    //             style={{
+    //                 position: 'absolute',
+    //                 width: columnsCount * columnWidth,
+    //                 height: rowsCount * columnWidth,
+    //             }}
+    //         />
+    //     </div>
+    // );
+    // let draggableArea = null;
+    
+    let draggableProps = (isTouchDevice || isMobile) ? {
+        onTouchEnd: a.handleTouchEnd,
+        onTouchStart: a.handleTouchStart,
+        onTouchMove: a.handleTouchMove,
+        onTouchCancel: a.handleTouchEnd
+    } : null;
+    
+    let onContentHeightChange = (contentHeight) => {
+        let contentWidth = (columnsCount + 1) * columnWidth;
+        s.scroller.setDimensions(
+            tableWidth,
+            tableHeight,
+            contentWidth,
+            contentHeight
+        );
+    }
+
+    let scrollParameters = (isTouchDevice || isMobile) ? {
+        onContentHeightChange: onContentHeightChange,
+        scrollTop: s.scrollTop,
+        scrollLeft: s.scrollLeft
+    } : null;
 
     return (
-        <div className={tableClassName}>
+        <div className={tableClassName} {...draggableProps}>
             <Table
                 width={tableWidth}
                 maxHeight={tableHeight}
@@ -201,6 +227,7 @@ export default (p,a) => {
                 rowClassNameGetter={rowClassNameGetter}
                 overflowY={overflowY}
                 overflowX={overflowX}
+                {...scrollParameters}
             >
                 <Column
                     fixed={true}
@@ -224,7 +251,6 @@ export default (p,a) => {
                 />
             ))}
             </Table>
-            {draggableArea}
         </div>
     );
 }

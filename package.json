@@ -254,6 +254,7 @@
     "react": "^0.13.3",
     "react-day-picker": "^0.8.3",
     "react-intl": "^1.2.0",
+    "reapp-scroller": "^1.0.8",
     "watchify": "^3.2.1",
     "whatwg-fetch": "^0.8.2"
   },

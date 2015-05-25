@@ -15,11 +15,13 @@ let startHours =[],
     endHours = [],
     minutes = [];
 
-for (let h = 6; h < 24; h++){
+// for (let h = 6; h < 24; h++){
+for (let h = 0; h < 24; h++){
     startHours.push({label: h < 10 ? '0' + h : '' + h, value: h});
 }
 for (let h = 0; h < 24; h++){
-    let f = (h + 6) % 24;
+    // let f = (h + 6) % 24;
+    let f = h;
     endHours.push({label: f < 10 ? '0' + f : '' + f, value: f});
 }
 for (let m = 0; m < 60; m++){
@@ -51,6 +53,7 @@ export default (p, a) => {
         <List 
             title={p.language.messages.rows.date}
         >
+            <div style={{marginLeft:-10}}>
             <DayPicker 
                 initialMonth={initialMonth}
                 modifiers={modifiers}
@@ -59,6 +62,7 @@ export default (p, a) => {
                 onNextMonthClick={a.monthChange}
                 enableOutsideDays={true}
             />
+            </div>
         </List>
     );
     let startingHour = (p.user.archivedReport &&
@@ -100,7 +104,7 @@ export default (p, a) => {
                 {
                     label: p.language.messages.rows.hour,
                     value: endingHour,
-                    options: endHours.slice(startingHour - 6),
+                    options: endHours,
                     onChange: a.endHourChange
                 },
                 {
