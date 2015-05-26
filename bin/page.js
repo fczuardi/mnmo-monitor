@@ -24,6 +24,7 @@ var options = {
         './lib/js/console-polyfill.js',
         // './lib/js/es6-shim.js',
         './lib/js/object-assign-polyfill.js',
+        './lib/js/raf-polyfill.js',
         './lib/js/Promise.js',
         './lib/js/fetch.js',
         '$comment=es-polyfills',
