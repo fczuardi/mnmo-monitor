@@ -3,6 +3,7 @@ import TableHeader from '../components/tableheader';
 import RowHeaders from '../components/rowheaders';
 import TableContent from '../components/tablecontent';
 import tableStyles from '../styles/table';
+import merge from 'lodash/object/merge';
 
 export default (p, a) => {
     let firstCell = (
@@ -43,7 +44,12 @@ export default (p, a) => {
                 }}
             >
                 <div 
-                    style={tableStyles(p).borderBottom}
+                    style={merge({
+                        
+                    }, 
+                    tableStyles(p).borderBottom,
+                    tableStyles(p).borderRight
+                    )}
                 >
                     {firstCell}
                 </div>

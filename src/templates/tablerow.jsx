@@ -1,6 +1,8 @@
 import React from 'react';
 import cellRenderer from './tablecell.jsx';
 import tableStyles from '../styles/table';
+import merge from 'lodash/object/merge';
+
 
 export default (row, key, p) => {
     // console.log(row.length, p.columns.enabled.length);
@@ -13,7 +15,8 @@ export default (row, key, p) => {
     return (
         <tr 
             key={key}
-            style={tableStyles(p).borderBottom}
+            style={merge({
+            }, tableStyles(p).borderBottom)}
         >
             {row.map((cell, key) => cellRenderer(cell, key, p))}
         </tr>

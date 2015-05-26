@@ -6,22 +6,25 @@ import merge from 'lodash/object/merge';
 export default (p) => {
 
     return (
-        <div style={merge({
+        <div
+            id="table-headers"
+            style={merge({
             width: p.tableWidth - p.columnWidth,
             overflow: 'hidden',
             // backgroundColor: 'green',
             textAlign: 'center',
         }, tableStyles(p).borderBottom)}>
-            <div
-                style={{
-                    display: 'table-row',
-                    height: p.rowHeight
-                }}
-            >
-                {p.columns.enabled.map(
-                    (column, key) => columnHeaderRenderer(column, key, p)
-                )}
-            </div>
+            <table>
+                <tr
+                    style={{
+                        height: p.rowHeight
+                    }}
+                >
+                    {p.columns.enabled.map(
+                        (column, key) => columnHeaderRenderer(column, key, p)
+                    )}
+                </tr>
+            </table>
         </div>
     );
 };

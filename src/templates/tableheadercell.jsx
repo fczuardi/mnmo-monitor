@@ -18,17 +18,23 @@ export default (column, key, p) => {
     );
     let cellStyle = merge({
             // padding: p.cellPadding,
-            display: 'table-cell',
             verticalAlign: 'middle'
         },
         tableStyles(p).borderRight
     )
     return (
-        <div
+        <td
             key={key}
             style={cellStyle}
         >
+        <div
+            style={{
+                width: p.columnWidth - 1,
+                overflow: 'hidden'
+            }}
+        >
             {cellContent}
-        </div>
+            </div>
+        </td>
     );
 };

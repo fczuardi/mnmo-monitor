@@ -1,5 +1,7 @@
 import React from 'react';
 import {FormattedNumber} from 'react-intl';
+import tableStyles from '../styles/table';
+import merge from 'lodash/object/merge';
 
 
 export default (row, key, p) => {
@@ -33,15 +35,15 @@ export default (row, key, p) => {
         </p>
     );
     return (
-        <div 
+        <tr 
             key={key}
-            style={{
-                height: p.rowHeight - 1,
-                borderBottom: '1px solid #000'
-            }}
+            style={merge({
+            }, tableStyles(p).borderBottom)}
         >
-            {mainHeader}
-            {secondHeader}
-        </div>
+            <td>
+                {mainHeader}
+                {secondHeader}
+            </td>
+        </tr>
     );
 }

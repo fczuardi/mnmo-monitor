@@ -11,6 +11,7 @@ export default (p, a) => {
     draggableProps = null;
     return (
 <div 
+    id="table-contents"
     onScroll={a.onTableScroll}
     style={{
         width: p.tableWidth - p.columnWidth,
