@@ -30,6 +30,7 @@ class RowsStore extends Store {
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
         this.state = {
+            lastLoad: 0,
             type: 'list', // merged | list
             menuLabel: '…', //the little clock on the header
             headers: [], //row headers
@@ -123,7 +124,8 @@ class RowsStore extends Store {
         this.setState({
             menuLabel: (newLabel || '-'),
             headers: data.rows.headers,
-            data: rows
+            data: rows,
+            lastLoad: new Date().getTime()
         });
     }
     

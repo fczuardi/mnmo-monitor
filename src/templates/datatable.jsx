@@ -1,48 +1,10 @@
 import React from 'react';
-import {Table, Column} from 'fixed-data-table';
-import {FormattedNumber} from 'react-intl';
-import {varTypes} from '../../config/apiHelpers';
+import TableHeader from '../components/tableheader';
+import RowHeaders from '../components/rowheaders';
+import TableContent from '../components/tablecontent';
+import tableStyles from '../styles/table';
 
-export default (p, a, s) => {
-
-    const smallColumnWidth = 60;
-    const mediumColumnWidth = 106;
-    const mobileBreakpointWidth = 599;
-    const cellPadding = 8;
-    const rowHeight = 60;
-    const appHeaderHeight = 55;
-    const chartHeight = 264;
-
-    let isMobile = (p.ui.screenWidth <= mobileBreakpointWidth);
-    let columnWidth = isMobile ? smallColumnWidth : mediumColumnWidth;
-    let headerHeight = smallColumnWidth;
-    let iconWidth = smallColumnWidth - 2 * cellPadding;
-    let columnsCount = p.columns.enabled.length;
-    let rowsCount = p.rows.data.length;
-    let tableWidth = p.ui.screenWidth;
-    let tableHeight = p.ui.screenHeight - 
-                        appHeaderHeight - 
-                        (isMobile ? 0 : chartHeight);
-    let tableContentHeight = rowsCount * rowHeight;
-    let isTouchDevice = 'ontouchstart' in document.documentElement // works on most browsers
-                      || 'onmsgesturechange' in window; // works on ie10
-    // HACK: while fixed-data-table doesn't properly support touch devices
-    // see: https://github.com/facebook/fixed-data-table/issues/84
-    // console.log('isTouchDevice', isTouchDevice);
-    let overflowY = (isTouchDevice || isMobile || rowsCount === 0) ? 'hidden' : 'auto';
-    let overflowX = (isTouchDevice || isMobile || rowsCount === 0) ? 'hidden' : 'auto';
-    // let overflowY = 'auto';
-    // let overflowX = 'auto';
-    // let overflowY = 'hidden';
-    // let overflowX = 'hidden';
-    let tableClassName = rowsCount === 0 ? 'emptyTable' : 'fixedDataTable';
-
-    let rowClassNameGetter = (index) => ( 
-        (p.rows.type === 'merged' && index === 0) ? 'firstMergedRow' :
-        (p.rows.headers[index] && p.rows.headers[index][2]) ? 
-            'rowType' + p.rows.headers[index][2] : ''
-    );
-
+export default (p, a) => {
     let firstCell = (
         <button
             className='headerCell'
@@ -62,195 +24,39 @@ export default (p, a, s) => {
             )}
         </button>
     );
-
-    let columnHeaderRenderer = (column) => ( (column.icons) ? 
-        (
-            <img 
-                src={column.icons.table}
-                width={iconWidth}
-                height={iconWidth}
-                alt={column.label}
-                title={column.label}
-            />
-        ) : (
-            <span>
-                {column.label}
-            </span>
-        )
-    );
-    
-    let rowHeaderRenderer = (cellData, cellDataKey, rowData, rowIndex) => {
-        let value = parseFloat(p.rows.headers[rowIndex][1]);
-        let mainHeader = (
-            <p style={{margin: 0, fontSize: 17}}>
-                {p.rows.headers[rowIndex][0]}
-            </p>
-        );
-        let secondHeader = isNaN(value) ? (null) : (
-            <p style={{margin: 0, fontSize: 15}}>
-                <i 
-                    className={(p.user.classID !== null) ? 
-                            ('header-icon-' + p.user.classID) : ''}
-                    style={{
-                        fontSize: 12, 
-                        marginRight: 3
-                    }} 
-                />
-                <span style={{
-                        lineHeight: '15px',
-                        verticalAlign: 'text-top'
-                    }}
-                >
-                    <FormattedNumber 
-                        locales={'en-US'/*p.language.messages.locale*/} 
-                        value={p.rows.headers[rowIndex][1]} 
-                    />
-                </span>
-            </p>
-        );
-        return (
-            <div>
-                {mainHeader}
-                {secondHeader}
-            </div>
-        );
-    };
-    
-    let numberElement = (value, valueString, isPercent) => (
-        isNaN(value) ? (valueString) : (
-            (isPercent) ? (
-                <FormattedNumber 
-                    locales={'en-US'/* p.language.messages.locale */} 
-                    value={value}
-                    style="percent"
-                    minimumFractionDigits={0}
-                    maximumFractionDigits={2}
-                />
-            ) : (
-                <FormattedNumber 
-                    locales={'en-US'/* p.language.messages.locale */} 
-                    value={value}
-                />
-            )
-        )
-    );
-
-    let cellRenderer = (cellData, cellDataKey, rowData, rowIndex) => {
-        let content = p.rows.data[rowIndex][cellDataKey] ? p.rows.data[rowIndex][cellDataKey] : '';
-        let values = content.split('|');
-        let mainValue = parseFloat(values[0]);
-        let secondaryValue = (values[1] !== undefined) ? parseFloat(values[1]) : undefined;
-        let isFirstValuePercent = varTypes[p.vars.combo.first] === 'percent';
-        let isSecondValuePercent = varTypes[p.vars.combo.second] === 'percent';
-        mainValue = (isFirstValuePercent) ? mainValue / 100 : mainValue;
-        secondaryValue = (isSecondValuePercent) ? secondaryValue / 100 : secondaryValue;
-        
-        let firstLine = numberElement(
-                mainValue, 
-                values[0], 
-                isFirstValuePercent
-        );
-        let secondLine = (secondaryValue !== undefined) ? (numberElement(
-                secondaryValue, 
-                values[1], 
-                isSecondValuePercent
-        )) : (null);
-
-        return (! secondLine) ? (
-            <span>
-                {firstLine}
-            </span>
-        ) : (
-            <div>
-                <span>{firstLine}</span><br/>
-                <span className="secondary">{secondLine}</span>
-            </div>
-        );
-    };
-
-    // let draggableArea = (
-    //     <div 
-    //         style={{
-    //             height: (tableHeight - headerHeight - 20),
-    //             width: (tableWidth - columnWidth),
-    //             position: 'absolute',
-    //             top: headerHeight,
-    //             left: columnWidth,
-    //             opacity: 0.5,
-    //             overflow: 'auto'
-    //         }}
-    //         onScroll={a.draggableAreaScroll}
-    //     >
-    //         <div
-    //             style={{
-    //                 position: 'absolute',
-    //                 width: columnsCount * columnWidth,
-    //                 height: rowsCount * columnWidth,
-    //             }}
-    //         />
-    //     </div>
-    // );
-    // let draggableArea = null;
-    
-    let draggableProps = (isTouchDevice || isMobile) ? {
-        onTouchEnd: a.handleTouchEnd,
-        onTouchStart: a.handleTouchStart,
-        onTouchMove: a.handleTouchMove,
-        onTouchCancel: a.handleTouchEnd
-    } : null;
-    
-    let onContentHeightChange = (contentHeight) => {
-        let contentWidth = (columnsCount + 1) * columnWidth;
-        s.scroller.setDimensions(
-            tableWidth,
-            tableHeight,
-            contentWidth,
-            contentHeight
-        );
-    }
-
-    let scrollParameters = (isTouchDevice || isMobile) ? {
-        onContentHeightChange: onContentHeightChange,
-        scrollTop: s.scrollTop,
-        scrollLeft: s.scrollLeft
-    } : null;
-
     return (
-        <div className={tableClassName} {...draggableProps}>
-            <Table
-                width={tableWidth}
-                maxHeight={tableHeight}
-                rowsCount={rowsCount}
-                rowHeight={rowHeight}
-                headerHeight={headerHeight}
-                rowGetter={(index) => (p.rows.data[index]) }
-                rowClassNameGetter={rowClassNameGetter}
-                overflowY={overflowY}
-                overflowX={overflowX}
-                {...scrollParameters}
+        <div
+            style={{
+                width: p.tableWidth,
+                height: p.tableHeight,
+                overflow: 'hidden',
+                textAlign: 'center'
+            }}
+        >
+            <div
+                style={{
+                    width: p.columnWidth,
+                    height: p.tableHeight,
+                    overflow: 'hidden',
+                    // backgroundColor: 'blue',
+                    float: 'left'
+                }}
             >
-                <Column
-                    fixed={true}
-                    dataKey={0}
-                    flexGrow={1}
-                    align='center'
-                    width={columnWidth}
-                    cellClassName='columnHeader'
-                    headerRenderer={() => (firstCell) }
-                    cellRenderer={rowHeaderRenderer}
-                />
-            {p.columns.enabled.map( (column, key) => (
-                <Column
-                    key={('column-' + key)}
-                    dataKey={key}
-                    flexGrow={1}
-                    align='center'
-                    width={columnWidth}
-                    headerRenderer={() => columnHeaderRenderer(column) }
-                    cellRenderer={cellRenderer}
-                />
-            ))}
-            </Table>
+                <div 
+                    style={tableStyles(p).borderBottom}
+                >
+                    {firstCell}
+                </div>
+                <RowHeaders {...p} />
+            </div>
+            <div 
+                style={{
+                    float: 'left',
+                }}
+            >
+                <TableHeader {...p} />
+                <TableContent {...p} />
+            </div>
         </div>
     );
 }

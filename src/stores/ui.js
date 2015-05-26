@@ -10,7 +10,7 @@ class UIStore extends Store {
         this.register(userActions.closeSubmenu, this.changeSubmenu);
         this.register(userActions.openPanel, this.changePanel);
         this.register(userActions.closePanel, this.changePanel);
-        this.register(userActions.tableScroll, this.changeDraggableAreaValues);
+        this.register(userActions.tableScroll, this.changeTableScroll);
         this.register(sessionActions.signOut, this.resetState);
         this.state = {
             menuClosed: true,
@@ -18,10 +18,18 @@ class UIStore extends Store {
             panel: null,
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
-            tableDraggableAreaTop: 0,
-            tableDraggableAreaLeft: 0
+            tableScrollTop: 0,
+            tableScrollLeft: 0
         };
+        this.ticking = false;
+        this.coordX = 0;
+        this.coordY = 0;
         window.addEventListener('resize', this.widthChange.bind(this));
+        this.scrollUpdate = this.scrollUpdate.bind(this);
+        this.addListener('change', this.stopTicking);
+    }
+    stopTicking() {
+        this.ticking = false;
     }
     changeMenuState() {
         this.setState({
@@ -61,11 +69,20 @@ class UIStore extends Store {
             screenHeight: window.innerHeight
         });
     }
-    changeDraggableAreaValues(coord){
+    scrollUpdate(){
+        // console.log('this.coord', this.coordX, this.coordY);
         this.setState({
-            tableDraggableAreaTop: coord.top,
-            tableDraggableAreaLeft: coord.left
+            tableScrollTop: this.coordY,
+            tableScrollLeft: this.coordX
         });
+    }
+    changeTableScroll(coord){
+        if (!this.ticking) {
+            this.ticking = true;
+            this.coordX = coord.left;
+            this.coordY = coord.top;
+            requestAnimationFrame(this.scrollUpdate);
+        }
     }
 }
 
