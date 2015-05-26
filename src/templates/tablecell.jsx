@@ -10,9 +10,6 @@ const defaultPercentProps = {
 };
 
 export default (content, key, p) => {
-    if (key === 0) { //first row column is rendered by another component
-        return null;
-    };
     const isPercent = (enumValue) => 
                             (varTypes[p.vars.combo[enumValue]] === 'percent');
     const getValue = (v, enumValue) => (
