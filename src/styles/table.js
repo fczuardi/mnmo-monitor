@@ -1,3 +1,15 @@
+const getRowClassName = (key, p) => {
+    let className = ['tableRow'],
+        type = p.rows.headers[key][2];
+    if (key % 2 !== 0){
+        className.push('even');
+    }
+    if (key === 0 && p.rows.type === 'merged') {
+        className.push('firstMergedRow');
+    }
+    className.push('type' + type);
+    return className.join(' ');
+};
 
 export default (p) => ({
     borderBottom: {
@@ -8,5 +20,6 @@ export default (p) => ({
         width: p.columnWidth - 1,
         minWidth: p.columnWidth - 1,
         borderRight: '1px solid #000'
-    }
+    },
+    getRowClassName: function(key){ return getRowClassName(key, p);}
 });

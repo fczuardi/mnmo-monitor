@@ -34,9 +34,11 @@ export default (row, key, p) => {
             </span>
         </p>
     );
+    let className = tableStyles(p).getRowClassName(key);
     return (
         <tr 
             key={key}
+            className={className}
             style={merge({
             }, tableStyles(p).borderBottom)}
         >

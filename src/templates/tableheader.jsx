@@ -12,11 +12,12 @@ export default (p) => {
             width: p.tableWidth - p.columnWidth,
             overflow: 'hidden',
             // backgroundColor: 'green',
-            textAlign: 'center',
         }, tableStyles(p).borderBottom)}>
             <table>
                 <tr
+                    className="tableHeader"
                     style={{
+                        textAlign: 'center',
                         height: p.rowHeight
                     }}
                 >

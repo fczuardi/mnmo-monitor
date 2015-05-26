@@ -26,11 +26,29 @@ export default (p, a) => {
         </button>
     );
     return (
+    <div
+        style={{
+            position: 'relative',
+            width: p.tableWidth,
+            height: p.tableHeight
+        }}
+    >
         <div
+            className="dataTableBackground"
             style={{
+                position: 'absolute',
+                width: p.tableWidth,
+                height: p.tableHeight
+            }}
+        ></div>
+        <div
+            className="dataTable"
+            style={{
+                position: 'absolute',
                 width: p.tableWidth,
                 height: p.tableHeight,
                 overflow: 'hidden',
+                border: '1px solid #000',
                 textAlign: 'center'
             }}
         >
@@ -64,5 +82,6 @@ export default (p, a) => {
                 <TableContent {...p} />
             </div>
         </div>
+    </div>
     );
 }

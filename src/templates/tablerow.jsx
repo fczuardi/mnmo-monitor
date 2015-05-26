@@ -11,10 +11,13 @@ export default (row, key, p) => {
             row.push('-');
         }
     }
-    // console.log(row.length);
+    
+    let className = tableStyles(p).getRowClassName(key);
+
     return (
         <tr 
             key={key}
+            className={className}
             style={merge({
             }, tableStyles(p).borderBottom)}
         >
