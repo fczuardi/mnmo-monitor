@@ -27,7 +27,8 @@ class DataTable {
         p.tableHeight = p.ui.screenHeight - 
                             appHeaderHeight - 
                             (isMobile ? 0 : chartHeight);
-        p.columnWidth = columnWidth;
+        p.columnWidth = p.tableContentWidth > p.tableWidth ? columnWidth :
+             Math.ceil((p.tableWidth) / (p.columns.enabled.length + 1));
         p.rowHeight = rowHeight;
         p.iconWidth = iconWidth;
         p.cellPadding = cellPadding;
