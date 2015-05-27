@@ -1,5 +1,7 @@
 import {Store} from 'flummox';
 
+const mobileBreakpointWidth = 599;
+
 class UIStore extends Store {
     constructor(flux) {
         super();
@@ -18,6 +20,7 @@ class UIStore extends Store {
             panel: null,
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
+            isMobile: (window.innerWidth <= mobileBreakpointWidth),
             tableScrollTop: 0,
             tableScrollLeft: 0
         };
@@ -66,7 +69,8 @@ class UIStore extends Store {
     widthChange() {
         this.setState({
             screenWidth: window.innerWidth,
-            screenHeight: window.innerHeight
+            screenHeight: window.innerHeight,
+            isMobile: (window.innerWidth <= mobileBreakpointWidth)
         });
     }
     scrollUpdate(){

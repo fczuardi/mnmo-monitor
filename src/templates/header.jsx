@@ -9,7 +9,7 @@ export default (p, a) =>
         onClick={a.menuToggleClicked}
     />
     <ToolbarButton
-        type="dialogToggle"
+        type={p.ui.isMobile ? null : 'dialogToggle'}
         onClick={a.groupsButtonClicked}
         closed={(p.ui.panel !== 'groups')}
     >
@@ -26,7 +26,7 @@ export default (p, a) =>
         paddingTop: 8
     }}>
         <ToolbarButton
-            type="dialogToggle"
+            type={p.ui.isMobile ? null : 'dialogToggle'}
             onClick={a.rowsButtonClicked}
             disabled={(p.user.autoUpdate && p.rows.type === 'list' )}
             closed={(p.ui.panel !== 'rows')}
@@ -36,7 +36,7 @@ export default (p, a) =>
     </div>
     <div style={{float: 'right'}}>
         <ToolbarButton
-            type="dialogToggle"
+            type={p.ui.isMobile ? null : 'dialogToggle'}
             disabled={(p.groups.selected && p.groups.selected.classes.length < 2 )}
             onClick={a.classButtonClicked}
             closed={(p.ui.panel !== 'classes')}
@@ -44,7 +44,7 @@ export default (p, a) =>
                             ('header-icon-' + p.user.classID) : ''}
         />
         <ToolbarButton
-            type="dialogToggle"
+            type={p.ui.isMobile ? null : 'dialogToggle'}
             onClick={a.varsButtonClicked}
             closed={(p.ui.panel !== 'vars')}
         >
