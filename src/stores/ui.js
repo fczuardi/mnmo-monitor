@@ -2,11 +2,14 @@ import {Store} from 'flummox';
 
 const mobileBreakpointWidth = 599;
 
+const INFINITE_SCROLL_THRESHOLD = 0;
+
 class UIStore extends Store {
     constructor(flux) {
         super();
         const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
+        const rowsActions = flux.getActions('rows');
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.openSubmenu, this.changeSubmenu);
         this.register(userActions.closeSubmenu, this.changeSubmenu);
@@ -14,6 +17,8 @@ class UIStore extends Store {
         this.register(userActions.closePanel, this.changePanel);
         this.register(userActions.tableScroll, this.changeTableScroll);
         this.register(sessionActions.signOut, this.resetState);
+        this.register(rowsActions.rowsFetchCompleted, this.unlockInfiniteLoad);
+        this.userActions = userActions;
         this.state = {
             menuClosed: true,
             submenu: null,
@@ -25,6 +30,7 @@ class UIStore extends Store {
             tableScrollLeft: 0
         };
         this.ticking = false;
+        this.nextPageLoadSent = true;
         this.coordX = 0;
         this.coordY = 0;
         window.addEventListener('resize', this.widthChange.bind(this));
@@ -73,13 +79,25 @@ class UIStore extends Store {
             isMobile: (window.innerWidth <= mobileBreakpointWidth)
         });
     }
+    unlockInfiniteLoad(){
+        this.nextPageLoadSent = false;
+    }
     scrollUpdate(){
         let tableheaders = document.getElementById('table-headers'),
-            rowheaders = document.getElementById('row-headers');
+            rowheaders = document.getElementById('row-headers'),
+            tableContents = document.getElementById('table-contents'),
+            shouldLoadNextPage = this.coordY >= (
+                                    tableContents.scrollHeight - 
+                                    tableContents.offsetHeight - 
+                                    INFINITE_SCROLL_THRESHOLD );
 
         tableheaders.scrollLeft = this.coordX;
         rowheaders.scrollTop = this.coordY;
         
+        if (shouldLoadNextPage && !this.nextPageLoadSent){
+            this.nextPageLoadSent = true;
+            this.userActions.tableScrollEnded();
+        }
         this.stopTicking();
     }
     changeTableScroll(coord){

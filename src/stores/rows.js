@@ -26,6 +26,7 @@ class RowsStore extends Store {
         this.sessionActions = sessionActions;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.preferencesPublished, this.userChanged);
+        this.register(userActions.tableScrollEnded, this.getNextPage);
         this.register(columnsActions.columnsPublished, this.columnsChanged);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
@@ -156,6 +157,17 @@ class RowsStore extends Store {
         console.log('stopAutoUpdate');
         window.clearInterval(this.autoUpdateInterval);
     }
+    
+    getNextPage() {
+        if ((this.state.headers.length === 0) || (this.state.type === 'merged')){ 
+            return null; 
+        }
+        let lastHeader = this.state.headers[this.state.headers.length - 1],
+            lastTime = lastHeader[0].split(' ')[0];
+        console.log('getNextPage', lastTime);
+        this.fetchRows(this.sessionStore.state.token, this.state.type, lastTime);
+    }
+    
     updateRows(newHeaders, newRows) {
         let shouldReplaceTable = (this.state.data.length === 0),
             mergedData = {
@@ -172,10 +184,14 @@ class RowsStore extends Store {
             headersToAdd = [],
             rowsToAdd = [],
             updatedRows = this.state.data.slice(0),
-            updatedHeaders = this.state.headers.slice(0);
+            updatedHeaders = this.state.headers.slice(0),
+            appendToEnd = false;
         updatedHeaders.forEach( (header, index) => {
             oldHeaderIndexes[header[0]] = index;
         });
+        
+        appendToEnd = (oldHeaderIndexes[newHeaders[0][0]] === updatedHeaders.length - 1);
+
         // console.log('oldHeaderIndexes', oldHeaderIndexes);
         newHeaders.forEach( (header, index) => {
             let oldRowIndex = oldHeaderIndexes[header[0]];
@@ -195,16 +211,18 @@ class RowsStore extends Store {
             }
         });
         return {
-            headers: headersToAdd.concat(updatedHeaders),
-            rows: rowsToAdd.concat(updatedRows)
+            headers: appendToEnd ? updatedHeaders.concat(headersToAdd) : 
+                                    headersToAdd.concat(updatedHeaders),
+            rows: appendToEnd ? updatedRows.concat(rowsToAdd) : 
+                                    rowsToAdd.concat(updatedRows)
         };
     }
     
     updateMenuLabel(data) {
-        let newLabel = data.rows.headers[0] ? data.rows.headers[0][0] : null;
         let newRows = data.rows.data;
         let newHeaders = data.rows.headers;
         let mergedData = this.updateRows(newHeaders, newRows);
+        let newLabel = mergedData.headers[0] ? mergedData.headers[0][0] : null;
         this.setState({
             menuLabel: (newLabel || '-'),
             headers: mergedData.headers,

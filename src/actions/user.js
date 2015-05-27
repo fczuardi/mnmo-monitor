@@ -70,6 +70,9 @@ class UserActions extends Actions {
             left: left
         };
     }
+    tableScrollEnded() {
+        return null;
+    }
 }
 
 export default UserActions;
