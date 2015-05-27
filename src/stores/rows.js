@@ -26,7 +26,6 @@ class RowsStore extends Store {
         this.register(userActions.preferencesPublished, this.userChanged);
         this.register(columnsActions.columnsPublished, this.columnsChanged);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
-        // this.register(sessionActions.tokenGranted, this.fetchRows);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
         this.state = {
@@ -41,6 +40,7 @@ class RowsStore extends Store {
     }
 
     userPreferencesFetched() {
+        this.resetRows();
         this.fetchRows();
     }
     
@@ -59,6 +59,7 @@ class RowsStore extends Store {
         );
         if (needsRefetching) {
             // console.log('fetch rows again');
+            this.resetRows();
             this.fetchRows();
             this.previousUserState = merge({}, newState);
         }
@@ -81,6 +82,7 @@ class RowsStore extends Store {
         );
         if (needsRefetching) {
             // console.log('fetch rows again');
+            this.resetRows();
             this.fetchRows();
         }
         this.previousColumnsState = merge({}, newState);
@@ -118,24 +120,45 @@ class RowsStore extends Store {
         });
     }
     
+    resetRows(newType) {
+        let type = newType || this.state.type;
+        this.setState({
+            menuLabel: '…',
+            type: type,
+            headers: [],
+            data: [],
+            lastLoad: new Date().getTime()
+        });
+    }
+    
+    updateRows(newHeaders, newRows) {
+        let shouldReplaceTable = (this.state.data.length === 0);
+        if (shouldReplaceTable){
+            return {
+                headers: newHeaders,
+                rows: newRows
+            };
+        }
+        
+        //code for updating existing table goes here
+        console.log('update table instead of replacing it');
+    }
+    
     updateMenuLabel(data) {
         let newLabel = data.rows.headers[0] ? data.rows.headers[0][0] : null;
-        let rows = data.rows.data;
+        let newRows = data.rows.data;
+        let newHeaders = data.rows.headers;
+        let mergedData = this.updateRows(newHeaders, newRows);
         this.setState({
             menuLabel: (newLabel || '-'),
-            headers: data.rows.headers,
-            data: rows,
+            headers: mergedData.headers,
+            data: mergedData.rows,
             lastLoad: new Date().getTime()
         });
     }
     
     updateRowsType(newType) {
-        this.setState({
-            menuLabel: '…',
-            type: newType,
-            headers: [],
-            data: []
-        });
+        this.resetRows(newType)
         this.fetchRows(this.sessionStore.state.token, newType);
     }
 }

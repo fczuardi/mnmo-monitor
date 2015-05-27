@@ -9,7 +9,7 @@ class TableHeader extends Component {
         );
     }
     render() {
-        console.log('render TableHeader');
+        // console.log('render TableHeader');
         return template(this.props);
     }
 }

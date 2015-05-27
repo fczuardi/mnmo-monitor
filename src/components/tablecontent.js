@@ -9,7 +9,7 @@ class TableContent {
         );
     }
     render() {
-        console.log('render table contents');
+        // console.log('render table contents');
         const userActions = this.props.flux.getActions('user');
         let actions = {
             onTableScroll: (event) => 
