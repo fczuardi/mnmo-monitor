@@ -5,33 +5,33 @@ Tela de login | 57h | Segunda 09/03/2015 | Quarta 25/03 | 100% |
 Captcha | 5h | Segunda 23/03 | Quarta 25/03 | 100% |
 Side menu | 12h | Quarta 25/03 | Quinta 26/03 | 100% |
 App header e paineis | 61h | Sexta 27/03 | Quarta 06/05 | 100% |
-Dashboard | 52h | Terça 14/04 | Quarta 06/05 | 71% |
+Dashboard | 52h | Terça 14/04 | Quarta 06/05 | 94% |
 Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
 Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
 Splash Screen | 17h | Quarta 27/05 | Terça 02/06 | 0% |
 Bugfixes | 5h | ??? | ??? | 0% |
 Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
-Desenvolvimento total | 409 | - | Terça 16/06 | 50% |
+Desenvolvimento total | 409 | - | Terça 16/06 | 53% |
 Liberação do código open source | - | 16/09 |  |  |
 
-__última atualização: 14/05/20:23__
+__última atualização: 27/05/16:16__
 
 -----
 
 Total 
 -----
-- 207/409 = 50.61%
+- 219/409 = 53.54%
 
 Cálculo
 -------
 
-### Dashboard (37 / (52 + 36 = 88))
+### Dashboard (49 / (52 + 36 = 88))
 - indicador de auto update (1)
 - retangulo extra mostrando o dia (2)
-- chamar API a cada minuto (2)
-- scroll vertical que leva o grafico junto e para na altura (10)
 
 Feito
+- chamar API a cada minuto (2) = OK
+- scroll vertical que leva o grafico junto e para na altura (10) = OK
 - chamadas a API para montar o load inicial (5/5) = OK
 - botao "ver medias" (4/4) = OK
 - header da tabela com ícones (3/3) = OK

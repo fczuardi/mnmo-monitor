@@ -118,7 +118,7 @@ class UserStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK', URLs.user.preferences);
-            console.log('result', payload);
+            // console.log('result', payload);
             let userPreferences = merge({}, parseUserPreferences(payload));
             // console.log('userPreferences', userPreferences);
             store.userActions.preferencesFetched(userPreferences);

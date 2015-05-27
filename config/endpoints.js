@@ -7,7 +7,9 @@ export default {
         captcha: '/validation/captcha'
     },
     session: {
-        login: '/auth/login'
+        login: '/auth/login',
+        loginError: '/auth/login/error',
+        loginErrorStatus: 400
     },
     user: {
         preferences: '/user/preferences'

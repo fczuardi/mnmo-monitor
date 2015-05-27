@@ -40,6 +40,7 @@ class SessionStore extends Store {
         });
         console.log('POST', URLs.session.login);
         fetch(URLs.baseUrl + URLs.session.login, {
+        // fetch(URLs.baseUrl + URLs.session.loginError, {
           method: 'post',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -48,7 +49,7 @@ class SessionStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload) {
-            // console.log('result (post)', URLs.session.login, payload);
+            console.log('result (post)', URLs.session.login, payload);
             console.log('OK (post)', URLs.session.login);
             let sessionData = parseLoginResponse(payload);
             if (sessionData.token){
@@ -57,7 +58,7 @@ class SessionStore extends Store {
                 store.flux.getActions('session').tokenGranted(sessionData.token);
             }else if (sessionData.error) {
                 store.setState({
-                    error: sessionData.error
+                    error: (sessionData.error_description || sessionData.error)
                 });
                 store.sessionActions.signOut();
             }

@@ -11,7 +11,36 @@ import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
 import RadioButton from 'mnmo-components/lib/themes/mnmo/radio';
 import CaptchaAnswers from 'mnmo-components/lib/themes/mnmo/radiogroup';
 import Submit from 'mnmo-components/lib/themes/mnmo/submit';
-export default (p, a) =>
+export default (p, a) => {
+    let firstAttempt = (p.session.error === null);
+    let submitButton = (
+        <Submit
+            value={p.language.messages.login.submit[p.loginForm.submitLabelKey]}
+            disabled={(! p.loginForm.canSubmit)}
+        />
+    );
+    let tryAgain = (
+        <div
+            style={{
+                paddingLeft: 25,
+                paddingRight: 25,
+                margin: 0,
+                marginBottom: 5
+            }}
+        >
+            <p style={{
+                borderRadius: 5,
+                padding: 10,
+                marginBottom: 5,
+                marginTop: 0,
+                backgroundColor: 'rgba(255, 0, 0, 0.2)'
+            }}>
+                {p.session.error}
+            </p>
+            {submitButton}
+        </div>
+    );
+    return (
 <CenteredBox>
     <form onSubmit={a.formSubmit}>
         <FieldSet legend={p.language.messages.login.welcome}>
@@ -53,6 +82,7 @@ export default (p, a) =>
                 </Checkbox>
             </div>
         </FieldSet>
+        {firstAttempt ? null : tryAgain}
         <FieldSet legend={p.loginForm.captchaQuestion}>
             <CaptchaAnswers>
             {p.loginForm.captchaAnswers.map( (answer, key) =>
@@ -94,12 +124,8 @@ export default (p, a) =>
                 </Checkbox>
             </div>
         </FieldSet>
-        <Submit
-            value={p.language.messages.login.submit[p.loginForm.submitLabelKey]}
-            disabled={(! p.loginForm.canSubmit)}
-        />
-        <FieldSet className="no-bg">
-            <p>{p.session.error}</p>
-        </FieldSet>
+        {firstAttempt ? submitButton : null}
     </form>
-</CenteredBox>;
+</CenteredBox>
+    );
+}

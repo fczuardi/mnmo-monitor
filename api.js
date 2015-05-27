@@ -103,4 +103,11 @@ router.post(URLs.session.login, function* makeLogin(next) {
     yield next;
 });
 
+router.post(URLs.session.loginError, function* makeLogin(next) {
+    let filename = './fake-data/login.error.json';
+    this.body = readFileSync(filename);
+    this.status = URLs.session.loginErrorStatus;
+    yield next;
+});
+
 export default router;
