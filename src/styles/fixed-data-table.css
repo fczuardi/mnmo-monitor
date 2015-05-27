@@ -1,7 +1,7 @@
 .dataTable {
     font-size: 11px;
 }
-.dataTable td{
+.dataTable tr{
     color: #fff;
 }
 .dataTableBackground {
@@ -9,6 +9,9 @@
     filter: blur(7px);
 }
 .tableHeader {
+    font-size: 11px;
+    color: #767677;
+    text-transform: uppercase;
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.8);
 }

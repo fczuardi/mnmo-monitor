@@ -4,6 +4,7 @@ import Header from '../components/header';
 import PanelRouter from '../components/panelrouter';
 import DataTable from '../components/datatable';
 
+const chartHeight = 264;
 export default (p, a) => {
     let marginLeft = 0,
         toggleButtonSpace = 50,
@@ -42,7 +43,7 @@ export default (p, a) => {
     <div style={{paddingTop: 53, width: '100%'}}>
         <Header {...p} />
         <PanelRouter {...p} />
-        <div style={{height: 264}}>
+        <div style={{height: chartHeight}}>
             <p style={{margin: 0}}>
                 [BarChart]
             </p>

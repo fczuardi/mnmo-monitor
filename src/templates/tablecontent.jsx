@@ -2,13 +2,6 @@ import React from 'react';
 import rowRenderer from './tablerow.jsx';
 
 export default (p, a) => {
-    let draggableProps = {
-        onTouchEnd: a.handleTouchEnd,
-        onTouchStart: a.handleTouchStart,
-        onTouchMove: a.handleTouchMove,
-        onTouchCancel: a.handleTouchEnd
-    };
-    draggableProps = null;
     return (
 <div 
     id="table-contents"
@@ -16,10 +9,9 @@ export default (p, a) => {
     style={{
         width: p.tableWidth - p.columnWidth,
         height: p.tableHeight - p.rowHeight,
-        // backgroundColor: 'yellow',
-        overflow: 'auto'
+        overflowX: 'auto',
+        overflowY: 'auto'
     }}
-    {...draggableProps}
 >
     <table
         style={{

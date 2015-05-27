@@ -32,6 +32,7 @@ class DataTable {
         p.rowHeight = rowHeight;
         p.iconWidth = iconWidth;
         p.cellPadding = cellPadding;
+        p.isMobile = isMobile;
         return template(p, actions);
     }
 }

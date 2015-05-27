@@ -70,20 +70,12 @@ class UIStore extends Store {
         });
     }
     scrollUpdate(){
-        console.log('scrollUpdate');
-        // console.log('this.coord', this.coordX, this.coordY);
-        // this.setState({
-        //     tableScrollTop: this.coordY,
-        //     tableScrollLeft: this.coordX
-        // });
         let tableheaders = document.getElementById('table-headers'),
-            rowheaders = document.getElementById('row-headers'),
-            tablecontents = document.getElementById('table-contents');
-        
+            rowheaders = document.getElementById('row-headers');
+
         tableheaders.scrollLeft = this.coordX;
         rowheaders.scrollTop = this.coordY;
-        // tablecontents.scrollLeft = this.coordX;
-        // tablecontents.scrollTop = this.coordY;
+        
         this.stopTicking();
     }
     changeTableScroll(coord){

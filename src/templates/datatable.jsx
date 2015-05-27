@@ -8,13 +8,11 @@ import merge from 'lodash/object/merge';
 export default (p, a) => {
     let firstCell = (
         <button
-            className='headerCell'
+            className='headerCell tableHeader'
             style={{
                 border: 'none', 
                 width: '100%', 
-                backgroundColor: 'inherit',
-                color: '#767677',
-                textTransform: 'uppercase'
+                height: p.rowHeight
             }}
             data-type={p.rows.type}
             onClick={a.firstHeaderButtonClick}
@@ -27,6 +25,7 @@ export default (p, a) => {
     );
     return (
     <div
+        id="dataTableContainer"
         style={{
             position: 'relative',
             width: p.tableWidth,
