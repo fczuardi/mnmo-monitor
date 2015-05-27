@@ -14,8 +14,7 @@ var options = {
         './lib/css/normalize.css',
         './lib/css/typography.css',
         './lib/css/calendar.css',
-        './lib/css/fixed-data-table.css',
-        './lib/css/fixed-data-table-override.css',
+        './lib/css/data-table.css',
         './css/main.css'
     ],
     scripts: [
@@ -42,8 +41,6 @@ var options = {
         './lib/js/moment.js',
         './lib/js/react-day-picker.js',
         '$comment=react-day-picker',
-        './lib/js/fixed-data-table.js',
-        '$comment=fixed-data-table',
         './lib/js/lodash-merge.js',
         './lib/js/lodash-partition.js',
         './lib/js/lodash-sortby.js',
