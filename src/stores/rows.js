@@ -9,6 +9,8 @@ import {
     parseRows
 } from '../../config/apiHelpers';
 
+const AUTOUPDATE_INTERVAL = 1000 * 30;
+
 class RowsStore extends Store {
     constructor(flux) {
         super();
@@ -37,13 +39,22 @@ class RowsStore extends Store {
         };
         this.previousUserState = userStore.state;
         this.previousColumnsState = columnsStore.state;
+        this.autoUpdateInterval = undefined;
     }
 
-    userPreferencesFetched() {
+    userPreferencesFetched(pref) {
         this.resetRows();
         this.fetchRows();
+        this.toggleAutoUpdate(pref.autoUpdate);
     }
     
+    toggleAutoUpdate(autoUpdate) {
+        if (autoUpdate){
+            this.startAutoUpdate();
+        } else {
+            this.stopAutoUpdate();
+        }
+    }
     userChanged(newState) {
         // console.log('userChanged', newState);
         let oldState = this.previousUserState;
@@ -62,6 +73,7 @@ class RowsStore extends Store {
             this.resetRows();
             this.fetchRows();
             this.previousUserState = merge({}, newState);
+            this.toggleAutoUpdate(newState.autoUpdate);
         }
     }
     
@@ -131,17 +143,61 @@ class RowsStore extends Store {
         });
     }
     
+    startAutoUpdate() {
+        console.log('startAutoUpdate');
+        let store = this;
+        store.autoUpdateInterval = window.setInterval(function(){
+            console.log('autoupdate fetch');
+            store.fetchRows();
+        }, AUTOUPDATE_INTERVAL);
+    }
+    
+    stopAutoUpdate() {
+        console.log('stopAutoUpdate');
+        window.clearInterval(this.autoUpdateInterval);
+    }
     updateRows(newHeaders, newRows) {
-        let shouldReplaceTable = (this.state.data.length === 0);
-        if (shouldReplaceTable){
-            return {
+        let shouldReplaceTable = (this.state.data.length === 0),
+            mergedData = {
                 headers: newHeaders,
                 rows: newRows
             };
+        if (shouldReplaceTable){
+            return mergedData;
         }
         
         //code for updating existing table goes here
-        console.log('update table instead of replacing it');
+        // console.log('update table instead of replacing it');
+        let oldHeaderIndexes = {},
+            headersToAdd = [],
+            rowsToAdd = [],
+            updatedRows = this.state.data.slice(0),
+            updatedHeaders = this.state.headers.slice(0);
+        updatedHeaders.forEach( (header, index) => {
+            oldHeaderIndexes[header[0]] = index;
+        });
+        // console.log('oldHeaderIndexes', oldHeaderIndexes);
+        newHeaders.forEach( (header, index) => {
+            let oldRowIndex = oldHeaderIndexes[header[0]];
+            if (oldRowIndex === undefined) {
+                // console.log('new row', newRows[index]);
+                rowsToAdd.push(newRows[index]);
+                headersToAdd.push(newHeaders[index]);
+            } else if (
+                (updatedRows[oldRowIndex].join(',') !== newRows[index].join(',')) ||
+                (updatedHeaders[oldRowIndex].join(',') !== newHeaders[index].join(','))
+            ){
+                // console.log('row to update', updatedRows[oldRowIndex], newRows[index]);
+                updatedHeaders[oldRowIndex] = newHeaders[index];
+                updatedRows[oldRowIndex] = newRows[index];
+            } else {
+                // console.log('same row');
+            }
+        });
+        return {
+            headers: headersToAdd.concat(updatedHeaders),
+            rows: rowsToAdd.concat(updatedRows)
+        };
     }
     
     updateMenuLabel(data) {
@@ -158,7 +214,7 @@ class RowsStore extends Store {
     }
     
     updateRowsType(newType) {
-        this.resetRows(newType)
+        this.resetRows(newType);
         this.fetchRows(this.sessionStore.state.token, newType);
     }
 }
