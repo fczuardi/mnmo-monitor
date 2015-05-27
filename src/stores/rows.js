@@ -122,8 +122,8 @@ class RowsStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK', URLs.rows[type]);
-            // console.log('result', payload);
-            // console.log('parsed result', parseRows(payload));
+            console.log('result', payload);
+            console.log('parsed result', parseRows(payload));
             store.rowsActions.rowsFetchCompleted(
                 parseRows(payload)
             );
@@ -190,7 +190,9 @@ class RowsStore extends Store {
             oldHeaderIndexes[header[0]] = index;
         });
         
-        appendToEnd = (oldHeaderIndexes[newHeaders[0][0]] === updatedHeaders.length - 1);
+        //17:55 vs 17:54, 17:5_ === 17:5_ ? then append to end
+        appendToEnd = (newHeaders[0][0].substring(0, 4) === 
+                updatedHeaders[(updatedHeaders.length - 1)][0].substring(0, 4));
 
         // console.log('oldHeaderIndexes', oldHeaderIndexes);
         newHeaders.forEach( (header, index) => {
