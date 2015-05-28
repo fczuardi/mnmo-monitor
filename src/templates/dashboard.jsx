@@ -3,6 +3,7 @@ import Menu from '../components/menu';
 import Header from '../components/header';
 import PanelRouter from '../components/panelrouter';
 import DataTable from '../components/datatable';
+import NetworkMessages from '../components/networkmessages'
 
 const chartHeight = 264;
 export default (p, a) => {
@@ -49,6 +50,7 @@ export default (p, a) => {
             </p>
         </div>
         <DataTable {...p} />
+        <NetworkMessages {...p} />
     </div>
 </div>
     );

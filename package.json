@@ -52,6 +52,7 @@
     "../components/classespanel": "global:APPClassesPanel",
     "../components/panelrouter": "global:APPPanelsRouter",
     "../components/datatable": "global:APPDataTable",
+    "../components/networkmessages": "global:APPNetworkMessages",
     "../lib/local": "global:LocalStorageHelpers",
     "./actions/country": "global:ActionsCountry",
     "./stores/country": "global:StoresCountry",

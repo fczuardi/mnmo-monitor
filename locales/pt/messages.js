@@ -1,5 +1,8 @@
 export default {
     locale: 'pt-BR',
+    network: {
+        loadingData: 'Carregando dados… Aguarde.'
+    },
     login: {
         welcome: 'Bem vindo',
         username: 'usuário',

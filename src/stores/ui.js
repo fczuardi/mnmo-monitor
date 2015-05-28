@@ -1,7 +1,7 @@
 import {Store} from 'flummox';
 
 const INFINITE_SCROLL_THRESHOLD = 0;
-const VISIBEL_ROWS_OUTSIDE = 30;
+const VISIBEL_ROWS_OUTSIDE = 40;
 
 
 
@@ -18,6 +18,8 @@ class UIStore extends Store {
         const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
         const rowsActions = flux.getActions('rows');
+        this.rowsStore = flux.getStore('rows');
+        console.log('this.rowsStore', this.rowsStore);
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.openSubmenu, this.changeSubmenu);
         this.register(userActions.closeSubmenu, this.changeSubmenu);
@@ -37,7 +39,8 @@ class UIStore extends Store {
             visibleStart: 0,
             visibleEnd: 5,
             tableScrollTop: 0,
-            tableScrollLeft: 0
+            tableScrollLeft: 0,
+            isLoading: true
         };
         this.ticking = false;
         this.nextPageLoadSent = true;
@@ -47,7 +50,22 @@ class UIStore extends Store {
         window.addEventListener('resize', this.widthChange.bind(this));
         this.scrollUpdate = this.scrollUpdate.bind(this);
         this.addListener('change', this.stopTicking);
+        this.rowStateChanged = this.rowStateChanged.bind(this);
+        this.rowsStore.addListener('change', this.rowStateChanged);
+        this.previousLoadingState = this.rowsStore.state.loading;
     }
+    
+    rowStateChanged() {
+        if (this.previousLoadingState !== this.rowsStore.state.loading){
+            this.previousLoadingState = this.rowsStore.state.loading;
+            if (this.rowsStore.state.loading === true){
+                this.rowsLoading();
+            }else{
+                this.unlockInfiniteLoad();
+            }
+        }
+    }
+    
     stopTicking() {
         this.ticking = false;
     }
@@ -90,11 +108,20 @@ class UIStore extends Store {
             isMobile: (window.innerWidth <= mobileBreakpointWidth)
         });
     }
+    rowsLoading(){
+        this.setState({
+            isLoading: true
+        });
+        this.setRenderedRows(document.getElementById('table-contents').scrollTop, true);
+    }
     unlockInfiniteLoad(){
         this.nextPageLoadSent = false;
-        this.setRenderedRows(document.getElementById('table-contents').scrollTop);
+        this.setState({
+            isLoading: false
+        });
+        this.setRenderedRows(document.getElementById('table-contents').scrollTop, false);
     }
-    setRenderedRows(tableScroll) {
+    setRenderedRows(tableScroll, forceUpdate) {
         // - p.rows.data and p.rows.headers can be huge arrays (1500 rows)
         // - drawing a huge table is not an option.
         //
@@ -107,6 +134,7 @@ class UIStore extends Store {
         let currentEnd = currentRow + Math.floor(tableHeight / rowHeight);
 
         if (
+            (forceUpdate) ||
             (currentRow < this.state.visibleStart) ||
             (currentEnd > this.state.visibleEnd)
         ){
