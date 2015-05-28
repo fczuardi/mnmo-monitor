@@ -163,7 +163,7 @@ class RowsStore extends Store {
         if (
             (this.state.headers.length === 0) || 
             (this.state.type === 'merged') ||
-            (this.userStore.autoUpdate !== true)
+            (this.userStore.state.autoUpdate !== true)
         ){ 
             return null; 
         }
