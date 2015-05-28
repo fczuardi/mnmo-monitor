@@ -23,6 +23,7 @@ class RowsStore extends Store {
         const rowsActions = flux.getActions('rows');
         this.rowsActions = rowsActions;
         this.sessionStore = sessionStore;
+        this.userStore = userStore;
         this.sessionActions = sessionActions;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.preferencesPublished, this.userChanged);
@@ -122,8 +123,8 @@ class RowsStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK', URLs.rows[type]);
-            console.log('result', payload);
-            console.log('parsed result', parseRows(payload));
+            // console.log('result', payload);
+            // console.log('parsed result', parseRows(payload));
             store.rowsActions.rowsFetchCompleted(
                 parseRows(payload)
             );
@@ -159,7 +160,11 @@ class RowsStore extends Store {
     }
     
     getNextPage() {
-        if ((this.state.headers.length === 0) || (this.state.type === 'merged')){ 
+        if (
+            (this.state.headers.length === 0) || 
+            (this.state.type === 'merged') ||
+            (this.userStore.autoUpdate !== true)
+        ){ 
             return null; 
         }
         let lastHeader = this.state.headers[this.state.headers.length - 1],
@@ -168,6 +173,10 @@ class RowsStore extends Store {
         this.fetchRows(this.sessionStore.state.token, this.state.type, lastTime);
     }
     
+    TextToMinutes(text) {
+        let timeParts = text.split(':');
+        return parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
+    }
     updateRows(newHeaders, newRows) {
         let shouldReplaceTable = (this.state.data.length === 0),
             mergedData = {
@@ -190,9 +199,12 @@ class RowsStore extends Store {
             oldHeaderIndexes[header[0]] = index;
         });
         
-        //17:55 vs 17:54, 17:5_ === 17:5_ ? then append to end
-        appendToEnd = (newHeaders[0][0].substring(0, 4) === 
-                updatedHeaders[(updatedHeaders.length - 1)][0].substring(0, 4));
+        //if received first header (16:59) is close to last existing header (17:00)
+        //this is a pagination, so append to the end of the list
+        appendToEnd = (Math.abs(
+            this.TextToMinutes(updatedHeaders[(updatedHeaders.length - 1)][0]) -
+            this.TextToMinutes(newHeaders[0][0])
+            ) < 5);
 
         // console.log('oldHeaderIndexes', oldHeaderIndexes);
         newHeaders.forEach( (header, index) => {

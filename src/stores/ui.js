@@ -1,8 +1,16 @@
 import {Store} from 'flummox';
 
-const mobileBreakpointWidth = 599;
-
 const INFINITE_SCROLL_THRESHOLD = 0;
+const VISIBEL_ROWS_OUTSIDE = 30;
+
+
+
+const mobileBreakpointWidth = 599;
+const appHeaderHeight = 55;
+const chartHeight = 264;
+const rowHeight = 60;
+
+
 
 class UIStore extends Store {
     constructor(flux) {
@@ -26,6 +34,8 @@ class UIStore extends Store {
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
             isMobile: (window.innerWidth <= mobileBreakpointWidth),
+            visibleStart: 0,
+            visibleEnd: 5,
             tableScrollTop: 0,
             tableScrollLeft: 0
         };
@@ -33,6 +43,7 @@ class UIStore extends Store {
         this.nextPageLoadSent = true;
         this.coordX = 0;
         this.coordY = 0;
+        this.scrollEndInterval = 0;
         window.addEventListener('resize', this.widthChange.bind(this));
         this.scrollUpdate = this.scrollUpdate.bind(this);
         this.addListener('change', this.stopTicking);
@@ -81,6 +92,31 @@ class UIStore extends Store {
     }
     unlockInfiniteLoad(){
         this.nextPageLoadSent = false;
+        this.setRenderedRows(document.getElementById('table-contents').scrollTop);
+    }
+    setRenderedRows(tableScroll) {
+        // - p.rows.data and p.rows.headers can be huge arrays (1500 rows)
+        // - drawing a huge table is not an option.
+        //
+        // the idea then is to draw all rows as empty with the exception of
+        // a slice of visible rows
+        let tableHeight = this.state.screenHeight - 
+                            appHeaderHeight - 
+                            (this.state.isMobile ? 0 : chartHeight);
+        let currentRow = Math.floor(tableScroll / rowHeight);
+        let currentEnd = currentRow + Math.floor(tableHeight / rowHeight);
+
+        if (
+            (currentRow < this.state.visibleStart) ||
+            (currentEnd > this.state.visibleEnd)
+        ){
+            // console.log('change start:', this.state.visibleStart, currentRow - VISIBEL_ROWS_OUTSIDE);
+            // console.log('change end:', this.state.visibleEnd, currentEnd + VISIBEL_ROWS_OUTSIDE);
+            this.setState({
+                visibleStart: currentRow - VISIBEL_ROWS_OUTSIDE,
+                visibleEnd: currentEnd + VISIBEL_ROWS_OUTSIDE
+            });
+        }
     }
     scrollUpdate(){
         let tableheaders = document.getElementById('table-headers'),
@@ -89,15 +125,21 @@ class UIStore extends Store {
             shouldLoadNextPage = this.coordY >= (
                                     tableContents.scrollHeight - 
                                     tableContents.offsetHeight - 
-                                    INFINITE_SCROLL_THRESHOLD );
+                                    INFINITE_SCROLL_THRESHOLD ),
+            store = this;
 
         tableheaders.scrollLeft = this.coordX;
         rowheaders.scrollTop = this.coordY;
         
-        if (shouldLoadNextPage && !this.nextPageLoadSent){
-            this.nextPageLoadSent = true;
+        if (shouldLoadNextPage && !this.nextPageLoadSent) {
+           this.nextPageLoadSent = true;
             this.userActions.tableScrollEnded();
         }
+        window.clearInterval(this.scrollEndInterval);
+        this.scrollEndInterval = window.setInterval(function(){
+            store.setRenderedRows(tableContents.scrollTop);
+            window.clearInterval(store.scrollEndInterval);
+        }, 200);
         this.stopTicking();
     }
     changeTableScroll(coord){

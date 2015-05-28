@@ -11,7 +11,10 @@ export default (row, key, p) => {
     }
     
     let className = tableStyles(p).getRowClassName(key);
+    
+    let isVisible = ((key > p.ui.visibleStart) && (key < p.ui.visibleEnd));
 
+    // console.log('isVisible', key, isVisible, p.ui.visibleStart, p.ui.visibleEnd);
     return (
         <tr 
             key={key}
@@ -19,7 +22,9 @@ export default (row, key, p) => {
             style={merge({
             }, tableStyles(p).borderBottom)}
         >
-            {row.map((cell, key) => cellRenderer(cell, key, p))}
+            {row.map( (cell, key) => {
+                return isVisible ? cellRenderer(cell, key, p) : (<td key={key} />);
+            } )}
         </tr>
     );
 }

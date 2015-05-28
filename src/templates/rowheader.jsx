@@ -5,6 +5,22 @@ import merge from 'lodash/object/merge';
 
 
 export default (row, key, p) => {
+    let isVisible = ((key > p.ui.visibleStart) && (key < p.ui.visibleEnd));
+    let className = tableStyles(p).getRowClassName(key);
+    let trProps = {
+        key: key,
+        className: className,
+        style: merge({}, tableStyles(p).borderBottom)
+    };
+
+    if (!isVisible) {
+        return (
+            <tr {...trProps}>
+                <td />
+            </tr>
+        );
+    }
+
     let firstValue = row[0],
         secondValue = parseFloat(row[1]);
     let mainHeader = (
@@ -34,14 +50,8 @@ export default (row, key, p) => {
             </span>
         </p>
     );
-    let className = tableStyles(p).getRowClassName(key);
     return (
-        <tr 
-            key={key}
-            className={className}
-            style={merge({
-            }, tableStyles(p).borderBottom)}
-        >
+        <tr {...trProps}>
             <td>
                 {mainHeader}
                 {secondHeader}
