@@ -199,7 +199,7 @@ class UserStore extends Store {
         });
         this.setState({
             countryID: countryID,
-            tosURL: tosURL
+            tosURL: tosURL || this.state.tosURL
         });
     }
     changeCaptchaAnswer(answer) {

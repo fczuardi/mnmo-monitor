@@ -8,7 +8,9 @@ import A from 'mnmo-components/lib/themes/mnmo/a';
 import extraLinks from '../../config/menulinks';
 import SubmenuRouter from '../components/submenurouter';
 
-export default (p, a) =>
+export default (p, a) => {
+    extraLinks[0][0].link = p.user.tosURL;
+    return (
 <Drawer 
     container={true} 
     panelsOpened={p.panelsOpened}>
@@ -73,4 +75,6 @@ export default (p, a) =>
         </List>
     </Drawer>
     <SubmenuRouter {...p} />
-</Drawer>;
+</Drawer>
+    );
+};
