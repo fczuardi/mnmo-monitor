@@ -19,6 +19,8 @@ export default (p) =>
             textAlign: 'center'
         }, tableStyles(p).borderRight)}
     >
-        {p.rows.headers.map((row, key) => rowRenderer(row, key, p))}
+        <tbody>
+            {p.rows.headers.map((row, key) => rowRenderer(row, key, p))}
+        </tbody>
     </table>
 </div>;

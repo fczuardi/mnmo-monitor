@@ -18,7 +18,9 @@ export default (p, a) => {
             textAlign: 'center'
         }}
     >
-        {p.rows.data.map((row, key) => rowRenderer(row, key, p))}
+        <tbody>
+            {p.rows.data.map((row, key) => rowRenderer(row, key, p))}
+        </tbody>
     </table>
 </div>
     );

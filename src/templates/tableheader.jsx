@@ -14,6 +14,7 @@ export default (p) => {
             // backgroundColor: 'green',
         }, tableStyles(p).borderBottom)}>
             <table>
+                <tbody>
                 <tr
                     className="tableHeader"
                     style={{
@@ -25,6 +26,7 @@ export default (p) => {
                         (column, key) => columnHeaderRenderer(column, key, p)
                     )}
                 </tr>
+                </tbody>
             </table>
         </div>
     );
