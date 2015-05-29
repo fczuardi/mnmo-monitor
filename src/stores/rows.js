@@ -58,6 +58,8 @@ class RowsStore extends Store {
             this.stopAutoUpdate();
         }
     }
+    
+    
     userChanged(newState) {
         // console.log('userChanged', newState);
         let oldState = this.previousUserState;
@@ -133,6 +135,11 @@ class RowsStore extends Store {
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
+                store.stopAutoUpdate();
+            } else {
+                if (store.userStore.state.autoUpdate) {
+                    store.startAutoUpdate();
+                }
             }
         })
         .catch(function(e){
@@ -157,6 +164,7 @@ class RowsStore extends Store {
     startAutoUpdate() {
         console.log('startAutoUpdate');
         let store = this;
+        window.clearInterval(store.autoUpdateInterval);
         store.autoUpdateInterval = window.setInterval(function(){
             console.log('autoupdate fetch');
             store.fetchRows();
