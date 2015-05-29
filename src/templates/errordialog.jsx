@@ -18,6 +18,7 @@ export default (p, a) => {
 >
     <div
         style={{
+            width: 240,
             padding: 20,
             boxSizing: 'border-box'
         }}

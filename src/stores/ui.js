@@ -154,7 +154,8 @@ class UIStore extends Store {
             // console.log('change start:', this.state.visibleStart, currentRow - VISIBEL_ROWS_OUTSIDE);
             // console.log('change end:', this.state.visibleEnd, currentEnd + VISIBEL_ROWS_OUTSIDE);
             this.setState({
-                visibleStart: currentRow - VISIBEL_ROWS_OUTSIDE,
+                // visibleStart: currentRow - VISIBEL_ROWS_OUTSIDE,
+                visibleStart: -1,
                 visibleEnd: currentEnd + VISIBEL_ROWS_OUTSIDE
             });
         }
