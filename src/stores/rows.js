@@ -183,6 +183,7 @@ class RowsStore extends Store {
     }
     
     TextToMinutes(text) {
+        text = text || '00:00';
         let timeParts = text.split(':');
         return parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
     }
@@ -208,11 +209,19 @@ class RowsStore extends Store {
             oldHeaderIndexes[header[0]] = index;
         });
         
+        let lastHeaderLabel = updatedHeaders[(updatedHeaders.length - 1)][0],
+            firstNewHeaderLabel = newHeaders[0][0];
+        
+        if (lastHeaderLabel.substring(0,2) === '00' && 
+                firstNewHeaderLabel.substring(0,2) === '23') {
+            console.log('Pagination occured right in between 00:00 and 23:59');
+            lastHeaderLabel = lastHeaderLabel.replace('00:', '24:');
+        }
         //if received first header (16:59) is close to last existing header (17:00)
         //this is a pagination, so append to the end of the list
         appendToEnd = (Math.abs(
-            this.TextToMinutes(updatedHeaders[(updatedHeaders.length - 1)][0]) -
-            this.TextToMinutes(newHeaders[0][0])
+            this.TextToMinutes(lastHeaderLabel) -
+            this.TextToMinutes(firstNewHeaderLabel)
             ) < 5);
 
         // console.log('oldHeaderIndexes', oldHeaderIndexes);
