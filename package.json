@@ -53,6 +53,7 @@
     "../components/panelrouter": "global:APPPanelsRouter",
     "../components/datatable": "global:APPDataTable",
     "../components/networkmessages": "global:APPNetworkMessages",
+    "../components/errordialog": "global:APPErrorDialog",
     "../lib/local": "global:LocalStorageHelpers",
     "./actions/country": "global:ActionsCountry",
     "./stores/country": "global:StoresCountry",

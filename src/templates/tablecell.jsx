@@ -29,7 +29,7 @@ export default (content, key, p) => {
         ) : null;
     };
         
-    let values = content.split('|'),
+    let values = content ? content.split('|') : [null, null],
         firstLine = renderValue(values[0], 'first'),
         secondLine = renderValue(values[1], 'second'),
         cellContent = secondLine ? (

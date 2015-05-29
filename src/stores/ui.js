@@ -19,7 +19,6 @@ class UIStore extends Store {
         const sessionActions = flux.getActions('session');
         const rowsActions = flux.getActions('rows');
         this.rowsStore = flux.getStore('rows');
-        console.log('this.rowsStore', this.rowsStore);
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.openSubmenu, this.changeSubmenu);
         this.register(userActions.closeSubmenu, this.changeSubmenu);
@@ -28,6 +27,8 @@ class UIStore extends Store {
         this.register(userActions.tableScroll, this.changeTableScroll);
         this.register(sessionActions.signOut, this.resetState);
         this.register(rowsActions.rowsFetchCompleted, this.unlockInfiniteLoad);
+        this.register(userActions.errorArrived, this.displayError);
+        this.register(userActions.errorDismissed, this.resetError);
         this.userActions = userActions;
         this.state = {
             menuClosed: true,
@@ -40,7 +41,8 @@ class UIStore extends Store {
             visibleEnd: 5,
             tableScrollTop: 0,
             tableScrollLeft: 0,
-            isLoading: true
+            isLoading: true,
+            error: null
         };
         this.ticking = false;
         this.nextPageLoadSent = true;
@@ -53,6 +55,17 @@ class UIStore extends Store {
         this.rowStateChanged = this.rowStateChanged.bind(this);
         this.rowsStore.addListener('change', this.rowStateChanged);
         this.previousLoadingState = this.rowsStore.state.loading;
+    }
+    
+    displayError(message){
+        this.setState({
+            error: message
+        });
+    }
+    resetError() {
+        this.setState({
+            error: null
+        });
     }
     
     rowStateChanged() {

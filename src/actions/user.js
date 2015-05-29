@@ -73,6 +73,12 @@ class UserActions extends Actions {
     tableScrollEnded() {
         return null;
     }
+    errorArrived(message) {
+        return message;
+    }
+    errorDismissed() {
+        return null;
+    }
 }
 
 export default UserActions;

@@ -117,6 +117,7 @@ var options = {
         './js/components/login.js',
         './js/components/datatable.js',
         './js/components/networkmessages.js',
+        './js/components/errordialog.js',
         './js/components/dashboard.js',
         './js/components/router.js',
         '$comment=components',

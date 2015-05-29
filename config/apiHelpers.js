@@ -32,14 +32,13 @@ function authHeaders(token){
     };
 }
 function statusRouter(response, callback401) {
-    if (response.status === 200){
-        return response;
-    } else {
-        if (response.status === 401){
-            callback401();
-        }
-        throw response.status;
+    if (response.status === 401){
+        callback401();
     }
+    if (response.status === 500){
+        console.log('status 500');
+    }
+    return response;
 }
 function diffPayloads(previous, current){
     if (previous === null){ return false; }
@@ -111,12 +110,18 @@ function diffColumnsList(state){
 function userPreferencesPostResponseOK(payload){
     let response = genericParse(payload),
         result = response.languageID !== undefined;
+    let output = {
+        data: null,
+        error: null
+    };
     if (!result){
         console.log('Not the expected response', payload);
+        output.error = payload.Message;
     } else {
         lastUserPreferenceResponse = response;
     }
-    return parseUserPreferences(lastUserPreferenceResponse);
+    output.data = parseUserPreferences(lastUserPreferenceResponse);
+    return output;
 }
 function columnListPostResponseOK(payload){
     let response = genericParse(payload),

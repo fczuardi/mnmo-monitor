@@ -22,6 +22,7 @@ class RowsStore extends Store {
         const sessionActions = flux.getActions('session');
         const rowsActions = flux.getActions('rows');
         this.rowsActions = rowsActions;
+        this.userActions = userActions;
         this.sessionStore = sessionStore;
         this.userStore = userStore;
         this.sessionActions = sessionActions;
@@ -128,9 +129,11 @@ class RowsStore extends Store {
             console.log('OK', URLs.rows[type]);
             // console.log('result', payload);
             // console.log('parsed result', parseRows(payload));
-            store.rowsActions.rowsFetchCompleted(
-                parseRows(payload)
-            );
+            let result = parseRows(payload);
+            store.rowsActions.rowsFetchCompleted(result);
+            if (result.error !== null) {
+                store.userActions.errorArrived(result.error);
+            }
         })
         .catch(function(e){
             console.log('fetch error ' + URLs.rows[store.state.type], e); // eslint-disable-line
