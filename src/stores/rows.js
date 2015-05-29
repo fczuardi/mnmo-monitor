@@ -114,7 +114,17 @@ class RowsStore extends Store {
         token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
         console.log('GET', type, URLs.rows[type]);
+        
         endTime = endTime || '';
+
+        if (
+            endTime === '' &&
+            store.userStore.state.archivedReport && 
+            store.userStore.state.archivedReport.end
+        ) {
+            endTime = store.userStore.state.archivedReport.end.substring(0, 5);
+        }
+        
         let url = URLs.baseUrl + URLs.rows[type] + '?' + 
                         URLs.rows.endTimeParam + '=' + endTime;
         if (URLs.rows[type] === undefined){ return false; }
@@ -129,8 +139,8 @@ class RowsStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK', URLs.rows[type]);
-            // console.log('result', payload);
-            // console.log('parsed result', parseRows(payload));
+            console.log('result', payload);
+            console.log('parsed result', parseRows(payload));
             let result = parseRows(payload);
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {
