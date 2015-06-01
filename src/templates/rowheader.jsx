@@ -5,7 +5,7 @@ import merge from 'lodash/object/merge';
 
 
 export default (row, key, p) => {
-    let isVisible = ((key > p.ui.visibleStart) && (key < p.ui.visibleEnd));
+    let isVisible = (key < p.ui.lastVisibleRow);
     let className = tableStyles(p).getRowClassName(key);
     let trProps = {
         key: key,
@@ -14,11 +14,7 @@ export default (row, key, p) => {
     };
 
     if (!isVisible) {
-        return (
-            <tr {...trProps}>
-                <td />
-            </tr>
-        );
+        return null
     }
 
     let firstValue = row[0],

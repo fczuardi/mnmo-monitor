@@ -1,16 +1,11 @@
 import {Store} from 'flummox';
 
 const INFINITE_SCROLL_THRESHOLD = 0;
-const VISIBEL_ROWS_OUTSIDE = 40;
+const ROWS_PAGE_SIZE = 30;
 
 
 
 const mobileBreakpointWidth = 599;
-const appHeaderHeight = 55;
-const chartHeight = 264;
-const rowHeight = 60;
-
-
 
 class UIStore extends Store {
     constructor(flux) {
@@ -37,11 +32,11 @@ class UIStore extends Store {
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
             isMobile: (window.innerWidth <= mobileBreakpointWidth),
-            visibleStart: 0,
-            visibleEnd: 5,
+            lastVisibleRow: ROWS_PAGE_SIZE,
             tableScrollTop: 0,
             tableScrollLeft: 0,
-            isLoading: true,
+            isLoading: false,
+            isFakeLoading: false,
             error: null
         };
         this.ticking = false;
@@ -71,6 +66,7 @@ class UIStore extends Store {
     rowStateChanged() {
         if (this.previousLoadingState !== this.rowsStore.state.loading){
             this.previousLoadingState = this.rowsStore.state.loading;
+            this.setVisibleRows();
             if (this.rowsStore.state.loading === true){
                 this.rowsLoading();
             }else{
@@ -123,40 +119,35 @@ class UIStore extends Store {
     }
     rowsLoading(){
         this.setState({
-            isLoading: true
+            isLoading: true,
+            isFakeLoading: false
         });
-        this.setRenderedRows(document.getElementById('table-contents').scrollTop, true);
     }
     unlockInfiniteLoad(){
         this.nextPageLoadSent = false;
         this.setState({
             isLoading: false
         });
-        this.setRenderedRows(document.getElementById('table-contents').scrollTop, false);
     }
-    setRenderedRows(tableScroll, forceUpdate) {
-        // - p.rows.data and p.rows.headers can be huge arrays (1500 rows)
-        // - drawing a huge table is not an option.
-        //
-        // the idea then is to draw all rows as empty with the exception of
-        // a slice of visible rows
-        let tableHeight = this.state.screenHeight - 
-                            appHeaderHeight - 
-                            (this.state.isMobile ? 0 : chartHeight);
-        let currentRow = Math.floor(tableScroll / rowHeight);
-        let currentEnd = currentRow + Math.floor(tableHeight / rowHeight);
-
-        if (
-            (forceUpdate) ||
-            (currentRow < this.state.visibleStart) ||
-            (currentEnd > this.state.visibleEnd)
-        ){
-            // console.log('change start:', this.state.visibleStart, currentRow - VISIBEL_ROWS_OUTSIDE);
-            // console.log('change end:', this.state.visibleEnd, currentEnd + VISIBEL_ROWS_OUTSIDE);
+    setVisibleRows(isNextPageCached){
+        let lastVisibleRow = (this.rowsStore.state.data.length > 
+                                            this.state.lastVisibleRow) ?
+                                this.state.lastVisibleRow + ROWS_PAGE_SIZE :
+                                this.rowsStore.state.data.length;
+        let store = this;
+        if (isNextPageCached) {
             this.setState({
-                // visibleStart: currentRow - VISIBEL_ROWS_OUTSIDE,
-                visibleStart: -1,
-                visibleEnd: currentEnd + VISIBEL_ROWS_OUTSIDE
+                isFakeLoading: true
+            });
+            window.setTimeout(function(){
+                store.setState({
+                    lastVisibleRow:lastVisibleRow,
+                    isFakeLoading: false
+                });
+            }, 1000);
+        } else {
+            store.setState({
+                lastVisibleRow:lastVisibleRow
             });
         }
     }
@@ -174,14 +165,18 @@ class UIStore extends Store {
         rowheaders.scrollTop = this.coordY;
         
         if (shouldLoadNextPage && !this.nextPageLoadSent) {
-           this.nextPageLoadSent = true;
-            this.userActions.tableScrollEnded();
+            if (store.state.lastVisibleRow < store.rowsStore.state.data.length){
+                // console.log(
+                //     'still have loaded rows in memory to show, just write them to the DOM',
+                //     store.state.lastVisibleRow,
+                //     store.rowsStore.state.data.length
+                // );
+                store.setVisibleRows(true);
+            } else {
+                this.nextPageLoadSent = true;
+                this.userActions.tableScrollEnded();
+            }
         }
-        window.clearInterval(this.scrollEndInterval);
-        this.scrollEndInterval = window.setInterval(function(){
-            store.setRenderedRows(tableContents.scrollTop);
-            window.clearInterval(store.scrollEndInterval);
-        }, 200);
         this.stopTicking();
     }
     changeTableScroll(coord){

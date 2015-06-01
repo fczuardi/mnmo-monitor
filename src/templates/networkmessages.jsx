@@ -3,7 +3,7 @@ import React from 'react';
 const textColor = '#a89c7f';
 
 export default (p) => {
-    let bottom = p.ui.isLoading ? 0 : -100;
+    let bottom = (p.ui.isLoading || p.ui.isFakeLoading) ? 0 : -100;
     return (
 <div
     style={{
@@ -19,7 +19,7 @@ export default (p) => {
         color: textColor,
         fontSize: 14,
         lineHeight: '25px',
-        transition: 'bottom 1.5s'
+        transition: 'bottom 1s'
     }}
 >
     <div

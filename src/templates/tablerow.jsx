@@ -12,9 +12,12 @@ export default (row, key, p) => {
     
     let className = tableStyles(p).getRowClassName(key);
     
-    let isVisible = ((key > p.ui.visibleStart) && (key < p.ui.visibleEnd));
-
-    // console.log('isVisible', key, isVisible, p.ui.visibleStart, p.ui.visibleEnd);
+    let isVisible = (key < p.ui.lastVisibleRow);
+    
+    if (!isVisible) {
+        return null;
+    }
+    
     return (
         <tr 
             key={key}
@@ -23,7 +26,7 @@ export default (row, key, p) => {
             }, tableStyles(p).borderBottom)}
         >
             {row.map( (cell, key) => {
-                return isVisible ? cellRenderer(cell, key, p) : (<td key={key} />);
+                return cellRenderer(cell, key, p);
             } )}
         </tr>
     );
