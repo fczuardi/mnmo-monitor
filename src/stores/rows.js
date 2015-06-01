@@ -140,8 +140,8 @@ class RowsStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK', URLs.rows[type]);
-            console.log('result', payload);
-            console.log('parsed result', parseRows(payload));
+            // console.log('result', payload);
+            // console.log('parsed result', parseRows(payload));
             let result = parseRows(payload);
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {

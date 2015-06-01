@@ -5,7 +5,7 @@ import tableStyles from '../styles/table';
 export default (column, key, p) => {
     let cellContent = (column.icons) ? (
         <img
-            src={column.icons.table}
+            src={p.ui.supportsSVG ? column.icons.table : column.icons.tableBitmap}
             width={p.iconWidth}
             height={p.iconWidth}
             alt={column.label}

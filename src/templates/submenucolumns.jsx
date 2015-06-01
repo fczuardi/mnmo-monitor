@@ -23,7 +23,8 @@ export default (p, a) =>
             {
             column.icons ? 
                 React.DOM.img({
-                    src: column.icons.menu,
+                    src: p.ui.supportsSVG ? 
+                                column.icons.menu : column.icons.menuBitmap,
                     width: 50,
                     height: 50
                 }) : null
@@ -44,7 +45,8 @@ export default (p, a) =>
             {
                 column.icons ? 
                     React.DOM.img({
-                        src: column.icons.menu,
+                        src: p.ui.supportsSVG ? 
+                                    column.icons.menu : column.icons.menuBitmap,
                         width: 50,
                         height: 50
                     }) : null

@@ -17,7 +17,9 @@
             "label": "hasLegacyIcon",
             "icons": {
                 "menu": "https://openclipart.org/download/169922/kitchen-scale.svg",
-                "table": "https://openclipart.org/download/16864/sebek-white-lotus-flower.svg"
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169922/kitchen-scale.png",
+                "table": "https://openclipart.org/download/16864/sebek-white-lotus-flower.svg",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/16864/sebek-white-lotus-flower.png"
             }
         }
     ],
@@ -27,7 +29,9 @@
             "label": "ABAAAAA",
             "icons": {
                 "menu": "https://openclipart.org/download/169907/kitchen-coffee-perc.svg",
-                "table": "https://openclipart.org/download/212651/Game-Controller-Outline-White.svg"
+                "table": "https://openclipart.org/download/212651/Game-Controller-Outline-White.svg",
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169907/kitchen-coffee-perc.png",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/212651/Game-Controller-Outline-White.png"
             }
         },
         {
@@ -35,7 +39,9 @@
             "label": "BEBAAA",
             "icons": {
                 "menu": "https://openclipart.org/download/169911/kitchen-fish.svg",
-                "table": "https://openclipart.org/download/193560/1400625045.svg"
+                "table": "https://openclipart.org/download/193560/1400625045.svg",
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169911/kitchen-fish.png",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/193560/1400625045.png"
             }
         },
         {
@@ -43,7 +49,9 @@
             "label": "EBEAAA",
             "icons": {
                 "menu": "https://openclipart.org/download/169910/kitchen-egg.svg",
-                "table": "https://openclipart.org/download/191507/1393792283.svg"
+                "table": "https://openclipart.org/download/191507/1393792283.svg",
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169910/kitchen-egg.png",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/191507/1393792283.png"
             }
         },
         {
@@ -51,7 +59,9 @@
             "label": "My Cupcake is very special",
             "icons": {
                 "menu": "https://openclipart.org/download/169936/kitchen-dinercoffee.svg",
-                "table": "https://openclipart.org/download/191506/bunny.svg"
+                "table": "https://openclipart.org/download/191506/bunny.svg",
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169936/kitchen-dinercoffee.png",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/191506/bunny.png"
             }
         }
     ]
