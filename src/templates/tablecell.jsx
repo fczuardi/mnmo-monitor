@@ -26,7 +26,7 @@ export default (content, key, p) => {
                 value={value}
                 {...percentProps}
             />
-        ) : null;
+        ) : '-';
     };
         
     let values = content ? content.split('|') : [null, null],
