@@ -1,8 +1,11 @@
 import React from 'react';
+import CenteredBox from 'mnmo-components/lib/themes/mnmo/centeredbox';
 import Submit from 'mnmo-components/lib/themes/mnmo/submit';
 
 export default (p, a) => {
-    let display = p.ui.error !== null ? 'block' : 'none';
+    let display = p.ui.error !== null ? 'table' : 'none',
+        width = 240;
+    
     return (
 <div
     style={{
@@ -15,20 +18,29 @@ export default (p, a) => {
         paddingTop: 55,
         zIndex: 5
     }}
+    onClick={a.buttonClicked}
+>
+<div
+    style={{
+        display: 'table-cell',
+        verticalAlign: 'middle'
+    }}
 >
     <div
         style={{
-            width: 240,
+            width: width,
+            margin: 'auto',
             padding: 20,
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            marginTop: -250
         }}
+        onClick={(event) => {event.stopPropagation();}}
     >
         <div
             style={{
                 borderRadius:   5,
                 padding: 15,
                 backgroundColor: 'rgba(255, 0, 0, 0.3)',
-                marginBottom: 20,
                 boxSizing: 'border-box'
             }}
         >
@@ -51,11 +63,18 @@ export default (p, a) => {
             </p>
         </div>
     </div>
-    <form onSubmit={a.buttonClicked}>
+    <form 
+        onSubmit={a.buttonClicked}
+        style={{
+            width: width,
+            margin: 'auto'
+        }}
+    >
         <Submit 
             value="OK"
         />
     </form>
+</div>
 </div>
     );
 }
