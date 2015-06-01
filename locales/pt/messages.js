@@ -21,7 +21,7 @@ export default {
         loadingCaptcha: 'Carregando a pergunta…'
     },
     settings: {
-        autoUpdate: 'Auto Update',
+        autoUpdate: 'Autoupdate',
         columns: 'Colunas',
         close: 'Fechar',
         changePassword: 'Alterar senha',
