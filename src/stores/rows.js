@@ -119,6 +119,7 @@ class RowsStore extends Store {
 
         if (
             endTime === '' &&
+            ! store.userStore.state.autoUpdate &&
             store.userStore.state.archivedReport && 
             store.userStore.state.archivedReport.end
         ) {
