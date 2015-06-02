@@ -1,5 +1,6 @@
 import React from 'react';
 import Drawer from 'mnmo-components/lib/themes/mnmo/drawer';
+import EnabledColumns from '../components/enabledcolumns';
 import List from 'mnmo-components/lib/themes/mnmo/list';
 import LI from 'mnmo-components/lib/themes/mnmo/li';
 import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
@@ -8,31 +9,17 @@ export default (p, a) =>
 <Drawer
     title={p.language.messages.settings.columns}
     closeLabel={p.language.messages.settings.close}
+    editLabel={p.language.messages.settings.close}
+    doneLabel={p.language.messages.settings.close}
     onCloseClick={a.closeDrawer}
 >
+    <EnabledColumns 
+        items={p.columns.enabled}
+        uiStore={p.ui}
+        actions={a}
+        editing={true}
+    />
     <List>
-    {p.columns.enabled.map( (column, key) =>
-        <LI key={key}>
-            <Checkbox
-                id={('column-enabled-' + key)}
-                value={column.id}
-                isItem={true}
-                checked={true}
-                onChange={a.columnChange}
-            >
-            {
-            column.icons ? 
-                React.DOM.img({
-                    src: p.ui.supportsSVG ? 
-                                column.icons.menu : column.icons.menuBitmap,
-                    width: 50,
-                    height: 50
-                }) : null
-            }
-                {column.label}
-            </Checkbox>
-        </LI>
-    )}
     {p.columns.disabled.map( (column, key) =>
         <LI key={key}>
             <Checkbox
@@ -47,8 +34,8 @@ export default (p, a) =>
                     React.DOM.img({
                         src: p.ui.supportsSVG ? 
                                     column.icons.menu : column.icons.menuBitmap,
-                        width: 50,
-                        height: 50
+                        width: 30,
+                        height: 30
                     }) : null
                 }
                 {column.label}

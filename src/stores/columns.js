@@ -23,6 +23,7 @@ class ColumnsStore extends Store {
         this.register(sessionActions.tokenGranted, this.fetchColumns);
         this.register(columnsActions.updateColumnSelectedState, this.updateSelection);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
+        this.register(columnsActions.columnMoved, this.columnMoved);
         this.register(userActions.preferencesPublished, this.userChanged);
         this.state = {
             enabled: [
@@ -91,9 +92,9 @@ class ColumnsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            // let response = columnListPostResponseOK(payload);
-            // console.log('result (post)', URLs.columns.list, response);
-            let newState = columnListPostResponseOK(payload);
+            let response = columnListPostResponseOK(payload);
+            console.log('result (post)', URLs.columns.list, response);
+            let newState = response;
             console.log('OK (post)', URLs.columns.list);
             store.columnsActions.columnsPublished(newState);
         })
@@ -122,12 +123,20 @@ class ColumnsStore extends Store {
             });
         }
     }
-    // replaceEnabledColumns(data) {
-    //     let enabled = data.rows.columns;
-    //     this.setState({
-    //         enabled: enabled
-    //     });
-    // }
+    
+    columnMoved(indexes) {
+        if ((indexes.oldIndex === indexes.newIndex) || 
+            (indexes.oldIndex === indexes.newIndex + 1 )){
+            return null;
+        }
+        let newEnabled = this.state.enabled.slice(),
+            item = newEnabled[indexes.oldIndex];
+        newEnabled.splice(indexes.oldIndex, 1);
+        newEnabled.splice(indexes.newIndex, 0, item);
+        this.setState({
+            enabled: newEnabled
+        });
+    }
 }
 
 export default ColumnsStore;

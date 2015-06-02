@@ -13,6 +13,12 @@ class ColumnActions extends Actions {
     columnsPublished(columns){
         return columns;
     }
+    columnMoved(oldIndex, newIndex){
+        return {
+            oldIndex: parseInt(oldIndex),
+            newIndex: parseInt(newIndex)
+        };
+    }
 }
 
 export default ColumnActions;

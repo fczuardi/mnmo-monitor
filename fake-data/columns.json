@@ -1,18 +1,6 @@
 {
     "enabled": [
         {
-            "id": 7,
-            "label": "AAAAAA"
-        },
-        {
-            "id": 2,
-            "label": "C"
-        },
-        {
-            "id": 3,
-            "label": "D"
-        },
-        {
             "id": 1,
             "label": "hasLegacyIcon",
             "icons": {
@@ -20,18 +8,6 @@
                 "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169922/kitchen-scale.png",
                 "table": "https://openclipart.org/download/16864/sebek-white-lotus-flower.svg",
                 "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/16864/sebek-white-lotus-flower.png"
-            }
-        }
-    ],
-    "disabled": [
-        {
-            "id": 0,
-            "label": "ABAAAAA",
-            "icons": {
-                "menu": "https://openclipart.org/download/169907/kitchen-coffee-perc.svg",
-                "table": "https://openclipart.org/download/212651/Game-Controller-Outline-White.svg",
-                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169907/kitchen-coffee-perc.png",
-                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/212651/Game-Controller-Outline-White.png"
             }
         },
         {
@@ -45,6 +21,20 @@
             }
         },
         {
+            "id": 0,
+            "label": "ABAAAAA",
+            "icons": {
+                "menu": "https://openclipart.org/download/169907/kitchen-coffee-perc.svg",
+                "table": "https://openclipart.org/download/212651/Game-Controller-Outline-White.svg",
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169907/kitchen-coffee-perc.png",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/212651/Game-Controller-Outline-White.png"
+            }
+        },
+        {
+            "id": 3,
+            "label": "D"
+        },
+        {
             "id": 6,
             "label": "EBEAAA",
             "icons": {
@@ -54,6 +44,16 @@
                 "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/191507/1393792283.png"
             }
         },
+        {
+            "id": 7,
+            "label": "AAAAAA"
+        },
+        {
+            "id": 2,
+            "label": "C"
+        }
+    ],
+    "disabled": [
         {
             "id": 4,
             "label": "My Cupcake is very special",
