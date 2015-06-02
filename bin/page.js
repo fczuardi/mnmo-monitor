@@ -38,6 +38,8 @@ var options = {
         '$comment=flummox',
         './lib/js/react-intl.js',
         '$comment=reactintl',
+        './lib/js/interact.js',
+        '$comment=interact.js',
         './lib/js/moment.js',
         './lib/js/react-day-picker.js',
         '$comment=react-day-picker',
