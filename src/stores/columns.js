@@ -125,8 +125,7 @@ class ColumnsStore extends Store {
     }
     
     columnMoved(indexes) {
-        if ((indexes.oldIndex === indexes.newIndex) || 
-            (indexes.oldIndex === indexes.newIndex + 1 )){
+        if (indexes.oldIndex === indexes.newIndex){
             return null;
         }
         let newEnabled = this.state.enabled.slice(),

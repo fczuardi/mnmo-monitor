@@ -1,14 +1,8 @@
 {
     "enabled": [
         {
-            "id": 1,
-            "label": "hasLegacyIcon",
-            "icons": {
-                "menu": "https://openclipart.org/download/169922/kitchen-scale.svg",
-                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169922/kitchen-scale.png",
-                "table": "https://openclipart.org/download/16864/sebek-white-lotus-flower.svg",
-                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/16864/sebek-white-lotus-flower.png"
-            }
+            "id": 3,
+            "label": "D"
         },
         {
             "id": 5,
@@ -31,10 +25,6 @@
             }
         },
         {
-            "id": 3,
-            "label": "D"
-        },
-        {
             "id": 6,
             "label": "EBEAAA",
             "icons": {
@@ -45,12 +35,22 @@
             }
         },
         {
+            "id": 2,
+            "label": "C"
+        },
+        {
             "id": 7,
             "label": "AAAAAA"
         },
         {
-            "id": 2,
-            "label": "C"
+            "id": 1,
+            "label": "hasLegacyIcon",
+            "icons": {
+                "menu": "https://openclipart.org/download/169922/kitchen-scale.svg",
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169922/kitchen-scale.png",
+                "table": "https://openclipart.org/download/16864/sebek-white-lotus-flower.svg",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/16864/sebek-white-lotus-flower.png"
+            }
         }
     ],
     "disabled": [
