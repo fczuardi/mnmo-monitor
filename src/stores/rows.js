@@ -140,9 +140,10 @@ class RowsStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK', URLs.rows[type]);
-            // console.log('result', payload);
-            // console.log('parsed result', parseRows(payload));
+            console.log('result', payload);
+            console.log('parsed result', parseRows(payload));
             let result = parseRows(payload);
+            // console.log(result.rows.data.length +' rows');
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
@@ -173,31 +174,32 @@ class RowsStore extends Store {
     }
     
     startAutoUpdate() {
-        console.log('startAutoUpdate');
+        // console.log('startAutoUpdate');
         let store = this;
         window.clearInterval(store.autoUpdateInterval);
         store.autoUpdateInterval = window.setInterval(function(){
-            console.log('autoupdate fetch');
+            // console.log('autoupdate fetch');
             store.fetchRows();
         }, AUTOUPDATE_INTERVAL);
     }
     
     stopAutoUpdate() {
-        console.log('stopAutoUpdate');
+        // console.log('stopAutoUpdate');
         window.clearInterval(this.autoUpdateInterval);
     }
     
     getNextPage() {
         if (
-            (this.state.headers.length === 0) || 
-            (this.state.type === 'merged') ||
-            (this.userStore.state.autoUpdate !== true)
-        ){ 
+            // (this.state.type === 'merged') ||
+            // (this.userStore.state.autoUpdate !== true) ||
+            ((this.state.type === 'merged') && (this.userStore.state.autoUpdate)) ||
+            (this.state.headers.length === 0)
+        ){
             return null; 
         }
         let lastHeader = this.state.headers[this.state.headers.length - 1],
             lastTime = lastHeader[0].split(' ')[0];
-        console.log('getNextPage', lastTime);
+        // console.log('getNextPage', lastTime);
         this.fetchRows(this.sessionStore.state.token, this.state.type, lastTime);
     }
     
@@ -230,6 +232,24 @@ class RowsStore extends Store {
         
         let lastHeaderLabel = updatedHeaders[(updatedHeaders.length - 1)][0],
             firstNewHeaderLabel = newHeaders[0][0];
+
+        if ((this.state.type === 'merged') && (this.userStore.state.autoUpdate)){
+            if (newHeaders.length === 1){
+                // console.log('replace first line');
+                let oldHeadersTail = updatedHeaders.slice(1);
+                let oldRowsTail = updatedRows.slice(1);
+                return {
+                    headers: newHeaders.concat(oldHeadersTail),
+                    rows: newRows.concat(oldRowsTail)
+                };
+            } else {
+                // console.log('replace the whole table');
+                return {
+                    headers: newHeaders,
+                    rows: newRows
+                };
+            }
+        }
         
         if (lastHeaderLabel.substring(0,2) === '00' && 
                 firstNewHeaderLabel.substring(0,2) === '23') {
@@ -242,7 +262,7 @@ class RowsStore extends Store {
             this.TextToMinutes(lastHeaderLabel) -
             this.TextToMinutes(firstNewHeaderLabel)
             ) < 5);
-
+            
         // console.log('oldHeaderIndexes', oldHeaderIndexes);
         newHeaders.forEach( (header, index) => {
             let oldRowIndex = oldHeaderIndexes[header[0]];
@@ -270,9 +290,15 @@ class RowsStore extends Store {
     }
     
     updateMenuLabel(data) {
+        // console.log('updateMenuLabel', data);
+        if (data.rows.data === null || data.rows.data.length === 0){
+            console.log('no data');
+            return null;
+        }
         let newRows = data.rows.data;
         let newHeaders = data.rows.headers;
         let mergedData = this.updateRows(newHeaders, newRows);
+        // console.log('mergedData', mergedData.rows.length, mergedData.headers.length);
         let newLabel = mergedData.headers[0] ? mergedData.headers[0][0] : null;
         this.setState({
             menuLabel: (newLabel || '-'),

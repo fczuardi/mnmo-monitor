@@ -119,9 +119,13 @@ class UserStore extends Store {
         .then(function(payload){
             console.log('OK', URLs.user.preferences);
             // console.log('result', payload);
-            let userPreferences = merge({}, parseUserPreferences(payload));
+            let result = parseUserPreferences(payload).prefs;
+            let userPreferences = merge({}, result);
             // console.log('userPreferences', userPreferences);
             store.userActions.preferencesFetched(userPreferences);
+            if (result.error !== null) {
+                store.userActions.errorArrived(result.error);
+            }
         })
         .catch(function(e){
             console.log('fetch error', e); // eslint-disable-line
@@ -164,6 +168,9 @@ class UserStore extends Store {
             store.userActions.preferencesPublished(newState);
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
+                //userPreferencesPostResponseOK returns the last known-to-work
+                //user preferences on error, so we rollback to that
+                store.setState(newState);
             }
         })
         .catch(function(e){

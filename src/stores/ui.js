@@ -21,7 +21,7 @@ class UIStore extends Store {
         this.register(userActions.closePanel, this.changePanel);
         this.register(userActions.tableScroll, this.changeTableScroll);
         this.register(sessionActions.signOut, this.resetState);
-        this.register(rowsActions.rowsFetchCompleted, this.unlockInfiniteLoad);
+        // this.register(rowsActions.rowsFetchCompleted, this.unlockInfiniteLoad);
         this.register(userActions.errorArrived, this.displayError);
         this.register(userActions.errorDismissed, this.resetError);
         this.userActions = userActions;
@@ -65,9 +65,11 @@ class UIStore extends Store {
     }
     
     rowStateChanged() {
+        if (this.rowsStore.state.data.length === 0){
+            this.resetScroll();
+        }
         if (this.previousLoadingState !== this.rowsStore.state.loading){
             this.previousLoadingState = this.rowsStore.state.loading;
-            this.setVisibleRows();
             if (this.rowsStore.state.loading === true){
                 this.rowsLoading();
             }else{
@@ -130,11 +132,9 @@ class UIStore extends Store {
             isLoading: false
         });
     }
-    setVisibleRows(isNextPageCached){
-        let lastVisibleRow = (this.rowsStore.state.data.length > 
-                                            this.state.lastVisibleRow) ?
-                                this.state.lastVisibleRow + ROWS_PAGE_SIZE :
-                                this.rowsStore.state.data.length;
+    raiseVisibleRowsCount(isNextPageCached){
+        let lastVisibleRow = this.state.lastVisibleRow + ROWS_PAGE_SIZE;
+        // console.log('raiseVisibleRowsCount', isNextPageCached, lastVisibleRow);
         let store = this;
         if (isNextPageCached) {
             this.setState({
@@ -152,11 +152,16 @@ class UIStore extends Store {
             });
         }
     }
+    resetScroll(){
+        this.setState({
+            lastVisibleRow: ROWS_PAGE_SIZE
+        });
+    }
     scrollUpdate(){
         let tableheaders = document.getElementById('table-headers'),
             rowheaders = document.getElementById('row-headers'),
             tableContents = document.getElementById('table-contents'),
-            shouldLoadNextPage = this.coordY >= (
+            scrollEnded = this.coordY >= (
                                     tableContents.scrollHeight - 
                                     tableContents.offsetHeight - 
                                     INFINITE_SCROLL_THRESHOLD ),
@@ -165,18 +170,17 @@ class UIStore extends Store {
         tableheaders.scrollLeft = this.coordX;
         rowheaders.scrollTop = this.coordY;
         
-        if (shouldLoadNextPage && !this.nextPageLoadSent) {
-            if (store.state.lastVisibleRow < store.rowsStore.state.data.length){
-                // console.log(
-                //     'still have loaded rows in memory to show, just write them to the DOM',
-                //     store.state.lastVisibleRow,
-                //     store.rowsStore.state.data.length
-                // );
-                store.setVisibleRows(true);
-            } else {
+        if (scrollEnded && 
+            !this.nextPageLoadSent &&
+            !this.state.isLoading &&
+            !this.state.isFakeLoading
+        ) {
+            let isNextPageLoaded = (store.state.lastVisibleRow < store.rowsStore.state.data.length);
+            if (!isNextPageLoaded){
                 this.nextPageLoadSent = true;
                 this.userActions.tableScrollEnded();
             }
+            store.raiseVisibleRowsCount(isNextPageLoaded);
         }
         this.stopTicking();
     }

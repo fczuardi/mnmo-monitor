@@ -4,9 +4,10 @@ import tableStyles from '../styles/table';
 import merge from 'lodash/object/merge';
 
 export default (row, key, p) => {
-    if (p.columns.enabled.length > row.length) {
-        for(var i=row.length; i < p.columns.enabled.length; i++){
-            row.push('-');
+    let renderRow = row.slice(0);
+    if (p.columns.enabled.length > renderRow.length) {
+        for(var i=renderRow.length; i < p.columns.enabled.length; i++){
+            renderRow.push('-');
         }
     }
     

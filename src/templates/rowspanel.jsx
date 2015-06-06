@@ -117,7 +117,8 @@ export default (p, a) => {
         />
     );
     
-    let frequencyPicker = (p.rows.type === 'list') ? null : (
+    let frequencyPicker = (p.rows.type === 'list' || 
+                            p.frequency.options.length === 0) ? null : (
         <List
             title={p.language.messages.rows.interval}
         >

@@ -16,10 +16,11 @@ export default (p) =>
     <table
         style={merge({
             width: p.columnWidth,
-            textAlign: 'center'
+            textAlign: 'center',
+            marginBottom: 100
         }, tableStyles(p).borderRight)}
     >
-        <tbody>
+        <tbody key="tableheaders">
             {p.rows.headers.map((row, key) => rowRenderer(row, key, p))}
         </tbody>
     </table>

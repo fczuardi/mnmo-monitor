@@ -14,7 +14,7 @@ export default (p, a) => {
         width: '100%',
         height: '100%',
         top: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
         paddingTop: 55,
         zIndex: 5
     }}
@@ -40,7 +40,7 @@ export default (p, a) => {
             style={{
                 borderRadius:   5,
                 padding: 15,
-                backgroundColor: 'rgba(255, 0, 0, 0.3)',
+                backgroundColor: '#5D0000',
                 boxSizing: 'border-box'
             }}
         >

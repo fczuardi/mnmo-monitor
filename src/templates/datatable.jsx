@@ -29,7 +29,8 @@ export default (p, a) => {
         style={{
             position: 'relative',
             width: p.tableWidth,
-            height: p.tableHeight
+            height: p.tableHeight,
+            overflow: 'hidden'
         }}
     >
         <div
