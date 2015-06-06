@@ -35,6 +35,15 @@ export default (p, a) => {
     //         Subgroups
     //     </button>
     //                         ) : null;
+    
+    // let chart = (
+    //     <div style={{height: chartHeight}}>
+    //         <p style={{margin: 0}}>
+    //             [BarChart]
+    //         </p>
+    //     </div>
+    // );
+    let chart = null; // for the future
     let dashboardStyle = {
         height: '100%',
         marginLeft: marginLeft
@@ -45,11 +54,7 @@ export default (p, a) => {
     <div style={{paddingTop: 53, width: '100%'}}>
         <Header {...p} />
         <PanelRouter {...p} />
-        <div style={{height: chartHeight}}>
-            <p style={{margin: 0}}>
-                [BarChart]
-            </p>
-        </div>
+        {chart}
         <DataTable {...p} />
         <NetworkMessages {...p} />
         <ErrorDialog {...p} />

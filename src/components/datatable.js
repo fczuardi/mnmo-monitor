@@ -6,7 +6,8 @@ const mediumColumnWidth = 106;
 const cellPadding = 8;
 const rowHeight = 60;
 const appHeaderHeight = 55;
-const chartHeight = 264;
+// const chartHeight = 264;
+const chartHeight = 0;
 
 class DataTable {
     render() {
