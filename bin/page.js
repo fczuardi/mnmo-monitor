@@ -21,7 +21,6 @@ var options = {
         './lib/js/es5-shim.js',
         './lib/js/es5-sham.js',
         './lib/js/console-polyfill.js',
-        // './lib/js/es6-shim.js',
         './lib/js/object-assign-polyfill.js',
         './lib/js/raf-polyfill.js',
         './lib/js/promise-polyfill.js',
