@@ -52,7 +52,10 @@ function diffPayloads(previous, current){
 
 function parseUserPreferences(payload){
     lastUserPreferenceResponse = genericParse(payload);
-    return lastUserPreferenceResponse;
+    return {
+        prefs: lastUserPreferenceResponse,
+        error: null
+    };
 }
 function parseColumnsList(payload){
     lastColumnsResponse = genericParse(payload);
@@ -120,7 +123,7 @@ function userPreferencesPostResponseOK(payload){
     } else {
         lastUserPreferenceResponse = response;
     }
-    output.data = parseUserPreferences(lastUserPreferenceResponse);
+    output.data = parseUserPreferences(lastUserPreferenceResponse).prefs;
     return output;
 }
 function columnListPostResponseOK(payload){

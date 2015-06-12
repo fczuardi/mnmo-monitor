@@ -119,8 +119,8 @@ class UserStore extends Store {
         .then(function(payload){
             console.log('OK', URLs.user.preferences);
             // console.log('result', payload);
-            let result = parseUserPreferences(payload).prefs;
-            let userPreferences = merge({}, result);
+            let result = parseUserPreferences(payload);
+            let userPreferences = merge({}, result.prefs);
             // console.log('userPreferences', userPreferences);
             store.userActions.preferencesFetched(userPreferences);
             if (result.error !== null) {
@@ -139,7 +139,9 @@ class UserStore extends Store {
         // console.log('updatePreferences.');
         let token = store.sessionStore.state.token;
         if (token === null){ return false; }
-        // console.log('updatePreferences..');
+        // console.log('updatePreferences..', token);
+        if (store.state.username === ''){ return false; }
+        // console.log('updatePreferences..', store.state);
         let hasChanged = diffUserPreferences(store.state);
         if (hasChanged === false){ return false; }
         // console.log('updatePreferences...');
