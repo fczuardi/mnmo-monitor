@@ -11,9 +11,15 @@ import SubmenuRouter from '../components/submenurouter';
 export default (p, a) => {
     extraLinks[0][0].link = p.user.tosURL;
     return (
+<div style={{
+    display: p.ui.menuClosed ? 'none' : 'block',
+    position: 'absolute',
+    zIndex: 2
+}}>
 <Drawer 
     container={true} 
     panelsOpened={p.panelsOpened}>
+    <div style={{display: (p.ui.submenu !== null) ? 'none' : 'block'}}>
     <Drawer>
         <List bottomSpace={true}>
             <LI>
@@ -74,7 +80,9 @@ export default (p, a) => {
             </LI>
         </List>
     </Drawer>
+    </div>
     <SubmenuRouter {...p} />
 </Drawer>
+</div>
     );
 };
