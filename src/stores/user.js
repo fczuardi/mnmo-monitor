@@ -140,7 +140,6 @@ class UserStore extends Store {
         let token = store.sessionStore.state.token;
         if (token === null){ return false; }
         // console.log('updatePreferences..', token);
-        if (store.state.username === ''){ return false; }
         // console.log('updatePreferences..', store.state);
         let hasChanged = diffUserPreferences(store.state);
         if (hasChanged === false){ return false; }
