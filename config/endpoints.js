@@ -28,6 +28,7 @@ export default {
     rows: {
         list: '/rows',
         merged: '/rows/merged',
+        detailed: '/rows/detailed',
         endTimeParam: 'time'
     },
     frequency: {

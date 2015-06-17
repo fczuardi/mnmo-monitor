@@ -2,7 +2,7 @@ import React from 'react';
 import merge from 'lodash/object/merge';
 import tableStyles from '../styles/table';
 
-export default (column, key, p) => {
+export default (column, key, p, a) => {
     let cellContent = (column.icons) ? (
         <img
             src={p.ui.supportsSVG ? column.icons.table : column.icons.tableBitmap}
@@ -24,8 +24,10 @@ export default (column, key, p) => {
     )
     return (
         <td
+            id={key}
             key={key}
             style={cellStyle}
+            onClick={() => a.onHeaderCellClick(key)}
         >
         <div
             style={{

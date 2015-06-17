@@ -13,7 +13,10 @@ class TableHeader extends Component {
     }
     render() {
         // console.log('render TableHeader');
-        return template(this.props);
+        const actions = {
+            onHeaderCellClick: this.props.flux.getActions('columns').columnHeaderSelected
+        };
+        return template(this.props, actions);
     }
 }
 

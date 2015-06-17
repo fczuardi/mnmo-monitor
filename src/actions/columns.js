@@ -19,6 +19,9 @@ class ColumnActions extends Actions {
             newIndex: parseInt(newIndex)
         };
     }
+    columnHeaderSelected(index){
+        return index;
+    }
 }
 
 export default ColumnActions;

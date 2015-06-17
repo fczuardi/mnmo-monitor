@@ -3,7 +3,7 @@ import columnHeaderRenderer from './tableheadercell.jsx';
 import tableStyles from '../styles/table';
 import merge from 'lodash/object/merge';
 
-export default (p) => {
+export default (p, a) => {
 
     return (
         <div
@@ -23,7 +23,7 @@ export default (p) => {
                     }}
                 >
                     {p.columns.enabled.map(
-                        (column, key) => columnHeaderRenderer(column, key, p)
+                        (column, key) => columnHeaderRenderer(column, key, p, a)
                     )}
                 </tr>
                 </tbody>

@@ -31,11 +31,12 @@ class RowsStore extends Store {
         this.register(userActions.tableScrollEnded, this.getNextPage);
         this.register(columnsActions.columnsPublished, this.columnsChanged);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
+        this.register(columnsActions.columnHeaderSelected, this.columnClicked);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
         this.state = {
             lastLoad: 0,
-            type: 'list', // merged | list
+            type: 'list', // merged | list | detailed
             menuLabel: '…', //the little clock on the header
             headers: [], //row headers
             data: [],
@@ -312,6 +313,12 @@ class RowsStore extends Store {
     updateRowsType(newType) {
         this.resetRows(newType);
         this.fetchRows(this.sessionStore.state.token, newType);
+    }
+    
+    columnClicked(index) {
+        if (this.state.type !== 'detailed') {
+            this.updateRowsType('detailed');
+        }
     }
 }
 
