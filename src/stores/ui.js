@@ -12,7 +12,7 @@ class UIStore extends Store {
         super();
         const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
-        const rowsActions = flux.getActions('rows');
+        // const rowsActions = flux.getActions('rows');
         this.rowsStore = flux.getStore('rows');
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.openSubmenu, this.changeSubmenu);
@@ -24,6 +24,7 @@ class UIStore extends Store {
         // this.register(rowsActions.rowsFetchCompleted, this.unlockInfiniteLoad);
         this.register(userActions.errorArrived, this.displayError);
         this.register(userActions.errorDismissed, this.resetError);
+        this.register(sessionActions.tokenGranted, this.resetError);
         this.userActions = userActions;
         this.state = {
             menuClosed: true,

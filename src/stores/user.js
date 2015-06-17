@@ -120,12 +120,14 @@ class UserStore extends Store {
             console.log('OK', URLs.user.preferences);
             // console.log('result', payload);
             let result = parseUserPreferences(payload);
+            // console.log('parsed result', result);
+            if (result.error !== null) {
+                store.userActions.errorArrived(result.error);
+                return null;
+            }
             let userPreferences = merge({}, result.prefs);
             // console.log('userPreferences', userPreferences);
             store.userActions.preferencesFetched(userPreferences);
-            if (result.error !== null) {
-                store.userActions.errorArrived(result.error);
-            }
         })
         .catch(function(e){
             console.log('fetch error', e); // eslint-disable-line
