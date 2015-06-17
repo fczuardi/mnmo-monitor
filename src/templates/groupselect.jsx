@@ -20,7 +20,8 @@ export default (p, a) =>
             overflow: 'auto'
         }}>
         <List 
-            title={p.language.messages.groups.type1}
+            title={p.groups.type1.length > 0 ?
+                    p.language.messages.groups.type1 : null}
         >
             {p.groups.type1.map( (group, key) =>
             <LI key={key}>
@@ -38,7 +39,8 @@ export default (p, a) =>
             )}
         </List>
         <List 
-            title={p.language.messages.groups.type2}
+            title={p.groups.type2.length > 0 ?
+                    p.language.messages.groups.type2 : null}
         >
             {p.groups.type2.map( (group, key) =>
             <LI key={key}>
