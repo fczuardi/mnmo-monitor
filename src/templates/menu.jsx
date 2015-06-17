@@ -14,7 +14,9 @@ export default (p, a) => {
 <div style={{
     display: p.ui.menuClosed ? 'none' : 'block',
     position: 'absolute',
-    zIndex: 2
+    zIndex: 2,
+    height: '90%',
+    overflow: 'auto'
 }}>
 <Drawer 
     container={true} 
