@@ -26,8 +26,8 @@ export default (row, key, p) => {
             style={merge({
             }, tableStyles(p).borderBottom)}
         >
-            {row.map( (cell, key) => {
-                return cellRenderer(cell, key, p);
+            {renderRow.map( (cell, cellKey) => {
+                return cellRenderer(cell, key, cellKey, p);
             } )}
         </tr>
     );

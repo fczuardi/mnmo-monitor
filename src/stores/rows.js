@@ -39,8 +39,7 @@ class RowsStore extends Store {
             type: 'list', // merged | list | detailed
             menuLabel: '…', //the little clock on the header
             headers: [], //row headers
-            data: [],
-            loading: true
+            data: []
         };
         this.previousUserState = userStore.state;
         this.previousColumnsState = columnsStore.state;
@@ -76,7 +75,6 @@ class RowsStore extends Store {
         );
         if (needsRefetching) {
             // console.log('fetch rows again');
-            this.resetRows();
             this.fetchRows();
             this.previousUserState = merge({}, newState);
             this.toggleAutoUpdate(newState.autoUpdate);
@@ -100,7 +98,6 @@ class RowsStore extends Store {
         );
         if (needsRefetching) {
             // console.log('fetch rows again');
-            this.resetRows();
             this.fetchRows();
         }
         this.previousColumnsState = merge({}, newState);
@@ -130,9 +127,6 @@ class RowsStore extends Store {
         let url = URLs.baseUrl + URLs.rows[type] + '?' + 
                         URLs.rows.endTimeParam + '=' + endTime;
         if (URLs.rows[type] === undefined){ return false; }
-        store.setState({
-            loading: true
-        });
         fetch(url, {
             method: 'GET',
             headers: authHeaders(token)
@@ -157,9 +151,6 @@ class RowsStore extends Store {
         })
         .catch(function(e){
             console.log('fetch error ' + URLs.rows[store.state.type], e); // eslint-disable-line
-            store.setState({
-                loading: false
-            });
         });
     }
     
@@ -305,8 +296,7 @@ class RowsStore extends Store {
             menuLabel: (newLabel || '-'),
             headers: mergedData.headers,
             data: mergedData.rows,
-            lastLoad: new Date().getTime(),
-            loading: false
+            lastLoad: new Date().getTime()
         });
     }
     
