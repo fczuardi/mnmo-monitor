@@ -17,6 +17,9 @@ class Header {
             },
             rowsButtonClicked: () => {
                 this.props.flux.getActions('user').openPanel('rows');
+            },
+            backButtonClicked: () => {
+                this.props.flux.getActions('rows').rowsTypeSwitchClicked('detailed');
             }
         };
         return template(this.props, actions);

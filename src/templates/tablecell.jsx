@@ -9,9 +9,10 @@ const defaultPercentProps = {
     maximumFractionDigits: 2
 };
 
-export default (content, key, p) => {
+export default (content, rowKey, cellKey, p) => {
     const isPercent = (enumValue) => 
-                            (varTypes[p.vars.combo[enumValue]] === 'percent');
+                            (varTypes[p.vars.combo[enumValue]] === 'percent') ||
+                            (p.rows.type === 'detailed' && rowKey % 3 !== 0);
     const getValue = (v, enumValue) => (
         (v === undefined || isNaN(parseFloat(v))) ? 
             null : 
@@ -31,7 +32,7 @@ export default (content, key, p) => {
         
     let values = content ? content.split('|') : [null, null],
         firstLine = renderValue(values[0], 'first'),
-        secondLine = renderValue(values[1], 'second'),
+        secondLine = p.rows.type === 'detailed' ? null : renderValue(values[1], 'second'),
         cellContent = secondLine ? (
             <div>
                 <span>{firstLine}</span><br/>
@@ -44,7 +45,7 @@ export default (content, key, p) => {
         );
     return (
         <td 
-            key={key}
+            key={cellKey}
             style={tableStyles(p).borderRight}
         >
             {cellContent}
