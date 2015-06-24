@@ -7,7 +7,7 @@ export default (row, key, p) => {
     let renderRow = row.slice(0);
     if (p.columns.enabled.length > renderRow.length) {
         for(var i=renderRow.length; i < p.columns.enabled.length; i++){
-            renderRow.push('-');
+            renderRow.push('');
         }
     }
     

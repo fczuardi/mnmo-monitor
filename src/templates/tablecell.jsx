@@ -14,20 +14,19 @@ export default (content, rowKey, cellKey, p) => {
                             (varTypes[p.vars.combo[enumValue]] === 'percent') ||
                             (p.rows.type === 'detailed' && rowKey % 3 !== 0);
     const getValue = (v, enumValue) => (
-        (v === undefined || isNaN(parseFloat(v))) ? 
-            null : 
-            parseFloat(v) / (isPercent(enumValue) ? 100 : 1)
+        !isNaN(parseFloat(v)) ? 
+            (parseFloat(v) / (isPercent(enumValue) ? 100 : 1)) : v
     );
     const renderValue = (v, enumValue) => {
         let value = getValue(v, enumValue),
             percentProps = isPercent(enumValue) ? defaultPercentProps : null;
-        return value ? (
+        return (typeof value === 'number') ? (
             <FormattedNumber 
                 locales={'en-US'/* p.language.messages.locale */} 
                 value={value}
                 {...percentProps}
             />
-        ) : '-';
+        ) : value;
     };
         
     let values = content ? content.split('|') : [null, null],
