@@ -70,6 +70,9 @@ class UserActions extends Actions {
             left: left
         };
     }
+    sliderScroll(percent){
+        return percent;
+    }
     tableScrollEnded() {
         return null;
     }

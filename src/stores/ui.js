@@ -3,6 +3,7 @@ import {Store} from 'flummox';
 const INFINITE_SCROLL_THRESHOLD = 0;
 const ROWS_PAGE_SIZE = 30;
 
+const VARIABLES_COUNT = 3; //TODO replace this with the proper value
 
 
 const mobileBreakpointWidth = 599;
@@ -21,6 +22,7 @@ class UIStore extends Store {
         this.register(userActions.openPanel, this.changePanel);
         this.register(userActions.closePanel, this.changePanel);
         this.register(userActions.tableScroll, this.changeTableScroll);
+        this.register(userActions.sliderScroll, this.sliderTableScroll);
         this.register(sessionActions.signOut, this.resetState);
         // this.register(rowsActions.rowsFetchCompleted, this.unlockInfiniteLoad);
         this.register(userActions.errorArrived, this.displayError);
@@ -41,7 +43,8 @@ class UIStore extends Store {
             isLoading: false,
             isFakeLoading: false,
             minute: '000000', // hhmmss
-            error: null
+            error: null,
+            canDragSlide: true
         };
         this.ticking = false;
         this.nextPageLoadSent = true;
@@ -178,10 +181,13 @@ class UIStore extends Store {
             rowheaders = document.getElementById('row-headers'),
             tableContents = document.getElementById('table-contents'),
             tableImages = document.getElementById('table-images'),
-            scrollEnded = this.coordY >= (
-                                    tableContents.scrollHeight - 
-                                    tableContents.offsetHeight - 
-                                    INFINITE_SCROLL_THRESHOLD ),
+            // sliderElement = document.getElementById('table-slider'),
+            // sliderHandleElement = document.getElementById('table-slider-handle'),
+            maxYScroll = (tableContents.scrollHeight - 
+                            tableContents.offsetHeight - 
+                            INFINITE_SCROLL_THRESHOLD ),
+            // sliderX = sliderElement.offsetWidth * (1 - this.coordY / maxYScroll),
+            scrollEnded = this.coordY >= maxYScroll,
             store = this;
         this.updateMinute();
 
@@ -190,6 +196,12 @@ class UIStore extends Store {
         if (tableImages) {
             tableImages.scrollLeft = this.coordX;
         }
+
+        // sliderHandleElement.style.webkitTransform =
+        // sliderHandleElement.style.transform =
+        //   'translate(' + sliderX + 'px, ' + '0px)';
+        // sliderHandleElement.setAttribute('data-x', sliderX);
+
         
         if (scrollEnded && 
             !this.nextPageLoadSent &&
@@ -212,6 +224,22 @@ class UIStore extends Store {
             this.ticking = true;
             window.requestAnimationFrame(this.scrollUpdate);
         }
+    }
+    sliderTableScroll(percent){
+        let tableContents = document.getElementById('table-contents'),
+            maxYScroll = (
+                tableContents.scrollHeight - 
+                tableContents.offsetHeight - 
+                INFINITE_SCROLL_THRESHOLD 
+            ),
+            newY = maxYScroll * (1 - percent);
+        if (this.rowsStore.state.type === 'detailed'){
+            let pages = this.rowsStore.state.headers.length / VARIABLES_COUNT,
+                page = Math.ceil((1 - percent) * pages),
+                pageHeight = tableContents.offsetHeight - 1;
+            newY = Math.min(page * pageHeight, maxYScroll);
+        }
+        tableContents.scrollTop = newY;
     }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 export default (p) =>
 <div 
+    id="table-slider"
     className="slider"
     style={{
         marginLeft: p.columnWidth,
@@ -21,7 +22,9 @@ export default (p) =>
         }}
     />
     <div
+        id="table-slider-handle"
         className="handle"
+        onMouseDown={(event) => {event.preventDefault()}}
         style={{
             backgroundColor: 'white',
             height: 30,
