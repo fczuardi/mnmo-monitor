@@ -77,6 +77,7 @@ class UIStore extends Store {
                 this.rowsLoading();
             }else{
                 this.unlockInfiniteLoad();
+                this.updateMinute();
             }
         }
     }
@@ -163,6 +164,15 @@ class UIStore extends Store {
     minuteFromHeader(text){
         return text.substring(5,0).replace(':', '') + '00';
     }
+    updateMinute(){
+        let currentRow = Math.floor(this.coordY / rowHeight);
+        let minute = this.rowsStore.state.headers[currentRow] ?
+                        this.minuteFromHeader(this.rowsStore.state.headers[currentRow][0]):
+                        '';
+        this.setState({
+            minute: minute
+        });
+    }
     scrollUpdate(){
         let tableheaders = document.getElementById('table-headers'),
             rowheaders = document.getElementById('row-headers'),
@@ -172,18 +182,10 @@ class UIStore extends Store {
                                     tableContents.offsetHeight - 
                                     INFINITE_SCROLL_THRESHOLD ),
             store = this;
-        let currentRow = Math.floor(this.coordY / rowHeight),
-            minute = this.rowsStore.state.headers[currentRow] ?
-                        this.minuteFromHeader(this.rowsStore.state.headers[currentRow][0]):
-                        '';
-
-        this.setState({
-            minute: minute
-        });
+        this.updateMinute();
 
         tableheaders.scrollLeft = this.coordX;
         rowheaders.scrollTop = this.coordY;
-        
         
         if (scrollEnded && 
             !this.nextPageLoadSent &&
