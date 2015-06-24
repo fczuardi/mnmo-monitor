@@ -24,6 +24,7 @@ class ColumnsStore extends Store {
         this.register(columnsActions.updateColumnSelectedState, this.updateSelection);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
         this.register(columnsActions.columnMoved, this.columnMoved);
+        this.register(columnsActions.columnIconFailed, this.columnIconBroken);
         this.register(userActions.preferencesPublished, this.userChanged);
         this.state = {
             enabled: [
@@ -134,6 +135,18 @@ class ColumnsStore extends Store {
         newEnabled.splice(indexes.newIndex, 0, item);
         this.setState({
             enabled: newEnabled
+        });
+    }
+    
+    columnIconBroken(columnID) {
+        let enabledColumns =  this.state.enabled.map((column) => {
+            if (column.id === columnID) {
+                column.iconError = true;
+            }
+            return column;
+        });
+        this.setState({
+            enabled: enabledColumns
         });
     }
 }

@@ -22,6 +22,9 @@ class ColumnActions extends Actions {
     columnHeaderSelected(index){
         return index;
     }
+    columnIconFailed(columnID){
+        return parseInt(columnID);
+    }
 }
 
 export default ColumnActions;
