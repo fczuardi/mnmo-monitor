@@ -40,6 +40,7 @@ class RowsStore extends Store {
             menuLabel: '…', //the little clock on the header
             headers: [], //row headers
             data: [],
+            date: '',
             loading: true
         };
         this.previousUserState = userStore.state;
@@ -76,6 +77,9 @@ class RowsStore extends Store {
         );
         if (needsRefetching) {
             // console.log('fetch rows again');
+            if ((newState.groupID !== oldState.groupID)){
+                this.resetRows();
+            }
             this.fetchRows();
             this.previousUserState = merge({}, newState);
             this.toggleAutoUpdate(newState.autoUpdate);
@@ -303,6 +307,7 @@ class RowsStore extends Store {
             menuLabel: (newLabel || '-'),
             headers: mergedData.headers,
             data: mergedData.rows,
+            date: data.date,
             lastLoad: new Date().getTime(),
             loading: false
         });

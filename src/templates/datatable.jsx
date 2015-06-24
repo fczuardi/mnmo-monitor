@@ -1,5 +1,6 @@
 import React from 'react';
 import TableHeader from '../components/tableheader';
+import ImageRow from '../components/imagerow';
 import RowHeaders from '../components/rowheaders';
 import TableContent from '../components/tablecontent';
 import tableStyles from '../styles/table';
@@ -23,7 +24,13 @@ export default (p, a) => {
             )}
         </button>
     );
+    
+    let thumbnails = p.rows.type === 'detailed' ? (
+        <ImageRow {...p} />
+    ) : null;
     return (
+        <div>
+    {thumbnails}
     <div
         id="dataTableContainer"
         style={{
@@ -82,6 +89,7 @@ export default (p, a) => {
                 <TableContent {...p} />
             </div>
         </div>
+    </div>
     </div>
     );
 }

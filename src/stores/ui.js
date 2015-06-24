@@ -6,6 +6,7 @@ const ROWS_PAGE_SIZE = 30;
 
 
 const mobileBreakpointWidth = 599;
+const rowHeight = 60;
 
 class UIStore extends Store {
     constructor(flux) {
@@ -39,6 +40,7 @@ class UIStore extends Store {
             tableScrollLeft: 0,
             isLoading: false,
             isFakeLoading: false,
+            minute: '000000', // hhmmss
             error: null
         };
         this.ticking = false;
@@ -158,6 +160,9 @@ class UIStore extends Store {
             lastVisibleRow: ROWS_PAGE_SIZE
         });
     }
+    minuteFromHeader(text){
+        return text.substring(5,0).replace(':', '') + '00';
+    }
     scrollUpdate(){
         let tableheaders = document.getElementById('table-headers'),
             rowheaders = document.getElementById('row-headers'),
@@ -167,9 +172,18 @@ class UIStore extends Store {
                                     tableContents.offsetHeight - 
                                     INFINITE_SCROLL_THRESHOLD ),
             store = this;
+        let currentRow = Math.floor(this.coordY / rowHeight),
+            minute = this.rowsStore.state.headers[currentRow] ?
+                        this.minuteFromHeader(this.rowsStore.state.headers[currentRow][0]):
+                        '';
+
+        this.setState({
+            minute: minute
+        });
 
         tableheaders.scrollLeft = this.coordX;
         rowheaders.scrollTop = this.coordY;
+        
         
         if (scrollEnded && 
             !this.nextPageLoadSent &&
