@@ -177,6 +177,7 @@ class UIStore extends Store {
         let tableheaders = document.getElementById('table-headers'),
             rowheaders = document.getElementById('row-headers'),
             tableContents = document.getElementById('table-contents'),
+            tableImages = document.getElementById('table-images'),
             scrollEnded = this.coordY >= (
                                     tableContents.scrollHeight - 
                                     tableContents.offsetHeight - 
@@ -186,6 +187,9 @@ class UIStore extends Store {
 
         tableheaders.scrollLeft = this.coordX;
         rowheaders.scrollTop = this.coordY;
+        if (tableImages) {
+            tableImages.scrollLeft = this.coordX;
+        }
         
         if (scrollEnded && 
             !this.nextPageLoadSent &&
