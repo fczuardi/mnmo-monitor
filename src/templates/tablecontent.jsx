@@ -2,16 +2,22 @@ import React from 'react';
 import rowRenderer from './tablerow.jsx';
 
 export default (p, a) => {
+    let style = {
+        width: p.tableWidth - p.columnWidth,
+        height: p.tableHeight - p.rowHeight
+    };
+    if (p.rows.type === 'detailed'){
+        style.overflowY = 'hidden';
+        style.overflowX = 'auto';
+    } else {
+        style.overflow = 'auto';
+    }
+
     return (
 <div 
     id="table-contents"
     onScroll={a.onTableScroll}
-    style={{
-        width: p.tableWidth - p.columnWidth,
-        height: p.tableHeight - p.rowHeight,
-        overflowX: 'auto',
-        overflowY: 'auto'
-    }}
+    style={style}
 >
     <table
         style={{
