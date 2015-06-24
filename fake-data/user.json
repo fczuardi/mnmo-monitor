@@ -10,8 +10,8 @@
         "frequencyID": 4,
         "mergeFunctionID": 1
     },
-    "groupID": 1,
-    "groupShortLabel": "GRA",
+    "groupID": 3,
+    "groupShortLabel": "GRC",
     "subgroupID": null,
     "classID": 1,
     "primaryVarLabel": "VarA",

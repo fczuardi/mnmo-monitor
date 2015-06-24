@@ -67,6 +67,7 @@ class ColumnsStore extends Store {
             // console.log('result', URLs.columns.list, payload);
             console.log('OK ' + URLs.columns.list);
             let columns = parseColumnsList(payload);
+            // console.log('parsed result', columns);
             store.columnsActions.columnsFetched(columns);
         })
         .catch(function(e){

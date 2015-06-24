@@ -2,6 +2,7 @@
     "groups": [
         {
             "id": 1,
+            "secondaryId": -1,
             "label": "GROUP A",
             "shortLabel": "GRA",
             "subgroupsCount": 5,
@@ -13,6 +14,7 @@
         },
         {
             "id": 2,
+            "secondaryId": -1,
             "label": "GROUP B",
             "shortLabel": "",
             "type": 1,
@@ -20,6 +22,7 @@
         },
         {
             "id": 3,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "subgroupsCount": 2,
@@ -28,6 +31,7 @@
         },
         {
             "id": 4,
+            "secondaryId": -1,
             "label": "GROUP D",
             "shortLabel": "GRD",
             "type": 2,
@@ -35,6 +39,7 @@
         },
         {
             "id": 5,
+            "secondaryId": -1,
             "label": "GROUP E",
             "shortLabel": "GRE",
             "type": 2,
@@ -42,6 +47,7 @@
         },
         {
             "id": 6,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -49,6 +55,7 @@
         },
         {
             "id": 7,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -56,6 +63,7 @@
         },
         {
             "id": 8,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -63,6 +71,7 @@
         },
         {
             "id": 9,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -70,6 +79,7 @@
         },
         {
             "id": 10,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -77,6 +87,7 @@
         },
         {
             "id": 11,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -84,6 +95,7 @@
         },
         {
             "id": 12,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -91,6 +103,7 @@
         },
         {
             "id": 13,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -98,6 +111,7 @@
         },
         {
             "id": 14,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -105,6 +119,7 @@
         },
         {
             "id": 15,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -112,6 +127,7 @@
         },
         {
             "id": 16,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -119,6 +135,7 @@
         },
         {
             "id": 17,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -126,6 +143,7 @@
         },
         {
             "id": 18,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -133,6 +151,7 @@
         },
         {
             "id": 19,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -140,6 +159,7 @@
         },
         {
             "id": 20,
+            "secondaryId": -1,
             "label": "GROUP C",
             "shortLabel": "GRC",
             "type": 2,
@@ -147,6 +167,7 @@
         },
         {
             "id": 21,
+            "secondaryId": -1,
             "label": "GROUP D",
             "shortLabel": "GRD",
             "type": 2,
@@ -154,6 +175,7 @@
         },
         {
             "id": 22,
+            "secondaryId": -1,
             "label": "LAST GROUP",
             "shortLabel": "LAST",
             "type": 2,

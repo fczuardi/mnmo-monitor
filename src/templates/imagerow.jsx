@@ -25,7 +25,9 @@ export default (p) => {
         <tr>
         {emptyCell}
         {p.columns.enabled.map( (column, key) => {
-            let groupID = p.groups.selected !== null ? p.groups.selected.id : '';
+            let groupID = p.groups.selected === null ? '' :
+                        p.groups.selected.secondaryId !== -1 ?
+                        p.groups.selected.secondaryId : p.groups.selected.id;
             return (
             <td key={key} style={cellStyle}>
                 <img 
