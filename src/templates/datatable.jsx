@@ -1,6 +1,7 @@
 import React from 'react';
 import TableHeader from '../components/tableheader';
 import ImageRow from '../components/imagerow';
+import Slider from '../components/slider';
 import RowHeaders from '../components/rowheaders';
 import TableContent from '../components/tablecontent';
 import tableStyles from '../styles/table';
@@ -28,8 +29,14 @@ export default (p, a) => {
     let thumbnails = p.rows.type === 'detailed' ? (
         <ImageRow {...p} />
     ) : null;
+    
+    let slider = p.rows.type === 'detailed' ? (
+        <Slider {...p} />
+    ) : null;
+
     return (
         <div>
+    {slider}
     {thumbnails}
     <div
         id="dataTableContainer"

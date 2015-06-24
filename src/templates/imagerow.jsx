@@ -5,13 +5,9 @@ const smallColumnWidth = 60;
 const mediumColumnWidth = 106;
 
 export default (p) => {
-    let columnWidth = p.ui.isMobile ? smallColumnWidth : mediumColumnWidth,
-        tableContentWidth = p.columns.enabled.length * columnWidth;
-    columnWidth = tableContentWidth > p.ui.screenWidth ? columnWidth :
-             Math.ceil((p.ui.screenWidth) / (p.columns.enabled.length + 1));
     let cellStyle = {
-        width: columnWidth,
-        minWidth: columnWidth
+        width: p.columnWidth,
+        minWidth: p.columnWidth
     };
     let imageStyle = {
         width: '100%'
