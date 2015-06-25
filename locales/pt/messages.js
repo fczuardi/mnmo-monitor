@@ -24,6 +24,7 @@ export default {
         autoUpdate: 'Autoupdate',
         columns: 'Colunas',
         close: 'Fechar',
+        back: 'Voltar',
         changePassword: 'Alterar senha',
         logout: 'Sair'
     },

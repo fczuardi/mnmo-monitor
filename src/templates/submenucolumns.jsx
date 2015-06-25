@@ -8,7 +8,7 @@ import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
 export default (p, a) =>
 <Drawer
     title={p.language.messages.settings.columns}
-    closeLabel={p.language.messages.settings.close}
+    closeLabel={p.language.messages.settings.back}
     editLabel={p.language.messages.settings.close}
     doneLabel={p.language.messages.settings.close}
     onCloseClick={a.closeDrawer}

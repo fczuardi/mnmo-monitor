@@ -70,7 +70,7 @@ export default (p, a) => {
             <ToolbarButton
                 onClick={a.backButtonClicked}
             >
-                Voltar
+                {p.language.messages.settings.back}
             </ToolbarButton>
         </div>
     );
