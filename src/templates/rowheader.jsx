@@ -17,9 +17,9 @@ export default (row, key, p) => {
         return null
     }
 
-    let firstValue = row[0].indexOf(' ') === -1 ? 
+    let firstValue = row[0].indexOf('__') === -1 ? 
                                                 row[0] : 
-                                                row[0].split(' ')[1],
+                                                row[0].split('__')[1],
         secondValue = parseFloat(row[1]);
     let mainHeader = (
         <p style={{margin: 0, fontSize: 17}}>
