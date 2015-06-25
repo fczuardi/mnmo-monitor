@@ -77,9 +77,9 @@ class RowsStore extends Store {
         );
         if (needsRefetching) {
             // console.log('fetch rows again');
-            if ((newState.groupID !== oldState.groupID)){
-                this.resetRows();
-            }
+            // if ((newState.groupID !== oldState.groupID)){
+            //     this.resetRows();
+            // }
             this.fetchRows();
             this.previousUserState = merge({}, newState);
             this.toggleAutoUpdate(newState.autoUpdate);
