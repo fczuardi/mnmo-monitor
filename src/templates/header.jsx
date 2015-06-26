@@ -3,6 +3,7 @@ import Toolbar from 'mnmo-components/lib/themes/mnmo/toolbar';
 import ToolbarButton from 'mnmo-components/lib/themes/mnmo/toolbarbutton';
 
 export default (p, a) => {
+    let formatTime = (text) => (text.substring(0, 2) + ':' + text.substring(2, 4));
     let left = (
         <div style={{float: 'left'}}>
             <ToolbarButton
@@ -33,10 +34,10 @@ export default (p, a) => {
             <ToolbarButton
                 type={p.ui.isMobile ? null : 'dialogToggle'}
                 onClick={a.rowsButtonClicked}
-                disabled={(p.user.autoUpdate && p.rows.type === 'list' )}
+                disabled={(p.user.autoUpdate && p.rows.type === 'list') || (p.rows.type === 'detailed')}
                 closed={(p.ui.panel !== 'rows')}
             >
-                {p.rows.menuLabel}
+                {p.rows.type !== 'detailed' ? p.rows.menuLabel : formatTime(p.ui.minute)}
             </ToolbarButton>
         </div>
     );
