@@ -201,7 +201,7 @@ class RowsStore extends Store {
             return null; 
         }
         let lastHeader = this.state.headers[this.state.headers.length - 1],
-            lastTime = lastHeader[0].split(' ')[0];
+            lastTime = lastHeader[0].split(' ')[0].substring(0, 5);
         // console.log('getNextPage', lastTime);
         this.fetchRows(this.sessionStore.state.token, this.state.type, lastTime);
     }
