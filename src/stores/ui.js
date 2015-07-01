@@ -160,6 +160,20 @@ class UIStore extends Store {
         }
     }
     resetScroll(){
+        let tableheaders = document.getElementById('table-headers'),
+            rowheaders = document.getElementById('row-headers'),
+            tableContents = document.getElementById('table-contents'),
+            tableImages = document.getElementById('table-images');
+        this.coordY = 
+        this.coordX = 
+        tableheaders.scrollTop = 
+        tableheaders.scrollLeft = 
+        rowheaders.scrollTop = 
+        rowheaders.scrollLeft = 
+        tableContents.scrollTop = 
+        tableContents.scrollLeft = 
+        tableImages.scrollTop = 
+        tableImages.scrollLeft = 0;
         this.setState({
             lastVisibleRow: ROWS_PAGE_SIZE
         });
@@ -191,12 +205,16 @@ class UIStore extends Store {
             store = this;
         this.updateMinute();
 
+        
         tableheaders.scrollLeft = this.coordX;
         rowheaders.scrollTop = this.coordY;
         if (tableImages) {
             tableImages.scrollLeft = this.coordX;
         }
 
+        // if (this.rowsStore.state.type === 'detailed') {
+        //     store.sliderTableScroll(this.coordY / maxYScroll);
+        // }
         // sliderHandleElement.style.webkitTransform =
         // sliderHandleElement.style.transform =
         //   'translate(' + sliderX + 'px, ' + '0px)';

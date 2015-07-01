@@ -116,7 +116,7 @@ class RowsStore extends Store {
         }
         token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
-        console.log('GET', type, URLs.rows[type]);
+        console.log('GET', type, URLs.rows[type], endTime);
         
         endTime = endTime || '';
 
