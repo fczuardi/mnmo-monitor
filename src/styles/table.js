@@ -1,4 +1,8 @@
 const getRowClassName = (key, p) => {
+    if (p.rows.headers[key] === undefined){
+        console.log('something wrong, the table has more lines than headers');
+        return ['tableRow'];
+    }
     let className = ['tableRow'],
         type = p.rows.headers[key][2];
     if (key % 2 !== 0){

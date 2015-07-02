@@ -1,4 +1,5 @@
 import {Store} from 'flummox';
+import keys from 'lodash/object/keys';
 
 const INFINITE_SCROLL_THRESHOLD = 0;
 const ROWS_PAGE_SIZE = 30;
@@ -16,6 +17,7 @@ class UIStore extends Store {
         const sessionActions = flux.getActions('session');
         // const rowsActions = flux.getActions('rows');
         this.rowsStore = flux.getStore('rows');
+        this.variablesStore = flux.getStore('vars');
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.openSubmenu, this.changeSubmenu);
         this.register(userActions.closeSubmenu, this.changeSubmenu);
@@ -163,7 +165,7 @@ class UIStore extends Store {
         let tableheaders = document.getElementById('table-headers'),
             rowheaders = document.getElementById('row-headers'),
             tableContents = document.getElementById('table-contents'),
-            tableImages = document.getElementById('table-images');
+            tableImages = document.getElementById('table-images') || {};
         this.coordY = 
         this.coordX = 
         tableheaders.scrollTop = 
@@ -250,9 +252,10 @@ class UIStore extends Store {
                 tableContents.offsetHeight - 
                 INFINITE_SCROLL_THRESHOLD 
             ),
-            newY = maxYScroll * (1 - percent);
+            newY = maxYScroll * (1 - percent),
+            variablesCount = keys(this.variablesStore.state.combos).length;
         if (this.rowsStore.state.type === 'detailed'){
-            let pages = this.rowsStore.state.headers.length / VARIABLES_COUNT,
+            let pages = this.rowsStore.state.headers.length / variablesCount,
                 page = Math.ceil((1 - percent) * pages),
                 pageHeight = tableContents.offsetHeight - 1;
             newY = Math.min(page * pageHeight, maxYScroll);

@@ -12,7 +12,7 @@ class RowHeaders extends Component {
         );
     }
     render() {
-        // console.log('render RowHeaders');
+        // console.log('render RowHeaders', this.props.rows.headers);
         return template(this.props);
     }
 }

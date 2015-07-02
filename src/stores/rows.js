@@ -18,6 +18,7 @@ class RowsStore extends Store {
         const userStore = flux.getStore('user');
         const userActions = flux.getActions('user');
         const columnsStore = flux.getStore('columns');
+        const variablesStore = flux.getStore('columns');
         const columnsActions = flux.getActions('columns');
         const sessionActions = flux.getActions('session');
         const rowsActions = flux.getActions('rows');
@@ -25,6 +26,7 @@ class RowsStore extends Store {
         this.userActions = userActions;
         this.sessionStore = sessionStore;
         this.userStore = userStore;
+        this.variablesStore = variablesStore;
         this.sessionActions = sessionActions;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.preferencesPublished, this.userChanged);

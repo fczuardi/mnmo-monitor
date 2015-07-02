@@ -5,6 +5,7 @@ import merge from 'lodash/object/merge';
 
 
 export default (row, key, p) => {
+    // console.log('row, key', row, key);
     let isVisible = (key < p.ui.lastVisibleRow);
     let className = tableStyles(p).getRowClassName(key);
     let trProps = {
