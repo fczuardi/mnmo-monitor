@@ -30,12 +30,14 @@ export default (p, a) =>
                 onChange={a.columnChange}
             >
             {
-                column.icons ? 
+                (column.icons && !column.iconError) ? 
                     React.DOM.img({
                         src: p.ui.supportsSVG ? 
                                     column.icons.menu : column.icons.menuBitmap,
                         width: 30,
-                        height: 30
+                        height: 30,
+                        'data-id': column.id,
+                        onError: a.onImageError
                     }) : null
                 }
                 {column.label}

@@ -146,8 +146,15 @@ class ColumnsStore extends Store {
             }
             return column;
         });
+        let disabledColumns =  this.state.disabled.map((column) => {
+            if (column.id === columnID) {
+                column.iconError = true;
+            }
+            return column;
+        });
         this.setState({
-            enabled: enabledColumns
+            enabled: enabledColumns,
+            disabled: disabledColumns
         });
     }
 }
