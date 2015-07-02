@@ -147,7 +147,7 @@ class RowsStore extends Store {
             console.log('OK', URLs.rows[type]);
             console.log('result', payload);
             console.log('parsed result', parseRows(payload));
-            let result = parseRows(payload);
+            let result = parseRows(payload, store.state.type);
             // console.log(result.rows.data.length +' rows');
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {
