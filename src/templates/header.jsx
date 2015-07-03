@@ -71,6 +71,15 @@ export default (p, a) => {
             <ToolbarButton
                 onClick={a.backButtonClicked}
             >
+                <span
+                    data-icon="f"
+                    style={{
+                        display: 'block',
+                        float: 'left',
+                        color: '##767677',
+                        marginRight: 5
+                    }}
+                ></span>
                 {p.language.messages.settings.back}
             </ToolbarButton>
         </div>
