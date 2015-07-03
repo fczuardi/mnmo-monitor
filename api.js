@@ -65,6 +65,11 @@ router.get(URLs.calendar.days, function* days(next) {
     this.body = readFileSync(filename);
     yield next;
 });
+router.get(URLs.calendar.dayLimits, function* dayLimits(next) {
+    let filename = './fake-data/daylimits.json';
+    this.body = readFileSync(filename);
+    yield next;
+});
 router.get(URLs.user.preferences, function* getUserPref(next) {
     let filename = './fake-data/user.json';
     this.body = readFileSync(filename);

@@ -2,6 +2,7 @@ import React from 'react';
 import {FormattedNumber} from 'react-intl';
 import {varTypes} from '../../config/apiHelpers';
 import tableStyles from '../styles/table';
+import keys from 'lodash/object/keys';
 
 const defaultPercentProps = {
     style: 'percent',
@@ -10,9 +11,10 @@ const defaultPercentProps = {
 };
 
 export default (content, rowKey, cellKey, p) => {
+    let varsCount = keys(p.vars.combos).length + 1; // +1 for the added separators
     const isPercent = (enumValue) => 
                             (varTypes[p.vars.combo[enumValue]] === 'percent') ||
-                            (p.rows.type === 'detailed' && rowKey % 3 !== 0);
+                            (p.rows.type === 'detailed' && rowKey % varsCount !== 1);
     const getValue = (v, enumValue) => (
         !isNaN(parseFloat(v)) ? 
             (parseFloat(v) / (isPercent(enumValue) ? 100 : 1)) : v

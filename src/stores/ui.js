@@ -4,9 +4,6 @@ import keys from 'lodash/object/keys';
 const INFINITE_SCROLL_THRESHOLD = 0;
 const ROWS_PAGE_SIZE = 30;
 
-const VARIABLES_COUNT = 3; //TODO replace this with the proper value
-
-
 const mobileBreakpointWidth = 599;
 const rowHeight = 60;
 
@@ -45,6 +42,8 @@ class UIStore extends Store {
             isLoading: false,
             isFakeLoading: false,
             minute: '000000', // hhmmss
+            oldestMinute: '000000',
+            newestMinute: '000000',
             error: null,
             canDragSlide: true
         };
@@ -184,12 +183,22 @@ class UIStore extends Store {
         return text.substring(5,0).replace(':', '') + '00';
     }
     updateMinute(){
-        let currentRow = Math.floor(this.coordY / rowHeight);
+        let varsCount = keys(this.variablesStore.state.combos).length;
+        let separatorHeight = 40 / varsCount;
+        let currentRow = Math.floor(this.coordY / (rowHeight + separatorHeight));
         let minute = this.rowsStore.state.headers[currentRow] ?
                         this.minuteFromHeader(this.rowsStore.state.headers[currentRow][0]):
                         '';
+        let oldestMinute = this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1] ?
+                        this.minuteFromHeader(this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1][0]):
+                        '';
+        let newestMinute = this.rowsStore.state.headers[0] ?
+                        this.minuteFromHeader(this.rowsStore.state.headers[0][0]):
+                        '';
         this.setState({
-            minute: minute
+            minute: minute,
+            oldestMinute: oldestMinute,
+            newestMinute: newestMinute
         });
     }
     scrollUpdate(){
@@ -252,14 +261,14 @@ class UIStore extends Store {
                 tableContents.offsetHeight - 
                 INFINITE_SCROLL_THRESHOLD 
             ),
-            newY = maxYScroll * (1 - percent),
-            variablesCount = keys(this.variablesStore.state.combos).length;
-        if (this.rowsStore.state.type === 'detailed'){
-            let pages = this.rowsStore.state.headers.length / variablesCount,
-                page = Math.ceil((1 - percent) * pages),
-                pageHeight = tableContents.offsetHeight - 1;
-            newY = Math.min(page * pageHeight, maxYScroll);
-        }
+            // variablesCount = keys(this.variablesStore.state.combos).length,
+            newY = maxYScroll * (1 - percent);
+        // if (this.rowsStore.state.type === 'detailed'){
+        //     let pages = this.rowsStore.state.headers.length / variablesCount,
+        //         page = Math.ceil((1 - percent) * pages),
+        //         pageHeight = tableContents.offsetHeight - 1;
+        //     newY = Math.min(page * pageHeight, maxYScroll);
+        // }
         tableContents.scrollTop = newY;
     }
 }

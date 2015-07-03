@@ -39,7 +39,9 @@ export default {
     calendar: {
         days: '/calendar/days',
         monthParam: 'm',
-        yearParam: 'y'
+        yearParam: 'y',
+        dayLimits: '/calendar/dayLimits',
+        countryParam: 'countryID'
     },
     images: {
         groupParam: 'group',

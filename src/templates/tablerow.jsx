@@ -11,24 +11,38 @@ export default (row, key, p) => {
         }
     }
     
-    let className = tableStyles(p).getRowClassName(key);
     
     let isVisible = (key < p.ui.lastVisibleRow);
     
     if (!isVisible) {
         return null;
     }
-    
+
+    let className = '';
+    let trContents = null;
+    let trStyle = merge({}, tableStyles(p).borderBottom);
+
+    if (renderRow[0] === 'separator'){
+        trStyle = merge(trStyle, tableStyles(p).separator);
+        trContents = (
+            <td
+                colSpan={renderRow.length}
+            >
+            </td>
+        );
+    }else{
+        className = tableStyles(p).getRowClassName(key);
+        trContents = renderRow.map( (cell, cellKey) => {
+            return cellRenderer(cell, key, cellKey, p);
+        });
+    }
     return (
         <tr 
             key={key}
             className={className}
-            style={merge({
-            }, tableStyles(p).borderBottom)}
+            style={trStyle}
         >
-            {renderRow.map( (cell, cellKey) => {
-                return cellRenderer(cell, key, cellKey, p);
-            } )}
+            {trContents}
         </tr>
     );
 }

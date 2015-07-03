@@ -6,7 +6,8 @@ import {
     authHeaders,
     statusRouter,
     chooseTextOrJSON,
-    parseCalendar
+    parseCalendar,
+    parseDayLimits
 } from '../../config/apiHelpers';
 
 const today = moment();
@@ -17,9 +18,13 @@ class CalendarStore extends Store {
         this.register(userActions.preferencesFetched, this.userPrefFetched);
         this.register(userActions.monthUpdated, this.fetchDays);
         this.sessionStore = flux.getStore('session');
+        this.userStore = flux.getStore('user');
         this.sessionActions = flux.getActions('session');
         this.state = {
-            months: {}
+            months: {},
+            firstMinute: '00:00:00',
+            lastMinute: '23:59:59',
+            minutesInADay: 1440,
         };
     }
     
@@ -29,6 +34,7 @@ class CalendarStore extends Store {
                                             pref.archivedReport.date : 
                                             today.format('YYYY-MM-DD');
         this.fetchDays(dateString);
+        this.fetchDayLimits();
     }
 
     fetchDays(dateString) {
@@ -58,6 +64,35 @@ class CalendarStore extends Store {
             console.log('fetch error ' + URLs.calendar.days, e); // eslint-disable-line
         });
     }
+    
+    fetchDayLimits() {
+        let store = this;
+        let token = this.sessionStore.state.token;
+        if (token === null){ return false; }
+        let countryID = this.userStore.state.countryID;
+        let url = URLs.baseUrl + 
+                    URLs.calendar.dayLimits + '?' + 
+                    URLs.calendar.countryParam + '=' + countryID;
+        console.log('GET', URLs.calendar.dayLimits);
+        fetch(url, {
+            method: 'GET',
+            headers: authHeaders(token)
+        })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
+        .then(chooseTextOrJSON)
+        .then(function(payload){
+            console.log('OK', URLs.calendar.dayLimits);
+            // console.log('result', payload);
+            let stateUpdate = parseDayLimits(payload);
+            // console.log('parsed result', stateUpdate);
+            store.setState(stateUpdate);
+        })
+        .catch(function(e){
+            console.log('fetch error ' + URLs.calendar.dayLimits, e); // eslint-disable-line
+        });
+    }
+    
+
 }
 
 export default CalendarStore;

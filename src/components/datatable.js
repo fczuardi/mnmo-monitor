@@ -1,6 +1,6 @@
 import template from '../templates/datatable.jsx';
 import merge from 'lodash/object/merge';
-import keys from 'lodash/object/keys';
+// import keys from 'lodash/object/keys';
 
 const smallColumnWidth = 60;
 const mediumColumnWidth = 106;
@@ -29,8 +29,16 @@ class DataTable {
                             appHeaderHeight - 
                             (isMobile ? 0 : chartHeight);
         if (p.rows.type === 'detailed' ){
-            let variablesCount = keys(this.props.vars.combos).length;
-            p.tableHeight = rowHeight * (variablesCount + 1) - (variablesCount - 1);
+            // let variablesCount = keys(this.props.vars.combos).length;
+            // p.tableHeight = rowHeight * (variablesCount + 1) - (variablesCount - 1);
+            
+            // let sliderElement = document.getElementById('table-slider');
+            let imagesElement = document.getElementById('table-images');
+            // if (sliderElement !== null && imagesElement !== null){
+                // p.tableHeight -= sliderElement.offsetHeight + imagesElement.offsetHeight;
+            if (imagesElement !== null){
+                p.tableHeight -= imagesElement.offsetHeight;
+            }
         }
         p.columnWidth = p.tableContentWidth > p.tableWidth ? columnWidth :
              Math.ceil((p.tableWidth) / (p.columns.enabled.length + 1));

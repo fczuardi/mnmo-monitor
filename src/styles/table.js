@@ -25,5 +25,9 @@ export default (p) => ({
         minWidth: p.columnWidth - 1,
         borderRight: '1px solid #000'
     },
+    separator: {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        height: 40
+    },
     getRowClassName: function(key){ return getRowClassName(key, p);}
 });

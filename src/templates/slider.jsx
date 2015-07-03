@@ -13,9 +13,19 @@ export default (p) =>
     <div 
         className="track"
         style={{
-            backgroundColor: '#7f8080',
+            backgroundColor: '#28292A',
             height: 2,
             width: '100%',
+            position: 'absolute',
+            top: 13,
+            border: '1px solid #000000'
+        }}
+    />
+    <div 
+        id="slider-enabled-region"
+        style={{
+            backgroundColor: '#808181',
+            height: 2,
             position: 'absolute',
             top: 13,
             border: '1px solid #2c2d2d'

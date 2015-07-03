@@ -7,8 +7,9 @@ export default (p, a) => {
         height: p.tableHeight - p.rowHeight
     };
     if (p.rows.type === 'detailed'){
-        style.overflowY = 'hidden';
-        style.overflowX = 'auto';
+        // style.overflowY = 'hidden';
+        // style.overflowX = 'auto';
+        style.overflow = 'auto';
     } else {
         style.overflow = 'auto';
     }

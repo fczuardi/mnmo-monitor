@@ -67,21 +67,25 @@ class RowsStore extends Store {
     userChanged(newState) {
         // console.log('userChanged', newState);
         let oldState = this.previousUserState;
+        let archivedReportIntervalChanged = (
+                JSON.stringify(newState.archivedReport) !== 
+                JSON.stringify(oldState.archivedReport) 
+        );
+
         let needsRefetching = ( 
             (newState.autoUpdate !== oldState.autoUpdate) ||
             (newState.groupID !== oldState.groupID) ||
             (newState.classID !== oldState.classID) ||
             (newState.variableComboID !== oldState.variableComboID) ||
-            (JSON.stringify(newState.archivedReport) !== 
-                                    JSON.stringify(oldState.archivedReport) ) ||
+            archivedReportIntervalChanged ||
             (JSON.stringify(newState.mergedRows) !== 
                                         JSON.stringify(oldState.mergedRows) )
         );
         if (needsRefetching) {
             // console.log('fetch rows again');
-            // if ((newState.groupID !== oldState.groupID)){
-            //     this.resetRows();
-            // }
+            if (archivedReportIntervalChanged){
+                this.resetRows();
+            }
             this.fetchRows();
             this.previousUserState = merge({}, newState);
             this.toggleAutoUpdate(newState.autoUpdate);
