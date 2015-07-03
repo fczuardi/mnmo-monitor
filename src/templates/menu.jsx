@@ -15,7 +15,7 @@ export default (p, a) => {
     display: p.ui.menuClosed ? 'none' : 'block',
     position: 'absolute',
     zIndex: 2,
-    height: '90%',
+    maxHeight: '90%',
     overflow: 'auto'
 }}>
 <Drawer 
