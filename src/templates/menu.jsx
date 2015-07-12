@@ -8,6 +8,8 @@ import A from 'mnmo-components/lib/themes/mnmo/a';
 import extraLinks from '../../config/menulinks';
 import SubmenuRouter from '../components/submenurouter';
 
+const minWidth = window.innerWidth > 320 ? 300 : 270;
+
 export default (p, a) => {
     extraLinks[0][0].link = p.user.tosURL;
     return (
@@ -16,6 +18,7 @@ export default (p, a) => {
     position: 'absolute',
     zIndex: 2,
     maxHeight: '90%',
+    width: minWidth + 17,
     overflow: 'auto'
 }}>
 <Drawer 
