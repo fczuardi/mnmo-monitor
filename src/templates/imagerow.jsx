@@ -1,5 +1,6 @@
 import React from 'react';
 import URLs from '../../config/endpoints.js';
+import merge from 'lodash/object/merge';
 
 const smallColumnWidth = 60;
 const mediumColumnWidth = 106;
@@ -17,11 +18,14 @@ export default (p) => {
         minWidth: 2 * p.columnWidth,
     };
     let imageStyle = {
-        position: p.ui.isMobile ? 'absolute': 'inherit',
-        top: 0,
-        width: '100%'
+        width: '100%',
+        top: 0
+    };
+    if (p.ui.isMobile){
+        imageStyle.position = 'absolute';
     }
     let failedImage = (event) => {
+            event.target.parentNode.style.height = 'auto';
             event.target.style.display = 'none';
         },
         loadedImage = (event) => {
@@ -33,31 +37,40 @@ export default (p) => {
     let groupID = p.groups.selected === null ? '' :
                 p.groups.selected.secondaryId !== -1 ?
                 p.groups.selected.secondaryId : p.groups.selected.id;
-    let imgElement = (column) => ( column !== null ? (
-        <img 
-            onLoad={loadedImage}
-            onError={failedImage}
-            style={imageStyle}
-            src={(
-                URLs.thumbnailsUrl +
-                '?' +
-                URLs.images.groupParam + '=' + groupID + '&' +
-                URLs.images.columnParam + '=' + column.id + '&' +
-                URLs.images.dayParam + '=' + p.rows.date.split('-').join('') + '&' +
-                URLs.images.hourParam + '=' + p.ui.minute
-            )}
-        />
-        ) : (
-            <div></div>
-        )
-    );
+    let imgElement = (column, key) => {
+        if (column === null){
+            return(
+                <div></div>
+            );
+        }
+        let style = merge({}, imageStyle);
+        if (p.columns.selected === key && p.ui.isMobile){
+            style = merge(style, {height: '100%', width:'auto'});
+        }
+        return (
+            <img 
+                key={key}
+                onLoad={loadedImage}
+                onError={failedImage}
+                style={style}
+                src={(
+                    URLs.thumbnailsUrl +
+                    '?' +
+                    URLs.images.groupParam + '=' + groupID + '&' +
+                    URLs.images.columnParam + '=' + column.id + '&' +
+                    URLs.images.dayParam + '=' + p.rows.date.split('-').join('') + '&' +
+                    URLs.images.hourParam + '=' + p.ui.minute
+                )}
+            />
+        );
+    };
     let firstLine = (
         <tr>
         {emptyCell}
         {p.columns.enabled.map( (column, key) => {
             return (
             <td key={key} style={cellStyle}>
-                {imgElement(column)}
+                {imgElement(column, key)}
             </td>
             );
         })}
@@ -135,7 +148,7 @@ export default (p) => {
                 let column = p.columns.enabled[cell.key];
                 return (
                     <td key={key} style={mobileCellStyle} rowSpan={cell.rowsSpan}>
-                    {imgElement(column)}
+                    {imgElement(column, cell.key)}
                     </td>
                 );
             })}
@@ -144,11 +157,16 @@ export default (p) => {
         secondLine = ( 
             <tr>
             {second.map( (cell, key) => {
-                let column = cell.key !== -1 ? 
-                                p.columns.enabled[cell.key]: null;
+                let isEmptyCell = cell.key === -1;
+                let column = isEmptyCell ? null :
+                                p.columns.enabled[cell.key];
+                let style = mobileCellStyle;
+                if (isEmptyCell){
+                    style = merge(style, {height: 'auto'});
+                }
                 return (
-                    <td key={key} style={mobileCellStyle} rowSpan={cell.rowsSpan}>
-                    {imgElement(column)}
+                    <td key={key} style={style} rowSpan={cell.rowsSpan}>
+                    {imgElement(column, cell.key)}
                     </td>
                 );
             })}

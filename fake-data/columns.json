@@ -13,9 +13,7 @@
                 "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169911/kitchen-fish.png",
                 "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/193560/1400625045.png"
             }
-        }
-    ],
-    "disabled": [
+        },
         {
             "id": 0,
             "label": "ABAAAAA",
@@ -25,7 +23,9 @@
                 "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169907/kitchen-coffee-perc.png",
                 "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/212651/Game-Controller-Outline-White.png"
             }
-        },
+        }
+    ],
+    "disabled": [
         {
             "id": 2,
             "label": "C"
