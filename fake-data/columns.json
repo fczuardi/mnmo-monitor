@@ -1,8 +1,8 @@
 {
     "enabled": [
         {
-            "id": 3,
-            "label": "D"
+            "id": 7,
+            "label": "AAAAAA"
         },
         {
             "id": 5,
@@ -13,7 +13,9 @@
                 "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169911/kitchen-fish.png",
                 "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/193560/1400625045.png"
             }
-        },
+        }
+    ],
+    "disabled": [
         {
             "id": 0,
             "label": "ABAAAAA",
@@ -23,6 +25,14 @@
                 "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169907/kitchen-coffee-perc.png",
                 "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/212651/Game-Controller-Outline-White.png"
             }
+        },
+        {
+            "id": 2,
+            "label": "C"
+        },
+        {
+            "id": 3,
+            "label": "D"
         },
         {
             "id": 6,
@@ -35,12 +45,14 @@
             }
         },
         {
-            "id": 2,
-            "label": "C"
-        },
-        {
-            "id": 7,
-            "label": "AAAAAA"
+            "id": 4,
+            "label": "My Cupcake is very special",
+            "icons": {
+                "menu": "https://openclipart.org/download/169936/kitchen-dinercoffee.svg",
+                "table": "https://openclipart.org/download/191506/bunny.svg",
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169936/kitchen-dinercoffee.png",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/191506/bunny.png"
+            }
         },
         {
             "id": 1,
@@ -53,17 +65,5 @@
             }
         }
     ],
-    "disabled": [
-        {
-            "id": 4,
-            "label": "My Cupcake is very special",
-            "icons": {
-                "menu": "https://openclipart.org/download/169936/kitchen-dinercoffee.svg",
-                "table": "https://openclipart.org/download/191506/bunny.svg",
-                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169936/kitchen-dinercoffee.png",
-                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/191506/bunny.png"
-            }
-        }
-    ],
-    "selected": 2
+    "selected": 0
 }
