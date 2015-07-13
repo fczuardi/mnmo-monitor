@@ -23,7 +23,11 @@ export default (column, key, p, a) => {
             verticalAlign: 'middle'
         },
         tableStyles(p).borderRight
-    )
+    );
+    if (p.rows.type === 'detailed') {
+        let columnColors = tableStyles(p).columnColors;
+        cellStyle.backgroundColor = columnColors[(key % columnColors.length)]
+    }
     return (
         <td
             id={key}

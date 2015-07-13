@@ -44,10 +44,16 @@ export default (content, rowKey, cellKey, p) => {
                 {firstLine}
             </span>
         );
+    let cellStyle = tableStyles(p).borderRight;
+    if ((p.rows.type === 'detailed') && (p.columns.selected === cellKey)) {
+        let columnColors = tableStyles(p).columnColors;
+        cellStyle.backgroundColor = columnColors[(cellKey % columnColors.length)]
+    }
+    
     return (
         <td 
             key={cellKey}
-            style={tableStyles(p).borderRight}
+            style={cellStyle}
         >
             {cellContent}
         </td>

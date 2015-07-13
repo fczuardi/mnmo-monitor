@@ -16,6 +16,19 @@ const getRowClassName = (key, p) => {
 };
 
 export default (p) => ({
+    columnColors: [
+        '#b40931',
+        '#cc5d09',
+        '#cca109',
+        '#8ccd01',
+        '#49b153',
+        '#27c1b8',
+        '#0b89ca',
+        '#213ba8',
+        '#941ec5',
+        '#b8b8b8',
+        '#5f5f5f'
+    ],
     borderBottom: {
         height: p.rowHeight - 1,
         borderBottom: '1px solid #000'

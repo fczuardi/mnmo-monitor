@@ -25,12 +25,14 @@ class ColumnsStore extends Store {
         this.register(columnsActions.columnsFetched, this.columnsFetched);
         this.register(columnsActions.columnMoved, this.columnMoved);
         this.register(columnsActions.columnIconFailed, this.columnIconBroken);
+        this.register(columnsActions.columnHeaderSelected, this.columnSelected);
         this.register(userActions.preferencesPublished, this.userChanged);
         this.state = {
             enabled: [
             ],
             disabled: [
-            ]
+            ],
+            selected: null
         };
         this.sessionStore = sessionStore;
         this.sessionActions = sessionActions;
@@ -155,6 +157,12 @@ class ColumnsStore extends Store {
         this.setState({
             enabled: enabledColumns,
             disabled: disabledColumns
+        });
+    }
+    
+    columnSelected(index) {
+        this.setState({
+            selected: index
         });
     }
 }
