@@ -30,7 +30,9 @@ export default {
         list: '/rows',
         merged: '/rows/merged',
         detailed: '/rows/detailed',
-        endTimeParam: 'time'
+        endTimeParam: 'time',
+        rowsError: '/rows/error',
+        rowsErrorStatus: 500
     },
     frequency: {
         list: '/frequencies',

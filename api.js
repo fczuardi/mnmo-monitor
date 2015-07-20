@@ -120,4 +120,10 @@ router.post(URLs.session.loginError, function* makeLogin(next) {
     yield next;
 });
 
+router.get(URLs.rows.rowsError, function* rowsError(next) {
+    let filename = './fake-data/rows.error.json';
+    this.body = readFileSync(filename);
+    this.status = URLs.rows.rowsErrorStatus;
+    yield next;
+});
 export default router;
