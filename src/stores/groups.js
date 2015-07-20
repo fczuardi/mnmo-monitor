@@ -71,6 +71,7 @@ class GroupsStore extends Store {
                 type2: partitionedGroups[1]
             });
             if (userStore.state.groupID !== null){
+                // console.log('selectgroupID ',userStore.state.groupID);
                 store.selectGroup(userStore.state.groupID, true);
             }
         })

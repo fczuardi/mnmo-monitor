@@ -36,7 +36,6 @@ class VariablesStore extends Store {
     }
 
     userPreferencesFetched(pref) {
-        this.updateCombo(parseInt(pref.variableComboID));
         this.fetchVars(this.sessionStore.state.token);
     }
     

@@ -93,10 +93,12 @@ class UserStore extends Store {
     loadSavedPreferences() {
         let preferences = getLocalItem('userPreference');
         if (preferences === null) { return false; }
+        // console.log('set user state: loadSavedPreferences');
         this.setState(preferences);
         this.userActions.languageUpdate(preferences.languageID);
     }
     savePreferences() {
+        // console.log('savePreferences');
         let localUserPreference = merge({}, this.state);
         delete localUserPreference.captchaAnswer;
         if (this.state.rememberLogin === true) {
@@ -134,6 +136,7 @@ class UserStore extends Store {
         });
     }
     preferencesFetched(preferences) {
+        // console.log('set user state: preferencesFetched');
         this.setState(preferences);
     }
     updatePreferences() {
@@ -173,6 +176,7 @@ class UserStore extends Store {
                 store.userActions.errorArrived(result.error);
                 //userPreferencesPostResponseOK returns the last known-to-work
                 //user preferences on error, so we rollback to that
+                // console.log('set user state: updatePreferences error');
                 store.setState(newState);
             }
         })
@@ -191,11 +195,13 @@ class UserStore extends Store {
         this.changeGroupPref(this.state.groupID, true);
     }
     changeUsernamePref(username) {
+        // console.log('set user state: changeUsernamePref');
         this.setState({
             username: username
         });
     }
     changePasswordPref(password) {
+        // console.log('set user state: changePasswordPref');
         this.setState({
             password: password
         });
@@ -207,17 +213,20 @@ class UserStore extends Store {
                 tosURL = item.tosURL;
             }
         });
+        // console.log('set user state: changeCountryPref');
         this.setState({
             countryID: countryID,
             tosURL: tosURL || this.state.tosURL
         });
     }
     changeCaptchaAnswer(answer) {
+        // console.log('set user state: changeCaptchaAnswer');
         this.setState({
             captchaAnswer: answer
         });
     }
     resetCaptchaAnswer() {
+        // console.log('set user state: resetCaptchaAnswer');
         this.setState({
             captchaAnswer: null
         });
@@ -226,6 +235,7 @@ class UserStore extends Store {
         removeLocalItem('userPreference');
     }
     changeRememberPref(shouldRemember) {
+        // console.log('set user state: changeRememberPref');
         this.setState({
             rememberLogin: shouldRemember
         });
@@ -234,16 +244,19 @@ class UserStore extends Store {
         }
     }
     changeTosPref(haveAgreed) {
+        // console.log('set user state: changeTosPref');
         this.setState({
             tosAgree: haveAgreed
         });
     }
     changeAutoUpdatePref(autoUpdateState) {
+        // console.log('set user state: changeAutoUpdatePref');
         this.setState({
             autoUpdate: autoUpdateState
         });
     }
     changeLanguagePref(languageID) {
+        // console.log('set user state: changeLanguagePref');
         this.setState({
             languageID: languageID
         });
@@ -261,6 +274,7 @@ class UserStore extends Store {
         let selectedGroup = this.getGroupFromStore(intGroupID);
         let classID = selectedGroup.classes.length === 1 ? 
                         selectedGroup.classes[0].id : this.state.classID;
+        // console.log('set user state: changeGroupPref');
         this.setState({
             groupID: intGroupID,
             subgroupID: null,
@@ -269,17 +283,20 @@ class UserStore extends Store {
         });
     }
     changeSubGroupPref(subGroupID) {
+        // console.log('set user state: changeSubGroupPref');
         this.setState({
             subgroupID: subGroupID
         });
     }
     changeClassPref(classID) {
+        // console.log('set user state: changeClassPref');
         this.setState({
             classID: classID
         });
     }
     changeVarsPref(){
         let newVars = this.varsStore.state.combo;
+        // console.log('set user state: changeVarsPref');
         this.setState({
             primaryVarLabel: newVars.first,
             secondaryVarLabel: newVars.second,
@@ -292,6 +309,7 @@ class UserStore extends Store {
         value = (value < 10) ? ('0' + value) : value;
         newValue[(hourOrMinute === 'hour') ? 0 : 1] = value;
         archivedReport[startOrEnd] = newValue.join(':');
+        // console.log('set user state: changeTime');
         this.setState({
             archivedReport: archivedReport
         });
@@ -311,6 +329,7 @@ class UserStore extends Store {
     changeFrequency(frequencyID) {
         let mergedRows = merge({}, this.state.mergedRows);
         mergedRows.frequencyID = frequencyID;
+        // console.log('set user state: changeFrequency');
         this.setState({
             mergedRows: mergedRows
         });
@@ -318,6 +337,7 @@ class UserStore extends Store {
     changeMergeFunction(functionID) {
         let mergedRows = merge({}, this.state.mergedRows);
         mergedRows.mergeFunctionID = functionID;
+        // console.log('set user state: changeMergeFunction');
         this.setState({
             mergedRows: mergedRows
         });
@@ -329,6 +349,7 @@ class UserStore extends Store {
         }
         let archivedReport = merge({}, this.state.archivedReport);
         archivedReport.date = day;
+        // console.log('set user state: changeDate');
         this.setState({
             archivedReport: archivedReport
         });
