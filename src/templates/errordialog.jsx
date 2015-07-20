@@ -4,7 +4,7 @@ import Submit from 'mnmo-components/lib/themes/mnmo/submit';
 
 export default (p, a) => {
     let display = p.ui.error !== null ? 'table' : 'none',
-        width = 240;
+        width = 320;
     
     return (
 <div
@@ -32,6 +32,8 @@ export default (p, a) => {
             margin: 'auto',
             padding: 20,
             boxSizing: 'border-box',
+            // backgroundColor: '#000000',
+            borderRadius:   5,
             marginTop: -250
         }}
         onClick={(event) => {event.stopPropagation();}}
@@ -61,19 +63,19 @@ export default (p, a) => {
             >
                 {p.ui.error}
             </p>
+            <form 
+                style={{
+                    marginBottom: 0
+                }}
+                onSubmit={a.buttonClicked}
+            >
+                <Submit
+                    inside={true}
+                    value="OK"
+                />
+            </form>
         </div>
     </div>
-    <form 
-        onSubmit={a.buttonClicked}
-        style={{
-            width: width,
-            margin: 'auto'
-        }}
-    >
-        <Submit 
-            value="OK"
-        />
-    </form>
 </div>
 </div>
     );
