@@ -134,7 +134,7 @@ class RowsStore extends Store {
         ) {
             endTime = store.userStore.state.archivedReport.end.substring(0, 5);
         }
-        
+        // let url = URLs.baseUrl + URLs.rows.rowsError;
         let url = URLs.baseUrl + URLs.rows[type] + '?' + 
                         URLs.rows.endTimeParam + '=' + endTime;
         if (URLs.rows[type] === undefined){ return false; }
