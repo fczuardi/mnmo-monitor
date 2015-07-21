@@ -1,12 +1,14 @@
 import React from 'react';
 import URLs from '../../config/endpoints.js';
 import merge from 'lodash/object/merge';
+import tableStyles from '../styles/table';
 
 const smallColumnWidth = 60;
 const mediumColumnWidth = 106;
 
 export default (p) => {
     let cellStyle = {
+        position: 'relative',
         width: p.columnWidth,
         minWidth: p.columnWidth
     };
@@ -43,13 +45,17 @@ export default (p) => {
                 <div></div>
             );
         }
+        let columnColors = tableStyles(p).columnColors;
+        let backgroundColor = columnColors[(key % columnColors.length)]
         let style = merge({}, imageStyle);
         if (p.columns.selected === key && p.ui.isMobile){
             style = merge(style, {height: '100%', width:'auto'});
         }
         return (
-            <img 
+            <div 
                 key={key}
+            >
+            <img 
                 onLoad={loadedImage}
                 onError={failedImage}
                 style={style}
@@ -62,6 +68,18 @@ export default (p) => {
                     URLs.images.hourParam + '=' + p.ui.minute
                 )}
             />
+            <div 
+                style={{
+                    position: 'absolute',
+                    backgroundColor: backgroundColor,
+                    width: 6,
+                    height: '100%',
+                    top: 0,
+                    right: 0
+                }}
+            ></div>
+            
+            </div>
         );
     };
     let firstLine = (
