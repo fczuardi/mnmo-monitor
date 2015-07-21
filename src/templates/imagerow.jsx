@@ -9,15 +9,17 @@ const mediumColumnWidth = 106;
 export default (p) => {
     let cellStyle = {
         position: 'relative',
-        width: p.columnWidth,
-        minWidth: p.columnWidth
+        borderRight: '1px solid #000',
+        width: p.columnWidth - 1,
+        minWidth: p.columnWidth - 1
     };
     let mobileCellStyle = {
         height: p.rowHeight,
         overflow: 'hidden',
         position: 'relative',
-        width: 2 * p.columnWidth,
-        minWidth: 2 * p.columnWidth,
+        borderRight: '1px solid #000',
+        width: 2 * p.columnWidth - 1,
+        minWidth: 2 * p.columnWidth - 1,
     };
     let imageStyle = {
         width: '100%',
@@ -201,7 +203,7 @@ export default (p) => {
                 overflow: 'hidden'
             }}
         >
-            <table>
+            <table style={{marginLeft: 1}}>
                 <tbody>
                     {firstLine}
                     {secondLine}
