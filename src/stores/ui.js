@@ -60,9 +60,10 @@ class UIStore extends Store {
         this.previousLoadingState = this.rowsStore.state.loading;
     }
     
-    displayError(message){
+    displayError(info){
         this.setState({
-            error: message
+            error: info.message,
+            errorTryAgainAction: info.tryAgainAction
         });
     }
     resetError() {

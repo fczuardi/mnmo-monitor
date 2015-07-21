@@ -39,6 +39,11 @@ export default {
         input2: "Secundária",
         displaySecondary: "Exibir variável secundária na tabela"
     },
+    error: {
+        error: "Erro",
+        ok: "OK",
+        tryAgain: "Tentar Novamente"
+    },
     rows: {
         title: {
             list: 'Linhas',

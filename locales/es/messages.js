@@ -39,6 +39,11 @@ export default {
         input2: "Secundaria",
         displaySecondary: "Ver variable secundaria en la tabla"
     },
+    error: {
+        error: "Error",
+        ok: "OK",
+        tryAgain: "Inténtalo de nuevo"
+    },
     rows: {
         title: {
             list: 'Filas',

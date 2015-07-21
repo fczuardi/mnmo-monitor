@@ -76,8 +76,11 @@ class UserActions extends Actions {
     tableScrollEnded() {
         return null;
     }
-    errorArrived(message) {
-        return message;
+    errorArrived(message, tryAgainAction) {
+        return {
+            message: message,
+            tryAgainAction: tryAgainAction || null
+        };
     }
     errorDismissed() {
         return null;

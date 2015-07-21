@@ -54,7 +54,7 @@ export default (p, a) => {
                     width: '100%'
                 }}
             >
-                Erro
+                {p.language.messages.error.error}
             </h1>
             <p
                 style={{
@@ -71,7 +71,10 @@ export default (p, a) => {
             >
                 <Submit
                     inside={true}
-                    value="OK"
+                    value={p.ui.errorTryAgainAction === null ?
+                        p.language.messages.error.ok : 
+                        p.language.messages.error.tryAgain
+                    }
                 />
             </form>
         </div>

@@ -39,6 +39,11 @@ export default {
         input2: "Secondary",
         displaySecondary: "Display secondary variable on the table"
     },
+    error: {
+        error: "Error",
+        ok: "OK",
+        tryAgain: "Try Again"
+    },
     rows: {
         title: {
             list: 'Rows',

@@ -36,6 +36,7 @@ class RowsStore extends Store {
         this.register(columnsActions.columnHeaderSelected, this.columnClicked);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
+        this.register(rowsActions.fetchAgainRequested, this.tryAgain);
         this.state = {
             lastLoad: 0,
             type: 'list', // merged | list | detailed
@@ -48,6 +49,9 @@ class RowsStore extends Store {
         this.previousUserState = userStore.state;
         this.previousColumnsState = columnsStore.state;
         this.autoUpdateInterval = undefined;
+    }
+    tryAgain(){
+        this.userPreferencesFetched(this.userStore.state);
     }
     userPreferencesFetched(pref) {
         this.resetRows();
@@ -155,7 +159,8 @@ class RowsStore extends Store {
             // console.log(result.rows.data.length +' rows');
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {
-                store.userActions.errorArrived(result.error);
+                store.userActions.errorArrived(result.error, 
+                    store.rowsActions.fetchAgainRequested);
                 store.stopAutoUpdate();
             } else {
                 if (store.userStore.state.autoUpdate) {
@@ -300,7 +305,8 @@ class RowsStore extends Store {
     
     updateMenuLabel(data) {
         // console.log('updateMenuLabel', data);
-        if (data.rows.data === null || data.rows.data.length === 0){
+        if (data.rows === undefined || data.rows.data === null ||
+            data.rows.data.length === 0){
             console.log('no data');
             return null;
         }

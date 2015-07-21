@@ -8,6 +8,9 @@ class RowsActions extends Actions {
         let nextType = currentType === 'list' ? 'merged' : 'list';
         return nextType;
     }
+    fetchAgainRequested() {
+        return null;
+    }
 }
 
 export default RowsActions;

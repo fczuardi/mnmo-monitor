@@ -1,4 +1,7 @@
 {
     "error": "server_error",
-    "error_description": "There was a problem fechting your rows."
+    "error_description": "There was a problem fechting your rows.",
+    "Message": "There was a problem fechting your rows.",
+    "Code": "12"
+    
 }

@@ -31,8 +31,8 @@ Próximos passos
 - OK  - Verificar erro que ocorre ao mudar app de país e enviar os retornos para o Daniel Apis/Ana – 21/07/2015 – Fabricio Zuardi;
 - WFM - Autoupdate na Tela de Imagens de Emissoras – 21/07/2015 – Fabricio Zuardi;
 - OK  - Na tela de imagens da emissora colocar um risco da cor da emissora para saber qual delas é a emissora no caso de duas emissoras dividir o mesmo quadrado – 21/07/2015 – Fabricio Zuardi;
+- OK - Opção “Tentar novamente” em algumas telas quando erro 500 – 21/07/2015 – Fabricio Zuardi;
 
-- Opção “Tentar novamente” em algumas telas quando erro 500 – 21/07/2015 – Fabricio Zuardi;
 - Criar Branch da Primeira Etapa do TC.Net v3 – 21/07/2015 – Fabricio Zuardi/Daniel Apis;
 
 
