@@ -4,7 +4,10 @@ import merge from 'lodash/object/merge';
 class Menu {
     render() {
         const p = merge({}, this.props);
+        const userActions = p.flux.getActions('user');
         const actions = {
+            closePanel: () => 
+                userActions.closePanel(),
             logoutClick: (event) => {
                 event.preventDefault();
                 p.flux.getActions('session').signOut();

@@ -28,12 +28,22 @@ Próximos passos:
 
 Próximos passos
 
-- OK  - Verificar erro que ocorre ao mudar app de país e enviar os retornos para o Daniel Apis/Ana – 21/07/2015 – Fabricio Zuardi;
-- WFM - Autoupdate na Tela de Imagens de Emissoras – 21/07/2015 – Fabricio Zuardi;
-- OK  - Na tela de imagens da emissora colocar um risco da cor da emissora para saber qual delas é a emissora no caso de duas emissoras dividir o mesmo quadrado – 21/07/2015 – Fabricio Zuardi;
-- OK - Opção “Tentar novamente” em algumas telas quando erro 500 – 21/07/2015 – Fabricio Zuardi;
+OK - Colocar um “Fechar” no Menu Principal –  22/07/2015 – Fabricio Zuardi;
+- Corrigir o erro que não me deixa trocar a hora quando dá hora inicial inválida – 22/07/2015 – Fabricio Zuardi;
+- Verificar a virada do dia no grid de audiência com autoupdate “on” baseado no retorno da Api criada anteriormente pelo Daniel – 22/07/2015 – Fabricio Zuardi;
+- Implementar a troca da imagem a cada 10 segundo na Tela de Imagens de Emissoras – 24/07/2015 – Fabricio Zuardi;
+- Desenvolver as telas “Esqueceu minha senha”  e “Alterar senha” e validar estes métodos (criados no webApi) com o Daniel – 24/07/2015 – Fabricio Zuardi;
+- Discutir o comportamento do Slider na Tela de Imagens da Emissora – 24/07/2015 – Time.
 
-- Criar Branch da Primeira Etapa do TC.Net v3 – 21/07/2015 – Fabricio Zuardi/Daniel Apis;
+
+
+
+Testar o retorno da Média usando o Infinity Scroll (NLoading) – 24/07/2015 – Fabricio Zuardi/Daniel Apis;
+
+Implementar o NLoading na Média com Autoupdate OFF – 24/07/2015 – Daniel Apis;
+Verificar a possibilidade de hospedar o TC.Net One v3 em outro servidor – 24/07/2015 – Carlos Nicolau;
+
+Verificar a reordenação de emissoras quando há scroll – 31/07/2015 - Fabricio Zuardi;
 
 
 

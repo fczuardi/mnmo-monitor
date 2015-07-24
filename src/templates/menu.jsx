@@ -22,6 +22,9 @@ export default (p, a) => {
     overflow: 'auto'
 }}>
 <Drawer 
+    title={p.language.messages.settings.menu}
+    closeLabel={p.language.messages.settings.close}
+    onCloseClick={a.closePanel}
     container={true} 
     panelsOpened={p.panelsOpened}>
     <div style={{display: (p.ui.submenu !== null) ? 'none' : 'block'}}>

@@ -21,6 +21,7 @@ export default {
         loadingCaptcha: 'Loading the question…'
     },
     settings: {
+        menu: 'Menu',
         autoUpdate: 'Autoupdate',
         columns: 'Columns',
         close: 'Close',
