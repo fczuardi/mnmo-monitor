@@ -1,5 +1,6 @@
 import {Store} from 'flummox';
 import keys from 'lodash/object/keys';
+import moment from 'moment';
 
 const INFINITE_SCROLL_THRESHOLD = 0;
 const ROWS_PAGE_SIZE = 30;
@@ -15,6 +16,7 @@ class UIStore extends Store {
         // const rowsActions = flux.getActions('rows');
         this.rowsStore = flux.getStore('rows');
         this.variablesStore = flux.getStore('vars');
+        this.userStore = flux.getStore('user');
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.openSubmenu, this.changeSubmenu);
         this.register(userActions.closeSubmenu, this.changeSubmenu);
@@ -52,6 +54,7 @@ class UIStore extends Store {
         this.coordX = 0;
         this.coordY = 0;
         this.scrollEndInterval = 0;
+        this.imageUpdateInterval = 0;
         window.addEventListener('resize', this.widthChange.bind(this));
         this.scrollUpdate = this.scrollUpdate.bind(this);
         this.addListener('change', this.stopTicking);
@@ -184,6 +187,7 @@ class UIStore extends Store {
         return text.substring(5,0).replace(':', '') + '00';
     }
     updateMinute(){
+        let store = this;
         let varsCount = keys(this.variablesStore.state.combos).length;
         let separatorHeight = 40 / varsCount;
         let currentRow = Math.floor(this.coordY / (rowHeight + separatorHeight));
@@ -196,11 +200,37 @@ class UIStore extends Store {
         let newestMinute = this.rowsStore.state.headers[0] ?
                         this.minuteFromHeader(this.rowsStore.state.headers[0][0]):
                         '';
-        this.setState({
+        let newState = {
             minute: minute,
             oldestMinute: oldestMinute,
             newestMinute: newestMinute
-        });
+        };
+        
+        // console.log('stop 10sec interval update');
+        window.clearInterval(this.imageUpdateInterval);
+
+        if (minute.substring(2, 4) === newestMinute.substring(2, 4) && 
+            this.userStore.state.autoUpdate &&
+            this.rowsStore.state.type === 'detailed'){
+            // console.log('start 10sec interval update');
+            newState.minute = store.state.minute;
+            this.imageUpdateInterval = window.setInterval(function(){
+                let formatedMinute = store.state.minute.substring(0,2) + ':' +
+                                store.state.minute.substring(2,4) + ':' +
+                                store.state.minute.substring(4,6);
+                let newMinute = moment(
+                                    moment().format('YYYY-MM-DDT') + 
+                                    formatedMinute + 
+                                    '.000Z'
+                                ).utc().add(10, 'seconds');
+                // console.log('update image', newMinute.utc().format('HHmmss'));
+                store.setState({
+                    minute: newMinute.utc().format('HHmmss')
+                });
+            }, 10 * 1000);
+        }
+        store.setState(newState);
+
     }
     scrollUpdate(){
         let tableheaders = document.getElementById('table-headers'),
