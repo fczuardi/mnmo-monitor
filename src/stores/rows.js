@@ -306,8 +306,14 @@ class RowsStore extends Store {
     updateMenuLabel(data) {
         // console.log('updateMenuLabel', data);
         if (data.rows === undefined || data.rows.data === null ||
-            data.rows.data.length === 0){
+            data.rows.data.length === 0 || 
+            (data.rows.data.length === 1 && data.rows.data[0].length === 1 && data.rows.data[0][0] === null)
+        ){
             console.log('no data');
+            this.setState({
+                lastLoad: new Date().getTime(),
+                loading: false
+            });
             return null;
         }
         let newRows = data.rows.data;
