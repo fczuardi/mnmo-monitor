@@ -20,6 +20,22 @@ export default {
         },
         loadingCaptcha: 'Carga de la pregunta…'
     },
+    password: {
+        changePassword: 'Cambiar contraseña',
+        submit: {
+            change: 'Cambiar'
+        },
+        info: {
+            title: 'Su contraseña debe contener:',
+            requirements: [
+                'Una letra mayúscula',
+                'Una pequeña letra',
+                'Un número',
+                '8 caracteres o más'
+            ]
+        },
+        cancel: 'Cancelar'
+    },
     settings: {
         menu: 'Menu',
         autoUpdate: 'Autoupdate',

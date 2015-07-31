@@ -42,6 +42,7 @@
     "./components/router": "global:APPRouter",
     "../components/login": "global:APPLogin",
     "../components/dashboard": "global:APPDashboard",
+    "../components/password": "global:APPPassword",
     "../components/menu": "global:APPMenu",
     "../components/header": "global:APPHeader",
     "../components/submenucolumns": "global:APPColumnsPanel",

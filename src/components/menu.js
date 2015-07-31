@@ -12,6 +12,11 @@ class Menu {
                 event.preventDefault();
                 p.flux.getActions('session').signOut();
             },
+            changePasswordClick: (event) => {
+                event.preventDefault();
+                console.log('change password clicked');
+                userActions.navigateToScreen('password');
+            },
             autoUpdateChange: (event) =>
                 p.flux.getActions('user').autoUpdateToggle(event.target.checked),
             languageSettingChange: (event) =>

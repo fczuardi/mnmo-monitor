@@ -64,6 +64,9 @@ class UserActions extends Actions {
     closePanel() {
         return null;
     }
+    navigateToScreen(name) {
+        return name;
+    }
     tableScroll(top, left){
         return {
             top: top,

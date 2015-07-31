@@ -22,6 +22,7 @@ class UIStore extends Store {
         this.register(userActions.closeSubmenu, this.changeSubmenu);
         this.register(userActions.openPanel, this.changePanel);
         this.register(userActions.closePanel, this.changePanel);
+        this.register(userActions.navigateToScreen, this.changeScreen);
         this.register(userActions.tableScroll, this.changeTableScroll);
         this.register(userActions.sliderScroll, this.sliderTableScroll);
         this.register(sessionActions.signOut, this.resetState);
@@ -34,6 +35,7 @@ class UIStore extends Store {
             menuClosed: true,
             submenu: null,
             panel: null,
+            screen: null,
             supportsSVG: document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1"),
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
@@ -115,6 +117,13 @@ class UIStore extends Store {
         }
         this.setState({
             panel: name,
+            menuClosed: true
+        });
+    }
+    changeScreen(name) {
+        console.log('change screen');
+        this.setState({
+            screen: name,
             menuClosed: true
         });
     }

@@ -77,7 +77,7 @@ export default (p, a) => {
     )}
         <List>
             <LI>
-                <A href='http://example.com'>
+                <A href='#' onClick={a.changePasswordClick}>
                     {p.language.messages.settings.changePassword}
                 </A>
             </LI>
