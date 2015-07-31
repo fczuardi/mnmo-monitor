@@ -65,8 +65,8 @@ export default (p, a) => {
             <p>{p.language.messages.password.info.title}</p>
             <ul>
                 {p.language.messages.password.info.requirements.map(
-                    (req) => (
-                        <li>{req}</li>
+                    (req, key) => (
+                        <li key={key}>{req}</li>
                         
                     )
                 )}
