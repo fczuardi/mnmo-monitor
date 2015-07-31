@@ -28,13 +28,14 @@ Próximos passos:
 
 Próximos passos
 
-OK - Colocar um “Fechar” no Menu Principal –  22/07/2015 – Fabricio Zuardi;
-OK - Corrigir o erro que não me deixa trocar a hora quando dá hora inicial inválida – 22/07/2015 – Fabricio Zuardi;
-OK - Implementar a troca da imagem a cada 10 segundo na Tela de Imagens de Emissoras – 24/07/2015 – Fabricio Zuardi;
+OK - Verificar o problema que ocorre na Tela de Imagens de Emissoras quando é utilizado o Infinity Scroll e em seguida clicar no botão “Voltar”
 
-- Verificar a virada do dia no grid de audiência com autoupdate “on” baseado no retorno da Api criada anteriormente pelo Daniel – 27/07/2015 – Fabricio Zuardi;
+OK - Verificar o problema que ocorre na Tela de Média quando está AutoUpdate Off e o InfinityScroll excede o primeiro minuto do Dia Ibope
 
 - Desenvolver as telas “Esqueceu minha senha”  e “Alterar senha” e validar estes métodos (criados no webApi) com o Daniel – 31/07/2015 – Fabricio Zuardi;
+
+
+- Verificar a virada do dia no grid de audiência com autoupdate “on” baseado no retorno da Api criada anteriormente pelo Daniel – 27/07/2015 – Fabricio Zuardi;
 
 - Discutir o comportamento do Slider na Tela de Imagens da Emissora – 24/07/2015 – Time.
 
