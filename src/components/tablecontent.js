@@ -37,6 +37,9 @@ class TableContent {
                 }
                 rowsWithSeparators.push(row);
             });
+            // the table content must have a correct number
+            // of headers as well because this is used by the code
+            // that styles the lines (getRowClassName)
             p.rows.headers.forEach( (row, key) => {
                 if (key % varsCount === 0){
                     //duplicate row

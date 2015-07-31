@@ -263,12 +263,21 @@ class UIStore extends Store {
         // sliderHandleElement.setAttribute('data-x', sliderX);
 
         
+        let loadedRowsCount = store.rowsStore.state.data.length;
+        if (this.rowsStore.state.type === 'detailed'){
+            // while we dont have the slider, the detailed table has extra 
+            // "separator" rows that are added in render time
+            // so we add those to the loadedRowsCount count
+            let varsCount = keys(this.variablesStore.state.combos).length;
+            loadedRowsCount += loadedRowsCount / varsCount;
+        }
+        
         if (scrollEnded && 
             !this.nextPageLoadSent &&
             !this.state.isLoading &&
             !this.state.isFakeLoading
         ) {
-            let isNextPageLoaded = (store.state.lastVisibleRow < store.rowsStore.state.data.length);
+            let isNextPageLoaded = (store.state.lastVisibleRow < loadedRowsCount);
             if (!isNextPageLoaded){
                 this.nextPageLoadSent = true;
                 this.userActions.tableScrollEnded();
