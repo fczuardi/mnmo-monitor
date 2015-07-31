@@ -8,6 +8,15 @@ class ChangePassword {
                 event.preventDefault();
                 console.log('cancel change password');
                 userActions.navigateToScreen(null);
+            },
+            currentPasswordChange: (event) => {
+                userActions.currentPasswordInput(event.target.value);
+            },
+            newPasswordChange: (event) => {
+                userActions.newPasswordInput(event.target.value);
+            },
+            confirmNewPasswordChange: (event) => {
+                userActions.confirmNewPasswordInput(event.target.value);
             }
         };
         return template(this.props, actions);

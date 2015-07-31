@@ -22,6 +22,9 @@ export default {
     },
     password: {
         changePassword: 'Alterar senha',
+        currentPassword: 'senha atual',
+        newPassword: 'nova senha',
+        confirmNewPassword: 'confirmar nova senha',
         submit: {
             change: 'Alterar'
         },

@@ -67,6 +67,15 @@ class UserActions extends Actions {
     navigateToScreen(name) {
         return name;
     }
+    currentPasswordInput(password) {
+        return password;
+    }
+    newPasswordInput(password) {
+        return password;
+    }
+    confirmNewPasswordInput(password) {
+        return password;
+    }
     tableScroll(top, left){
         return {
             top: top,

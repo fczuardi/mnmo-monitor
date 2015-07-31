@@ -33,6 +33,10 @@ class UserStore extends Store {
         this.register(userActions.tosAgreementUpdate, this.changeTosPref);
         this.register(userActions.autoUpdateToggle, this.changeAutoUpdatePref);
         this.register(userActions.languageUpdate, this.changeLanguagePref);
+        this.register(userActions.navigateToScreen, this.resetChangePasswordFields);
+        this.register(userActions.currentPasswordInput, this.changeCurrentPasswordPref);
+        this.register(userActions.newPasswordInput, this.changeNewPasswordPref);
+        this.register(userActions.confirmNewPasswordInput, this.changeConfirmNewPasswordPref);
         this.register(userActions.preferencesFetched, this.preferencesFetched);
         this.register(userActions.dateUpdated, this.changeDate);
         this.register(userActions.startHourUpdated, this.changeStartHour);
@@ -52,6 +56,9 @@ class UserStore extends Store {
         this.state = {
             username: '',
             password: '',
+            currentPassword: '',
+            newPassword: '',
+            confirmNewPassword: '',
             countryID: null,
             rememberLogin: false,
             captchaAnswer: null,
@@ -101,6 +108,9 @@ class UserStore extends Store {
         // console.log('savePreferences');
         let localUserPreference = merge({}, this.state);
         delete localUserPreference.captchaAnswer;
+        delete localUserPreference.currentPassword;
+        delete localUserPreference.newPassword;
+        delete localUserPreference.confirmNewPassword;
         if (this.state.rememberLogin === true) {
             setLocalItem('userPreference', localUserPreference);
         }
@@ -352,6 +362,29 @@ class UserStore extends Store {
         // console.log('set user state: changeDate');
         this.setState({
             archivedReport: archivedReport
+        });
+    }
+    resetChangePasswordFields() {
+        console.log('resetChangePasswordFields');
+        this.setState({
+            currentPassword: '',
+            newPassword: '',
+            confirmNewPassword: ''
+        });
+    }
+    changeCurrentPasswordPref(password) {
+        this.setState({
+            currentPassword: password
+        });
+    }
+    changeNewPasswordPref(password) {
+        this.setState({
+            newPassword: password
+        });
+    }
+    changeConfirmNewPasswordPref(password) {
+        this.setState({
+            confirmNewPassword: password
         });
     }
 }

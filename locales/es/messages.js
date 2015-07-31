@@ -22,7 +22,10 @@ export default {
     },
     password: {
         changePassword: 'Cambiar contraseña',
-        submit: {
+        currentPassword: 'contraseña actual',
+        newPassword: 'nueva contraseña',
+        confirmNewPassword: 'confirmar nueva contraseña',
+         submit: {
             change: 'Cambiar'
         },
         info: {

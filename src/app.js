@@ -16,6 +16,7 @@ render(
                     country: (store) => ({ country: store.state}),
                     user: (store) => ({ user: store.state}),
                     loginValidation: (store) => ({ loginForm: store.state}),
+                    passwordValidation: (store) => ({ passwordForm: store.state}),
                     session: (store) => ({ session: store.state}),
                     columns: (store) => ({ columns: store.state}),
                     groups: (store) => ({ groups: store.state}),
