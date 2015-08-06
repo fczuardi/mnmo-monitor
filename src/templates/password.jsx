@@ -10,7 +10,7 @@ import ErrorDialog from '../components/errordialog';
 export default (p, a) => {
     return (
 <CenteredBox>
-    <form>
+    <form onSubmit={a.formSubmit}>
         <FieldSet legend={p.language.messages.password.changePassword}>
             <TextInput
                 value={p.user.currentPassword}

@@ -120,6 +120,12 @@ router.post(URLs.session.loginError, function* makeLogin(next) {
     yield next;
 });
 
+router.post(URLs.user.password, function* changePassword(next) {
+    let filename = './fake-data/passwordChange.success.json';
+    this.body = readFileSync(filename);
+    yield next;
+});
+
 router.get(URLs.rows.rowsError, function* rowsError(next) {
     let filename = './fake-data/rows.error.json';
     this.body = readFileSync(filename);

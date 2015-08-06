@@ -13,7 +13,8 @@ export default {
         loginErrorStatus: 400
     },
     user: {
-        preferences: '/user/preferences'
+        preferences: '/user/preferences',
+        password: '/user/password'
     },
     languages: {
         list: '/languages'

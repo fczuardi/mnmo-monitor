@@ -26,6 +26,7 @@ class UIStore extends Store {
         this.register(userActions.tableScroll, this.changeTableScroll);
         this.register(userActions.sliderScroll, this.sliderTableScroll);
         this.register(sessionActions.signOut, this.resetState);
+        this.register(userActions.changePasswordPublished, this.resetScreen);
         // this.register(rowsActions.rowsFetchCompleted, this.unlockInfiniteLoad);
         this.register(userActions.errorArrived, this.displayError);
         this.register(userActions.errorDismissed, this.resetError);
@@ -126,6 +127,9 @@ class UIStore extends Store {
             screen: name,
             menuClosed: true
         });
+    }
+    resetScreen() {
+        this.changeScreen(null);
     }
     resetState() {
         this.setState({

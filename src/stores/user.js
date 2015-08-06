@@ -11,6 +11,7 @@ import {
     parseUserPreferences,
     diffUserPreferences,
     buildUserPreferencesPostBody,
+    buildUserPasswordPostBody,
     userPreferencesPostResponseOK,
     authHeaders,
     statusRouter,
@@ -37,6 +38,8 @@ class UserStore extends Store {
         this.register(userActions.currentPasswordInput, this.changeCurrentPasswordPref);
         this.register(userActions.newPasswordInput, this.changeNewPasswordPref);
         this.register(userActions.confirmNewPasswordInput, this.changeConfirmNewPasswordPref);
+        this.register(userActions.changePasswordSubmitted, this.publishPasswordChange);
+        this.register(userActions.changePasswordPublished, this.changePasswordPref);
         this.register(userActions.preferencesFetched, this.preferencesFetched);
         this.register(userActions.dateUpdated, this.changeDate);
         this.register(userActions.startHourUpdated, this.changeStartHour);
@@ -148,6 +151,34 @@ class UserStore extends Store {
     preferencesFetched(preferences) {
         // console.log('set user state: preferencesFetched');
         this.setState(preferences);
+    }
+    publishPasswordChange(){
+        console.log('publishPasswordChange');
+        let store = this;
+        let token = store.sessionStore.state.token;
+        if (token === null){ return false; }
+        let postBody = buildUserPasswordPostBody(store.state);
+        console.log('POST', URLs.user.password);
+        console.log('postBody', postBody);
+        fetch(URLs.baseUrl + URLs.user.password, {
+            method: 'POST',
+            headers: authHeaders(token),
+            body: postBody
+        })
+        .then((response) => statusRouter(
+            response, 
+            store.sessionActions.signOut
+        ))
+        .then(chooseTextOrJSON)
+        .then(function(payload){
+            console.log('OK (post)', URLs.user.password, payload);
+            if (payload === '0'){
+                store.userActions.changePasswordPublished(store.state.newPassword);
+            }
+        })
+        .catch(function(e){
+            console.log('password change failed ' + URLs.user.password, e); // eslint-disable-line
+        });
     }
     updatePreferences() {
         let store = this;

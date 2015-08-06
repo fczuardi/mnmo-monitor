@@ -9,6 +9,10 @@ class ChangePassword {
                 console.log('cancel change password');
                 userActions.navigateToScreen(null);
             },
+            formSubmit: (event) => {
+                event.preventDefault();
+                userActions.changePasswordSubmitted();
+            },
             currentPasswordChange: (event) => {
                 userActions.currentPasswordInput(event.target.value);
             },

@@ -76,6 +76,12 @@ class UserActions extends Actions {
     confirmNewPasswordInput(password) {
         return password;
     }
+    changePasswordSubmitted() {
+        return null;
+    }
+    changePasswordPublished(newPassword) {
+        return newPassword;
+    }
     tableScroll(top, left){
         return {
             top: top,
