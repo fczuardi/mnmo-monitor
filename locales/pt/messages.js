@@ -28,15 +28,6 @@ export default {
         submit: {
             change: 'Alterar'
         },
-        info: {
-            title: 'Sua senha deve conter:',
-            requirements: [
-                'Uma letra maiúscula',
-                'Uma letra minúscula',
-                'Um número',
-                '8 caracteres ou mais'
-            ]
-        },
         cancel: 'Cancelar'
     },
     settings: {

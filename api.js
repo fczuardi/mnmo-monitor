@@ -121,7 +121,8 @@ router.post(URLs.session.loginError, function* makeLogin(next) {
 });
 
 router.post(URLs.user.password, function* changePassword(next) {
-    let filename = './fake-data/passwordChange.success.json';
+    // let filename = './fake-data/passwordChange.success.json';
+    let filename = './fake-data/passwordChange.error.json';
     this.body = readFileSync(filename);
     yield next;
 });

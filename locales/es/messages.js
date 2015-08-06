@@ -28,15 +28,6 @@ export default {
          submit: {
             change: 'Cambiar'
         },
-        info: {
-            title: 'Su contraseña debe contener:',
-            requirements: [
-                'Una letra mayúscula',
-                'Una pequeña letra',
-                'Un número',
-                '8 caracteres o más'
-            ]
-        },
         cancel: 'Cancelar'
     },
     settings: {

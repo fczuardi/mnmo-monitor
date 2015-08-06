@@ -61,20 +61,14 @@ export default (p, a) => {
                 </div>
             </div>
         </FieldSet>
-        <FieldSet>
-            <p>{p.language.messages.password.info.title}</p>
-            <ul>
-                {p.language.messages.password.info.requirements.map(
-                    (req, key) => (
-                        <li key={key}>{req}</li>
-                        
-                    )
-                )}
-            </ul>
-        </FieldSet>
     </form>
-    <NetworkMessages {...p} />
-    <ErrorDialog {...p} />
+<div style={{
+    position: 'fixed',
+    left: 0
+}}>
+<NetworkMessages {...p} />
+<ErrorDialog {...p} />
+</div>
 </CenteredBox>
     );
 }

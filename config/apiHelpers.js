@@ -93,6 +93,13 @@ function buildUserPreferencesPostBody(state){
     body.variableComboID = state.variableComboID;
     return JSON.stringify(body);
 }
+function buildUserPasswordPostBody(state){
+    let body = {
+        currentPassword: state.currentPassword,
+        newPassword: state.newPassword
+    };
+    return JSON.stringify(body);
+}
 function buildColumnsListPostBody(state){
     return JSON.stringify(state);
 }
@@ -136,7 +143,9 @@ function columnListPostResponseOK(payload){
     }
     return parseColumnsList(lastColumnsResponse);
 }
-
+function passwordChangePostResponseOK(payload){
+    return payload;
+}
 
 export default {
     varTypes: VAR_TYPES,
@@ -158,9 +167,11 @@ export default {
     parseDayLimits: genericParse,
     buildSignInRequestBody: buildSignInRequestBody,
     buildUserPreferencesPostBody: buildUserPreferencesPostBody,
+    buildUserPasswordPostBody: buildUserPasswordPostBody,
     buildColumnsListPostBody: buildColumnsListPostBody,
     diffUserPreferences: diffUserPreferences,
     diffColumnsList: diffColumnsList,
     userPreferencesPostResponseOK: userPreferencesPostResponseOK,
+    passwordChangePostResponseOK: passwordChangePostResponseOK,
     columnListPostResponseOK: columnListPostResponseOK
 };

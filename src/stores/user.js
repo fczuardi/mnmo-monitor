@@ -13,6 +13,7 @@ import {
     buildUserPreferencesPostBody,
     buildUserPasswordPostBody,
     userPreferencesPostResponseOK,
+    passwordChangePostResponseOK,
     authHeaders,
     statusRouter,
     chooseTextOrJSON
@@ -172,7 +173,10 @@ class UserStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK (post)', URLs.user.password, payload);
-            if (payload === '0'){
+            let result = passwordChangePostResponseOK(payload);
+            if (result.error !== null) {
+                store.userActions.errorArrived(result.error);
+            } else if (result.success){
                 store.userActions.changePasswordPublished(store.state.newPassword);
             }
         })
