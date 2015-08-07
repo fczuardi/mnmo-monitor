@@ -13,6 +13,7 @@ class UIStore extends Store {
         super();
         const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
+        const columnsActions = flux.getActions('columns');
         // const rowsActions = flux.getActions('rows');
         this.rowsStore = flux.getStore('rows');
         this.variablesStore = flux.getStore('vars');
@@ -25,12 +26,13 @@ class UIStore extends Store {
         this.register(userActions.navigateToScreen, this.changeScreen);
         this.register(userActions.tableScroll, this.changeTableScroll);
         this.register(userActions.sliderScroll, this.sliderTableScroll);
-        this.register(sessionActions.signOut, this.resetState);
+        this.register(sessionActions.signOut, this.resetMenuState);
         this.register(userActions.changePasswordPublished, this.resetScreen);
         // this.register(rowsActions.rowsFetchCompleted, this.unlockInfiniteLoad);
         this.register(userActions.errorArrived, this.displayError);
         this.register(userActions.errorDismissed, this.resetError);
         this.register(sessionActions.tokenGranted, this.resetError);
+        this.register(columnsActions.columnHeaderSelected, this.resetMenuState);
         this.userActions = userActions;
         this.state = {
             menuClosed: true,
@@ -122,7 +124,6 @@ class UIStore extends Store {
         });
     }
     changeScreen(name) {
-        console.log('change screen');
         this.setState({
             screen: name,
             menuClosed: true
@@ -131,7 +132,7 @@ class UIStore extends Store {
     resetScreen() {
         this.changeScreen(null);
     }
-    resetState() {
+    resetMenuState() {
         this.setState({
             menuClosed: true,
             submenu: null,
