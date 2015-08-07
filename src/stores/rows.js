@@ -22,6 +22,7 @@ class RowsStore extends Store {
         const columnsActions = flux.getActions('columns');
         const sessionActions = flux.getActions('session');
         const rowsActions = flux.getActions('rows');
+        this.flux = flux;
         this.rowsActions = rowsActions;
         this.userActions = userActions;
         this.sessionStore = sessionStore;
@@ -222,6 +223,8 @@ class RowsStore extends Store {
         let timeParts = text.split(':');
         return parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
     }
+    
+    //merge new loaded rows into the existing table already in memory
     updateRows(newHeaders, newRows) {
         let shouldReplaceTable = (this.state.data.length === 0),
             mergedData = {
@@ -233,7 +236,8 @@ class RowsStore extends Store {
         }
         
         //code for updating existing table goes here
-        // console.log('update table instead of replacing it');
+        let calendarStore = this.flux.getStore('calendar');
+
         let oldHeaderIndexes = {},
             headersToAdd = [],
             rowsToAdd = [],
@@ -244,10 +248,39 @@ class RowsStore extends Store {
             oldHeaderIndexes[header[0]] = index;
         });
         
-        let lastHeaderLabel = updatedHeaders[(updatedHeaders.length - 1)][0],
+        let firstHeaderLabel = updatedHeaders[0][0],
+            lastHeaderLabel = updatedHeaders[(updatedHeaders.length - 1)][0],
             firstNewHeaderLabel = newHeaders[0][0];
+        
+        let dayChanged = (
+            (firstHeaderLabel.substring(0,5) === 
+                calendarStore.state.lastMinute.substring(0,5)) &&
+            (firstNewHeaderLabel.substring(0,5) === 
+                calendarStore.state.firstMinute.substring(0,5))
+        );
+        // let dayChanged = (
+        //     (firstHeaderLabel.substring(0,5) === 
+        //         '06:07') &&
+        //     (firstNewHeaderLabel.substring(0,5) === 
+        //         '06:08')
+        // );
+        // console.log('compare',firstHeaderLabel.substring(0,5), 'with', 
+        //             calendarStore.state.lastMinute.substring(0,5), 'and',
+        //             firstNewHeaderLabel.substring(0,5), 'with',
+        //             calendarStore.state.firstMinute.substring(0,5), dayChanged);
+        if (dayChanged){
+            return mergedData;
+        }
 
+
+        // console.log('update table instead of replacing it');
+        
+        //maybe revisit this code block if the API result for type merged
+        //starts returning just parts of the table instead of all minutes
         if ((this.state.type === 'merged') && (this.userStore.state.autoUpdate)){
+            //sometimes tha api returns only one line,
+            //when that happens the first row should be the only one replaced
+            //and the remaining rows maintained
             if (newHeaders.length === 1){
                 // console.log('replace first line');
                 let oldHeadersTail = updatedHeaders.slice(1);

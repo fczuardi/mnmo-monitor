@@ -84,7 +84,7 @@ class CalendarStore extends Store {
             console.log('OK', URLs.calendar.dayLimits);
             // console.log('result', payload);
             let stateUpdate = parseDayLimits(payload);
-            // console.log('parsed result', stateUpdate);
+            console.log('parsed result', stateUpdate);
             store.setState(stateUpdate);
         })
         .catch(function(e){
