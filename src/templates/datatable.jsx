@@ -30,11 +30,11 @@ export default (p, a) => {
         <ImageRow {...p} />
     ) : null;
     
-    // let slider = p.rows.type === 'detailed' ? (
-    //     <Slider {...p} />
-    // ) : null;
+    let slider = p.rows.type === 'detailed' ? (
+        <Slider {...p} />
+    ) : null;
 
-    let slider = null;
+    // let slider = null;
 
     return (
         <div>

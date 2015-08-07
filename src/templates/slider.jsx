@@ -41,7 +41,7 @@ export default (p) =>
             width: 30,
             borderRadius: 30,
             position: 'absolute',
-            cursor: 'grab',
+            // cursor: 'grab',
             marginLeft: -15,
             zIndex: 2
         }}

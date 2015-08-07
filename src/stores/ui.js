@@ -214,6 +214,12 @@ class UIStore extends Store {
         let newestMinute = this.rowsStore.state.headers[0] ?
                         this.minuteFromHeader(this.rowsStore.state.headers[0][0]):
                         '';
+        // console.log(
+        //     'oldestMinute',
+        //     this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1],
+        //     this.minuteFromHeader(this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1][0]),
+        //     oldestMinute
+        // );
         let newState = {
             minute: minute,
             oldestMinute: oldestMinute,
