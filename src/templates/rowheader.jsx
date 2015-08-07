@@ -52,10 +52,7 @@ export default (row, key, p) => {
                     verticalAlign: 'text-top'
                 }}
             >
-                <FormattedNumber 
-                    locales={'en-US'/*p.language.messages.locale*/} 
-                    value={secondValue}
-                />
+                {secondValue}
             </span>
         </p>
     );
