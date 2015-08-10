@@ -32,10 +32,12 @@ class DataTable {
             // let variablesCount = keys(this.props.vars.combos).length;
             // p.tableHeight = rowHeight * (variablesCount + 1) - (variablesCount - 1);
             
-            // let sliderElement = document.getElementById('table-slider');
+            let sliderElement = document.getElementById('table-slider');
             let imagesElement = document.getElementById('table-images');
-            // if (sliderElement !== null && imagesElement !== null){
-                // p.tableHeight -= sliderElement.offsetHeight + imagesElement.offsetHeight;
+
+            if (sliderElement !== null){
+                p.tableHeight -= sliderElement.offsetHeight;
+            }
             if (imagesElement !== null){
                 p.tableHeight -= imagesElement.offsetHeight;
             }
