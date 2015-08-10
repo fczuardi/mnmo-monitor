@@ -48,6 +48,7 @@ class RowsStore extends Store {
             loading: true
         };
         this.previousUserState = userStore.state;
+        this.autoUpdateStatusChanged = false;
         this.previousColumnsState = columnsStore.state;
         this.autoUpdateInterval = undefined;
     }
@@ -86,8 +87,8 @@ class RowsStore extends Store {
             (JSON.stringify(newState.mergedRows) !== 
                                         JSON.stringify(oldState.mergedRows) )
         );
+        this.autoUpdateStatusChanged = (newState.autoUpdate !== oldState.autoUpdate);
         if (needsRefetching) {
-            // console.log('fetch rows again');
             if (archivedReportIntervalChanged){
                 this.resetRows();
             }
@@ -226,12 +227,14 @@ class RowsStore extends Store {
     
     //merge new loaded rows into the existing table already in memory
     updateRows(newHeaders, newRows) {
-        let shouldReplaceTable = (this.state.data.length === 0),
+        let shouldReplaceTable = (this.state.data.length === 0 || this.autoUpdateStatusChanged),
             mergedData = {
                 headers: newHeaders,
                 rows: newRows
             };
+        this.autoUpdateStatusChanged = false;
         if (shouldReplaceTable){
+            // console.log('replace data');
             return mergedData;
         }
         
@@ -269,6 +272,7 @@ class RowsStore extends Store {
         //             firstNewHeaderLabel.substring(0,5), 'with',
         //             calendarStore.state.firstMinute.substring(0,5), dayChanged);
         if (dayChanged){
+            // console.log('replace data');
             return mergedData;
         }
 
