@@ -1,11 +1,22 @@
 import React from 'react';
 import CenteredBox from 'mnmo-components/lib/themes/mnmo/centeredbox';
 import Submit from 'mnmo-components/lib/themes/mnmo/submit';
+import Button from 'mnmo-components/lib/themes/mnmo/button';
 
 export default (p, a) => {
     let display = p.ui.error !== null ? 'table' : 'none',
         width = 320;
-    
+    let tryAgainButton = p.ui.errorTryAgainAction ? (
+        <div style={{
+            marginTop: 15
+        }}>
+            <Button
+                inside={true}
+                value={p.language.messages.error.tryAgain}
+                onClick={a.tryAgainClicked}
+            />
+        </div>
+        ): null;
     return (
 <div
     style={{
@@ -71,11 +82,9 @@ export default (p, a) => {
             >
                 <Submit
                     inside={true}
-                    value={p.ui.errorTryAgainAction === null ?
-                        p.language.messages.error.ok : 
-                        p.language.messages.error.tryAgain
-                    }
+                    value={p.language.messages.error.ok}
                 />
+                {tryAgainButton}
             </form>
         </div>
     </div>

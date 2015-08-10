@@ -7,9 +7,11 @@ class ErrorDialog {
             buttonClicked: (event) => {
                 event.preventDefault();
                 userActions.errorDismissed();
-                if (this.props.ui.errorTryAgainAction){
-                    this.props.ui.errorTryAgainAction();
-                }
+            },
+            tryAgainClicked: (event) => {
+                event.preventDefault();
+                userActions.errorDismissed();
+                this.props.ui.errorTryAgainAction();
             }
         };
         return template(this.props, actions);
