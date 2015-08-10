@@ -65,9 +65,9 @@ class Slider {
         //left side where the same distance means hours
         let sliderPositionPercent = Math.sin(tablePositionPercent * Math.PI/2);
         
-        let percent = sliderPositionPercent;
+        let percent = 1 - sliderPositionPercent;
         
-        console.log(tablePositionPercent, 'vs', sliderPositionPercent);
+        // console.log(tablePositionPercent, 'vs', sliderPositionPercent);
         
         let sliderElement = findDOMNode(this);
         let sliderHandleElement = document.getElementById('table-slider-handle');
