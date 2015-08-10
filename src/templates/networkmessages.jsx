@@ -19,7 +19,8 @@ export default (p) => {
         color: textColor,
         fontSize: 14,
         lineHeight: '25px',
-        transition: 'bottom 1s'
+        transition: 'bottom 1s',
+        zIndex: 3
     }}
 >
     <div
