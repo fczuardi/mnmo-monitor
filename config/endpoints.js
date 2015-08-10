@@ -1,6 +1,5 @@
 export default {
     baseUrl: 'http://192.168.1.132:9001',
-    thumbnailsUrl: 'https://c2.staticflickr.com/4/3788/12456893885_fb2499219c_n.jpg',
     country: {
         list: '/country/list'
     },

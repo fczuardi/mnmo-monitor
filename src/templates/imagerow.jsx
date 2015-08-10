@@ -62,7 +62,7 @@ export default (p) => {
                 onError={failedImage}
                 style={style}
                 src={(
-                    URLs.thumbnailsUrl +
+                    p.groups.selected.thumbnailsUrl +
                     '?' +
                     URLs.images.groupParam + '=' + groupID + '&' +
                     URLs.images.columnParam + '=' + column.id + '&' +
