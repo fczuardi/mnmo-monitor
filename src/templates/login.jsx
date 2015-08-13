@@ -72,6 +72,16 @@ export default (p, a) => {
                         </option>
                     )}
                 </Select>
+                <span>
+                    <a href="#" onClick={a.forgotPasswordClick}>
+                        {p.language.messages.password.forgotPasswordLink}
+                    </a>
+                </span>
+            </div>
+            <div style={{
+                clear: 'both',
+                marginTop: 15
+            }}>
                 <Checkbox
                     id="saveInfoCheckbox"
                     checked={p.user.rememberLogin}

@@ -14,6 +14,7 @@ import {
     buildUserPasswordPostBody,
     userPreferencesPostResponseOK,
     passwordChangePostResponseOK,
+    forgotPasswordPostResponseOK,
     authHeaders,
     statusRouter,
     chooseTextOrJSON
@@ -31,6 +32,7 @@ class UserStore extends Store {
         this.flux = flux;
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
+        this.register(userActions.emailInput, this.changeEmailPref);
         this.register(userActions.rememberLoginUpdate, this.changeRememberPref);
         this.register(userActions.tosAgreementUpdate, this.changeTosPref);
         this.register(userActions.autoUpdateToggle, this.changeAutoUpdatePref);
@@ -41,6 +43,7 @@ class UserStore extends Store {
         this.register(userActions.confirmNewPasswordInput, this.changeConfirmNewPasswordPref);
         this.register(userActions.changePasswordSubmitted, this.publishPasswordChange);
         this.register(userActions.changePasswordPublished, this.changePasswordPref);
+        this.register(userActions.forgotPasswordSubmitted, this.startForgotPassword);
         this.register(userActions.preferencesFetched, this.preferencesFetched);
         this.register(userActions.dateUpdated, this.changeDate);
         this.register(userActions.startHourUpdated, this.changeStartHour);
@@ -60,6 +63,7 @@ class UserStore extends Store {
         this.state = {
             username: '',
             password: '',
+            email: '',
             currentPassword: '',
             newPassword: '',
             confirmNewPassword: '',
@@ -154,7 +158,7 @@ class UserStore extends Store {
         this.setState(preferences);
     }
     publishPasswordChange(){
-        console.log('publishPasswordChange');
+        // console.log('publishPasswordChange');
         let store = this;
         let token = store.sessionStore.state.token;
         if (token === null){ return false; }
@@ -182,6 +186,32 @@ class UserStore extends Store {
         })
         .catch(function(e){
             console.log('password change failed ' + URLs.user.password, e); // eslint-disable-line
+        });
+    }
+    startForgotPassword(){
+        console.log('start forgot password flow');
+        let store = this;
+        console.log('GET', URLs.user.forgotPassword);
+        // console.log('query params', 
+        //     URLs.user.countryParam, store.state.countryID,
+        //     URLs.user.emailParam, store.state.email
+        // );
+        let url = URLs.baseUrl + URLs.user.forgotPassword + '?' +
+                URLs.user.countryParam + '=' + store.state.countryID + '&' +
+                URLs.user.emailParam + '=' + store.state.email;
+        fetch(url, {method: 'GET'})
+        .then(chooseTextOrJSON)
+        .then(function(payload){
+            console.log('OK (get)', URLs.user.forgotPassword, payload);
+            let result = forgotPasswordPostResponseOK(payload);
+            if (result.error !== null) {
+                store.userActions.errorArrived(result.error);
+            } else if (result.success){
+                store.userActions.forgotPasswordAccepted();
+            }
+        })
+        .catch(function(e){
+            console.log('forgot password start failed' + URLs.user.forgotPassword, e); // eslint-disable-line
         });
     }
     updatePreferences() {
@@ -249,6 +279,12 @@ class UserStore extends Store {
         // console.log('set user state: changePasswordPref');
         this.setState({
             password: password
+        });
+    }
+    changeEmailPref(email) {
+        console.log('email changed');
+        this.setState({
+            email: email
         });
     }
     changeCountryPref(countryID) {

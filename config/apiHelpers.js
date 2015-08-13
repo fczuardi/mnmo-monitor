@@ -173,5 +173,6 @@ export default {
     diffColumnsList: diffColumnsList,
     userPreferencesPostResponseOK: userPreferencesPostResponseOK,
     passwordChangePostResponseOK: passwordChangePostResponseOK,
+    forgotPasswordPostResponseOK: passwordChangePostResponseOK,
     columnListPostResponseOK: columnListPostResponseOK
 };

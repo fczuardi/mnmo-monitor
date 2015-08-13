@@ -21,12 +21,16 @@ export default {
         loadingCaptcha: 'Carregando a pergunta…'
     },
     password: {
+        forgotPasswordLink: 'Esqueci minha senha',
+        forgotPasswordTitle: 'Esqueceu a senha?',
+        email: 'email',
         changePassword: 'Alterar senha',
         currentPassword: 'senha atual',
         newPassword: 'nova senha',
         confirmNewPassword: 'confirmar nova senha',
         submit: {
-            change: 'Alterar'
+            change: 'Alterar',
+            send: 'Enviar'
         },
         cancel: 'Cancelar'
     },

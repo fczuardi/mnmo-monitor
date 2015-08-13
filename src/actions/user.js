@@ -7,6 +7,9 @@ class UserActions extends Actions {
     passwordInput(password) {
         return password;
     }
+    emailInput(email) {
+        return email;
+    }
     rememberLoginUpdate(shouldRemember) {
         return shouldRemember;
     }
@@ -79,8 +82,14 @@ class UserActions extends Actions {
     changePasswordSubmitted() {
         return null;
     }
+    forgotPasswordSubmitted() {
+        return null;
+    }
     changePasswordPublished(newPassword) {
         return newPassword;
+    }
+    forgotPasswordAccepted() {
+        return null;
     }
     tableScroll(top, left){
         return {

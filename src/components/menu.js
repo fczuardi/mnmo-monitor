@@ -14,7 +14,6 @@ class Menu {
             },
             changePasswordClick: (event) => {
                 event.preventDefault();
-                console.log('change password clicked');
                 userActions.navigateToScreen('password');
             },
             autoUpdateChange: (event) =>

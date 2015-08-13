@@ -17,6 +17,7 @@ render(
                     user: (store) => ({ user: store.state}),
                     loginValidation: (store) => ({ loginForm: store.state}),
                     passwordValidation: (store) => ({ passwordForm: store.state}),
+                    forgotPasswordValidation: (store) => ({ forgotPasswordForm: store.state}),
                     session: (store) => ({ session: store.state}),
                     columns: (store) => ({ columns: store.state}),
                     groups: (store) => ({ groups: store.state}),

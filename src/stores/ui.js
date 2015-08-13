@@ -28,6 +28,7 @@ class UIStore extends Store {
         this.register(userActions.sliderScroll, this.sliderTableScroll);
         this.register(sessionActions.signOut, this.resetMenuState);
         this.register(userActions.changePasswordPublished, this.resetScreen);
+        this.register(userActions.forgotPasswordAccepted, this.resetScreen);
         // this.register(rowsActions.rowsFetchCompleted, this.unlockInfiniteLoad);
         this.register(userActions.errorArrived, this.displayError);
         this.register(userActions.errorDismissed, this.resetError);

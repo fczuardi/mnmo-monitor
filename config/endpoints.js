@@ -13,7 +13,10 @@ export default {
     },
     user: {
         preferences: '/user/preferences',
-        password: '/user/password'
+        password: '/user/password',
+        forgotPassword: '/user/forgotPassword',
+        countryParam: 'countryID',
+        emailParam: 'email'
     },
     languages: {
         list: '/languages'
