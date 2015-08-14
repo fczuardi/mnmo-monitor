@@ -12,7 +12,6 @@ import {
     diffUserPreferences,
     buildUserPreferencesPostBody,
     buildUserPasswordPostBody,
-    buildUserForgotPasswordPostHeader,
     buildUserForgotPasswordPostBody,
     userPreferencesPostResponseOK,
     passwordChangePostResponseOK,
@@ -181,13 +180,12 @@ class UserStore extends Store {
                         })) :
                         buildUserPasswordPostBody(store.state);
         let postHeaders = hasForgotPasswordToken ?
-                            {} :
-                            // buildUserForgotPasswordPostHeader(merge(store.state, {passwordToken:passwordToken})) :
+                            {'Content-Type': 'application/x-www-form-urlencoded'} :
                             authHeaders(token);
 
-        console.log('POST', url);
-        console.log('postBody', postBody);
-        console.log('postHeaders', postHeaders);
+        // console.log('POST', url);
+        // console.log('postBody', postBody);
+        // console.log('postHeaders', postHeaders);
         fetch(url, {
             method: 'POST',
             headers: postHeaders,
@@ -204,7 +202,14 @@ class UserStore extends Store {
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
             } else if (result.success){
-                store.userActions.changePasswordPublished(store.state.newPassword);
+                //reset browser's location.search 
+                //to clear any forgot password parameters if they are present
+                if (window.location.search.length > 0) {
+                    window.location.search = '';
+                    store.userActions.navigateToScreen(null);
+                }else{
+                    store.userActions.changePasswordPublished(store.state.newPassword);
+                }
             }
         })
         .catch(function(e){
