@@ -19,13 +19,46 @@ export default (p, a) => {
     //     </button>
     //                         ) : null;
     
-    let chart = (!p.ui.chartVisible) ? null : (
+    let tableTitleText = p.rows.date === '' ? null : (
+        <span>
+            <span style={{
+                fontWeight: 700,
+                fontSize: 15
+            }}>
+                {p.language.messages.rows.date}:
+            </span>
+            <span style={{
+                marginLeft: 3
+            }}>
+                {p.rows.date}
+            </span>
+        </span>
+    );
+    let tableTitle = (
         <div style={{
+            position: (p.ui.chartVisible) ? 'absolute' : 'relative',
+            width: '100%',
+            height: 30,
+            lineHeight: '30px',
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.8)',
+            textAlign: 'center'
+        }}>
+            {tableTitleText}
+        </div>
+    );
+    let chartContent = (!p.ui.chartVisible) ? null : (
+        <p style={{margin: 0, opacity: 0.5}}>
+            Loading Chart…
+        </p>
+    )
+    let chartContainer = (
+        <div style={{
+            position: 'relative',
             height: p.chartHeight
         }}>
-            <p style={{margin: 0, opacity: 0.5}}>
-                Loading Chart…
-            </p>
+            {chartContent}
+            {tableTitle}
         </div>
     );
     return (
@@ -33,7 +66,7 @@ export default (p, a) => {
     <Header {...p} />
     <Menu {...p} />
     <PanelRouter {...p} />
-    {chart}
+    {chartContainer}
     <DataTable {...p} />
     <NetworkMessages {...p} />
     <ErrorDialog {...p} />
