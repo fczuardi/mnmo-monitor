@@ -46,10 +46,10 @@ class MonitorFlux extends Flummox {
         this.createStore('session', SessionStore, this);
         this.createStore('groups', GroupsStore, this);
         this.createStore('vars', VariablesStore, this);
+        this.createStore('forgotPasswordValidation', ForgotPasswordValidationStore, this);
         this.createStore('user', UserStore, this);
         this.createStore('loginValidation', LoginValidationStore, this);
         this.createStore('passwordValidation', PasswordValidationStore, this);
-        this.createStore('forgotPasswordValidation', ForgotPasswordValidationStore, this);
         this.createStore('language', LanguageStore, this);
         this.createStore('columns', ColumnsStore, this);
         this.createStore('calendar', CalendarStore, this);

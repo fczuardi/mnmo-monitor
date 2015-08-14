@@ -23,12 +23,14 @@ export default {
     password: {
         forgotPasswordLink: '¿Olvidaste tu contraseña?',
         forgotPasswordTitle: '¿Olvidaste tu contraseña?',
+        newPasswordTitle: 'Nueva contraseña',
         email: 'email',
         changePassword: 'Cambiar contraseña',
         currentPassword: 'contraseña actual',
         newPassword: 'nueva contraseña',
         confirmNewPassword: 'confirmar nueva contraseña',
         submit: {
+            validatingToken: 'Cargando…',
             change: 'Cambiar',
             send: 'Enviar'
         },

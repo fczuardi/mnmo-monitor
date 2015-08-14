@@ -21,6 +21,7 @@ export default {
         loadingCaptcha: 'Carregando a pergunta…'
     },
     password: {
+        newPasswordTitle: 'Redefinir senha',
         forgotPasswordLink: 'Esqueci minha senha',
         forgotPasswordTitle: 'Esqueceu a senha?',
         email: 'email',
@@ -29,6 +30,7 @@ export default {
         newPassword: 'nova senha',
         confirmNewPassword: 'confirmar nova senha',
         submit: {
+            validatingToken: 'Aguarde…',
             change: 'Alterar',
             send: 'Enviar'
         },

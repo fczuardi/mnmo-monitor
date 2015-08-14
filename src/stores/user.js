@@ -12,6 +12,8 @@ import {
     diffUserPreferences,
     buildUserPreferencesPostBody,
     buildUserPasswordPostBody,
+    buildUserForgotPasswordPostHeader,
+    buildUserForgotPasswordPostBody,
     userPreferencesPostResponseOK,
     passwordChangePostResponseOK,
     forgotPasswordPostResponseOK,
@@ -19,10 +21,13 @@ import {
     statusRouter,
     chooseTextOrJSON
 } from '../../config/apiHelpers';
+import queryString from 'query-string';
+
 
 class UserStore extends Store {
     constructor(flux) {
         super();
+
         const userActions = flux.getActions('user');
         const countryActions = flux.getActions('country');
         const loginValidationActions = flux.getActions('loginValidation');
@@ -161,13 +166,31 @@ class UserStore extends Store {
         // console.log('publishPasswordChange');
         let store = this;
         let token = store.sessionStore.state.token;
-        if (token === null){ return false; }
-        let postBody = buildUserPasswordPostBody(store.state);
-        console.log('POST', URLs.user.password);
+        let passwordToken = queryString.parse(window.location.search).token || null;
+        if (token === null && passwordToken === null){ 
+            return false; 
+        }
+        let hasForgotPasswordToken = (passwordToken !== null);
+        let url = hasForgotPasswordToken ?
+                    URLs.baseUrl + URLs.user.forgotPassword :
+                    URLs.baseUrl + URLs.user.password;
+        let postBody = hasForgotPasswordToken ? 
+                        buildUserForgotPasswordPostBody(merge(store.state, {
+                            passwordToken:passwordToken,
+                            countryID: queryString.parse(window.location.search.toUpperCase())[URLs.user.countryParam.toUpperCase()]
+                        })) :
+                        buildUserPasswordPostBody(store.state);
+        let postHeaders = hasForgotPasswordToken ?
+                            {} :
+                            // buildUserForgotPasswordPostHeader(merge(store.state, {passwordToken:passwordToken})) :
+                            authHeaders(token);
+
+        console.log('POST', url);
         console.log('postBody', postBody);
-        fetch(URLs.baseUrl + URLs.user.password, {
+        console.log('postHeaders', postHeaders);
+        fetch(url, {
             method: 'POST',
-            headers: authHeaders(token),
+            headers: postHeaders,
             body: postBody
         })
         .then((response) => statusRouter(

@@ -16,7 +16,8 @@ export default {
         password: '/user/password',
         forgotPassword: '/user/forgotPassword',
         countryParam: 'countryID',
-        emailParam: 'email'
+        emailParam: 'email',
+        tokenParam: 'token'
     },
     languages: {
         list: '/languages'

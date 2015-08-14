@@ -8,17 +8,23 @@ import NetworkMessages from '../components/networkmessages';
 import ErrorDialog from '../components/errordialog';
 
 export default (p, a) => {
+    let title = p.passwordForm.forgotPasswordToken ? 
+                    p.language.messages.password.newPasswordTitle : 
+                    p.language.messages.password.changePassword;
+    let firstTextField = p.passwordForm.forgotPasswordToken ? null : (
+        <TextInput
+            value={p.user.currentPassword}
+            placeholder={p.language.messages.password.currentPassword}
+            onChange={a.currentPasswordChange}
+            type="password"
+            name="currentPassword"
+        />
+    );
     return (
 <CenteredBox>
     <form onSubmit={a.formSubmit}>
-        <FieldSet legend={p.language.messages.password.changePassword}>
-            <TextInput
-                value={p.user.currentPassword}
-                placeholder={p.language.messages.password.currentPassword}
-                onChange={a.currentPasswordChange}
-                type="password"
-                name="currentPassword"
-            />
+        <FieldSet legend={title}>
+            {firstTextField}
             <TextInput
                 value={p.user.newPassword}
                 placeholder={p.language.messages.password.newPassword}
