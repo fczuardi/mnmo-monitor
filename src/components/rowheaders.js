@@ -6,6 +6,7 @@ import keys from 'lodash/object/keys';
 class RowHeaders extends Component {
     shouldComponentUpdate(nextProps) {
         return (
+            (nextProps.ui.chartVisible !== this.props.ui.chartVisible) ||
             (nextProps.ui.lastVisibleRow !== this.props.ui.lastVisibleRow) ||
             (nextProps.rows.lastLoad > this.props.rows.lastLoad) ||
             (nextProps.ui.screenWidth !== this.props.ui.screenWidth) ||
@@ -19,7 +20,7 @@ class RowHeaders extends Component {
             let rowsWithSeparators = [];
             let varsCount = keys(p.vars.combos).length;
             p.rows.headers.forEach( (row, key) => {
-                if (key % varsCount === 0){
+                if (!p.ui.chartVisible && key % varsCount === 0){
                     //duplicate row
                     let rowCopy = row.slice();
                     rowCopy[2] = 'separator';

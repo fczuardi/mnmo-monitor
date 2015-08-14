@@ -6,7 +6,6 @@ import DataTable from '../components/datatable';
 import NetworkMessages from '../components/networkmessages';
 import ErrorDialog from '../components/errordialog';
 
-const chartHeight = 264;
 export default (p, a) => {
     // let subgroupsButton = (p.groups.selected &&
     //                         p.groups.selected.subgroupsCount > 0) ? (
@@ -20,14 +19,15 @@ export default (p, a) => {
     //     </button>
     //                         ) : null;
     
-    // let chart = (
-    //     <div style={{height: chartHeight}}>
-    //         <p style={{margin: 0}}>
-    //             [BarChart]
-    //         </p>
-    //     </div>
-    // );
-    let chart = null; // for the future
+    let chart = (!p.ui.chartVisible) ? null : (
+        <div style={{
+            height: p.chartHeight
+        }}>
+            <p style={{margin: 0, opacity: 0.5}}>
+                Loading Chart…
+            </p>
+        </div>
+    );
     return (
 <div style={{paddingTop: 53, width: '100%'}}>
     <Header {...p} />

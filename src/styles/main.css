@@ -4,7 +4,9 @@
 }
 .header-icon-1,
 .header-icon-2,
-.header-icon-13{
+.header-icon-13,
+.header-icon-chart-bar,
+.header-icon-chart-line{
     font-family: "Custom-Entypo-mnmo" !important;
     font-style: normal !important;
     font-weight: normal !important;
@@ -21,4 +23,10 @@
 .header-icon-2:before,
 .header-icon-13:before {
   content: "h";
+}
+.header-icon-chart-bar:before {
+  content: "k";
+}
+.header-icon-chart-line:before {
+  content: "l";
 }

@@ -5,6 +5,7 @@ import keys from 'lodash/object/keys';
 class TableContent {
     shouldComponentUpdate(nextProps) {
         return (
+            (nextProps.ui.chartVisible !== this.props.ui.chartVisible) ||
             (nextProps.ui.lastVisibleRow !== this.props.ui.lastVisibleRow) ||
             (nextProps.rows.lastLoad > this.props.rows.lastLoad) ||
             (nextProps.ui.screenWidth !== this.props.ui.screenWidth) ||
@@ -29,7 +30,7 @@ class TableContent {
             let headerRowsWithSeparators = [];
             let varsCount = keys(p.vars.combos).length;
             p.rows.data.forEach( (row, key) => {
-                if (key % varsCount === 0){
+                if (!p.ui.chartVisible && key % varsCount === 0){
                     //duplicate row
                     let rowCopy = row.slice();
                     rowCopy[0] = 'separator';
@@ -41,7 +42,7 @@ class TableContent {
             // of headers as well because this is used by the code
             // that styles the lines (getRowClassName)
             p.rows.headers.forEach( (row, key) => {
-                if (key % varsCount === 0){
+                if (!p.ui.chartVisible && key % varsCount === 0){
                     //duplicate row
                     let rowCopy = row.slice();
                     rowCopy[2] = 'separator';

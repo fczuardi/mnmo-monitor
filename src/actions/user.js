@@ -55,6 +55,9 @@ class UserActions extends Actions {
     menuVisibilityToggle() {
         return true;
     }
+    chartVisibilityToggle() {
+        return true;
+    }
     openSubmenu(name) {
         return name;
     }

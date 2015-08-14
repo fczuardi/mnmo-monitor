@@ -19,6 +19,7 @@ class UIStore extends Store {
         this.variablesStore = flux.getStore('vars');
         this.userStore = flux.getStore('user');
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
+        this.register(userActions.chartVisibilityToggle, this.toggleChart);
         this.register(userActions.openSubmenu, this.changeSubmenu);
         this.register(userActions.closeSubmenu, this.changeSubmenu);
         this.register(userActions.openPanel, this.changePanel);
@@ -40,6 +41,7 @@ class UIStore extends Store {
             submenu: null,
             panel: null,
             screen: null,
+            chartVisible: false,
             supportsSVG: document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1"),
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
@@ -109,6 +111,12 @@ class UIStore extends Store {
         }else{
             document.body.scrollTop = 0;
         }
+    }
+    toggleChart() {
+        let newVisibility = ! this.state.chartVisible;
+        this.setState({
+            chartVisible: newVisibility
+        });
     }
     changeSubmenu(name) {
         this.setState({

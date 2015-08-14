@@ -41,8 +41,22 @@ export default (p, a) => {
             </ToolbarButton>
         </div>
     );
+    let chartButton = (
+        <span style={{
+            color: (p.ui.chartVisible) ? '#FFFFFF' : '#787878'
+        }}>
+            <ToolbarButton
+                onClick={a.chartToggleClicked}
+                className={(p.rows.type === 'detailed') ? 
+                                'header-icon-chart-line':
+                                'header-icon-chart-bar'}
+                
+            />
+        </span>
+    );
     let right = (
         <div style={{float: 'right'}}>
+            {chartButton}
             <ToolbarButton
                 type={p.ui.isMobile ? null : 'dialogToggle'}
                 disabled={(p.groups.selected && p.groups.selected.classes.length < 2 )}
@@ -86,7 +100,11 @@ export default (p, a) => {
     );
     if (p.rows.type === 'detailed') {
         left = backButton;
-        right = null;
+        right = (
+            <div style={{float: 'right'}}>
+                {chartButton}
+            </div>
+        );
     }
     return (
 <Toolbar>

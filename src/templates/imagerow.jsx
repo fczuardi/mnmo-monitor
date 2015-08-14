@@ -56,6 +56,9 @@ export default (p) => {
         return (
             <div 
                 key={key}
+                style={{
+                    height: p.ui.isMobile ? 60 : 120
+                }}
             >
             <img 
                 onLoad={loadedImage}

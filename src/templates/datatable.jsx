@@ -30,7 +30,7 @@ export default (p, a) => {
         <ImageRow {...p} />
     ) : null;
     
-    let slider = p.rows.type === 'detailed' ? (
+    let slider = p.rows.type === 'detailed' && p.ui.chartVisible ? (
         <Slider {...p} />
     ) : null;
 
