@@ -2,6 +2,7 @@ import React from 'react';
 import Menu from '../components/menu';
 import Header from '../components/header';
 import PanelRouter from '../components/panelrouter';
+import DashboardChart from '../components/dashboardchart';
 import DataTable from '../components/datatable';
 import NetworkMessages from '../components/networkmessages';
 import ErrorDialog from '../components/errordialog';
@@ -47,11 +48,15 @@ export default (p, a) => {
             {tableTitleText}
         </div>
     );
-    let chartContent = (!p.ui.chartVisible) ? null : (
+    let chartContent = (!p.ui.chartVisible) ? null : 
+                        (p.rows.type !== 'detailed') ? (
+        <DashboardChart {...p} />
+    ) : (
+        //<LineChart {...p} />
         <p style={{margin: 0, opacity: 0.5}}>
             Loading Chart…
         </p>
-    )
+    );
     let chartContainer = (
         <div style={{
             position: 'relative',

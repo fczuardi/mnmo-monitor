@@ -4,6 +4,10 @@ import keys from 'lodash/object/keys';
 
 const appHeaderHeight = 55;
 const rowHeight = 60;
+const smallColumnWidth = 60;
+const mediumColumnWidth = 106;
+const cellPadding = 8;
+
 
 class Dashboard {
     render() {
@@ -20,9 +24,16 @@ class Dashboard {
             subgroupsButtonClicked: () =>
                 this.props.flux.getActions('user').openPanel('subgroups')
         };
-    
+        
+        let columnWidth = p.ui.isMobile ? smallColumnWidth : mediumColumnWidth;
         p.rowHeight = rowHeight;
-                            
+        p.tableWidth = p.ui.screenWidth;
+        p.tableContentWidth = p.columns.enabled.length * columnWidth;
+        p.columnWidth = p.tableContentWidth > p.tableWidth ? columnWidth :
+             Math.ceil((p.tableWidth) / (p.columns.enabled.length + 1));
+        p.iconWidth = smallColumnWidth - 2 * cellPadding;
+        p.cellPadding = cellPadding;
+                    
         p.chartHeight = !p.ui.chartVisible ? tableTitleHeight : defaultChartHeight;
         p.tableHeight = p.ui.screenHeight - 
                             appHeaderHeight - 

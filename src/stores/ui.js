@@ -41,7 +41,7 @@ class UIStore extends Store {
             submenu: null,
             panel: null,
             screen: null,
-            chartVisible: false,
+            chartVisible: true,
             supportsSVG: document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1"),
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
