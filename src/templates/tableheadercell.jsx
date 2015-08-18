@@ -1,6 +1,6 @@
 import React from 'react';
 import merge from 'lodash/object/merge';
-import tableStyles from '../styles/table';
+import tableStyles from '../styles/tablestyles';
 
 export default (column, key, p, a) => {
     let cellContent = (column.icons && !column.iconError) ? (

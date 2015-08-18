@@ -1,6 +1,6 @@
 import React from 'react';
 import {FormattedNumber} from 'react-intl';
-import tableStyles from '../styles/table';
+import tableStyles from '../styles/tablestyles';
 import merge from 'lodash/object/merge';
 import keys from 'lodash/object/keys';
 

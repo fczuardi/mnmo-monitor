@@ -30,6 +30,7 @@ Object.keys(globalModules).forEach((key) => {
     } else if (
             (key.indexOf('actions') !== -1) ||
             (key.indexOf('stores') !== -1) ||
+            (key.indexOf('../styles') !== -1) ||
             (key.indexOf('./components/') !== -1)
                                                     ){
         let globalName = globalModules[key].split(':')[1],
@@ -41,6 +42,12 @@ Object.keys(globalModules).forEach((key) => {
                 (subfolder === 'components') &&
                 (key.indexOf('../components/') !== -1) ){
             entry = entry.replace('/components/', '/src/components/');
+        }
+        if (
+            (subfolder === 'styles') &&
+            (key.indexOf('../styles/') !== -1) 
+        ){
+            entry = entry.replace('/styles/', '/src/styles/');
         }
         console.log(entry, outFilename, globalName);
         createUMD(entry, globalName, outFilename, true);

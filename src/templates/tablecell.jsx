@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormattedNumber} from 'react-intl';
 import {varTypes} from '../../config/apiHelpers';
-import tableStyles from '../styles/table';
+import tableStyles from '../styles/tablestyles';
 import keys from 'lodash/object/keys';
 
 const defaultPercentProps = {

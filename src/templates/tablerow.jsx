@@ -1,6 +1,6 @@
 import React from 'react';
 import cellRenderer from './tablecell.jsx';
-import tableStyles from '../styles/table';
+import tableStyles from '../styles/tablestyles';
 import merge from 'lodash/object/merge';
 
 export default (row, key, p) => {

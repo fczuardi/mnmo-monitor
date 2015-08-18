@@ -1,7 +1,7 @@
 import React from 'react';
 import URLs from '../../config/endpoints.js';
 import merge from 'lodash/object/merge';
-import tableStyles from '../styles/table';
+import tableStyles from '../styles/tablestyles';
 
 const smallColumnWidth = 60;
 const mediumColumnWidth = 106;

@@ -1,6 +1,6 @@
 import React from 'react';
 import rowRenderer from './rowheader.jsx';
-import tableStyles from '../styles/table';
+import tableStyles from '../styles/tablestyles';
 import merge from 'lodash/object/merge';
 
 export default (p) => 

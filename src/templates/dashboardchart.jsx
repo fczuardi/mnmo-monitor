@@ -1,11 +1,14 @@
 import React from 'react';
 import merge from 'lodash/object/merge';
-import tableStyles from '../styles/table';
+
+import tableStyles from '../styles/tablestyles';
 
 const smallColumnWidth = 60;
 const mediumColumnWidth = 106;
 
 export default (p) => {
+    let columnColors = tableStyles(p).columnColors;
+    let backgroundColor = columnColors[(key % columnColors.length)]
     let cellStyle = {
         position: 'relative',
         borderRight: '1px solid #000',

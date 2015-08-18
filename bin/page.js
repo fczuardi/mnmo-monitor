@@ -123,6 +123,8 @@ var options = {
         '$comment=dialogs',
         './js/components/header.js',
         './js/components/login.js',
+        './js/components/login.js',
+        './js/styles/tablestyles.js',
         './js/components/datatable.js',
         './js/components/dashboardchart.js',
         './js/components/networkmessages.js',

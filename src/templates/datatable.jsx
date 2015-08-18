@@ -4,7 +4,7 @@ import ImageRow from '../components/imagerow';
 import Slider from '../components/slider';
 import RowHeaders from '../components/rowheaders';
 import TableContent from '../components/tablecontent';
-import tableStyles from '../styles/table';
+import tableStyles from '../styles/tablestyles';
 import merge from 'lodash/object/merge';
 
 export default (p, a) => {
