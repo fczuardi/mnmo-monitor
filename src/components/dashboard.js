@@ -34,10 +34,11 @@ class Dashboard {
         p.iconWidth = smallColumnWidth - 2 * cellPadding;
         p.cellPadding = cellPadding;
                     
-        p.chartHeight = !p.ui.chartVisible ? tableTitleHeight : defaultChartHeight;
+        p.chartHeight = !p.ui.chartVisible ? 0 : defaultChartHeight;
         p.tableHeight = p.ui.screenHeight - 
                             appHeaderHeight - 
-                            p.chartHeight;
+                            p.chartHeight -
+                            tableTitleHeight;
         if (p.rows.type == 'detailed'){
             if(p.ui.chartVisible) {
                 //table height must be the height of x rows

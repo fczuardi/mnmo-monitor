@@ -8,7 +8,6 @@ const mediumColumnWidth = 106;
 
 export default (p) => {
     let columnColors = tableStyles(p).columnColors;
-    let backgroundColor = columnColors[(key % columnColors.length)]
     let cellStyle = {
         position: 'relative',
         borderRight: '1px solid #000',
@@ -29,12 +28,43 @@ export default (p) => {
     let groupID = p.groups.selected === null ? '' :
                 p.groups.selected.secondaryId !== -1 ?
                 p.groups.selected.secondaryId : p.groups.selected.id;
+    console.log('p.rows.data[0]', p.rows.data[0]);
+    let firstRowCells = p.rows.data[0] ? p.rows.data[0] : [];
+    let data = firstRowCells.map( (cellValue) => {
+        let value = parseFloat(cellValue.split('|')[0]);
+        return isNaN(parseFloat(value)) ? 0 : value
+    });
+    console.log('data', data);
+    let maxValue = data.reduce( (pastValue, value) => {
+        return Math.max(pastValue, value);
+    }, 0);
+    let chartTopPadding = 50;
+    let maxPixelValue = p.chartHeight - chartTopPadding;
+    console.log('maxValue', maxValue);
     let row = (
-        <tr>
+        <tr
+            style={{
+                height: p.chartHeight
+            }}
+        >
         {emptyCell}
         {p.columns.enabled.map( (column, key) => {
+            let backgroundColor = columnColors[(key % columnColors.length)];
+            let value = data[key] || 0;
+            let valuePercent = value / maxValue;
+            let valuePixels = Math.ceil(valuePercent * maxPixelValue);
             return (
             <td key={key} style={cellStyle}>
+                <div
+                    style={{
+                        backgroundColor: backgroundColor,
+                        position: 'absolute',
+                        bottom: 0,
+                        width: '100%',
+                        height: valuePixels
+                    }}
+                >
+                </div>
             </td>
             );
         })}

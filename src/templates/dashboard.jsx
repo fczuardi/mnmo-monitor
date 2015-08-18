@@ -37,7 +37,7 @@ export default (p, a) => {
     );
     let tableTitle = (
         <div style={{
-            position: (p.ui.chartVisible) ? 'absolute' : 'relative',
+            position: 'relative',
             width: '100%',
             height: 30,
             lineHeight: '30px',
@@ -63,7 +63,6 @@ export default (p, a) => {
             height: p.chartHeight
         }}>
             {chartContent}
-            {tableTitle}
         </div>
     );
     return (
@@ -72,6 +71,7 @@ export default (p, a) => {
     <Menu {...p} />
     <PanelRouter {...p} />
     {chartContainer}
+    {tableTitle}
     <DataTable {...p} />
     <NetworkMessages {...p} />
     <ErrorDialog {...p} />
