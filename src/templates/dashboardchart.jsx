@@ -74,7 +74,7 @@ export default (p) => {
                     let pX = (dataHistory.length - 1 - rowIndex) / (dataHistory.length - 1);
                     let x = Math.round(pX * lineChartWidth); 
                     let pY = value / maxValue;
-                    let y = 1 + Math.round(lineChartHeight - pY * lineChartHeight);
+                    let y = Math.round(lineChartHeight - pY * lineChartHeight);
                     linePath += rowIndex === 0 ? 
                                     `M${x},${y}` :
                                     `L${x},${y}`;
@@ -107,9 +107,9 @@ export default (p) => {
                 <svg
                     width={lineChartWidth}
                     height={lineChartHeight}
-                    shepe-rendering={'crispEdges'}
                     style={{
                         position: 'absolute',
+                        shapeRendering: 'crispedges',
                         bottom: 0,
                     }}
                 >
