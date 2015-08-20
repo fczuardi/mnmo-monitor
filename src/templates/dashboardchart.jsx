@@ -3,8 +3,7 @@ import merge from 'lodash/object/merge';
 
 import tableStyles from '../styles/tablestyles';
 
-const smallColumnWidth = 60;
-const mediumColumnWidth = 106;
+const chartTopPadding = 50;
 
 export default (p) => {
     let columnColors = tableStyles(p).columnColors;
@@ -22,25 +21,32 @@ export default (p) => {
         width: 2 * p.columnWidth - 1,
         minWidth: 2 * p.columnWidth - 1,
     };
-    let emptyCell = p.ui.isMobile ? null : (
+    let emptyCell = (
         <td key="first" style={cellStyle}></td>
     );
     let groupID = p.groups.selected === null ? '' :
                 p.groups.selected.secondaryId !== -1 ?
                 p.groups.selected.secondaryId : p.groups.selected.id;
-    console.log('p.rows.data[0]', p.rows.data[0]);
     let firstRowCells = p.rows.data[0] ? p.rows.data[0] : [];
-    let data = firstRowCells.map( (cellValue) => {
-        let value = parseFloat(cellValue.split('|')[0]);
-        return isNaN(parseFloat(value)) ? 0 : value
+    
+    let textData = [],
+        data = [];
+    
+    
+    firstRowCells.forEach( (cellValue) => {
+        let values = cellValue.split('|');
+        let parsedValues = values.map( value => parseFloat(values[0]));
+        let secondary = values[1] || null;
+        textData.push(values);
+        data.push([
+            isNaN(parsedValues[0]) ? 0 : parsedValues[0],
+            isNaN(parsedValues[1]) ? 0 : parsedValues[1]
+        ]);
     });
-    console.log('data', data);
     let maxValue = data.reduce( (pastValue, value) => {
-        return Math.max(pastValue, value);
+        return Math.max(pastValue, value[0]);
     }, 0);
-    let chartTopPadding = 50;
     let maxPixelValue = p.chartHeight - chartTopPadding;
-    console.log('maxValue', maxValue);
     let row = (
         <tr
             style={{
@@ -50,9 +56,10 @@ export default (p) => {
         {emptyCell}
         {p.columns.enabled.map( (column, key) => {
             let backgroundColor = columnColors[(key % columnColors.length)];
-            let value = data[key] || 0;
-            let valuePercent = value / maxValue;
+            let values = data[key] ? data[key] : [0, 0];
+            let valuePercent = values[0] / maxValue;
             let valuePixels = Math.ceil(valuePercent * maxPixelValue);
+            let textValues = textData[key] ? textData[key] : ['', ''];
             return (
             <td key={key} style={cellStyle}>
                 <div
@@ -64,6 +71,33 @@ export default (p) => {
                         height: valuePixels
                     }}
                 >
+                    <p
+                        style={{
+                            position: 'absolute',
+                            right: 10,
+                            top: 0,
+                            textAlign: 'right',
+                            fontSize: 17,
+                            marginTop: - (10 + 17),
+                            color: '#FFFFFF'
+                        }}
+                    >
+                        {textValues[0]}
+                    </p>
+                    <p
+                        style={{
+                            position: 'absolute',
+                            right: 10,
+                            top: 0,
+                            textAlign: 'right',
+                            fontSize: 12,
+                            marginTop: - (28 + 12),
+                            color: '#FFFFFF',
+                            opacity: 0.5
+                        }}
+                    >
+                        {(values[1] > 0) ? textValues[1] + '%' : ''}
+                    </p>
                 </div>
             </td>
             );
