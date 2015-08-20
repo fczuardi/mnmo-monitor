@@ -23,9 +23,7 @@
                 "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169907/kitchen-coffee-perc.png",
                 "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/212651/Game-Controller-Outline-White.png"
             }
-        }
-    ],
-    "disabled": [
+        },
         {
             "id": 2,
             "label": "C"
@@ -43,7 +41,9 @@
                 "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169910/kitchen-egg.png",
                 "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/191507/1393792283.png"
             }
-        },
+        }
+    ],
+    "disabled": [
         {
             "id": 4,
             "label": "My Cupcake is very special",
