@@ -126,6 +126,7 @@ var options = {
         './js/styles/tablestyles.js',
         './js/components/datatable.js',
         './js/components/dashboardchart.js',
+        './js/components/detailchart.js',
         './js/components/networkmessages.js',
         './js/components/errordialog.js',
         './js/components/dashboard.js',

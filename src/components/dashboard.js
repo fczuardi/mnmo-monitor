@@ -51,7 +51,8 @@ class Dashboard {
                                     appHeaderHeight - 
                                     thumbnailsRowHeight - 
                                     sliderHeight -
-                                    p.tableHeight;
+                                    p.tableHeight -
+                                    tableTitleHeight;
             }else{
                 p.tableHeight -= thumbnailsRowHeight;
             }

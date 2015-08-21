@@ -11,7 +11,8 @@ export default (p) => {
         position: 'relative',
         borderRight: '1px solid #000',
         width: p.columnWidth - 1,
-        minWidth: p.columnWidth - 1
+        minWidth: p.columnWidth - 1,
+        backgroundColor: 'rgba(0,0,0,0.8)'
     };
     let mobileCellStyle = {
         height: p.rowHeight,
@@ -22,7 +23,7 @@ export default (p) => {
         minWidth: 2 * p.columnWidth - 1,
     };
     let imageStyle = {
-        width: '100%',
+        height: '100%',
         top: 0
     };
     if (p.ui.isMobile){
@@ -57,7 +58,8 @@ export default (p) => {
             <div 
                 key={key}
                 style={{
-                    height: p.ui.isMobile ? 60 : 120
+                    height: p.ui.isMobile ? 60 : 120,
+                    width: p.ui.isMobile ? mobileCellStyle.width: cellStyle.width
                 }}
             >
             <img 

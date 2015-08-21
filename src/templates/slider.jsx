@@ -4,10 +4,13 @@ export default (p) =>
     id="table-slider"
     className="slider"
     style={{
-        marginLeft: p.columnWidth,
-        width: p.tableWidth - p.columnWidth - 30,
+        // marginLeft: p.columnWidth,
+        // paddingRight: 30,
+        // width: p.tableWidth - p.columnWidth - 30,
+        width: '100%',
         height: 30,
-        position: 'relative'
+        position: 'relative',
+        backgroundColor: 'rgba(0,0,0,0.8)'
     }}
 >
     <div 
@@ -15,9 +18,10 @@ export default (p) =>
         style={{
             backgroundColor: '#28292A',
             height: 2,
-            width: '100%',
             position: 'absolute',
             top: 13,
+            width: p.tableWidth - 60,
+            left: 30,
             border: '1px solid #000000'
         }}
     />
@@ -28,6 +32,8 @@ export default (p) =>
             height: 2,
             position: 'absolute',
             top: 13,
+            width: p.tableWidth - 60,
+            left: 30,
             border: '1px solid #2c2d2d'
         }}
     />

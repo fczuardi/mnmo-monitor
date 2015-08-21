@@ -84,8 +84,7 @@ class Slider {
         //     keys(this.props.vars.combos).length
         // ));
 
-        sliderEnabledRegion.style.width = '100%';
-        let x0 = percent * sliderElement.offsetWidth;
+        let x0 = 30 + percent * sliderEnabledRegion.offsetWidth;
         sliderHandleElement.style.webkitTransform =
         sliderHandleElement.style.transform =
           'translate(' + x0 + 'px, ' + '0px)';
