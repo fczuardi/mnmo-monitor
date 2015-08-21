@@ -31,13 +31,15 @@ export default (p) => {
     let groupID = p.groups.selected === null ? '' :
                 p.groups.selected.secondaryId !== -1 ?
                 p.groups.selected.secondaryId : p.groups.selected.id;
-    let firstRowCells = p.rows.data[0] ? p.rows.data[0] : [];
+    let firstRowIndex = (p.rows.type === 'merged' && 
+                        p.user.autoUpdate === true) ? 1 : 0;
+    let firstRowCells = p.rows.data[firstRowIndex] ? p.rows.data[firstRowIndex] : [];
     //create an array of n empty arrays where n = number of columns
     let columns = firstRowCells.map( () => ([]) ); 
 
     let maxValue = 0; //max value in the past 15min
     p.rows.data.forEach( (row, rowIndex) => {
-        if (rowIndex >= lineChartLength) { return; }
+        if (rowIndex >= lineChartLength || rowIndex <= firstRowIndex) { return; }
         row.forEach( (cell, index) => {
             let value = parseData(cell)[0];
             columns[index].push(value);
@@ -81,10 +83,10 @@ export default (p) => {
                     let x = Math.round(pX * lineChartWidth); 
                     let pY = value / maxValue;
                     let y = Math.round((lineChartHeight - 2) - pY * (lineChartHeight - 2)) + 1;
-                    linePath += rowIndex === 0 ? 
-                                    `M${x},${y}` :
-                                    `L${x},${y}`;
+                    linePath += `L${x},${y}`;
                 });
+                linePath = 'M' + linePath.substring(1);
+                // console.log('linePath', key, linePath);
                 svgLine = (
                     <svg
                         width={lineChartWidth}
@@ -156,7 +158,8 @@ export default (p) => {
                             backgroundColor: '#FFFFFF',
                             borderRadius: 5,
                             top: -2,
-                            right: -2
+                            right: -2,
+                            zIndex: 1
                         }}
                     ></div>
                 </div>
