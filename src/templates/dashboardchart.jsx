@@ -1,6 +1,7 @@
 import React from 'react';
 import merge from 'lodash/object/merge';
 
+import {varTypes} from '../../config/apiHelpers';
 import tableStyles from '../styles/tablestyles';
 
 const chartTopPadding = 50;
@@ -16,10 +17,11 @@ function parseData(valueString){
     ]);
 }
 export default (p) => {
+    const isPercent = varTypes[p.vars.combo.first] === 'percent';
     let columnColors = tableStyles(p).columnColors;
     let cellStyle = {
         position: 'relative',
-        borderRight: '1px solid #000',
+        // borderRight: '1px solid #000',
         width: p.columnWidth - 1,
         minWidth: p.columnWidth - 1
     };
@@ -63,24 +65,77 @@ export default (p) => {
             let backgroundColor = columnColors[(key % columnColors.length)];
             let values = data[key] ? data[key] : [0, 0];
             let valuePercent = values[0] / maxValue;
-            let valuePixels = Math.ceil(valuePercent * maxPixelValue);
+            let valuePixels = isPercent ? 10 : Math.ceil(valuePercent * maxPixelValue);
             let textValues = firstRowCells[key] ? firstRowCells[key].split('|') : ['', ''];
             let lineChartWidth = cellStyle.width;
             let lineChartHeight = maxPixelValue;
             let dataHistory = columns[key];
-            let linePath = '';
-            if (dataHistory !== undefined) {
+            let svgLine = null;
+            let mainTextValue = null;
+            let secondaryTextValue = null;
+            
+            if (!isPercent && dataHistory !== undefined) {
+                let linePath = '';
                 dataHistory.forEach( (value, rowIndex) => {
                     let pX = (dataHistory.length - 1 - rowIndex) / (dataHistory.length - 1);
                     let x = Math.round(pX * lineChartWidth); 
                     let pY = value / maxValue;
-                    let y = Math.round(lineChartHeight - pY * lineChartHeight);
+                    let y = Math.round((lineChartHeight - 2) - pY * (lineChartHeight - 2)) + 1;
                     linePath += rowIndex === 0 ? 
                                     `M${x},${y}` :
                                     `L${x},${y}`;
                 });
+                svgLine = (
+                    <svg
+                        width={lineChartWidth}
+                        height={lineChartHeight}
+                        style={{
+                            position: 'absolute',
+                            shapeRendering: 'crispedges',
+                            bottom: 0,
+                        }}
+                    >
+                        <path
+                            d={linePath}
+                            stroke={'white'}
+                            strokeWidth={1}
+                            fill={'none'}
+                        >
+                        </path>
+                    </svg>
+                );
+                mainTextValue = (
+                    <p
+                        style={{
+                            position: 'absolute',
+                            right: 10,
+                            top: 0,
+                            textAlign: 'right',
+                            fontSize: 17,
+                            marginTop: - (10 + 17),
+                            color: '#FFFFFF'
+                        }}
+                    >
+                        {textValues[0]}
+                    </p>
+                );
+                secondaryTextValue = (
+                    <p
+                        style={{
+                            position: 'absolute',
+                            right: 10,
+                            top: 0,
+                            textAlign: 'right',
+                            fontSize: 12,
+                            marginTop: - (28 + 12),
+                            color: '#FFFFFF',
+                            opacity: 0.5
+                        }}
+                    >
+                        {(values[1] > 0) ? textValues[1] + '%' : ''}
+                    </p>
+                );
             }
-
             return (
             <td key={key} style={cellStyle}>
                 <div
@@ -94,6 +149,7 @@ export default (p) => {
                 >
                     <div
                         style={{
+                            display: isPercent ? 'none' : 'block',
                             width: 5,
                             height: 5,
                             position: 'absolute',
@@ -104,50 +160,9 @@ export default (p) => {
                         }}
                     ></div>
                 </div>
-                <svg
-                    width={lineChartWidth}
-                    height={lineChartHeight}
-                    style={{
-                        position: 'absolute',
-                        shapeRendering: 'crispedges',
-                        bottom: 0,
-                    }}
-                >
-                    <path
-                        d={linePath}
-                        stroke={'white'}
-                        strokeWidth={1}
-                        fill={'none'}
-                    >
-                    </path>
-                </svg>
-                <p
-                    style={{
-                        position: 'absolute',
-                        right: 10,
-                        top: 0,
-                        textAlign: 'right',
-                        fontSize: 17,
-                        marginTop: - (10 + 17),
-                        color: '#FFFFFF'
-                    }}
-                >
-                    {textValues[0]}
-                </p>
-                <p
-                    style={{
-                        position: 'absolute',
-                        right: 10,
-                        top: 0,
-                        textAlign: 'right',
-                        fontSize: 12,
-                        marginTop: - (28 + 12),
-                        color: '#FFFFFF',
-                        opacity: 0.5
-                    }}
-                >
-                    {(values[1] > 0) ? textValues[1] + '%' : ''}
-                </p>
+                {svgLine}
+                {mainTextValue}
+                {secondaryTextValue}
             </td>
             );
         })}
