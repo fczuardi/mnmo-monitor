@@ -11,9 +11,11 @@ const defaultPercentProps = {
 };
 
 export default (content, rowKey, cellKey, p) => {
-    let varsCount = keys(p.vars.combos).length + 1; // +1 for the added separators
+    let tableHasSeparators = (p.rows.type === 'detailed' && !p.ui.chartVisible);
+    let firstRowWithValue = tableHasSeparators ? 1 : 0;
+    let varsCount = keys(p.vars.combos).length + firstRowWithValue; // +1 for the added separators
     const isPercent = (enumValue) => (p.rows.type === 'detailed') ? 
-                        (rowKey % varsCount !== 1) :
+                        (rowKey % varsCount !== firstRowWithValue) :
                         (varTypes[p.vars.combo[enumValue]] === 'percent');
     const getValue = (v, enumValue) => {
         return !isNaN(parseFloat(v)) ? 

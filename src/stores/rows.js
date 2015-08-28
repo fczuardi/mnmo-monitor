@@ -44,6 +44,7 @@ class RowsStore extends Store {
             menuLabel: '…', //the little clock on the header
             headers: [], //row headers
             data: [],
+            columns: [],
             date: '',
             loading: true
         };
@@ -340,6 +341,24 @@ class RowsStore extends Store {
         };
     }
     
+    getColumnsFromRows(rows){
+        console.log('getColumnsFromRows r', rows);
+        let firstRowCells = rows[0] ? rows[0] : [];
+        let columns = firstRowCells.map( () => ([]) ); 
+        for (var r = 0; r < rows.length; r += 1){
+            let row = rows[r];
+            if (row === undefined) {
+                break;
+            }
+            row.forEach( (cell, index) => {
+                let value = cell;
+                columns[index].push(value);
+            });
+        }
+        console.log('getColumnsFromRows', columns);
+        return columns;
+    }
+    
     updateMenuLabel(data) {
         // console.log('updateMenuLabel', data);
         if (data.rows === undefined || data.rows.data === null ||
@@ -356,12 +375,14 @@ class RowsStore extends Store {
         let newRows = data.rows.data;
         let newHeaders = data.rows.headers;
         let mergedData = this.updateRows(newHeaders, newRows);
+        let columns = this.getColumnsFromRows(mergedData.rows);
         // console.log('mergedData', mergedData.rows.length, mergedData.headers.length);
         let newLabel = mergedData.headers[0] ? mergedData.headers[0][0] : null;
         this.setState({
             menuLabel: (newLabel || '-'),
             headers: mergedData.headers,
             data: mergedData.rows,
+            columns: columns,
             date: data.date,
             lastLoad: new Date().getTime(),
             loading: false

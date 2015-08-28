@@ -1,4 +1,5 @@
 import React from 'react';
+import keys from 'lodash/object/keys';
 import tableStyles from '../styles/tablestyles';
 import {varTypes} from '../../config/apiHelpers';
 
@@ -16,38 +17,58 @@ function parseData(valueString){
 
 export default (p) => {
     const isPercent = varTypes[p.vars.combo.first] === 'percent';
+    let varsCount = keys(p.vars.combos).length;
     let columnColors = tableStyles(p).columnColors;
-    let firstRowCells = p.rows.data[0] ? p.rows.data[0] : [];
-    let columns = firstRowCells.map( () => ([]) ); 
-    let maxValue = 0; //max value in the past 15min
-    p.rows.data.forEach( (row, rowIndex) => {
-        row.forEach( (cell, index) => {
+    let fullColumns = p.rows.columns.map( (c, index) => {
+        return c.map( (cell, cellIndex) => {
             let value = parseData(cell)[0];
-            columns[index].push(value);
             maxValue = Math.max(maxValue, value);
-        });
+            return value;
+        })
     });
-    let chartWidth = p.ui.screenWidth;
-    let chartHeight = p. chartHeight;
+    let columns = [];
+    let maxValue = 0; //max value in the past 15min
+    for (var i = 0; i < fullColumns.length; i++){
+        let col = fullColumns[i];
+        let newCol = [];
+        for (var j= col.length - 1; j >= 0 ; j -= 1){
+            if (
+                (j < p.ui.lastVisibleRow) &&
+                (j % varsCount === 0) 
+            ){
+                let value = col[j];
+                maxValue = Math.max(maxValue, value);
+                newCol.push(value);
+            }
+        }
+        columns.push(newCol);
+    }
+    // console.log('fullColumns', fullColumns);
+    // console.log('columns', columns);
+    let chartWidth = p.ui.screenWidth - 60;
+    let chartHeight = p. chartHeight - chartTopPadding;
     return (
         <svg
             width={chartWidth}
             height={p.chartHeight}
             style={{
                 bottom: 0,
-                overflow: 'hidden',
-                backgroundColor: 'rgba(255, 255, 255, 0.3)'
+                marginLeft: 30,
+                // backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                overflow: 'hidden'
             }}
         >
             {columns.map( (column, index) => {
-                if(isPercent && column === 100) {
-                    return null;
-                }
                 let backgroundColor = columnColors[(index % columnColors.length)];
-                let points = column.map( (cell, index) => {
+                let points = column.map( (cell, cellIndex) => {
                     let percentY = cell / maxValue;
-                    let percentX = (column.length - 1 - index) / (column.length - 1)
-                    return `L${percentX * chartWidth}, ${chartHeight - percentY * chartHeight }`;
+                    let percentX = (column.length - 1 - cellIndex) / (column.length - 1);
+                    let scaledPercentX = Math.sin(percentX * Math.PI/2);
+                    // let x = percentX * chartWidth;
+                    // console.log('percentX', percentX, scaledPercentX);
+                    let x = chartWidth - scaledPercentX * chartWidth;
+                    let y = chartTopPadding + chartHeight - percentY * chartHeight;
+                    return `L${x}, ${y} `;
                 });
                 let linePath = 'M' + points.join(' ').substring(1);
                 return (
