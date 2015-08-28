@@ -70,12 +70,13 @@ export default (p) => {
                     let y = chartTopPadding + chartHeight - percentY * chartHeight;
                     return `L${x}, ${y} `;
                 });
+                let strokeWidth = p.columns.selected === index ? 8 : 1;
                 let linePath = 'M' + points.join(' ').substring(1);
                 return (
                     <path
                         key={index}
                         d={linePath}
-                        strokeWidth={1}
+                        strokeWidth={strokeWidth}
                         stroke={backgroundColor}
                         fill='none'
                     >
