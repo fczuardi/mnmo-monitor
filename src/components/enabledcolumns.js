@@ -38,8 +38,9 @@ class EnabledColumns {
         document.getElementById('menu-container').removeEventListener('scroll', onScroll);
         document.getElementById('menu-container').addEventListener('scroll', onScroll);
         
+        interact.dynamicDrop(true);
         this.interactable = interact('.handle', {
-            context: listElement,
+            context: listElement
         })
         .draggable({
             max: Infinity,
@@ -88,7 +89,7 @@ class EnabledColumns {
         })
         .dropzone({
             accept: '.handle',
-            overlap: 0.1,
+            overlap: 'center',
             ondragenter: function (event) {
                 var draggableElement = event.relatedTarget.parentNode,
                     dropzoneElement = event.target.parentNode,

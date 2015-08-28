@@ -5,44 +5,8 @@
             "label": "AAAAAA"
         },
         {
-            "id": 0,
-            "label": "ABAAAAA",
-            "icons": {
-                "menu": "https://openclipart.org/download/169907/kitchen-coffee-perc.svg",
-                "table": "https://openclipart.org/download/212651/Game-Controller-Outline-White.svg",
-                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169907/kitchen-coffee-perc.png",
-                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/212651/Game-Controller-Outline-White.png"
-            },
-            "iconError": true
-        },
-        {
             "id": 3,
             "label": "D"
-        },
-        {
-            "id": 2,
-            "label": "C"
-        },
-        {
-            "id": 4,
-            "label": "My Cupcake is very special",
-            "icons": {
-                "menu": "https://openclipart.org/download/169936/kitchen-dinercoffee.svg",
-                "table": "https://openclipart.org/download/191506/bunny.svg",
-                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169936/kitchen-dinercoffee.png",
-                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/191506/bunny.png"
-            }
-        },
-        {
-            "id": 5,
-            "label": "BEBAAA",
-            "icons": {
-                "menu": "https://openclipart.org/download/169911/kitchen-fish.svg",
-                "table": "https://openclipart.org/download/193560/1400625045.svg",
-                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169911/kitchen-fish.png",
-                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/193560/1400625045.png"
-            },
-            "iconError": true
         },
         {
             "id": 6,
@@ -56,6 +20,42 @@
             "iconError": true
         },
         {
+            "id": 4,
+            "label": "My Cupcake is very special",
+            "icons": {
+                "menu": "https://openclipart.org/download/169936/kitchen-dinercoffee.svg",
+                "table": "https://openclipart.org/download/191506/bunny.svg",
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169936/kitchen-dinercoffee.png",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/191506/bunny.png"
+            }
+        },
+        {
+            "id": 0,
+            "label": "ABAAAAA",
+            "icons": {
+                "menu": "https://openclipart.org/download/169907/kitchen-coffee-perc.svg",
+                "table": "https://openclipart.org/download/212651/Game-Controller-Outline-White.svg",
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169907/kitchen-coffee-perc.png",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/212651/Game-Controller-Outline-White.png"
+            },
+            "iconError": true
+        },
+        {
+            "id": 5,
+            "label": "BEBAAA",
+            "icons": {
+                "menu": "https://openclipart.org/download/169911/kitchen-fish.svg",
+                "table": "https://openclipart.org/download/193560/1400625045.svg",
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169911/kitchen-fish.png",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/193560/1400625045.png"
+            },
+            "iconError": true
+        },
+        {
+            "id": 2,
+            "label": "C"
+        },
+        {
             "id": 1,
             "label": "hasLegacyIcon",
             "icons": {
@@ -67,5 +67,5 @@
         }
     ],
     "disabled": [],
-    "selected": 0
+    "selected": 2
 }
