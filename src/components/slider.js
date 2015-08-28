@@ -47,7 +47,7 @@ class Slider {
         if (this.interactable.isDragging === true){
             return;
         }
-        // let userActions = this.props.flux.getActions('user');
+        let userActions = this.props.flux.getActions('user');
         let tableContentElement = document.getElementById('table-contents');
 
         //the current minute is located at what percentage of the full table?
@@ -63,7 +63,6 @@ class Slider {
         //which means that a change in the handler position at the right-hand side
         //of the slider has more precision, minutes than at the far
         //left side where the same distance means hours
-        // let sliderPositionPercent = Math.sin(tablePositionPercent * Math.PI/2);
         let sliderPositionPercent = Math.sqrt(tablePositionPercent);
         
         let percent = 1 - sliderPositionPercent;
@@ -85,44 +84,41 @@ class Slider {
         //     keys(this.props.vars.combos).length
         // ));
 
+        let xMax = 30 + sliderEnabledRegion.offsetWidth;
         let x0 = 30 + percent * sliderEnabledRegion.offsetWidth;
         sliderHandleElement.style.webkitTransform =
         sliderHandleElement.style.transform =
           'translate(' + x0 + 'px, ' + '0px)';
         sliderHandleElement.setAttribute('data-x', x0);
+        
         interact('.handle', {context: sliderElement}).unset();
+        this.interactable = interact('.handle', {
+            context: sliderElement,
+        })
+        .draggable({
+            max: Infinity,
+            inertia: false,
+            axis: 'x',
+            onmove: function(event){
+                var target = event.target,
+                    // keep the dragged position in the data-x/data-y attributes
+                    x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                    limitedX = Math.max(30, Math.min(xMax, x));
+                // translate the element
+                target.style.webkitTransform =
+                target.style.transform =
+                  'translate(' + limitedX + 'px, ' + '0px)';
+                let percent = 1 - (limitedX - 30) / (xMax - 30);
+                userActions.sliderScroll(Math.pow(percent, 2));
+                // update the posiion attributes
+                target.setAttribute('data-x', limitedX);
+                this.isDragging = true;
+            },
+            onend: function(){
+                this.isDragging = false;
+            }
+        });
         return false;
-        // this.interactable = interact('.handle', {
-        //     context: sliderElement,
-        // })
-        // .draggable({
-        //     max: Infinity,
-        //     inertia: false,
-        //     autoScroll: true,
-        //     restrict: {
-        //         restriction: "parent",
-        //         endOnly: true
-        //     },
-        //     axis: 'x',
-        //     onmove: function(event){
-        //         var target = event.target,
-        //             parent = target.parentNode,
-        //             // keep the dragged position in the data-x/data-y attributes
-        //             x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-        //             limitedX = Math.max(0, Math.min(parent.offsetWidth, x));
-        //         // translate the element
-        //         target.style.webkitTransform =
-        //         target.style.transform =
-        //           'translate(' + limitedX + 'px, ' + '0px)';
-        //         userActions.sliderScroll(limitedX / parent.offsetWidth);
-        //         // update the posiion attributes
-        //         target.setAttribute('data-x', limitedX);
-        //         this.isDragging = true;
-        //     },
-        //     onend: function(){
-        //         this.isDragging = false;
-        //     }
-        // });
     }
 }
 

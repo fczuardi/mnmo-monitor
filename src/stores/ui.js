@@ -67,6 +67,7 @@ class UIStore extends Store {
         this.scrollUpdate = this.scrollUpdate.bind(this);
         this.addListener('change', this.stopTicking);
         this.rowStateChanged = this.rowStateChanged.bind(this);
+        this.sliderTableScroll = this.sliderTableScroll.bind(this);
         this.rowsStore.addListener('change', this.rowStateChanged);
         this.previousLoadingState = this.rowsStore.state.loading;
     }
@@ -322,6 +323,11 @@ class UIStore extends Store {
         }
         this.stopTicking();
     }
+    scrollMainTable(){
+        let tableContents = document.getElementById('table-contents');
+        tableContents.scrollTop = this.coordY;
+        this.stopTicking();
+    }
     changeTableScroll(coord){
         this.coordX = coord.left;
         this.coordY = coord.top;
@@ -331,21 +337,28 @@ class UIStore extends Store {
         }
     }
     sliderTableScroll(percent){
+
         let tableContents = document.getElementById('table-contents'),
             maxYScroll = (
                 tableContents.scrollHeight - 
                 tableContents.offsetHeight - 
                 INFINITE_SCROLL_THRESHOLD 
             ),
-            // variablesCount = keys(this.variablesStore.state.combos).length,
-            newY = maxYScroll * (1 - percent);
-        // if (this.rowsStore.state.type === 'detailed'){
-        //     let pages = this.rowsStore.state.headers.length / variablesCount,
-        //         page = Math.ceil((1 - percent) * pages),
-        //         pageHeight = tableContents.offsetHeight - 1;
-        //     newY = Math.min(page * pageHeight, maxYScroll);
-        // }
-        tableContents.scrollTop = newY;
+        //     // variablesCount = keys(this.variablesStore.state.combos).length,
+            newY = maxYScroll * percent;
+        // // if (this.rowsStore.state.type === 'detailed'){
+        // //     let pages = this.rowsStore.state.headers.length / variablesCount,
+        // //         page = Math.ceil((1 - percent) * pages),
+        // //         pageHeight = tableContents.offsetHeight - 1;
+        // //     newY = Math.min(page * pageHeight, maxYScroll);
+        // // }
+        // tableContents.scrollTop = newY;
+        if (!this.ticking) {
+            this.coordY = newY;
+            this.ticking = true;
+            window.requestAnimationFrame(this.scrollMainTable.bind(this));
+        }
+        return false;
     }
 }
 

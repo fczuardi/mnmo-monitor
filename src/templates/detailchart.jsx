@@ -69,6 +69,7 @@ export default (p) => {
         let width = Math.max(0, nextX - x - 1);
         return width <= 0 ? null : (
             <rect
+                key={index}
                 x={x}
                 y={0}
                 width={width}
