@@ -70,7 +70,6 @@ export default (p) => {
             let valuePercent = maxValue > 0 ? values[0] / maxValue : 0;
             pieValues.push(values[0]);
             pieSum += values[0] < 100 ? values[0] : 0;
-            console.log('pieSum', pieSum);
             lastPiePieceValue -= values[0] === 100 ? 0 : values[0];
             let valuePixels = isPercent || maxValue === 0 ? 10 : Math.ceil(valuePercent * maxPixelValue);
             // console.log('valuePixels', key, valuePercent, values[0], maxValue, valuePixels, valuePercent, maxPixelValue);
@@ -203,9 +202,9 @@ export default (p) => {
             width={pieChartWidth}
             height={pieChartHeight}
             style={{
-                position: 'absolute',
+                position: 'fixed',
                 // shapeRendering: 'crispedges',
-                bottom: 20,
+                top: 60,
             }}
         >
             {pieValues.map( (value, index) => {
@@ -213,10 +212,14 @@ export default (p) => {
                 let percent = value / pieSum;
                 let backgroundColor = columnColors[(index % columnColors.length)];
                 endAngle = startAngle + percent * (2 * Math.PI);
-                let x1 = Math.round(centerX + rx * Math.cos(startAngle));
-                let x2 = Math.round(centerX + rx * Math.cos(endAngle));
-                let y1 = Math.round(centerY + rx * Math.sin(startAngle));
-                let y2 = Math.round(centerY + rx * Math.sin(endAngle));
+                if (percent > 0.999){
+                    console.log('one single value');
+                    endAngle *= 0.999;
+                }
+                let x1 = (centerX + rx * Math.cos(startAngle));
+                let x2 = (centerX + rx * Math.cos(endAngle));
+                let y1 = (centerY + rx * Math.sin(startAngle));
+                let y2 = (centerY + rx * Math.sin(endAngle));
                 let largeArc = percent > 0.5 ? 1 : 0;
                 // console.log('value, pieSum, percent', value, pieSum, percent, largeArc);
                 let piePath = `M${centerX},${centerY} L${x1},${y1} A${rx} ${ry} 0 ${largeArc} 1 ${x2} ${y2} z`;
@@ -224,6 +227,7 @@ export default (p) => {
                 startAngle = endAngle;
                 return (
                     <path
+                        key={index}
                         d={piePath}
                         strokeWidth={1}
                         fill={backgroundColor}
@@ -237,6 +241,7 @@ export default (p) => {
 
     return (
         <div
+            id="column-bars"
             style={{
                 width: p.ui.screenWidth,
                 overflow: 'hidden'

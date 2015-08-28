@@ -1,6 +1,7 @@
 import React from 'react';
 import Toolbar from 'mnmo-components/lib/themes/mnmo/toolbar';
 import ToolbarButton from 'mnmo-components/lib/themes/mnmo/toolbarbutton';
+import {groupTypeLabels} from '../../config/apiHelpers';
 
 export default (p, a) => {
     let formatTime = (text) => (text.substring(0, 2) + ':' + text.substring(2, 4));
@@ -10,6 +11,12 @@ export default (p, a) => {
                 type="menuToggle"
                 onClick={a.menuToggleClicked}
             />
+            <div
+                style={{
+                    display: 'inline',
+                    position:'relative'
+                }}
+            >
             <ToolbarButton
                 type={p.ui.isMobile ? null : 'dialogToggle'}
                 onClick={a.groupsButtonClicked}
@@ -17,6 +24,20 @@ export default (p, a) => {
             >
                 {p.user.groupShortLabel || '…'}
             </ToolbarButton>
+            <span
+                style={{
+                    color: '#c3980b',
+                    fontSize: 8,
+                    position: 'absolute',
+                    right: 26,
+                    bottom: -19,
+                    fontWeight: 700,
+                    letterSpacing: 1.5
+                }}                
+            >
+                {p.groups.selected ? groupTypeLabels[p.groups.selected.type] : ''}
+            </span>
+            </div>
         </div>
     );
     let center = (

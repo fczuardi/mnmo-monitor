@@ -352,7 +352,9 @@ class RowsStore extends Store {
             }
             row.forEach( (cell, index) => {
                 let value = cell;
-                columns[index].push(value);
+                if (Array.isArray(columns[index])){
+                    columns[index].push(value);
+                }
             });
         }
         console.log('getColumnsFromRows', columns);

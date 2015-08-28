@@ -191,7 +191,9 @@ class UIStore extends Store {
         let tableheaders = document.getElementById('table-headers'),
             rowheaders = document.getElementById('row-headers'),
             tableContents = document.getElementById('table-contents'),
-            tableImages = document.getElementById('table-images') || {};
+            tableImages = document.getElementById('table-images') || {},
+            columnBars = document.getElementById('column-bars') || {};
+            
         this.coordY = 
         this.coordX = 
         tableheaders.scrollTop = 
@@ -201,7 +203,8 @@ class UIStore extends Store {
         tableContents.scrollTop = 
         tableContents.scrollLeft = 
         tableImages.scrollTop = 
-        tableImages.scrollLeft = 0;
+        tableImages.scrollLeft = 
+        columnBars.scrollLeft = 0;
         this.setState({
             lastVisibleRow: ROWS_PAGE_SIZE
         });
@@ -266,6 +269,7 @@ class UIStore extends Store {
             rowheaders = document.getElementById('row-headers'),
             tableContents = document.getElementById('table-contents'),
             tableImages = document.getElementById('table-images'),
+            columnBars = document.getElementById('column-bars') || {},
             // sliderElement = document.getElementById('table-slider'),
             // sliderHandleElement = document.getElementById('table-slider-handle'),
             maxYScroll = (tableContents.scrollHeight - 
@@ -281,6 +285,9 @@ class UIStore extends Store {
         rowheaders.scrollTop = this.coordY;
         if (tableImages) {
             tableImages.scrollLeft = this.coordX;
+        }
+        if (columnBars) {
+            columnBars.scrollLeft = this.coordX;
         }
 
         // if (this.rowsStore.state.type === 'detailed') {
