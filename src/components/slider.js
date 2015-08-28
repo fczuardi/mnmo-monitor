@@ -63,7 +63,8 @@ class Slider {
         //which means that a change in the handler position at the right-hand side
         //of the slider has more precision, minutes than at the far
         //left side where the same distance means hours
-        let sliderPositionPercent = Math.sin(tablePositionPercent * Math.PI/2);
+        // let sliderPositionPercent = Math.sin(tablePositionPercent * Math.PI/2);
+        let sliderPositionPercent = Math.sqrt(tablePositionPercent);
         
         let percent = 1 - sliderPositionPercent;
         

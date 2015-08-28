@@ -342,7 +342,7 @@ class RowsStore extends Store {
     }
     
     getColumnsFromRows(rows){
-        console.log('getColumnsFromRows r', rows);
+        // console.log('getColumnsFromRows r', rows);
         let firstRowCells = rows[0] ? rows[0] : [];
         let columns = firstRowCells.map( () => ([]) ); 
         for (var r = 0; r < rows.length; r += 1){
@@ -357,7 +357,7 @@ class RowsStore extends Store {
                 }
             });
         }
-        console.log('getColumnsFromRows', columns);
+        // console.log('getColumnsFromRows', columns);
         return columns;
     }
     

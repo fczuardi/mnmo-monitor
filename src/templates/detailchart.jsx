@@ -47,6 +47,37 @@ export default (p) => {
     // console.log('columns', columns);
     let chartWidth = p.ui.screenWidth - 60;
     let chartHeight = p. chartHeight - chartTopPadding;
+    let firstColumn = columns[0];
+    let chartDivisions = firstColumn.map( (cell, cellIndex) => {
+        let percentX = (firstColumn.length - 1 - cellIndex) / (firstColumn.length - 1);
+        // let scaledPercentX = Math.sin(percentX * Math.PI/2);
+        let scaledPercentX = Math.sqrt(percentX);
+        let x = chartWidth - scaledPercentX * chartWidth;
+        return Math.round(x);
+    });
+    let divisionElements = chartDivisions.map( (x, index) => {
+        if (index === chartDivisions.length - 1){
+            return null;
+        }
+        let headerIndex = varsCount * (chartDivisions.length - 2 - index);
+        let nextX = chartDivisions[index + 1];
+        let type = p.rows.headers[headerIndex] ? p.rows.headers[headerIndex][2] : 0;
+        let fillColor = type === '1' ? '#5A0000' :
+                        type === '2' ? '#003C5A' :
+                        '#444444';
+        let fillOpacity = 0.4;
+        let width = Math.max(0, nextX - x - 1);
+        return width <= 0 ? null : (
+            <rect
+                x={x}
+                y={0}
+                width={width}
+                height={p.chartHeight}
+                fill={fillColor}
+                fillOpacity={fillOpacity}
+            />
+        );
+    });
     return (
         <svg
             width={chartWidth}
@@ -54,19 +85,16 @@ export default (p) => {
             style={{
                 bottom: 0,
                 marginLeft: 30,
-                // backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                backgroundColor: 'rgba(0, 0, 0, 0.6)',
                 overflow: 'hidden'
             }}
         >
+            {divisionElements}
             {columns.map( (column, index) => {
                 let backgroundColor = columnColors[(index % columnColors.length)];
                 let points = column.map( (cell, cellIndex) => {
                     let percentY = cell / maxValue;
-                    let percentX = (column.length - 1 - cellIndex) / (column.length - 1);
-                    let scaledPercentX = Math.sin(percentX * Math.PI/2);
-                    // let x = percentX * chartWidth;
-                    // console.log('percentX', percentX, scaledPercentX);
-                    let x = chartWidth - scaledPercentX * chartWidth;
+                    let x = chartDivisions[cellIndex];
                     let y = chartTopPadding + chartHeight - percentY * chartHeight;
                     return `L${x}, ${y} `;
                 });
