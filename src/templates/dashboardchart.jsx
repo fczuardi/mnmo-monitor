@@ -159,7 +159,8 @@ export default (p) => {
                             opacity: 0.5
                         }}
                     >
-                        {(values[1] > 0) ? textValues[1] + '%' : ''}
+                        {((values[1] > 0) && (textValues[1] !== '-')) ? 
+                                                    textValues[1] + '%' : ''}
                     </p>
                 );
             }
