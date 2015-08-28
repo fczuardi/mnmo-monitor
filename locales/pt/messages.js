@@ -39,6 +39,7 @@ export default {
     settings: {
         menu: 'Menu',
         autoUpdate: 'Autoupdate',
+        autoUpdateStatus:'AUTO UPDATE',
         columns: 'Colunas',
         close: 'Fechar',
         back: 'Voltar',

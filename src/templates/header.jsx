@@ -75,6 +75,30 @@ export default (p, a) => {
             />
         </span>
     );
+    let autoUpdateStatus = (
+        <span
+            style={{
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.5)',
+                position: p.ui.isMobile ? 'absolute': 'relative',
+                right: p.ui.isMobile ? 10: 'auto',
+                top: p.ui.isMobile ? 60: 'auto',
+            }}
+        >
+            {p.ui.isMobile ? '' : p.language.messages.settings.autoUpdateStatus}
+            <span
+                style={{
+                    width: 12,
+                    height: 12,
+                    borderRadius: 12,
+                    backgroundColor: p.user.autoUpdate ? '#69df00' : 'rgba(255,255,255,0.5)',
+                    display: 'inline-block',
+                    marginLeft: 10
+                }}
+            >
+            </span>
+        </span>
+    );
     let right = (
         <div style={{float: 'right'}}>
             {chartButton}
@@ -99,6 +123,7 @@ export default (p, a) => {
                 </span>
                 {((p.user.secondaryVarLabel !== '-') ? p.user.secondaryVarLabel : null)}
             </ToolbarButton>
+            {autoUpdateStatus}
         </div>
     );
     let backButton = (

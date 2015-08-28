@@ -7,6 +7,11 @@ const VAR_TYPES = {
     'VarB': 'percent',
     'VarC': 'percent'
 };
+const GROUP_TYPE_LABELS = [
+    '',
+    'AB',
+    'CD'
+];
 
 let lastUserPreferenceResponse = null,
     lastColumnsResponse = null;
@@ -149,6 +154,7 @@ function passwordChangePostResponseOK(payload){
 
 export default {
     varTypes: VAR_TYPES,
+    groupTypeLabels: GROUP_TYPE_LABELS,
     authHeaders: authHeaders,
     statusRouter: statusRouter,
     chooseTextOrJSON: chooseTextOrJSON,

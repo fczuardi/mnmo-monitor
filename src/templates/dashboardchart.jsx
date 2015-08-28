@@ -4,7 +4,6 @@ import merge from 'lodash/object/merge';
 import {varTypes} from '../../config/apiHelpers';
 import tableStyles from '../styles/tablestyles';
 
-const chartTopPadding = 50;
 const lineChartLength = 15; //last 15 minutes
 
 function parseData(valueString){
@@ -17,6 +16,7 @@ function parseData(valueString){
     ]);
 }
 export default (p) => {
+    let chartTopPadding = p.ui.isMobile ? 70 : 50;
     const isPercent = varTypes[p.vars.combo.first] === 'percent';
     let columnColors = tableStyles(p).columnColors;
     let cellStyle = {
