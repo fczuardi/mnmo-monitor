@@ -29,33 +29,47 @@ class EnabledColumns {
         if (!this.props.editing){
             return false;
         }
-    
+        
+        window.menuScroll0 = document.getElementById('menu-container').scrollTop;
+        window.menuScrollDelta = 0;
+        let onScroll = (ev) => {
+            window.menuScrollDelta = ev.target.scrollTop - window.menuScroll0;
+        };
+        document.getElementById('menu-container').removeEventListener('scroll', onScroll);
+        document.getElementById('menu-container').addEventListener('scroll', onScroll);
+        
         this.interactable = interact('.handle', {
             context: listElement,
         })
         .draggable({
             max: Infinity,
             inertia: true,
-            autoScroll: true,
             restrict: {
                 restriction: "parent",
                 endOnly: true
             },
             axis: 'y',
+            autoScroll: {
+                container: document.getElementById('menu-container'),
+                margin: 50,
+                distance: 5,
+                interval: 10
+            },
             onstart: function(event){
                 var target = event.target.parentNode;
                 target.setAttribute('data-topBorder', target.style.borderTop);
+                window.menuScroll0 = document.getElementById('menu-container').scrollTop;
+                window.menuScrollDelta = 0;
             },
             onmove: function(event){
                 var target = event.target.parentNode,
                     // keep the dragged position in the data-x/data-y attributes
                     x = 0,
                     y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
                 // translate the element
                 target.style.webkitTransform =
                 target.style.transform =
-                  'translate(' + x + 'px, ' + y + 'px)';
+                  'translate(' + x + 'px, ' + (y + window.menuScrollDelta) + 'px)';
                 target.style.backgroundColor = '#fff';
                 target.style.opacity = '0.5';
                 target.style.zIndex = '2';

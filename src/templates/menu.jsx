@@ -13,14 +13,17 @@ const minWidth = window.innerWidth > 320 ? 300 : 270;
 export default (p, a) => {
     extraLinks[0][0].link = p.user.tosURL;
     return (
-<div style={{
-    display: p.ui.menuClosed ? 'none' : 'block',
-    position: 'absolute',
-    zIndex: 2,
-    maxHeight: '90%',
-    width: minWidth + 17,
-    overflow: 'auto'
-}}>
+<div 
+    id='menu-container'
+    style={{
+        display: p.ui.menuClosed ? 'none' : 'block',
+        position: 'absolute',
+        zIndex: 2,
+        maxHeight: '90%',
+        width: minWidth + 17,
+        overflow: 'auto'
+    }}
+>
 <Drawer 
     title={p.language.messages.settings.menu}
     closeLabel={p.language.messages.settings.close}
