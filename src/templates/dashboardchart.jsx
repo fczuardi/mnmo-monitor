@@ -82,8 +82,8 @@ export default (p) => {
             
             if (
                 !isPercent && 
-                dataHistory !== undefined &&
-                !(p.rows.type === 'merged' && p.user.autoUpdate === true)
+                dataHistory !== undefined 
+                // !(p.rows.type === 'merged' && p.user.autoUpdate === true)
             ) {
                 let linePath = '';
                 dataHistory.forEach( (value, rowIndex) => {
