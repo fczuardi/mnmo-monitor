@@ -55,6 +55,7 @@ export default (p) => {
 
     let maxPixelValue = p.chartHeight - chartTopPadding;
     let pieValues = [];
+    let pieSum = 0;
     let lastPiePieceValue = 100;
     let row = (
         <tr
@@ -68,6 +69,8 @@ export default (p) => {
             let values = data[key] ? data[key] : [0, 0];
             let valuePercent = maxValue > 0 ? values[0] / maxValue : 0;
             pieValues.push(values[0]);
+            pieSum += values[0] < 100 ? values[0] : 0;
+            console.log('pieSum', pieSum);
             lastPiePieceValue -= values[0] === 100 ? 0 : values[0];
             let valuePixels = isPercent || maxValue === 0 ? 10 : Math.ceil(valuePercent * maxPixelValue);
             // console.log('valuePixels', key, valuePercent, values[0], maxValue, valuePixels, valuePercent, maxPixelValue);
@@ -186,11 +189,12 @@ export default (p) => {
         </tr>
     );
     let pieChartWidth = p.ui.screenWidth;
-    let pieChartHeight = 220;
+    let pieChartHeight = 230;
+    let pieChartPadding = 14;
     let centerX = pieChartWidth / 2;
     let centerY = pieChartHeight / 2;
-    let rx = pieChartHeight / 2;
-    let ry = pieChartHeight / 2;
+    let rx = pieChartHeight / 2 - pieChartPadding;
+    let ry = pieChartHeight / 2 - pieChartPadding;
     let startAngle = 0;
     let endAngle = 0;
     // console.log('lastPiePieceValue', lastPiePieceValue);
@@ -201,19 +205,21 @@ export default (p) => {
             style={{
                 position: 'absolute',
                 // shapeRendering: 'crispedges',
-                bottom: 30,
+                bottom: 20,
             }}
         >
             {pieValues.map( (value, index) => {
                 if (value === 100) { return } //ignore total-kind values
-                let percent = value / 100;
+                let percent = value / pieSum;
                 let backgroundColor = columnColors[(index % columnColors.length)];
                 endAngle = startAngle + percent * (2 * Math.PI);
                 let x1 = Math.round(centerX + rx * Math.cos(startAngle));
                 let x2 = Math.round(centerX + rx * Math.cos(endAngle));
                 let y1 = Math.round(centerY + rx * Math.sin(startAngle));
                 let y2 = Math.round(centerY + rx * Math.sin(endAngle));
-                let piePath = `M${centerX},${centerY} L${x1},${y1} A${rx} ${ry} 0 0 1 ${x2} ${y2} z`;
+                let largeArc = percent > 0.5 ? 1 : 0;
+                // console.log('value, pieSum, percent', value, pieSum, percent, largeArc);
+                let piePath = `M${centerX},${centerY} L${x1},${y1} A${rx} ${ry} 0 ${largeArc} 1 ${x2} ${y2} z`;
                 // let piePath = `M${centerX},${centerY} L${x1},${y1} L${x2} ${y2} z`;
                 startAngle = endAngle;
                 return (
