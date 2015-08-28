@@ -40,6 +40,7 @@ class GroupsStore extends Store {
 
     userPreferencesPublished(newState) {
         let needsRefetching = (
+            (this.state.selected !== null) &&
             (this.state.selected.subgroupsCount > 0) &&
             (newState.groupID !== this.previousUserState.groupID)
         );
