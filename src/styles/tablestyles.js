@@ -8,7 +8,9 @@ const getRowClassName = (key, p) => {
     if (key % 2 !== 0){
         className.push('even');
     }
-    if (key === 0 && p.rows.type === 'merged' && p.user.autoUpdate === true) {
+    if (key === 0 && p.rows.type === 'merged'
+        // && p.user.autoUpdate === true
+        ) {
         className.push('firstMergedRow');
     }
     className.push('type' + type);
