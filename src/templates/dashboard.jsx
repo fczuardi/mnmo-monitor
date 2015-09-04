@@ -24,8 +24,7 @@ export default (p, a) => {
     let tableTitleText = p.rows.date === '' ? null : (
         <span>
             <span style={{
-                fontWeight: 700,
-                fontSize: 15
+                fontWeight: 700
             }}>
                 {p.language.messages.rows.date}:
             </span>
@@ -38,13 +37,15 @@ export default (p, a) => {
     );
     let tableTitle = (
         <div style={{
-            position: 'relative',
+            position: 'absolute',
+            top: p.appHeaderHeight - 2,
             width: '100%',
-            height: 30,
-            lineHeight: '30px',
+            height: p.tableTitleHeight,
+            lineHeight: p.tableTitleHeight + 'px',
             bottom: 0,
             backgroundColor: 'rgba(0,0,0,0.8)',
-            textAlign: 'center'
+            textAlign: 'center',
+            fontSize: 12
         }}>
             {tableTitleText}
         </div>

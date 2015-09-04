@@ -14,7 +14,7 @@ class Dashboard {
         let varsCount = keys(p.vars.combos).length;
         let thumbnailsRowHeight = 120,
             sliderHeight = 30,
-            tableTitleHeight = 30,
+            tableTitleHeight = 24,
             defaultChartHeight = this.props.ui.isMobile ? 
                                     Math.round(p.ui.screenHeight * 0.3) : 264,
             rowHeight = (this.props.ui.isMobile && p.rows.type == 'detailed') ? 40 : 60;
@@ -36,10 +36,12 @@ class Dashboard {
         p.cellPadding = cellPadding;
                     
         p.chartHeight = !p.ui.chartVisible ? 0 : defaultChartHeight;
+        p.tableTitleHeight = tableTitleHeight;
+        p.appHeaderHeight = appHeaderHeight;
         p.tableHeight = p.ui.screenHeight - 
                             appHeaderHeight - 
-                            p.chartHeight -
-                            tableTitleHeight;
+                            // tableTitleHeight -
+                            p.chartHeight;
         if (p.rows.type == 'detailed'){
             if(p.ui.chartVisible) {
                 //table height must be the height of x rows
@@ -52,8 +54,8 @@ class Dashboard {
                                     appHeaderHeight - 
                                     thumbnailsRowHeight - 
                                     sliderHeight -
-                                    p.tableHeight -
-                                    tableTitleHeight;
+                                    // tableTitleHeight -
+                                    p.tableHeight;
             }else{
                 p.tableHeight -= thumbnailsRowHeight;
             }
