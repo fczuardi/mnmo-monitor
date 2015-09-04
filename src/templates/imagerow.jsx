@@ -24,7 +24,8 @@ export default (p) => {
     };
     let imageStyle = {
         height: '100%',
-        top: 0
+        top: 0,
+        margin: 'auto'
     };
     if (p.ui.isMobile){
         imageStyle.position = 'absolute';
@@ -43,24 +44,34 @@ export default (p) => {
                 p.groups.selected.secondaryId !== -1 ?
                 p.groups.selected.secondaryId : p.groups.selected.id;
     let imgElement = (column, key) => {
-        if (column === null){
-            return(
-                <div></div>
-            );
-        }
         let columnColors = tableStyles(p).columnColors;
         let backgroundColor = columnColors[(key % columnColors.length)]
+        let divStyle = {
+            backgroundColor: backgroundColor,
+            height: p.ui.isMobile ? 60 : 120,
+            minHeight: p.ui.isMobile ? 60 : 120,
+            width: p.ui.isMobile ? mobileCellStyle.width: cellStyle.width,
+            margin: p.ui.isMobile ? 0 : 'auto'
+        };
+        if (column === null){
+            return(
+                <div 
+                    key={key}
+                    style={divStyle}>
+                </div>
+            );
+        }
         let style = merge({}, imageStyle);
-        if (p.columns.selected === key && p.ui.isMobile){
-            style = merge(style, {height: '100%', width:'auto'});
+        if (p.ui.isMobile){
+            style = merge(style, {height: 'auto', width:'100%'});
+            if (p.columns.selected === key){
+                style = merge(style, {height: '100%', width:'auto'});
+            }
         }
         return (
             <div 
                 key={key}
-                style={{
-                    height: p.ui.isMobile ? 60 : 120,
-                    width: p.ui.isMobile ? mobileCellStyle.width: cellStyle.width
-                }}
+                style={divStyle}
             >
             <img 
                 onLoad={loadedImage}
