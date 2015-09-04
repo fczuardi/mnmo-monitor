@@ -27,9 +27,21 @@ export default (row, key, p) => {
         firstValue = row[0].split('__')[0];
         trProps.style = merge(trProps.style, tableStyles(p).separator);
     }
+    let firstIcon = (p.rows.headers && p.rows.headers[key][2] !== 4) ? null : 
+    (
+        <span 
+            className="icon-attention"
+            style={{
+                color: '#D1A800',
+                fontSize: 14,
+                marginRight: 5
+            }}
+        >
+        </span>
+    );
     let mainHeader = (
         <p style={{margin: 0, fontSize: 17}}>
-            {firstValue}
+            {firstIcon}{firstValue}
         </p>
     );
     // let minuteHeader = (p.rows.type === 'detailed' && 
