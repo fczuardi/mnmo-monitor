@@ -43,6 +43,7 @@ export default (p, a) => {
     let center = (
         <div style={{
             position: 'absolute',
+            zIndex: -1,
             top: 0,
             left: '50%',
             width: '40%',

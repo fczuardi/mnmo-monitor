@@ -3,7 +3,6 @@ import merge from 'lodash/object/merge';
 import keys from 'lodash/object/keys';
 
 const appHeaderHeight = 55;
-const rowHeight = 60;
 const smallColumnWidth = 60;
 const mediumColumnWidth = 106;
 const cellPadding = 8;
@@ -16,7 +15,9 @@ class Dashboard {
         let thumbnailsRowHeight = 120,
             sliderHeight = 30,
             tableTitleHeight = 30,
-            defaultChartHeight = 264;
+            defaultChartHeight = this.props.ui.isMobile ? 
+                                    Math.round(p.ui.screenHeight * 0.3) : 264,
+            rowHeight = (this.props.ui.isMobile && p.rows.type == 'detailed') ? 40 : 60;
 
         
         
