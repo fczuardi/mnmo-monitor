@@ -6,7 +6,8 @@
 .header-icon-2,
 .header-icon-13,
 .header-icon-chart-bar,
-.header-icon-chart-line{
+.header-icon-chart-line,
+.icon-attention{
     font-family: "Custom-Entypo-mnmo" !important;
     font-style: normal !important;
     font-weight: normal !important;
@@ -29,4 +30,7 @@
 }
 .header-icon-chart-line:before {
   content: "l";
+}
+.icon-attention:before {
+  content: "n";
 }
