@@ -28,12 +28,20 @@ export default (column, key, p, a) => {
         let columnColors = tableStyles(p).columnColors;
         cellStyle.backgroundColor = columnColors[(key % columnColors.length)]
     }
+
+    //wait for the table to have some rows before allowing to click
+    let headerClick = null;
+    if (p.rows.data.length > 0) {
+        headerClick = () => a.onHeaderCellClick(key);
+        cellStyle.cursor = "pointer"
+    }
+
     return (
         <td
             id={key}
             key={key}
             style={cellStyle}
-            onClick={() => a.onHeaderCellClick(key)}
+            onClick={headerClick}
         >
         <div
             style={{
