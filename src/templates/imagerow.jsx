@@ -1,12 +1,13 @@
 import React from 'react';
 import URLs from '../../config/endpoints.js';
+import ToolbarButton from 'mnmo-components/lib/themes/mnmo/toolbarbutton';
 import merge from 'lodash/object/merge';
 import tableStyles from '../styles/tablestyles';
 
 const smallColumnWidth = 60;
 const mediumColumnWidth = 106;
 
-export default (p) => {
+export default (p,a) => {
     let cellStyle = {
         position: 'relative',
         borderRight: '1px solid #000',
@@ -37,10 +38,40 @@ export default (p) => {
         loadedImage = (event) => {
             event.target.style.display = 'block';
         };
-    let emptyCell = p.ui.isMobile ? null : (
-        <td key="first" style={cellStyle}></td>
+
+    let selectedGroupSubgroupsIndexes = {};
+    p.groups.selectedGroupSubgroups.map( (subgroup, index) => {
+        selectedGroupSubgroupsIndexes[subgroup.id] = index;
+    });
+    let selectedSubgroupIndex = selectedGroupSubgroupsIndexes[p.user.subgroupID] ?
+                            selectedGroupSubgroupsIndexes[p.user.subgroupID] :
+                            0;
+    let selectedSubgroup = p.groups.selectedGroupSubgroups.length === 0 ? null :
+                        p.groups.selectedGroupSubgroups[selectedSubgroupIndex];
+    let subgroupPicker = selectedSubgroup === null ? null :
+    (
+        <div style={{
+            width: '100%',
+            color: '#FFFFFF',
+            textAlign: 'center',
+            paddingLeft: 10
+        }}>
+            <ToolbarButton
+                type={'dialogToggle'}
+                closed={(p.ui.panel !== 'subgroups')}
+                onClick={a.subgroupPickerClicked}
+            >
+                {selectedSubgroup.shortLabel}
+            </ToolbarButton>
+        </div>
     );
-    let groupID = p.groups.selected === null ? '' :
+    let emptyCell = p.ui.isMobile ? null : (
+        <td key="first" style={cellStyle}>
+            {subgroupPicker}
+        </td>
+    );
+    let groupID = selectedSubgroup !== null ? selectedSubgroup.secondaryId :
+                p.groups.selected === null ? '' :
                 p.groups.selected.secondaryId !== -1 ?
                 p.groups.selected.secondaryId : p.groups.selected.id;
     let imgElement = (column, key) => {
