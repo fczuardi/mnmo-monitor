@@ -45,6 +45,7 @@ class Dashboard {
             p.tableHeight -= tableTitleHeight;
         }
         if (p.rows.type == 'detailed'){
+            p.subgroupPickerHeight = p.ui.isMobile ? 25 : 0;
             if(p.ui.chartVisible) {
                 //table height must be the height of x rows
                 //where x is the number of indexes
@@ -56,10 +57,10 @@ class Dashboard {
                                     appHeaderHeight - 
                                     thumbnailsRowHeight - 
                                     sliderHeight -
-                                    // tableTitleHeight -
+                                    p.subgroupPickerHeight -
                                     p.tableHeight;
             }else{
-                p.tableHeight -= thumbnailsRowHeight;
+                p.tableHeight -= (thumbnailsRowHeight + p.subgroupPickerHeight);
             }
         }
         

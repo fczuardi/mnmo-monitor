@@ -52,6 +52,7 @@ export default (p,a) => {
     (
         <div style={{
             width: '100%',
+            height: p.ui.isMobile ? p.subgroupPickerHeight : 'auto',
             color: '#FFFFFF',
             textAlign: 'center',
             paddingLeft: 10
@@ -251,6 +252,7 @@ export default (p,a) => {
                 overflow: 'hidden'
             }}
         >
+            {p.ui.isMobile ? subgroupPicker : null}
             <table style={{marginLeft: 1}}>
                 <tbody>
                     {firstLine}
