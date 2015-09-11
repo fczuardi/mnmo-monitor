@@ -37,7 +37,7 @@ export default (p, a) => {
     );
     let tableTitle = (
         <div style={{
-            position: 'absolute',
+            position: p.ui.chartVisible ? 'absolute' : 'inherit',
             top: p.appHeaderHeight - 2,
             width: '100%',
             height: p.tableTitleHeight,

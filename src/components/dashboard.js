@@ -40,8 +40,10 @@ class Dashboard {
         p.appHeaderHeight = appHeaderHeight;
         p.tableHeight = p.ui.screenHeight - 
                             appHeaderHeight - 
-                            // tableTitleHeight -
                             p.chartHeight;
+        if (!p.ui.chartVisible){
+            p.tableHeight -= tableTitleHeight;
+        }
         if (p.rows.type == 'detailed'){
             if(p.ui.chartVisible) {
                 //table height must be the height of x rows
