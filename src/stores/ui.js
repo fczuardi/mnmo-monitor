@@ -14,10 +14,14 @@ class UIStore extends Store {
         const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
         const columnsActions = flux.getActions('columns');
-        // const rowsActions = flux.getActions('rows');
+        const rowsActions = flux.getActions('rows');
         this.rowsStore = flux.getStore('rows');
         this.variablesStore = flux.getStore('vars');
         this.userStore = flux.getStore('user');
+        this.register(sessionActions.tokenGranted, this.showSplash);
+        this.register(userActions.preferencesFetched, this.hideSplash);
+        // this.register(columnsActions.columnsFetched, this.hideSplash);
+        this.register(rowsActions.rowsFetchCompleted, this.hideSplash);
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.chartVisibilityToggle, this.toggleChart);
         this.register(userActions.openSubmenu, this.changeSubmenu);
@@ -42,6 +46,7 @@ class UIStore extends Store {
             panel: null,
             screen: null,
             chartVisible: true,
+            displaySplash: true,
             supportsSVG: document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1"),
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
@@ -72,6 +77,25 @@ class UIStore extends Store {
         this.previousLoadingState = this.rowsStore.state.loading;
     }
     
+    showSplash(){
+        this.setState({
+            displaySplash: true
+        });
+    }
+
+    hideSplash(){
+        //check to see if user preferences and rows have finished loading
+        if (
+            this.userStore.state.groupID === null ||
+            this.rowsStore.state.loading === true
+        ){
+            return null;
+        }
+        this.setState({
+            displaySplash: false
+        });
+    }
+
     displayError(info){
         this.setState({
             error: info.message,
@@ -194,6 +218,10 @@ class UIStore extends Store {
             tableContents = document.getElementById('table-contents'),
             tableImages = document.getElementById('table-images') || {},
             columnBars = document.getElementById('column-bars') || {};
+        
+        if (!tableContents){
+            return null;
+        }
             
         this.coordY = 
         this.coordX = 
@@ -270,10 +298,13 @@ class UIStore extends Store {
             rowheaders = document.getElementById('row-headers'),
             tableContents = document.getElementById('table-contents'),
             tableImages = document.getElementById('table-images'),
-            columnBars = document.getElementById('column-bars') || {},
-            // sliderElement = document.getElementById('table-slider'),
-            // sliderHandleElement = document.getElementById('table-slider-handle'),
-            maxYScroll = (tableContents.scrollHeight - 
+            columnBars = document.getElementById('column-bars') || {};
+
+        if (!tableContents){
+            return null;
+        }
+        
+        let maxYScroll = (tableContents.scrollHeight - 
                             tableContents.offsetHeight - 
                             INFINITE_SCROLL_THRESHOLD ),
             // sliderX = sliderElement.offsetWidth * (1 - this.coordY / maxYScroll),
@@ -325,6 +356,9 @@ class UIStore extends Store {
     }
     scrollMainTable(){
         let tableContents = document.getElementById('table-contents');
+        if (!tableContents){
+            return null;
+        }
         tableContents.scrollTop = this.coordY;
         this.stopTicking();
     }
@@ -338,8 +372,11 @@ class UIStore extends Store {
     }
     sliderTableScroll(percent){
 
-        let tableContents = document.getElementById('table-contents'),
-            maxYScroll = (
+        let tableContents = document.getElementById('table-contents');
+        if (!tableContents){
+            return null;
+        }
+        let maxYScroll = (
                 tableContents.scrollHeight - 
                 tableContents.offsetHeight - 
                 INFINITE_SCROLL_THRESHOLD 

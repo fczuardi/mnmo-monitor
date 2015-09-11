@@ -64,16 +64,37 @@ export default (p, a) => {
             {chartContent}
         </div>
     );
-    return (
-<div style={{paddingTop: 53, width: '100%'}}>
-    <Header {...p} />
-    <Menu {...p} />
-    <PanelRouter {...p} />
-    {chartContainer}
-    {tableTitle}
-    <DataTable {...p} />
-    <NetworkMessages {...p} />
-    <ErrorDialog {...p} />
-</div>
+    let splashScreen = (
+        <div 
+            style={{
+                height: '100%', 
+                width: '100%'
+                
+            }}
+        >
+            <footer
+                style={{
+                    width: '100%',
+                    textAlign: 'center',
+                    position: 'absolute',
+                    bottom: 10
+                }}
+            >
+                v0.1.0
+            </footer>
+        </div>
     );
+    let dashboard = p.ui.displaySplash ? splashScreen : (
+        <div style={{paddingTop: 53, width: '100%'}}>
+            <Header {...p} />
+            <Menu {...p} />
+            <PanelRouter {...p} />
+            {chartContainer}
+            {tableTitle}
+            <DataTable {...p} />
+            <NetworkMessages {...p} />
+            <ErrorDialog {...p} />
+        </div>
+    );
+    return dashboard;
 }

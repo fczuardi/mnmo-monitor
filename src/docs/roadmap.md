@@ -5,13 +5,15 @@ Tela de login | 57h | Segunda 09/03/2015 | Quarta 25/03 | 100% |
 Captcha | 5h | Segunda 23/03 | Quarta 25/03 | 100% |
 Side menu | 12h | Quarta 25/03 | Quinta 26/03 | 100% |
 App header e paineis | 61h | Sexta 27/03 | Quarta 06/05 | 100% |
-Dashboard | 52h | Terça 14/04 | Quarta 06/05 | 94% |
-Gráficos | 36h | Quarta 06/05 | Quinta 14/05 | 0% |
-Detalhe | 53h | Quinta 14/05 | Quarta 27/05 | 0% |
+Dashboard | 52h | Terça 14/04 | Quarta 11/09 | 100% |
+Gráficos | 36h | Quarta 06/05 | Quinta 11/09 | 100% |
+Detalhe | 53h | Quinta 14/05 | Quinta 11/09 | 100% |
+   |   |   |   |   |
 Splash Screen | 17h | Quarta 27/05 | Terça 02/06 | 0% |
 Bugfixes | 5h | ??? | ??? | 0% |
 Navegadores antigos | 50h | Terça 02/06 | Terça 16/06 | 20% |
-Desenvolvimento total | 409 | - | Terça 16/06 | 53% |
+   |   |   |   |   |
+Desenvolvimento total | 409 | - | Terça 16/06 | 73% |
 Liberação do código open source | - | 16/09 |  |  |
 
 __última atualização: 27/05/16:16__
@@ -20,77 +22,10 @@ __última atualização: 27/05/16:16__
 
 Total 
 -----
-- 219/409 = 53.54%
-
-
-Próximos passos:
-----------------
-
-Próximos passos
-
-OK - Verificar o problema que ocorre na Tela de Imagens de Emissoras quando é utilizado o Infinity Scroll e em seguida clicar no botão “Voltar”
-
-OK - Verificar o problema que ocorre na Tela de Média quando está AutoUpdate Off e o InfinityScroll excede o primeiro minuto do Dia Ibope
-
-- Desenvolver as telas “Esqueceu minha senha”  e “Alterar senha” e validar estes métodos (criados no webApi) com o Daniel – 31/07/2015 – Fabricio Zuardi;
-
-
-- Verificar a virada do dia no grid de audiência com autoupdate “on” baseado no retorno da Api criada anteriormente pelo Daniel – 27/07/2015 – Fabricio Zuardi;
-
-- Discutir o comportamento do Slider na Tela de Imagens da Emissora – 24/07/2015 – Time.
-
-
-
-
-OK - Testar o retorno da Média usando o Infinity Scroll (NLoading) – 24/07/2015 – Fabricio Zuardi/Daniel Apis;
-
-Implementar o NLoading na Média com Autoupdate OFF – 24/07/2015 – Daniel Apis;
-Verificar a possibilidade de hospedar o TC.Net One v3 em outro servidor – 24/07/2015 – Carlos Nicolau;
-
-Verificar a reordenação de emissoras quando há scroll – 31/07/2015 - Fabricio Zuardi;
-
-
-
-
+- 301/409 = 73.59%
 
 Cálculo
 -------
-
-### Dashboard (49 / (52 + 36 = 88))
-- indicador de auto update (1)
-- retangulo extra mostrando o dia (2)
-
-Feito
-- chamar API a cada minuto (2) = OK
-- scroll vertical que leva o grafico junto e para na altura (10) = OK
-- chamadas a API para montar o load inicial (5/5) = OK
-- botao "ver medias" (4/4) = OK
-- header da tabela com ícones (3/3) = OK
-    - ir diminuindo até caberem 5 na largura da tela (3) = OK
-- primeira coluna com label duplo em cada celula e icone (3) = OK
-- linhas zebra (1) = OK
-- versao que compara duas variaveis em cada linha (10) = OK
-- scroll horizontal p/ quando forem mais de 5 colunas (5/5) = OK
-
-Fora:
-- cor ao lado para indicar estado dos dados (3) = OK
-
-#### Gráficos (36)
-- barras com as cores de legenda na largura das colunas da tabela (3)
-- integrar d3 com react (10)
-- graficos de barra (4)
-- graficos de linha sobre as barras (8)
-- labels numericos segundo o layout (5)
-- largura das barras na mesma das colunas (2)
-- grafico de pizza (4)
-
-### Detalhe (53)
-- chamadas a API (6)
-- tabela comparando 3 variaveis (6)
-- clique para selecionar coluna (5)
-- mosaico de imagens (10)
-- slider (6)
-- grafico de linha (20)
 
 
 ### Splash Screen (17)
@@ -113,6 +48,47 @@ Fora:
 - css alternativos (10)
 - markups alternativos (10)
 - hacks (20)
+
+
+### Dashboard (52 / (52 + 36 = 88))
+
+Feito
+- indicador de auto update (1) = OK
+- retangulo extra mostrando o dia (2) = OK
+- chamar API a cada minuto (2) = OK
+- scroll vertical que leva o grafico junto e para na altura (10) = OK
+- chamadas a API para montar o load inicial (5/5) = OK
+- botao "ver medias" (4/4) = OK
+- header da tabela com ícones (3/3) = OK
+    - ir diminuindo até caberem 5 na largura da tela (3) = OK
+- primeira coluna com label duplo em cada celula e icone (3) = OK
+- linhas zebra (1) = OK
+- versao que compara duas variaveis em cada linha (10) = OK
+- scroll horizontal p/ quando forem mais de 5 colunas (5/5) = OK
+
+Fora:
+- cor ao lado para indicar estado dos dados (3) = OK
+
+#### Gráficos (36/36)
+
+Feito
+- barras com as cores de legenda na largura das colunas da tabela (3) = OK
+- integrar d3 com react (10) = OK
+- graficos de barra (4) = OK
+- graficos de linha sobre as barras (8) = OK
+- labels numericos segundo o layout (5) = OK
+- largura das barras na mesma das colunas (2) = OK
+- grafico de pizza (4) = OK
+
+### Detalhe (53/53)
+
+Feito
+- chamadas a API (6) = OK
+- tabela comparando 3 variaveis (6) = OK
+- clique para selecionar coluna (5) = OK
+- mosaico de imagens (10) = OK
+- slider (6) = OK
+- grafico de linha (20) = OK
 
 
 -----
