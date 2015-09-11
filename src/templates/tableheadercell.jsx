@@ -31,7 +31,7 @@ export default (column, key, p, a) => {
 
     //wait for the table to have some rows before allowing to click
     let headerClick = null;
-    if (p.rows.data.length > 0) {
+    if (p.rows.data.length > 0 && p.groups.selected !== null) {
         headerClick = () => a.onHeaderCellClick(key);
         cellStyle.cursor = "pointer"
     }

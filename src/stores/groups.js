@@ -62,8 +62,8 @@ class GroupsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            // console.log('result', URLs.filters.groups, payload);
             console.log('OK', URLs.filters.groups);
+            // console.log('result', URLs.filters.groups, payload);
             let groups = parseGroups(payload).groups,
                 partitionedGroups = partition(groups, 'type', 1),
                 userStore = store.flux.getStore('user');
@@ -111,6 +111,7 @@ class GroupsStore extends Store {
             'id', 
             groupID
         );
+        // console.log('selectGroup', selected);
         this.setState({
             selected: selected
         });

@@ -11,7 +11,8 @@ class TableHeader extends Component {
             (newColumns !== oldColumns) ||
             (newColumnsErrors !== oldColumnsErrors) ||
             (nextProps.rows.lastLoad > this.props.rows.lastLoad) ||
-            (nextProps.ui.screenWidth !== this.props.ui.screenWidth)
+            (nextProps.ui.screenWidth !== this.props.ui.screenWidth) ||
+            (nextProps.groups.selected !== this.props.groups.selected)
         );
     }
     render() {
