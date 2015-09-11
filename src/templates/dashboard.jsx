@@ -74,7 +74,7 @@ export default (p, a) => {
             <CenteredBox>
                 <div style={{
                     width:'100%',
-                    textAlign: 'center'
+                    textAlign: p.ui.isMobile ? 'center' : 'left'
                 }}>
                     <img 
                         src={
@@ -83,8 +83,8 @@ export default (p, a) => {
                         } 
                         style={{
                             position: 'relative',
-                            left: '50%',
-                            marginLeft: p.ui.isMobile ? - 150 : - 219
+                            left: p.ui.isMobile ? 0 : '50%',
+                            marginLeft: p.ui.isMobile ? -15 : - 219
                         }}
                     />
                 </div>
