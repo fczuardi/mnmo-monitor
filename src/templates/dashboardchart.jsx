@@ -194,12 +194,12 @@ export default (p) => {
         </tr>
     );
     let pieChartWidth = p.ui.screenWidth;
-    let pieChartHeight = 230;
-    let pieChartPadding = 14;
+    // let pieChartPadding = 14;
+    let pieChartHeight = p.chartHeight;
     let centerX = pieChartWidth / 2;
     let centerY = pieChartHeight / 2;
-    let rx = pieChartHeight / 2 - pieChartPadding;
-    let ry = pieChartHeight / 2 - pieChartPadding;
+    let rx = pieChartHeight / 2 - p.tableTitleHeight;
+    let ry = pieChartHeight / 2 - p.tableTitleHeight;
     let startAngle = 0;
     let endAngle = 0;
     // console.log('lastPiePieceValue', lastPiePieceValue);
