@@ -54,7 +54,7 @@ export default (p) => {
         data.push(parseData(cellValue));
     });
 
-    let maxPixelValue = p.chartHeight - chartTopPadding;
+    let maxPixelValue = p.chartHeight - chartTopPadding - p.tableTitleHeight;
     let pieValues = [];
     let pieSum = 0;
     let lastPiePieceValue = 100;
