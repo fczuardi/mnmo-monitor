@@ -7,6 +7,7 @@ import DetailChart from '../components/detailchart';
 import DataTable from '../components/datatable';
 import NetworkMessages from '../components/networkmessages';
 import ErrorDialog from '../components/errordialog';
+import CenteredBox from 'mnmo-components/lib/themes/mnmo/centeredbox';
 
 export default (p, a) => {
     // let subgroupsButton = (p.groups.selected &&
@@ -65,22 +66,40 @@ export default (p, a) => {
         </div>
     );
     let splashScreen = (
-        <div 
-            style={{
-                height: '100%', 
-                width: '100%'
-                
-            }}
-        >
+        <div style={{
+            width: '100%', 
+            height: '100%',
+            display: 'table'
+        }}>
+            <CenteredBox>
+                <div style={{
+                    width:'100%',
+                    textAlign: 'center'
+                }}>
+                    <img 
+                        src={
+                        p.ui.isMobile ? './img/logo_splash_small.png' :
+                                        './img/logo_splash_big.png'
+                        } 
+                        style={{
+                            position: 'relative',
+                            left: '50%',
+                            marginLeft: p.ui.isMobile ? - 150 : - 219
+                        }}
+                    />
+                </div>
+            </CenteredBox>
             <footer
                 style={{
                     width: '100%',
                     textAlign: 'center',
                     position: 'absolute',
-                    bottom: 10
+                    bottom: 10,
+                    left: 0,
+                    opacity: 0.3
                 }}
             >
-                v0.1.0
+                {p.ui.version}
             </footer>
         </div>
     );
