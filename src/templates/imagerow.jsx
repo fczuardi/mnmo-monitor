@@ -82,6 +82,7 @@ export default (p,a) => {
             height: p.ui.isMobile ? 60 : 120,
             minHeight: p.ui.isMobile ? 60 : 120,
             width: p.ui.isMobile ? mobileCellStyle.width: cellStyle.width,
+            overflow: 'hidden',
             margin: p.ui.isMobile ? 0 : 'auto'
         };
         if (column === null){
