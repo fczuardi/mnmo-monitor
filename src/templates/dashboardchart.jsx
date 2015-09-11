@@ -31,7 +31,8 @@ export default (p) => {
     let groupID = p.groups.selected === null ? '' :
                 p.groups.selected.secondaryId !== -1 ?
                 p.groups.selected.secondaryId : p.groups.selected.id;
-    let firstRowCells = p.rows.data[0] ? p.rows.data[0] : [];
+    let firstRowIndex = p.rows.type === 'merged' ? 1 : 0;
+    let firstRowCells = p.rows.data[firstRowIndex] ? p.rows.data[firstRowIndex] : [];
     //create an array of n empty arrays where n = number of columns
     let columns = firstRowCells.map( () => ([]) ); 
 
@@ -89,6 +90,11 @@ export default (p) => {
             ) {
                 let linePath = '';
                 dataHistory.forEach( (value, rowIndex) => {
+                    if (rowIndex < firstRowIndex){
+                        //ignore the first "special" row of the merged type 
+                        //tables for the line chart construction
+                        return null;
+                    }
                     let pX = (dataHistory.length - 1 - rowIndex) / (dataHistory.length - 1);
                     let x = Math.round(pX * lineChartWidth); 
                     let pY = value / maxValue;
