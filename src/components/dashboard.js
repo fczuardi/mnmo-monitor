@@ -4,8 +4,10 @@ import keys from 'lodash/object/keys';
 
 const appHeaderHeight = 55;
 const smallColumnWidth = 60;
+const smallerRowHeight = 40;
 const mediumColumnWidth = 106;
 const cellPadding = 8;
+const subgroupPickerHeight = 25;
 
 
 class Dashboard {
@@ -17,10 +19,9 @@ class Dashboard {
             tableTitleHeight = 24,
             defaultChartHeight = this.props.ui.isMobile ? 
                                     Math.round(p.ui.screenHeight * 0.3) : 264,
-            rowHeight = (this.props.ui.isMobile && p.rows.type == 'detailed') ? 40 : 60;
+            // rowHeight = (this.props.ui.isMobile && p.rows.type == 'detailed') ? 40 : smallColumnWidth;
+            rowHeight = this.props.ui.screenHeight < 640 ? smallerRowHeight : smallColumnWidth;
 
-        
-        
         const actions = {
             subgroupsButtonClicked: () =>
                 this.props.flux.getActions('user').openPanel('subgroups')
@@ -32,7 +33,7 @@ class Dashboard {
         p.tableContentWidth = p.columns.enabled.length * columnWidth;
         p.columnWidth = p.tableContentWidth > p.tableWidth ? columnWidth :
              Math.ceil((p.tableWidth) / (p.columns.enabled.length + 1));
-        p.iconWidth = smallColumnWidth - 2 * cellPadding;
+        p.iconWidth = rowHeight - 2 * cellPadding;
         p.cellPadding = cellPadding;
                     
         p.chartHeight = !p.ui.chartVisible ? 0 : defaultChartHeight;
@@ -45,7 +46,10 @@ class Dashboard {
             p.tableHeight -= tableTitleHeight;
         }
         if (p.rows.type == 'detailed'){
-            p.subgroupPickerHeight = p.ui.isMobile ? 25 : 0;
+            p.subgroupPickerHeight = (
+                p.ui.isMobile && 
+                p.groups.selectedGroupSubgroups.length > 0
+            ) ? subgroupPickerHeight : 0;
             if(p.ui.chartVisible) {
                 //table height must be the height of x rows
                 //where x is the number of indexes

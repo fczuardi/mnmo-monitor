@@ -113,7 +113,8 @@ class GroupsStore extends Store {
         );
         // console.log('selectGroup', selected);
         this.setState({
-            selected: selected
+            selected: selected,
+            selectedGroupSubgroups: []
         });
         if (fetchSubGroups === true && selected.subgroupsCount > 0) {
             this.fetchSubGroups();
