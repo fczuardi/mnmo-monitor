@@ -50,7 +50,7 @@
 .tableRow.type2 .secondary{
     color: #379DCC;
 }
-.tableRow.type4{
+.tableRow.failed{
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.3);
     color: #7C6617;

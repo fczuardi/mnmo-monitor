@@ -27,7 +27,7 @@ export default (row, key, p) => {
         firstValue = row[0].split('__')[0];
         trProps.style = merge(trProps.style, tableStyles(p).separator);
     }
-    let firstIcon = (p.rows.headers && p.rows.headers[key][2] !== 4) ? null : 
+    let firstIcon = (p.rows.headers && parseInt(p.rows.headers[key][2]) !== 1) ? null : 
     (
         <span 
             className="icon-attention"

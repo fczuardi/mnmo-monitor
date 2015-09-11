@@ -11,6 +11,16 @@
             }
         },
         {
+            "id": 4,
+            "label": "My Cupcake is very special",
+            "icons": {
+                "menu": "https://openclipart.org/download/169936/kitchen-dinercoffee.svg",
+                "table": "https://openclipart.org/download/191506/bunny.svg",
+                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169936/kitchen-dinercoffee.png",
+                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/191506/bunny.png"
+            }
+        },
+        {
             "id": 7,
             "label": "AAAAAA"
         },
@@ -28,16 +38,6 @@
                 "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/191507/1393792283.png"
             },
             "iconError": true
-        },
-        {
-            "id": 4,
-            "label": "My Cupcake is very special",
-            "icons": {
-                "menu": "https://openclipart.org/download/169936/kitchen-dinercoffee.svg",
-                "table": "https://openclipart.org/download/191506/bunny.svg",
-                "menuBitmap": "https://openclipart.org/image/300px/svg_to_png/169936/kitchen-dinercoffee.png",
-                "tableBitmap": "https://openclipart.org/image/300px/svg_to_png/191506/bunny.png"
-            }
         },
         {
             "id": 0,
