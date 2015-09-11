@@ -95,7 +95,7 @@ export default (p) => {
                         //tables for the line chart construction
                         return null;
                     }
-                    let pX = (dataHistory.length - 1 - rowIndex) / (dataHistory.length - 1);
+                    let pX = (dataHistory.length - 1 - firstRowIndex - rowIndex) / (dataHistory.length - 1 - firstRowIndex);
                     let x = Math.round(pX * lineChartWidth); 
                     let pY = value / maxValue;
                     let y = Math.round((lineChartHeight - 2) - pY * (lineChartHeight - 2)) + 1;
