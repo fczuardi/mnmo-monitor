@@ -20,7 +20,6 @@ class UIStore extends Store {
         this.userStore = flux.getStore('user');
         this.register(sessionActions.tokenGranted, this.showSplash);
         this.register(userActions.preferencesFetched, this.hideSplash);
-        // this.register(columnsActions.columnsFetched, this.hideSplash);
         this.register(rowsActions.rowsFetchCompleted, this.hideSplash);
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.chartVisibilityToggle, this.toggleChart);
@@ -34,21 +33,20 @@ class UIStore extends Store {
         this.register(sessionActions.signOut, this.resetMenuState);
         this.register(userActions.changePasswordPublished, this.resetScreen);
         this.register(userActions.forgotPasswordAccepted, this.resetScreen);
-        // this.register(rowsActions.rowsFetchCompleted, this.unlockInfiniteLoad);
         this.register(userActions.errorArrived, this.displayError);
         this.register(userActions.errorDismissed, this.resetError);
         this.register(sessionActions.tokenGranted, this.resetError);
         this.register(columnsActions.columnHeaderSelected, this.resetMenuState);
         this.userActions = userActions;
         this.state = {
-            version: 'v3.0.0.0',
+            version: 'v3.0.0.1',
             menuClosed: true,
             submenu: null,
             panel: null,
             screen: null,
             chartVisible: true,
             displaySplash: true,
-            supportsSVG: document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1"),
+            supportsSVG: document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#Image', '1.1'),
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
             isMobile: (window.innerWidth <= mobileBreakpointWidth),
@@ -77,7 +75,7 @@ class UIStore extends Store {
         this.rowsStore.addListener('change', this.rowStateChanged);
         this.previousLoadingState = this.rowsStore.state.loading;
     }
-    
+
     showSplash(){
         this.setState({
             displaySplash: true
@@ -108,7 +106,7 @@ class UIStore extends Store {
             error: null
         });
     }
-    
+
     rowStateChanged() {
         if (this.rowsStore.state.data.length === 0){
             this.resetScroll();
@@ -123,7 +121,7 @@ class UIStore extends Store {
             }
         }
     }
-    
+
     stopTicking() {
         this.ticking = false;
     }
@@ -219,21 +217,21 @@ class UIStore extends Store {
             tableContents = document.getElementById('table-contents'),
             tableImages = document.getElementById('table-images') || {},
             columnBars = document.getElementById('column-bars') || {};
-        
+
         if (!tableContents){
             return null;
         }
-            
-        this.coordY = 
-        this.coordX = 
-        tableheaders.scrollTop = 
-        tableheaders.scrollLeft = 
-        rowheaders.scrollTop = 
-        rowheaders.scrollLeft = 
-        tableContents.scrollTop = 
-        tableContents.scrollLeft = 
-        tableImages.scrollTop = 
-        tableImages.scrollLeft = 
+
+        this.coordY =
+        this.coordX =
+        tableheaders.scrollTop =
+        tableheaders.scrollLeft =
+        rowheaders.scrollTop =
+        rowheaders.scrollLeft =
+        tableContents.scrollTop =
+        tableContents.scrollLeft =
+        tableImages.scrollTop =
+        tableImages.scrollLeft =
         columnBars.scrollLeft = 0;
         this.setState({
             lastVisibleRow: ROWS_PAGE_SIZE
@@ -267,11 +265,11 @@ class UIStore extends Store {
             oldestMinute: oldestMinute,
             newestMinute: newestMinute
         };
-        
+
         // console.log('stop 10sec interval update');
         window.clearInterval(this.imageUpdateInterval);
 
-        if (minute.substring(2, 4) === newestMinute.substring(2, 4) && 
+        if (minute.substring(2, 4) === newestMinute.substring(2, 4) &&
             this.userStore.state.autoUpdate &&
             this.rowsStore.state.type === 'detailed'){
             // console.log('start 10sec interval update');
@@ -281,8 +279,8 @@ class UIStore extends Store {
                                 store.state.minute.substring(2,4) + ':' +
                                 store.state.minute.substring(4,6);
                 let newMinute = moment(
-                                    moment().format('YYYY-MM-DDT') + 
-                                    formatedMinute + 
+                                    moment().format('YYYY-MM-DDT') +
+                                    formatedMinute +
                                     '.000Z'
                                 ).utc().add(10, 'seconds');
                 // console.log('update image', newMinute.utc().format('HHmmss'));
@@ -304,16 +302,16 @@ class UIStore extends Store {
         if (!tableContents){
             return null;
         }
-        
-        let maxYScroll = (tableContents.scrollHeight - 
-                            tableContents.offsetHeight - 
+
+        let maxYScroll = (tableContents.scrollHeight -
+                            tableContents.offsetHeight -
                             INFINITE_SCROLL_THRESHOLD ),
             // sliderX = sliderElement.offsetWidth * (1 - this.coordY / maxYScroll),
             scrollEnded = this.coordY >= maxYScroll,
             store = this;
         this.updateMinute();
 
-        
+
         tableheaders.scrollLeft = this.coordX;
         rowheaders.scrollTop = this.coordY;
         if (tableImages) {
@@ -331,17 +329,17 @@ class UIStore extends Store {
         //   'translate(' + sliderX + 'px, ' + '0px)';
         // sliderHandleElement.setAttribute('data-x', sliderX);
 
-        
+
         let loadedRowsCount = store.rowsStore.state.data.length;
         if (this.rowsStore.state.type === 'detailed'){
-            // while we dont have the slider, the detailed table has extra 
+            // while we dont have the slider, the detailed table has extra
             // "separator" rows that are added in render time
             // so we add those to the loadedRowsCount count
             let varsCount = keys(this.variablesStore.state.combos).length;
             loadedRowsCount += loadedRowsCount / varsCount;
         }
-        
-        if (scrollEnded && 
+
+        if (scrollEnded &&
             !this.nextPageLoadSent &&
             !this.state.isLoading &&
             !this.state.isFakeLoading
@@ -378,9 +376,9 @@ class UIStore extends Store {
             return null;
         }
         let maxYScroll = (
-                tableContents.scrollHeight - 
-                tableContents.offsetHeight - 
-                INFINITE_SCROLL_THRESHOLD 
+                tableContents.scrollHeight -
+                tableContents.offsetHeight -
+                INFINITE_SCROLL_THRESHOLD
             ),
         //     // variablesCount = keys(this.variablesStore.state.combos).length,
             newY = maxYScroll * percent;
