@@ -4,7 +4,7 @@ const getRowClassName = (key, p) => {
         return ['tableRow'];
     }
     let className = ['tableRow'],
-        type = p.rows.headers[key][2];
+        type = p.rows.headers[key][3];
     if (key % 2 !== 0){
         className.push('even');
     }
@@ -14,6 +14,9 @@ const getRowClassName = (key, p) => {
         className.push('firstMergedRow');
     }
     className.push('type' + type);
+    if (parseInt(p.rows.headers[key][2]) === 0){
+        className.push('failed');
+    }
     return className.join(' ');
 };
 

@@ -19,8 +19,8 @@ export default (row, key, p) => {
         return null
     }
 
-    let firstValue = row[0].indexOf('__') === -1 ? 
-                                                row[0] : 
+    let firstValue = row[0].indexOf('__') === -1 ?
+                                                row[0] :
                                                 row[0].split('__')[1],
         secondValue = parseFloat(row[1]);
     if (row[2] === 'separator'){
@@ -60,9 +60,10 @@ export default (row, key, p) => {
             }}
         >[</span>
     ): null;
-    let firstIcon = (p.rows.headers && p.rows.headers[key][2] !== 4) ? null : 
+    // let firstIcon = (p.rows.headers && p.rows.headers[key][2] !== 4) ? null :
+    let firstIcon = (p.rows.headers && parseInt(p.rows.headers[key][2]) !== 0) ? null :
     (
-        <span 
+        <span
             className="icon-attention"
             style={{
                 color: '#D1A800',
@@ -79,20 +80,20 @@ export default (row, key, p) => {
             {firstTitle}
         </p>
     );
-    // let minuteHeader = (p.rows.type === 'detailed' && 
+    // let minuteHeader = (p.rows.type === 'detailed' &&
     //                     key % varsCount === 0) ? (
     //     <span> - {row[0].split('__')[0]}</span>
     // ): null;
     // let varsCount = keys(p.vars.combos).length;
     let secondHeader = isNaN(secondValue) ? (null) : (
         <p style={{margin: 0, fontSize: fontSizes[0]}}>
-            <i 
-                className={(p.user.classID !== null) ? 
+            <i
+                className={(p.user.classID !== null) ?
                         ('header-icon-' + p.user.classID) : ''}
                 style={{
-                    fontSize: fontSizes[4], 
+                    fontSize: fontSizes[4],
                     marginRight: 3
-                }} 
+                }}
             />
             <span style={{
                     lineHeight: fontSizes[0] + 'px',
@@ -105,7 +106,7 @@ export default (row, key, p) => {
     );
     if (p.rows.type === 'detailed'){
         secondHeader = null;
-        
+
     }
     return (
         <tr {...trProps}>
