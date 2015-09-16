@@ -90,9 +90,13 @@ export default (p) => {
             ) {
                 let linePath = '';
                 dataHistory.forEach( (value, rowIndex) => {
-                    if (rowIndex < firstRowIndex){
-                        //ignore the first "special" row of the merged type 
+                    if (
+                        // ignore the first "special" row of the merged type
                         //tables for the line chart construction
+                        (rowIndex < firstRowIndex) ||
+                        // ignore failed minutes
+                        (parseInt(p.rows.headers[rowIndex][2]) === 0)
+                    ){
                         return null;
                     }
                     let pX = (dataHistory.length - 1 - rowIndex) / (dataHistory.length - 1 - firstRowIndex);
