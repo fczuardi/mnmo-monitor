@@ -34,7 +34,7 @@ export default (p) => {
     let firstRowIndex = p.rows.type === 'merged' ? 1 : 0;
     let firstRowCells = p.rows.data[firstRowIndex] ? p.rows.data[firstRowIndex] : [];
     //create an array of n empty arrays where n = number of columns
-    let columns = firstRowCells.map( () => ([]) ); 
+    let columns = firstRowCells.map( () => ([]) );
 
     let maxValue = 0; //max value in the past 15min
     p.rows.data.forEach( (row, rowIndex) => {
@@ -45,11 +45,11 @@ export default (p) => {
             maxValue = Math.max(maxValue, value);
         });
     });
-    
+
     let textData = [],
         data = [];
-    
-    
+
+
     firstRowCells.forEach( (cellValue) => {
         data.push(parseData(cellValue));
     });
@@ -82,10 +82,10 @@ export default (p) => {
             let lineDot = null;
             let mainTextValue = null;
             let secondaryTextValue = null;
-            
+
             if (
-                !isPercent && 
-                dataHistory !== undefined 
+                !isPercent &&
+                dataHistory !== undefined
                 // !(p.rows.type === 'merged' && p.user.autoUpdate === true)
             ) {
                 let linePath = '';
@@ -96,7 +96,7 @@ export default (p) => {
                         return null;
                     }
                     let pX = (dataHistory.length - 1 - rowIndex) / (dataHistory.length - 1 - firstRowIndex);
-                    let x = Math.round(pX * lineChartWidth); 
+                    let x = Math.round(pX * lineChartWidth);
                     let pY = value / maxValue;
                     let y = Math.round((lineChartHeight - 2) - pY * (lineChartHeight - 2)) + 1;
                     linePath += `L${x},${y} `;
@@ -167,7 +167,7 @@ export default (p) => {
                             opacity: 0.5
                         }}
                     >
-                        {((values[1] > 0) && (textValues[1] !== '-')) ? 
+                        {((values[1] > 0) && (textValues[1] !== '-')) ?
                                                     textValues[1] + '%' : ''}
                     </p>
                 );
