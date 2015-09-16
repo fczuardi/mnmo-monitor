@@ -8,3 +8,4 @@ npm-debug.log
 fake-data/secret.*
 secret.*
 test.json
+TODO.md
