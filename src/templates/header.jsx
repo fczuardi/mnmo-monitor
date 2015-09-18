@@ -5,8 +5,9 @@ import {groupTypeLabels} from '../../config/apiHelpers';
 
 export default (p, a) => {
     let formatTime = (text) => (text.substring(0, 2) + ':' + text.substring(2, 4));
+    let fontSize = p.ui.isMobile ? 14 : 'inherit';
     let left = (
-        <div style={{float: 'left'}}>
+        <div style={{float: 'left', fontSize: fontSize}}>
             <ToolbarButton
                 type="menuToggle"
                 onClick={a.menuToggleClicked}
@@ -51,7 +52,8 @@ export default (p, a) => {
             textAlign: 'center',
             lineHeight: '35px',
             height: 35,
-            paddingTop: 8
+            paddingTop: 8,
+            fontSize: fontSize
         }}>
             <ToolbarButton
                 type={p.ui.isMobile ? null : 'dialogToggle'}
@@ -101,7 +103,7 @@ export default (p, a) => {
         </span>
     );
     let right = (
-        <div style={{float: 'right'}}>
+        <div style={{float: 'right', fontSize: fontSize}}>
             {chartButton}
             <ToolbarButton
                 type={p.ui.isMobile ? null : 'dialogToggle'}
