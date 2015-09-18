@@ -34,7 +34,7 @@ export default (p, a) => {
                     bottom: -19,
                     fontWeight: 700,
                     letterSpacing: 1.5
-                }}                
+                }}
             >
                 {p.groups.selected ? groupTypeLabels[p.groups.selected.type] : ''}
             </span>
@@ -71,10 +71,10 @@ export default (p, a) => {
         }}>
             <ToolbarButton
                 onClick={a.chartToggleClicked}
-                className={(p.rows.type === 'detailed') ? 
+                className={(p.rows.type === 'detailed') ?
                                 'header-icon-chart-line':
                                 'header-icon-chart-bar'}
-                
+
             />
         </span>
     );
@@ -110,7 +110,7 @@ export default (p, a) => {
                 disabled={(p.groups.selected && p.groups.selected.classes.length < 2 )}
                 onClick={a.classButtonClicked}
                 closed={(p.ui.panel !== 'classes')}
-                className={(p.user.classID !== null) ? 
+                className={(p.user.classID !== null) ?
                                 ('header-icon-' + p.user.classID) : ''}
             />
             <ToolbarButton
