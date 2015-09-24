@@ -61,7 +61,7 @@ export default (p) => {
         }
         let headerIndex = varsCount * (chartDivisions.length - 2 - index);
         let nextX = chartDivisions[index + 1];
-        let type = p.rows.headers[headerIndex] ? p.rows.headers[headerIndex][2] : 0;
+        let type = p.rows.headers[headerIndex] ? p.rows.headers[headerIndex][3] : 0;
         let fillColor = type === '1' ? '#5A0000' :
                         type === '2' ? '#003C5A' :
                         '#444444';
