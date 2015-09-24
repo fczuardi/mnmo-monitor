@@ -34,7 +34,7 @@ export default (p) => {
         for (var j= col.length - 1; j >= 0 ; j -= 1){
             if (
                 (j < p.ui.lastVisibleRow) &&
-                (j % varsCount === 0) 
+                (j % varsCount === 0)
             ){
                 let value = col[j];
                 maxValue = Math.max(maxValue, value);
