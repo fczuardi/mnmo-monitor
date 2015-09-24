@@ -6,7 +6,8 @@ const INFINITE_SCROLL_THRESHOLD = 0;
 const ROWS_PAGE_SIZE = 30;
 
 const mobileBreakpointWidth = 599;
-const rowHeight = 60;
+const smallColumnWidth = 60;
+const smallerRowHeight = 40;
 
 class UIStore extends Store {
     constructor(flux) {
@@ -243,10 +244,15 @@ class UIStore extends Store {
     updateMinute(){
         let store = this;
         let varsCount = keys(this.variablesStore.state.combos).length;
-        let separatorHeight = 40 / varsCount;
-        let currentRow = Math.floor(this.coordY / (rowHeight + separatorHeight));
-        let minute = this.rowsStore.state.headers[currentRow] ?
-                        this.minuteFromHeader(this.rowsStore.state.headers[currentRow][0]):
+        let rowHeight = this.state.screenHeight < 640 ? smallerRowHeight : smallColumnWidth;
+        let separatorHeight = this.state.chartVisible ? 0 : 40;
+        // let currentRow = Math.floor(this.coordY / (rowHeight + separatorHeight));
+        let currentMinuteIndex = Math.floor(
+            this.coordY / (rowHeight * varsCount + separatorHeight - varsCount)
+        );
+        // console.log('currentMinuteIndex', currentMinuteIndex);
+        let minute = this.rowsStore.state.headers[currentMinuteIndex] ?
+                        this.minuteFromHeader(this.rowsStore.state.headers[currentMinuteIndex * varsCount][0]):
                         '';
         let oldestMinute = this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1] ?
                         this.minuteFromHeader(this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1][0]):
@@ -255,10 +261,7 @@ class UIStore extends Store {
                         this.minuteFromHeader(this.rowsStore.state.headers[0][0]):
                         '';
         // console.log(
-        //     'oldestMinute',
-        //     this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1],
-        //     this.minuteFromHeader(this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1][0]),
-        //     oldestMinute
+        //     'minute', minute, 'oldestMinute', oldestMinute, 'newestMinute', newestMinute
         // );
         let newState = {
             minute: minute,
@@ -273,7 +276,6 @@ class UIStore extends Store {
             this.userStore.state.autoUpdate &&
             this.rowsStore.state.type === 'detailed'){
             // console.log('start 10sec interval update');
-            newState.minute = store.state.minute;
             this.imageUpdateInterval = window.setInterval(function(){
                 let formatedMinute = store.state.minute.substring(0,2) + ':' +
                                 store.state.minute.substring(2,4) + ':' +
