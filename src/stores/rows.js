@@ -61,7 +61,7 @@ class RowsStore extends Store {
         this.fetchRows();
         this.toggleAutoUpdate(pref.autoUpdate);
     }
-    
+
     toggleAutoUpdate(autoUpdate) {
         if (autoUpdate){
             this.startAutoUpdate();
@@ -69,23 +69,23 @@ class RowsStore extends Store {
             this.stopAutoUpdate();
         }
     }
-    
-    
+
+
     userChanged(newState) {
         // console.log('userChanged', newState);
         let oldState = this.previousUserState;
         let archivedReportIntervalChanged = (
-                JSON.stringify(newState.archivedReport) !== 
-                JSON.stringify(oldState.archivedReport) 
+                JSON.stringify(newState.archivedReport) !==
+                JSON.stringify(oldState.archivedReport)
         );
 
-        let needsRefetching = ( 
+        let needsRefetching = (
             (newState.autoUpdate !== oldState.autoUpdate) ||
             (newState.groupID !== oldState.groupID) ||
             (newState.classID !== oldState.classID) ||
             (newState.variableComboID !== oldState.variableComboID) ||
             archivedReportIntervalChanged ||
-            (JSON.stringify(newState.mergedRows) !== 
+            (JSON.stringify(newState.mergedRows) !==
                                         JSON.stringify(oldState.mergedRows) )
         );
         this.autoUpdateStatusChanged = (newState.autoUpdate !== oldState.autoUpdate);
@@ -98,20 +98,20 @@ class RowsStore extends Store {
             this.toggleAutoUpdate(newState.autoUpdate);
         }
     }
-    
+
     columnsFetched(newState) {
         this.previousColumnsState = merge({}, newState);
     }
-    
+
     columnsChanged(newState) {
         let newSequence = newState.enabled;
         let oldSequence = this.previousColumnsState.enabled;
         // console.log('columnsChanged', oldSequence, newSequence);
-        let needsRefetching = ( 
+        let needsRefetching = (
             (newSequence.length > oldSequence.length) ||
             (
-                pluck(newSequence, 'id').join(',') !== 
-                pluck(oldSequence.slice(0, newSequence.length), 'id').join(',') 
+                pluck(newSequence, 'id').join(',') !==
+                pluck(oldSequence.slice(0, newSequence.length), 'id').join(',')
             )
         );
         if (needsRefetching) {
@@ -130,19 +130,19 @@ class RowsStore extends Store {
         token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
         console.log('GET', type, URLs.rows[type], endTime);
-        
+
         endTime = endTime || '';
 
         if (
             endTime === '' &&
             ! store.userStore.state.autoUpdate &&
-            store.userStore.state.archivedReport && 
+            store.userStore.state.archivedReport &&
             store.userStore.state.archivedReport.end
         ) {
             endTime = store.userStore.state.archivedReport.end.substring(0, 5);
         }
         // let url = URLs.baseUrl + URLs.rows.rowsError;
-        let url = URLs.baseUrl + URLs.rows[type] + '?' + 
+        let url = URLs.baseUrl + URLs.rows[type] + '?' +
                         URLs.rows.endTimeParam + '=' + endTime;
         if (URLs.rows[type] === undefined){ return false; }
         store.setState({
@@ -162,7 +162,7 @@ class RowsStore extends Store {
             // console.log(result.rows.data.length +' rows');
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {
-                store.userActions.errorArrived(result.error, 
+                store.userActions.errorArrived(result.error,
                     store.rowsActions.fetchAgainRequested);
                 store.stopAutoUpdate();
             } else {
@@ -178,7 +178,7 @@ class RowsStore extends Store {
             });
         });
     }
-    
+
     resetRows(newType) {
         let type = newType || this.state.type;
         this.setState({
@@ -189,7 +189,7 @@ class RowsStore extends Store {
             lastLoad: new Date().getTime()
         });
     }
-    
+
     startAutoUpdate() {
         // console.log('startAutoUpdate');
         let store = this;
@@ -199,12 +199,12 @@ class RowsStore extends Store {
             store.fetchRows();
         }, AUTOUPDATE_INTERVAL);
     }
-    
+
     stopAutoUpdate() {
         // console.log('stopAutoUpdate');
         window.clearInterval(this.autoUpdateInterval);
     }
-    
+
     getNextPage() {
         if (
             // (this.state.type === 'merged') ||
@@ -212,20 +212,20 @@ class RowsStore extends Store {
             ((this.state.type === 'merged') && (this.userStore.state.autoUpdate)) ||
             (this.state.headers.length === 0)
         ){
-            return null; 
+            return null;
         }
         let lastHeader = this.state.headers[this.state.headers.length - 1],
             lastTime = lastHeader[0].split(' ')[0].substring(0, 5);
         // console.log('getNextPage', lastTime);
         this.fetchRows(this.sessionStore.state.token, this.state.type, lastTime);
     }
-    
+
     TextToMinutes(text) {
         text = text || '00:00';
         let timeParts = text.split(':');
         return parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
     }
-    
+
     //merge new loaded rows into the existing table already in memory
     updateRows(newHeaders, newRows) {
         let shouldReplaceTable = (this.state.data.length === 0 || this.autoUpdateStatusChanged),
@@ -238,7 +238,7 @@ class RowsStore extends Store {
             // console.log('replace data');
             return mergedData;
         }
-        
+
         //code for updating existing table goes here
         let calendarStore = this.flux.getStore('calendar');
 
@@ -251,24 +251,24 @@ class RowsStore extends Store {
         updatedHeaders.forEach( (header, index) => {
             oldHeaderIndexes[header[0]] = index;
         });
-        
+
         let firstHeaderLabel = updatedHeaders[0][0],
             lastHeaderLabel = updatedHeaders[(updatedHeaders.length - 1)][0],
             firstNewHeaderLabel = newHeaders[0][0];
-        
+
         let dayChanged = (
-            (firstHeaderLabel.substring(0,5) === 
+            (firstHeaderLabel.substring(0,5) ===
                 calendarStore.state.lastMinute.substring(0,5)) &&
-            (firstNewHeaderLabel.substring(0,5) === 
+            (firstNewHeaderLabel.substring(0,5) ===
                 calendarStore.state.firstMinute.substring(0,5))
         );
         // let dayChanged = (
-        //     (firstHeaderLabel.substring(0,5) === 
+        //     (firstHeaderLabel.substring(0,5) ===
         //         '06:07') &&
-        //     (firstNewHeaderLabel.substring(0,5) === 
+        //     (firstNewHeaderLabel.substring(0,5) ===
         //         '06:08')
         // );
-        // console.log('compare',firstHeaderLabel.substring(0,5), 'with', 
+        // console.log('compare',firstHeaderLabel.substring(0,5), 'with',
         //             calendarStore.state.lastMinute.substring(0,5), 'and',
         //             firstNewHeaderLabel.substring(0,5), 'with',
         //             calendarStore.state.firstMinute.substring(0,5), dayChanged);
@@ -279,7 +279,7 @@ class RowsStore extends Store {
 
 
         // console.log('update table instead of replacing it');
-        
+
         //maybe revisit this code block if the API result for type merged
         //starts returning just parts of the table instead of all minutes
         if ((this.state.type === 'merged') && (this.userStore.state.autoUpdate)){
@@ -302,8 +302,8 @@ class RowsStore extends Store {
                 };
             }
         }
-        
-        if (lastHeaderLabel.substring(0,2) === '00' && 
+
+        if (lastHeaderLabel.substring(0,2) === '00' &&
                 firstNewHeaderLabel.substring(0,2) === '23') {
             console.log('Pagination occured right in between 00:00 and 23:59');
             lastHeaderLabel = lastHeaderLabel.replace('00:', '24:');
@@ -314,7 +314,7 @@ class RowsStore extends Store {
             this.TextToMinutes(lastHeaderLabel) -
             this.TextToMinutes(firstNewHeaderLabel)
             ) < 5);
-            
+
         // console.log('oldHeaderIndexes', oldHeaderIndexes);
         newHeaders.forEach( (header, index) => {
             let oldRowIndex = oldHeaderIndexes[header[0]];
@@ -334,17 +334,17 @@ class RowsStore extends Store {
             }
         });
         return {
-            headers: appendToEnd ? updatedHeaders.concat(headersToAdd) : 
+            headers: appendToEnd ? updatedHeaders.concat(headersToAdd) :
                                     headersToAdd.concat(updatedHeaders),
-            rows: appendToEnd ? updatedRows.concat(rowsToAdd) : 
+            rows: appendToEnd ? updatedRows.concat(rowsToAdd) :
                                     rowsToAdd.concat(updatedRows)
         };
     }
-    
+
     getColumnsFromRows(rows){
         // console.log('getColumnsFromRows r', rows);
         let firstRowCells = rows[0] ? rows[0] : [];
-        let columns = firstRowCells.map( () => ([]) ); 
+        let columns = firstRowCells.map( () => ([]) );
         for (var r = 0; r < rows.length; r += 1){
             let row = rows[r];
             if (row === undefined) {
@@ -360,11 +360,11 @@ class RowsStore extends Store {
         // console.log('getColumnsFromRows', columns);
         return columns;
     }
-    
+
     updateMenuLabel(data) {
         // console.log('updateMenuLabel', data);
         if (data.rows === undefined || data.rows.data === null ||
-            data.rows.data.length === 0 || 
+            data.rows.data.length === 0 ||
             (data.rows.data.length === 1 && data.rows.data[0].length === 1 && data.rows.data[0][0] === null)
         ){
             console.log('no data');
@@ -390,12 +390,12 @@ class RowsStore extends Store {
             loading: false
         });
     }
-    
+
     updateRowsType(newType) {
         this.resetRows(newType);
         this.fetchRows(this.sessionStore.state.token, newType);
     }
-    
+
     columnClicked(index) {
         if (this.state.type !== 'detailed') {
             this.updateRowsType('detailed');
