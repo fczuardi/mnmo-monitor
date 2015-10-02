@@ -40,7 +40,7 @@ class UIStore extends Store {
         this.register(columnsActions.columnHeaderSelected, this.resetMenuState);
         this.userActions = userActions;
         this.state = {
-            version: 'v3.0.0.2',
+            version: 'v3.0.0.3',
             menuClosed: true,
             submenu: null,
             panel: null,

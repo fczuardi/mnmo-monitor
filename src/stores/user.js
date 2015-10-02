@@ -279,7 +279,7 @@ class UserStore extends Store {
                 store.userActions.errorArrived(result.error);
                 //userPreferencesPostResponseOK returns the last known-to-work
                 //user preferences on error, so we rollback to that
-                // console.log('set user state: updatePreferences error');
+                console.log('set user state: updatePreferences error', newState.archivedReport.start, newState.archivedReport.end);
                 store.setState(newState);
             }
         })

@@ -75,8 +75,10 @@ class RowsStore extends Store {
         // console.log('userChanged', newState);
         let oldState = this.previousUserState;
         let archivedReportIntervalChanged = (
-                JSON.stringify(newState.archivedReport) !==
-                JSON.stringify(oldState.archivedReport)
+                ( JSON.stringify(newState.archivedReport) !==
+                    JSON.stringify(oldState.archivedReport) ) ||
+                ( JSON.stringify(newState.mergedRows) !==
+                    JSON.stringify(oldState.mergedRows) )
         );
 
         let needsRefetching = (
