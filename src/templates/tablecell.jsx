@@ -11,28 +11,28 @@ const defaultPercentProps = {
 };
 
 export default (content, rowKey, cellKey, p) => {
-    let tableHasSeparators = (p.rows.type === 'detailed' && !p.ui.chartVisible);
+    let tableHasSeparators = (p.rows.type === 'detailed' && (!p.ui.chartVisible || !p.ui.isMobile));
     let firstRowWithValue = tableHasSeparators ? 1 : 0;
     let varsCount = keys(p.vars.combos).length + firstRowWithValue; // +1 for the added separators
-    const isPercent = (enumValue) => (p.rows.type === 'detailed') ? 
+    const isPercent = (enumValue) => (p.rows.type === 'detailed') ?
                         (rowKey % varsCount !== firstRowWithValue) :
                         (varTypes[p.vars.combo[enumValue]] === 'percent');
     const getValue = (v, enumValue) => {
-        return !isNaN(parseFloat(v)) ? 
+        return !isNaN(parseFloat(v)) ?
             (parseFloat(v) / (isPercent(enumValue) ? 100 : 1)) : v
     };
     const renderValue = (v, enumValue) => {
         let value = getValue(v, enumValue),
             percentProps = isPercent(enumValue) ? defaultPercentProps : null;
         return (typeof value === 'number') ? (
-            <FormattedNumber 
-                locales={'en-US'/* p.language.messages.locale */} 
+            <FormattedNumber
+                locales={'en-US'/* p.language.messages.locale */}
                 value={value}
                 {...percentProps}
             />
         ) : value;
     };
-        
+
     let values = content ? content.split('|') : [null, null],
         firstLine = renderValue(values[0], 'first'),
         secondLine = p.rows.type === 'detailed' ? null : renderValue(values[1], 'second'),
@@ -51,9 +51,9 @@ export default (content, rowKey, cellKey, p) => {
         let columnColors = tableStyles(p).columnColors;
         cellStyle.backgroundColor = columnColors[(cellKey % columnColors.length)]
     }
-    
+
     return (
-        <td 
+        <td
             key={cellKey}
             style={cellStyle}
         >

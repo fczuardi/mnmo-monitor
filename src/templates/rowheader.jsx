@@ -23,7 +23,7 @@ export default (row, key, p) => {
                                                 row[0] :
                                                 row[0].split('__')[1],
         secondValue = parseFloat(row[1]);
-    if (row[2] === 'separator'){
+    if (row[3] === 'separator'){
         firstValue = row[0].split('__')[0];
         trProps.style = merge(trProps.style, tableStyles(p).separator);
     }

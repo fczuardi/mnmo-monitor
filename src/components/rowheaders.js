@@ -19,11 +19,12 @@ class RowHeaders extends Component {
         if (p.rows.type === 'detailed' && p.rows.headers){
             let rowsWithSeparators = [];
             let varsCount = keys(p.vars.combos).length;
+            let displaySeparators = (!p.ui.chartVisible || !p.ui.isMobile);
             p.rows.headers.forEach( (row, key) => {
-                if (!p.ui.chartVisible && key % varsCount === 0){
+                if (displaySeparators && (key % varsCount === 0)){
                     //duplicate row
                     let rowCopy = row.slice();
-                    rowCopy[2] = 'separator';
+                    rowCopy[3] = 'separator';
                     rowsWithSeparators.push(rowCopy);
                 }
                 rowsWithSeparators.push(row);

@@ -19,7 +19,7 @@ class TableContent {
         let p = merge({}, this.props);
         const userActions = this.props.flux.getActions('user');
         let actions = {
-            onTableScroll: (event) => 
+            onTableScroll: (event) =>
                 // null
                 userActions.tableScroll(
                     event.target.scrollTop, event.target.scrollLeft
@@ -29,8 +29,9 @@ class TableContent {
             let rowsWithSeparators = [];
             let headerRowsWithSeparators = [];
             let varsCount = keys(p.vars.combos).length;
+            let displaySeparators = (!p.ui.chartVisible || !p.ui.isMobile);
             p.rows.data.forEach( (row, key) => {
-                if (!p.ui.chartVisible && key % varsCount === 0){
+                if (displaySeparators && (key % varsCount === 0) ){
                     //duplicate row
                     let rowCopy = row.slice();
                     rowCopy[0] = 'separator';
@@ -42,7 +43,7 @@ class TableContent {
             // of headers as well because this is used by the code
             // that styles the lines (getRowClassName)
             p.rows.headers.forEach( (row, key) => {
-                if (!p.ui.chartVisible && key % varsCount === 0){
+                if (displaySeparators && (key % varsCount === 0) ){
                     //duplicate row
                     let rowCopy = row.slice();
                     rowCopy[2] = 'separator';
@@ -52,7 +53,7 @@ class TableContent {
             });
             p.rows.headers = headerRowsWithSeparators;
             p.rows.data = rowsWithSeparators;
-        }        
+        }
         return template(p, actions);
     }
 }

@@ -17,7 +17,7 @@ class Dashboard {
         let thumbnailsRowHeight = 120,
             sliderHeight = 30,
             tableTitleHeight = 24,
-            defaultChartHeight = this.props.ui.isMobile ? 
+            defaultChartHeight = this.props.ui.isMobile ?
                                     Math.round(p.ui.screenHeight * 0.3) : 264,
             // rowHeight = (this.props.ui.isMobile && p.rows.type == 'detailed') ? 40 : smallColumnWidth;
             rowHeight = this.props.ui.screenHeight < 640 ? smallerRowHeight : smallColumnWidth;
@@ -26,7 +26,7 @@ class Dashboard {
             subgroupsButtonClicked: () =>
                 this.props.flux.getActions('user').openPanel('subgroups')
         };
-        
+
         let columnWidth = p.ui.isMobile ? smallColumnWidth : mediumColumnWidth;
         p.rowHeight = rowHeight;
         p.tableWidth = p.ui.screenWidth;
@@ -35,39 +35,38 @@ class Dashboard {
              Math.ceil((p.tableWidth) / (p.columns.enabled.length + 1));
         p.iconWidth = rowHeight - 2 * cellPadding;
         p.cellPadding = cellPadding;
-                    
+
         p.chartHeight = !p.ui.chartVisible ? 0 : defaultChartHeight;
         p.tableTitleHeight = tableTitleHeight;
         p.appHeaderHeight = appHeaderHeight;
-        p.tableHeight = p.ui.screenHeight - 
-                            appHeaderHeight - 
+        p.tableHeight = p.ui.screenHeight -
+                            appHeaderHeight -
                             p.chartHeight;
         if (!p.ui.chartVisible){
             p.tableHeight -= tableTitleHeight;
         }
         if (p.rows.type == 'detailed'){
             p.subgroupPickerHeight = (
-                p.ui.isMobile && 
+                p.ui.isMobile &&
                 p.groups.selectedGroupSubgroups.length > 0
             ) ? subgroupPickerHeight : 0;
-            if(p.ui.chartVisible) {
-                //table height must be the height of x rows
-                //where x is the number of indexes
-                p.tableHeight = p.rowHeight * varsCount + 
+            if(p.ui.isMobile && p.ui.chartVisible) {
+                // table height must be the height of x rows
+                // where x is the number of indexes
+                p.tableHeight = p.rowHeight * varsCount +
                                     p.rowHeight; // table header
-
-                //chart height is the rest of the screen
-                p.chartHeight = p.ui.screenHeight - 
-                                    appHeaderHeight - 
-                                    thumbnailsRowHeight - 
+                // chart height is the rest of the screen
+                p.chartHeight = p.ui.screenHeight -
+                                    appHeaderHeight -
                                     sliderHeight -
+                                    thumbnailsRowHeight -
                                     p.subgroupPickerHeight -
                                     p.tableHeight;
-            }else{
+            } else {
                 p.tableHeight -= (thumbnailsRowHeight + p.subgroupPickerHeight);
             }
         }
-        
+
         return template(p, actions);
     }
 }
