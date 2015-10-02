@@ -166,14 +166,14 @@ class UserStore extends Store {
         let store = this;
         let token = store.sessionStore.state.token;
         let passwordToken = queryString.parse(window.location.search).token || null;
-        if (token === null && passwordToken === null){ 
-            return false; 
+        if (token === null && passwordToken === null){
+            return false;
         }
         let hasForgotPasswordToken = (passwordToken !== null);
         let url = hasForgotPasswordToken ?
                     URLs.baseUrl + URLs.user.forgotPassword :
                     URLs.baseUrl + URLs.user.password;
-        let postBody = hasForgotPasswordToken ? 
+        let postBody = hasForgotPasswordToken ?
                         buildUserForgotPasswordPostBody(merge(store.state, {
                             passwordToken:passwordToken,
                             countryID: queryString.parse(window.location.search.toUpperCase())[URLs.user.countryParam.toUpperCase()]
@@ -192,7 +192,7 @@ class UserStore extends Store {
             body: postBody
         })
         .then((response) => statusRouter(
-            response, 
+            response,
             store.sessionActions.signOut
         ))
         .then(chooseTextOrJSON)
@@ -202,7 +202,7 @@ class UserStore extends Store {
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
             } else if (result.success){
-                //reset browser's location.search 
+                //reset browser's location.search
                 //to clear any forgot password parameters if they are present
                 if (window.location.search.length > 0) {
                     window.location.search = '';
@@ -220,7 +220,7 @@ class UserStore extends Store {
         console.log('start forgot password flow');
         let store = this;
         console.log('GET', URLs.user.forgotPassword);
-        // console.log('query params', 
+        // console.log('query params',
         //     URLs.user.countryParam, store.state.countryID,
         //     URLs.user.emailParam, store.state.email
         // );
@@ -262,13 +262,13 @@ class UserStore extends Store {
             body: postBody
         })
         .then((response) => statusRouter(
-            response, 
+            response,
             store.sessionActions.signOut
         ))
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK (post)', URLs.user.preferences);
-            // console.log('result (post)', URLs.user.preferences, payload);
+            console.log('result (post)', URLs.user.preferences, payload);
             let result = userPreferencesPostResponseOK(payload),
                 newState = result.data;
             // console.log('newState', newState);
@@ -381,7 +381,7 @@ class UserStore extends Store {
         let intGroupID = parseInt(groupID);
         if (intGroupID === this.state.groupID){ return false; }
         let selectedGroup = this.getGroupFromStore(intGroupID);
-        let classID = selectedGroup.classes.length === 1 ? 
+        let classID = selectedGroup.classes.length === 1 ?
                         selectedGroup.classes[0].id : this.state.classID;
         // console.log('set user state: changeGroupPref');
         this.setState({
