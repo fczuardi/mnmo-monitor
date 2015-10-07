@@ -10,8 +10,8 @@ class Router {
         let routerPath = queryString.parse(location.search).path || null;
         const screen = (routerPath === 'forgotPassword') ? ChangePasswordScreen :
                 (this.props.ui.screen === 'forgotPassword') ? ForgotPasswordScreen :
-                (this.props.session.token === null) ? LoginForm : 
                 (this.props.ui.screen === 'password') ? ChangePasswordScreen :
+                (this.props.session.token === null) ? LoginForm :
                 DashboardScreen;
         return (createElement(screen, this.props));
     }

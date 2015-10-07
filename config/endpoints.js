@@ -14,6 +14,7 @@ export default {
     user: {
         preferences: '/user/preferences',
         password: '/user/password',
+        expiredPassword: '/user/expiredPassword',
         forgotPassword: '/user/forgotPassword',
         countryParam: 'countryID',
         emailParam: 'email',

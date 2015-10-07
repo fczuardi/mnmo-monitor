@@ -13,6 +13,7 @@ import {
     buildUserPreferencesPostBody,
     buildUserPasswordPostBody,
     buildUserForgotPasswordPostBody,
+    buildUserExpiredPasswordPostBody,
     userPreferencesPostResponseOK,
     passwordChangePostResponseOK,
     forgotPasswordPostResponseOK,
@@ -142,16 +143,16 @@ class UserStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK', URLs.user.preferences);
-            // console.log('result', payload);
+            console.log('result', payload);
             let result = parseUserPreferences(payload);
-            // console.log('parsed result', result);
+            console.log('parsed result', result);
+            let userPreferences = merge({}, result.prefs);
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
                 return null;
+            } else {
+                store.userActions.preferencesFetched(userPreferences);
             }
-            let userPreferences = merge({}, result.prefs);
-            // console.log('userPreferences', userPreferences);
-            store.userActions.preferencesFetched(userPreferences);
         })
         .catch(function(e){
             console.log('fetch error', e); // eslint-disable-line
@@ -167,25 +168,28 @@ class UserStore extends Store {
         let token = store.sessionStore.state.token;
         let passwordToken = queryString.parse(window.location.search).token || null;
         if (token === null && passwordToken === null){
-            return false;
+            // return false;
         }
         let hasForgotPasswordToken = (passwordToken !== null);
+        let hasExpiredPassword = !hasForgotPasswordToken && token === null;
         let url = hasForgotPasswordToken ?
                     URLs.baseUrl + URLs.user.forgotPassword :
+                    hasExpiredPassword ? URLs.baseUrl + URLs.user.expiredPassword :
                     URLs.baseUrl + URLs.user.password;
         let postBody = hasForgotPasswordToken ?
                         buildUserForgotPasswordPostBody(merge(store.state, {
                             passwordToken:passwordToken,
                             countryID: queryString.parse(window.location.search.toUpperCase())[URLs.user.countryParam.toUpperCase()]
-                        })) :
+                        })) : hasExpiredPassword ?
+                        buildUserExpiredPasswordPostBody(store.state) :
                         buildUserPasswordPostBody(store.state);
-        let postHeaders = hasForgotPasswordToken ?
+        let postHeaders = hasForgotPasswordToken || hasExpiredPassword ?
                             {'Content-Type': 'application/x-www-form-urlencoded'} :
                             authHeaders(token);
 
-        // console.log('POST', url);
-        // console.log('postBody', postBody);
-        // console.log('postHeaders', postHeaders);
+        console.log('POST', url);
+        console.log('postBody', postBody);
+        console.log('postHeaders', postHeaders);
         fetch(url, {
             method: 'POST',
             headers: postHeaders,

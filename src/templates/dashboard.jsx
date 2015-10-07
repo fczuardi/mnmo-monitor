@@ -74,7 +74,8 @@ export default (p, a) => {
             <CenteredBox>
                 <div style={{
                     width:'100%',
-                    textAlign: p.ui.isMobile ? 'center' : 'left'
+                    textAlign: p.ui.isMobile ? 'center' : 'left',
+                    position: 'relative'
                 }}>
                     <img
                         src={
@@ -87,7 +88,12 @@ export default (p, a) => {
                             marginLeft: p.ui.isMobile ? -15 : - 219
                         }}
                     />
-                    <div className="spinner"></div>
+                    <div className="spinner" style={{
+                        position:'absolute',
+                        top: 100,
+                        left:'50%',
+                        marginLeft: -20
+                    }}></div>
                 </div>
             </CenteredBox>
             <footer
@@ -102,6 +108,7 @@ export default (p, a) => {
             >
                 {p.ui.version}
             </footer>
+            <ErrorDialog {...p} />
         </div>
     );
     let dashboard = p.ui.displaySplash ? splashScreen : (

@@ -20,12 +20,13 @@ class ColumnsStore extends Store {
         const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
         const columnsActions = flux.getActions('columns');
-        this.register(sessionActions.tokenGranted, this.fetchColumns);
+        // this.register(sessionActions.tokenGranted, this.fetchColumns);
         this.register(columnsActions.updateColumnSelectedState, this.updateSelection);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
         this.register(columnsActions.columnMoved, this.columnMoved);
         this.register(columnsActions.columnIconFailed, this.columnIconBroken);
         this.register(columnsActions.columnHeaderSelected, this.columnSelected);
+        this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.preferencesPublished, this.userChanged);
         this.state = {
             enabled: [
@@ -38,7 +39,7 @@ class ColumnsStore extends Store {
         this.sessionActions = sessionActions;
         this.columnsActions = columnsActions;
         this.userStore = userStore;
-        this.fetchColumns(sessionStore.state.token);
+        this.userActions = userActions;
         //columns state changed
         this.addListener('change', function(){
             this.savePreferences();
@@ -49,13 +50,20 @@ class ColumnsStore extends Store {
         //post logged-user columns changes to the server
         this.publishChanges();
     }
-    userChanged(newState) {
-        if (newState.groupID !== this.previousSelectedGroup){
-            this.fetchColumns(this.sessionStore.state.token);
-            this.previousSelectedGroup = newState.groupID;
-        }
+
+    userPreferencesFetched(pref) {
+        this.fetchColumns(this.sessionStore.state.token);
     }
+
+    // userChanged(newState) {
+    //     console.log('userChanged');
+    //     if (newState.groupID !== this.previousSelectedGroup){
+    //         this.fetchColumns(this.sessionStore.state.token);
+    //         this.previousSelectedGroup = newState.groupID;
+    //     }
+    // }
     fetchColumns(token) {
+        console.log('fetchColumns');
         let store = this;
         if (token === null){ return false; }
         console.log('GET', URLs.columns.list);
@@ -66,10 +74,16 @@ class ColumnsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            // console.log('result', URLs.columns.list, payload);
+            console.log('result', URLs.columns.list, payload);
             console.log('OK ' + URLs.columns.list);
             let columns = parseColumnsList(payload);
-            // console.log('parsed result', columns);
+            console.log('parsed result', columns);
+            // if (columns.error !== null) {
+            //     console.log('error arrived');
+            //     store.userActions.errorArrived(columns.error);
+            //     return null;
+            // } else {
+            // }
             store.columnsActions.columnsFetched(columns);
         })
         .catch(function(e){
@@ -105,12 +119,12 @@ class ColumnsStore extends Store {
         .catch(function(e){
             console.log('POST error ' + URLs.columns.list, e); // eslint-disable-line
         });
-        
+
     }
     updateSelection(obj) {
-        let groupToInclude = (obj.checked === true) ? 
+        let groupToInclude = (obj.checked === true) ?
                                 this.state.enabled : this.state.disabled,
-            groupToExclude = (obj.checked === true) ? 
+            groupToExclude = (obj.checked === true) ?
                                 this.state.disabled : this.state.enabled,
             partitionedGroup = partition(
                 groupToExclude, 'id', parseInt(obj.columnID)
@@ -127,7 +141,7 @@ class ColumnsStore extends Store {
             });
         }
     }
-    
+
     columnMoved(indexes) {
         if (indexes.oldIndex === indexes.newIndex){
             return null;
@@ -140,7 +154,7 @@ class ColumnsStore extends Store {
             enabled: newEnabled
         });
     }
-    
+
     columnIconBroken(columnID) {
         let enabledColumns =  this.state.enabled.map((column) => {
             if (column.id === columnID) {
@@ -159,7 +173,7 @@ class ColumnsStore extends Store {
             disabled: disabledColumns
         });
     }
-    
+
     columnSelected(index) {
         this.setState({
             selected: index

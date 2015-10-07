@@ -50,7 +50,6 @@ export default (p) => {
     let firstColumn = columns[0];
     let chartDivisions = firstColumn.map( (cell, cellIndex) => {
         let percentX = (firstColumn.length - 1 - cellIndex) / (firstColumn.length - 1);
-        // let scaledPercentX = Math.sin(percentX * Math.PI/2);
         let scaledPercentX = Math.sqrt(percentX);
         let x = chartWidth - scaledPercentX * chartWidth;
         return Math.round(x);

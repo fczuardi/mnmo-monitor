@@ -15,9 +15,11 @@ class SessionStore extends Store {
     constructor(flux) {
         super();
         const sessionActions = flux.getActions('session');
+        const userActions = flux.getActions('user');
         this.flux = flux;
         this.register(sessionActions.signIn, this.signIn);
         this.register(sessionActions.signOut, this.signOut);
+        this.userActions = userActions;
         this.state = {
             token: null,
             error: null
@@ -52,15 +54,21 @@ class SessionStore extends Store {
             console.log('result (post)', URLs.session.login, payload);
             console.log('OK (post)', URLs.session.login);
             let sessionData = parseLoginResponse(payload);
+            let sessionDataError = (sessionData.error_description || sessionData.error);
             if (sessionData.token){
                 store.setState(sessionData);
                 setLocalItem('sessionToken', sessionData.token);
                 store.flux.getActions('session').tokenGranted(sessionData.token);
             }else if (sessionData.error) {
-                store.setState({
-                    error: (sessionData.error_description || sessionData.error)
-                });
                 store.sessionActions.signOut();
+                if (sessionData.error === 'password_expired'){
+                    store.userActions.navigateToScreen('password');
+                    store.userActions.errorArrived(sessionDataError);
+                }else{
+                    store.setState({
+                        error: sessionDataError
+                    });
+                }
             }
         })
         .catch(function(e){
