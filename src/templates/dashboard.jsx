@@ -21,7 +21,7 @@ export default (p, a) => {
     //         Subgroups
     //     </button>
     //                         ) : null;
-    
+
     let tableTitleText = p.rows.date === '' ? null : (
         <span>
             <span style={{
@@ -51,7 +51,7 @@ export default (p, a) => {
             {tableTitleText}
         </div>
     );
-    let chartContent = (!p.ui.chartVisible) ? null : 
+    let chartContent = (!p.ui.chartVisible) ? null :
                         (p.rows.type !== 'detailed') ? (
         <DashboardChart {...p} />
     ) : (
@@ -67,7 +67,7 @@ export default (p, a) => {
     );
     let splashScreen = (
         <div style={{
-            width: '100%', 
+            width: '100%',
             height: '100%',
             display: 'table'
         }}>
@@ -76,17 +76,18 @@ export default (p, a) => {
                     width:'100%',
                     textAlign: p.ui.isMobile ? 'center' : 'left'
                 }}>
-                    <img 
+                    <img
                         src={
                         p.ui.isMobile ? './img/logo_splash_small.png' :
                                         './img/logo_splash_big.png'
-                        } 
+                        }
                         style={{
                             position: 'relative',
                             left: p.ui.isMobile ? 0 : '50%',
                             marginLeft: p.ui.isMobile ? -15 : - 219
                         }}
                     />
+                    <div className="spinner"></div>
                 </div>
             </CenteredBox>
             <footer
