@@ -39,17 +39,25 @@ class Dashboard {
         p.chartHeight = !p.ui.chartVisible ? 0 : defaultChartHeight;
         p.tableTitleHeight = tableTitleHeight;
         p.appHeaderHeight = appHeaderHeight;
+
+        // dashboard screen table base height
         p.tableHeight = p.ui.screenHeight -
                             appHeaderHeight -
                             p.chartHeight;
+
+        //when chart is not visible, table title height takes the chart space
         if (!p.ui.chartVisible){
             p.tableHeight -= tableTitleHeight;
         }
+        //on the detail screen there is also thumbnails and slider heights to
+        //be considered
         if (p.rows.type == 'detailed'){
+            //on mobile the subgroup picker is placed in it's own line
             p.subgroupPickerHeight = (
                 p.ui.isMobile &&
                 p.groups.selectedGroupSubgroups.length > 0
             ) ? subgroupPickerHeight : 0;
+
             if(p.ui.isMobile && p.ui.chartVisible) {
                 // table height must be the height of x rows
                 // where x is the number of indexes
@@ -63,7 +71,7 @@ class Dashboard {
                                     p.subgroupPickerHeight -
                                     p.tableHeight;
             } else {
-                p.tableHeight -= (thumbnailsRowHeight + p.subgroupPickerHeight);
+                p.tableHeight -= (thumbnailsRowHeight + sliderHeight);
             }
         }
 
