@@ -74,7 +74,7 @@ export default (row, key, p) => {
         </span>
     );
     let mainHeader = (
-        <p style={{margin: 0, fontSize: fontSizes[1]}}>
+        <p style={{margin: 0, position: 'relative', fontSize: fontSizes[1]}}>
             {firstIcon}
             {mergedIcon}
             {firstTitle}
