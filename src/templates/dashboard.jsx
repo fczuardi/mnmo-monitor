@@ -7,6 +7,7 @@ import DetailChart from '../components/detailchart';
 import DataTable from '../components/datatable';
 import NetworkMessages from '../components/networkmessages';
 import ErrorDialog from '../components/errordialog';
+import Analytics from '../components/analytics';
 import CenteredBox from 'mnmo-components/lib/themes/mnmo/centeredbox';
 
 export default (p, a) => {
@@ -121,6 +122,7 @@ export default (p, a) => {
             <DataTable {...p} />
             <NetworkMessages {...p} />
             <ErrorDialog {...p} />
+            <Analytics {...p} />
         </div>
     );
     return dashboard;

@@ -129,6 +129,7 @@ var options = {
         './js/components/detailchart.js',
         './js/components/networkmessages.js',
         './js/components/errordialog.js',
+        './js/components/analytics.js',
         './js/components/dashboard.js',
         './js/components/password.js',
         './js/components/forgotpassword.js',
@@ -140,6 +141,17 @@ var options = {
     ]
 };
 
+var analyticsHTML = `
+    <!-- Google Analytics -->
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='https://www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    </script>
+`;
+
 console.log(
 html(
     renderToStaticMarkup(
@@ -149,5 +161,7 @@ html(
             )
         )
     )
-).replace(/(<script[^\"]*\"\$comment\=)([^\"]*)(\">[^>]*>)/ig, '<!-- $2 -->\n')
+)
+.replace(/(<script[^\"]*\"\$comment\=)([^\"]*)(\">[^>]*>)/ig, '<!-- $2 -->\n')
+.replace(/(<\/body>)/ig, analyticsHTML + '$1')
 );

@@ -61,6 +61,7 @@
     "../components/detailchart": "global:APPDetailChart",
     "../components/networkmessages": "global:APPNetworkMessages",
     "../components/errordialog": "global:APPErrorDialog",
+    "../components/analytics": "global:APPAnalytics",
     "../lib/local": "global:LocalStorageHelpers",
     "../styles/tablestyles": "global:TableStyles",
     "./actions/country": "global:ActionsCountry",
