@@ -49,7 +49,7 @@ class GroupsStore extends Store {
             this.previousUserState = merge({}, newState);
         }
     }
-    
+
     fetchGroups(token) {
         let store = this;
         token = token || this.sessionStore.state.token;
@@ -63,7 +63,7 @@ class GroupsStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK', URLs.filters.groups);
-            // console.log('result', URLs.filters.groups, payload);
+            console.log('result', URLs.filters.groups, payload);
             let groups = parseGroups(payload).groups,
                 partitionedGroups = partition(groups, 'type', 1),
                 userStore = store.flux.getStore('user');
@@ -80,7 +80,7 @@ class GroupsStore extends Store {
             console.log('fetch error ' + URLs.filters.groups, e); // eslint-disable-line
         });
     }
-    
+
     fetchSubGroups(token) {
         let store = this;
         token = token || this.sessionStore.state.token;
@@ -106,17 +106,16 @@ class GroupsStore extends Store {
     }
 
     selectGroup(groupID, fetchSubGroups) {
-        let selected = find(
-            this.state.type1.concat(this.state.type2), 
-            'id', 
+        let selected = groupID === -1 ? null : find(
+            this.state.type1.concat(this.state.type2),
+            'id',
             groupID
         );
-        // console.log('selectGroup', selected);
         this.setState({
             selected: selected,
             selectedGroupSubgroups: []
         });
-        if (fetchSubGroups === true && selected.subgroupsCount > 0) {
+        if (fetchSubGroups === true && selected && selected.subgroupsCount > 0) {
             this.fetchSubGroups();
         }
     }
