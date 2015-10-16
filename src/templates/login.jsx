@@ -42,6 +42,14 @@ export default (p, a) => {
     );
     return (
 <CenteredBox>
+    <div
+        style={{
+            position: 'relative',
+            top: -10
+        }}
+    >
+        <img src="./img/logo_login_small.png" />
+    </div>
     <form onSubmit={a.formSubmit}>
         <FieldSet legend={p.language.messages.login.welcome}>
             <TextInput
@@ -96,7 +104,7 @@ export default (p, a) => {
         <FieldSet legend={p.loginForm.captchaQuestion}>
             <CaptchaAnswers>
             {p.loginForm.captchaAnswers.map( (answer, key) =>
-                <RadioButton 
+                <RadioButton
                     id={('radio-' + key)}
                     name="captcha-answer"
                     key={key}
