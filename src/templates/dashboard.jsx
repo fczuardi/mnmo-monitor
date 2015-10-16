@@ -66,6 +66,7 @@ export default (p, a) => {
             {chartContent}
         </div>
     );
+    let useMobileLogo = p.ui.screenWidth <= 710;
     let splashScreen = (
         <div style={{
             width: '100%',
@@ -75,18 +76,18 @@ export default (p, a) => {
             <CenteredBox>
                 <div style={{
                     width:'100%',
-                    textAlign: p.ui.isMobile ? 'center' : 'left',
+                    textAlign: useMobileLogo ? 'center' : 'left',
                     position: 'relative'
                 }}>
                     <img
                         src={
-                        p.ui.isMobile ? './img/logo_splash_small.png' :
+                        useMobileLogo ? './img/logo_splash_small.png' :
                                         './img/logo_splash_big.png'
                         }
                         style={{
                             position: 'relative',
-                            left: p.ui.isMobile ? 0 : '50%',
-                            marginLeft: p.ui.isMobile ? -15 : - 219
+                            left: useMobileLogo ? 0 : '50%',
+                            marginLeft: useMobileLogo ? -15 : - 347
                         }}
                     />
                     <div className="spinner" style={{
