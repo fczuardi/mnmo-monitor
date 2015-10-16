@@ -40,7 +40,9 @@ class UIStore extends Store {
         this.register(columnsActions.columnHeaderSelected, this.resetMenuState);
         this.userActions = userActions;
         this.state = {
-            version: 'v3.0.2.0',
+            // first digit is cosmetic, don't mean nothing,
+            // the next 3 follows semver (major.minor.patch) http://semver.org/
+            version: 'v3.0.3.0',
             menuClosed: true,
             submenu: null,
             panel: null,
