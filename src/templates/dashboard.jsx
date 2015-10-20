@@ -104,11 +104,17 @@ export default (p, a) => {
                     textAlign: 'center',
                     position: 'absolute',
                     bottom: 10,
-                    left: 0,
-                    opacity: 0.3
+                    left: 0
                 }}
             >
-                {p.ui.version}
+                <p>
+                    {p.language.messages.splash.appName}
+                </p>
+                <p style={{
+                    opacity: 0.3
+                }}>
+                    {p.ui.version}
+                </p>
             </footer>
             <ErrorDialog {...p} />
         </div>

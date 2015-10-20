@@ -3,6 +3,9 @@ export default {
     network: {
         loadingData: 'Loading data… Please wait.'
     },
+    splash: {
+        appName: 'app.name.here'
+    },
     login: {
         welcome: 'Welcome',
         username: 'user',
