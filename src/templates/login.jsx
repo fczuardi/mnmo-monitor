@@ -45,13 +45,14 @@ export default (p, a) => {
     <div
         style={{
             position: 'relative',
-            top: -10
+            top: 0
         }}
     >
         <img src="./img/logo_login_small.png" />
     </div>
     <form onSubmit={a.formSubmit}>
-        <FieldSet legend={p.language.messages.login.welcome}>
+        <FieldSet legend={p.language.messages.login.welcome}
+                    className="PPTCorners">
             <TextInput
                 value={p.user.username}
                 placeholder={p.language.messages.login.username}
