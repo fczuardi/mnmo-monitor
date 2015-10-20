@@ -8,16 +8,16 @@ class EnabledColumns {
     constructor() {
         this.interactable = {};
     }
-    
+
     render() {
         return template(this.props, this.props.actions);
     }
-    
+
     componentDidMount() {
         this.componentDidUpdate();
     }
     shouldComponentUpdate(nextProps) {
-        return ( pluck(nextProps.items, 'id').join(',') !== 
+        return ( pluck(nextProps.items, 'id').join(',') !==
                             pluck(this.props.items, 'id').join(','));
     }
     componentDidUpdate() {
@@ -25,11 +25,11 @@ class EnabledColumns {
         let component = this;
         // console.log('enabled columns did update');
         interact('li', {context: listElement}).unset();
-        
+
         if (!this.props.editing){
             return false;
         }
-        
+
         window.menuScroll0 = document.getElementById('menu-container').scrollTop;
         window.menuScrollDelta = 0;
         let onScroll = (ev) => {
@@ -37,7 +37,7 @@ class EnabledColumns {
         };
         document.getElementById('menu-container').removeEventListener('scroll', onScroll);
         document.getElementById('menu-container').addEventListener('scroll', onScroll);
-        
+
         interact.dynamicDrop(true);
         this.interactable = interact('.handle', {
             context: listElement
@@ -84,8 +84,13 @@ class EnabledColumns {
                 target.style.zIndex = '0';
                 target.style.opacity = '1';
                 target.style.backgroundColor = 'transparent';
+                target.style.webkitTransform =
+                target.style.transform =
+                  'translate(0px, 0px)';
+                target.setAttribute('data-x', 0);
+                target.setAttribute('data-y', 0);
             }
-            
+
         })
         .dropzone({
             accept: '.handle',
@@ -125,7 +130,7 @@ class EnabledColumns {
                 draggableElement.style.transform =
                   'translate(0px, 0px)';
                 draggableElement.setAttribute('data-x', 0);
-                draggableElement.setAttribute('data-y', 0);                
+                draggableElement.setAttribute('data-y', 0);
             }
     });
     }
