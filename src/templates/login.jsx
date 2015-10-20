@@ -12,7 +12,8 @@ import RadioButton from 'mnmo-components/lib/themes/mnmo/radio';
 import CaptchaAnswers from 'mnmo-components/lib/themes/mnmo/radiogroup';
 import Submit from 'mnmo-components/lib/themes/mnmo/submit';
 export default (p, a) => {
-    let firstAttempt = (p.session.error === null);
+    let firstAttempt = (p.session.error === null) && (p.ui.error === null);
+    let errorMessage = p.session.error || p.ui.error;
     let submitButton = (
         <Submit
             value={p.language.messages.login.submit[p.loginForm.submitLabelKey]}
@@ -35,7 +36,7 @@ export default (p, a) => {
                 marginTop: 0,
                 backgroundColor: 'rgba(255, 0, 0, 0.2)'
             }}>
-                {p.session.error}
+                {errorMessage}
             </p>
             {submitButton}
         </div>
