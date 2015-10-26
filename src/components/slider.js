@@ -31,8 +31,8 @@ class Slider {
         }
         let lastRowMinute = endDate.subtract(total/linesPerMinute, 'minutes');
         console.log(
-            'diff (percentFromMinute)', 
-            currentDate.diff(lastRowMinute, 'minutes'), 
+            'diff (percentFromMinute)',
+            currentDate.diff(lastRowMinute, 'minutes'),
             linesPerMinute, total
         );
         return currentDate.diff(lastRowMinute, 'minutes') * linesPerMinute / total;
@@ -53,10 +53,10 @@ class Slider {
         //the current minute is located at what percentage of the full table?
         //we use the scroll position to figure it out
         let tablePositionPercent = (
-            tableContentElement.scrollTop / 
+            tableContentElement.scrollTop /
             (tableContentElement.scrollHeight - tableContentElement.clientHeight)
         );
-        
+
         //the slider handle is located at what percentage of the full slider?
         //based on the table scroll position we calculate where the handler
         //should be considering that the slider follows a sin curve scale
@@ -64,11 +64,11 @@ class Slider {
         //of the slider has more precision, minutes than at the far
         //left side where the same distance means hours
         let sliderPositionPercent = Math.sqrt(tablePositionPercent);
-        
+
         let percent = 1 - sliderPositionPercent;
-        
+
         // console.log(tablePositionPercent, 'vs', sliderPositionPercent);
-        
+
         let sliderElement = findDOMNode(this);
         let sliderHandleElement = document.getElementById('table-slider-handle');
         let sliderEnabledRegion = document.getElementById('slider-enabled-region');
@@ -88,9 +88,10 @@ class Slider {
         let x0 = 30 + percent * sliderEnabledRegion.offsetWidth;
         sliderHandleElement.style.webkitTransform =
         sliderHandleElement.style.transform =
-          'translate(' + x0 + 'px, ' + '0px)';
-        sliderHandleElement.setAttribute('data-x', x0);
-        
+          'translate(' + xMax + 'px, ' + '0px)';
+        sliderHandleElement.setAttribute('data-x', xMax);
+        sliderHandleElement.style.opacity = 1;
+
         interact('.handle', {context: sliderElement}).unset();
         this.interactable = interact('.handle', {
             context: sliderElement,

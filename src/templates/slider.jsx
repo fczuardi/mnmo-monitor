@@ -1,6 +1,6 @@
 import React from 'react';
 export default (p) =>
-<div 
+<div
     id="table-slider"
     className="slider"
     style={{
@@ -13,7 +13,7 @@ export default (p) =>
         backgroundColor: 'rgba(0,0,0,0.8)'
     }}
 >
-    <div 
+    <div
         className="track"
         style={{
             backgroundColor: '#28292A',
@@ -25,7 +25,7 @@ export default (p) =>
             border: '1px solid #000000'
         }}
     />
-    <div 
+    <div
         id="slider-enabled-region"
         style={{
             backgroundColor: '#808181',
@@ -42,6 +42,7 @@ export default (p) =>
         className="handle"
         onMouseDown={(event) => {event.preventDefault()}}
         style={{
+            opacity: 0, //wait for the handle to be in the right place before showing it
             backgroundColor: 'white',
             height: 30,
             width: 30,
