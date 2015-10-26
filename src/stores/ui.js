@@ -247,14 +247,22 @@ class UIStore extends Store {
         let store = this;
         let varsCount = keys(this.variablesStore.state.combos).length;
         let rowHeight = this.state.screenHeight < 640 ? smallerRowHeight : smallColumnWidth;
-        let separatorHeight = this.state.chartVisible ? 0 : 40;
+        let displaySeparators = (!this.state.chartVisible || !this.state.isMobile);
+        let separatorHeight = displaySeparators ? 40 : 0;
         // let currentRow = Math.floor(this.coordY / (rowHeight + separatorHeight));
         let currentMinuteIndex = Math.floor(
-            this.coordY / (rowHeight * varsCount + separatorHeight - varsCount)
+            this.coordY / (rowHeight * varsCount + separatorHeight)
         );
-        // console.log('currentMinuteIndex', currentMinuteIndex);
+        // console.log('currentMinuteIndex',
+        //     currentMinuteIndex,
+        //     this.state.chartVisible,
+        //     displaySeparators,
+        //     separatorHeight
+        // );
         let minute = this.rowsStore.state.headers[currentMinuteIndex] ?
-                        this.minuteFromHeader(this.rowsStore.state.headers[currentMinuteIndex * varsCount][0]):
+                        this.minuteFromHeader(
+                            this.rowsStore.state.headers[currentMinuteIndex][0]
+                        ):
                         '';
         let oldestMinute = this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1] ?
                         this.minuteFromHeader(this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1][0]):
