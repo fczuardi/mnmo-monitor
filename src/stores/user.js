@@ -47,7 +47,7 @@ class UserStore extends Store {
         this.register(userActions.newPasswordInput, this.changeNewPasswordPref);
         this.register(userActions.confirmNewPasswordInput, this.changeConfirmNewPasswordPref);
         this.register(userActions.changePasswordSubmitted, this.publishPasswordChange);
-        this.register(userActions.changePasswordPublished, this.changePasswordPref);
+        this.register(userActions.changePasswordPublished, this.clearPasswordPref);
         this.register(userActions.forgotPasswordSubmitted, this.startForgotPassword);
         this.register(userActions.preferencesFetched, this.preferencesFetched);
         this.register(userActions.dateUpdated, this.changeDate);
@@ -311,6 +311,15 @@ class UserStore extends Store {
         // console.log('set user state: changePasswordPref');
         this.setState({
             password: password
+        });
+    }
+    clearPasswordPref(password) {
+        console.log('clear user state: clearPasswordPref');
+        this.setState({
+            password: '',
+            currentPassword: '',
+            newPassword: '',
+            confirmNewPassword: ''
         });
     }
     changeEmailPref(email) {
