@@ -88,8 +88,8 @@ class Slider {
         let x0 = 30 + percent * sliderEnabledRegion.offsetWidth;
         sliderHandleElement.style.webkitTransform =
         sliderHandleElement.style.transform =
-          'translate(' + xMax + 'px, ' + '0px)';
-        sliderHandleElement.setAttribute('data-x', xMax);
+          'translate(' + x0 + 'px, ' + '0px)';
+        sliderHandleElement.setAttribute('data-x', x0);
         sliderHandleElement.style.opacity = 1;
 
         interact('.handle', {context: sliderElement}).unset();
