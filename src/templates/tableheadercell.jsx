@@ -22,7 +22,7 @@ export default (column, key, p, a) => {
             // padding: p.cellPadding,
             verticalAlign: 'middle'
         },
-        tableStyles(p).borderRight
+        tableStyles ? tableStyles(p).borderRight : {}
     );
     if (p.rows.type === 'detailed') {
         let columnColors = tableStyles(p).columnColors;
@@ -33,7 +33,7 @@ export default (column, key, p, a) => {
     let headerClick = null;
     if (p.rows.data.length > 0 && p.groups.selected !== null) {
         headerClick = () => a.onHeaderCellClick(key);
-        cellStyle.cursor = "pointer"
+        cellStyle.cursor = 'pointer'
     }
 
     return (

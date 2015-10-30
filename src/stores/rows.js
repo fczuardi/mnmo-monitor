@@ -8,6 +8,13 @@ import {
     chooseTextOrJSON,
     parseRows
 } from '../../config/apiHelpers';
+import {
+    DOM,
+    createElement,
+    renderToStaticMarkup
+} from 'react';
+
+import SimpleTable from '../components/simpledatatable';
 
 const AUTOUPDATE_INTERVAL = 1000 * 30;
 
@@ -32,6 +39,7 @@ class RowsStore extends Store {
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.preferencesPublished, this.userChanged);
         this.register(userActions.tableScrollEnded, this.getNextPage);
+        this.register(userActions.printRequested, this.printTable);
         this.register(columnsActions.columnsPublished, this.columnsChanged);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
         this.register(columnsActions.columnHeaderSelected, this.columnClicked);
@@ -402,6 +410,38 @@ class RowsStore extends Store {
         if (this.state.type !== 'detailed') {
             this.updateRowsType('detailed');
         }
+    }
+
+    printTable(){
+        console.log('printTable');
+
+        let tableProperties = {
+            // flux: this.flux,
+            // groups: this.flux.getStore('groups').state,
+            vars: this.flux.getStore('vars').state,
+            // user: this.flux.getStore('user').state,
+            // language: this.flux.getStore('language').state,
+            columns: this.flux.getStore('columns').state,
+            rows: this.state,
+            // ui: this.flux.getStore('ui').state
+        };
+        let tableHTML = renderToStaticMarkup(
+            DOM.html(null,
+                DOM.head(null,
+                    DOM.link({
+                        href: './css/main.css',
+                        rel: 'stylesheet'
+                    })
+                ),
+                DOM.body(null,
+                    createElement(SimpleTable, tableProperties)
+                )
+            )
+        );
+        // console.log(tableHTML);
+        let printWindow = window.open('', 'printWindow', 'scrollbars=yes');
+        printWindow.document.write(tableHTML);
+        printWindow.print();
     }
 }
 

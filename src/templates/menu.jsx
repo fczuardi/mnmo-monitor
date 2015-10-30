@@ -13,7 +13,7 @@ const minWidth = window.innerWidth > 320 ? 300 : 270;
 export default (p, a) => {
     extraLinks[0][0].link = p.user.tosURL;
     return (
-<div 
+<div
     id='menu-container'
     style={{
         display: p.ui.menuClosed ? 'none' : 'block',
@@ -24,18 +24,18 @@ export default (p, a) => {
         overflow: 'auto'
     }}
 >
-<Drawer 
+<Drawer
     title={p.language.messages.settings.menu}
     closeLabel={p.language.messages.settings.close}
     onCloseClick={a.closePanel}
-    container={true} 
+    container={true}
     panelsOpened={p.panelsOpened}>
     <div style={{display: (p.ui.submenu !== null) ? 'none' : 'block'}}>
     <Drawer>
         <List bottomSpace={true}>
             <LI>
-                <Switch 
-                    id="autoUpdateToggle" 
+                <Switch
+                    id="autoUpdateToggle"
                     onChange={a.autoUpdateChange}
                     isItem={true}
                     checked={p.user.autoUpdate}
@@ -47,7 +47,7 @@ export default (p, a) => {
         <List bottomSpace={true}>
         {p.language.list.map( (language, key) => (
             <LI key={key}>
-                <Radio 
+                <Radio
                     name="settings-language"
                     id={'settings-language-' + key}
                     value={language.id}
@@ -79,6 +79,11 @@ export default (p, a) => {
         </List>
     )}
         <List>
+            <LI>
+                <A href='#' onClick={a.printClick}>
+                    {p.language.messages.settings.print}
+                </A>
+            </LI>
             <LI>
                 <A href='#' onClick={a.changePasswordClick}>
                     {p.language.messages.settings.changePassword}

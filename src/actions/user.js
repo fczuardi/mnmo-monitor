@@ -115,6 +115,9 @@ class UserActions extends Actions {
     errorDismissed() {
         return null;
     }
+    printRequested() {
+        return null;
+    }
 }
 
 export default UserActions;

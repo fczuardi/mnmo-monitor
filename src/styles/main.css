@@ -68,3 +68,21 @@
 .PPTCorners{
     border-radius: 0px 0px 10px 10px !important;
 }
+
+.simple-table-print table{
+    width: 100%
+}
+
+.simple-table-print table,
+.simple-table-print th,
+.simple-table-print td{
+    margin: 0px;
+    padding: 0px;
+    border-collapse:collapse;
+    border: 1px solid black;
+}
+
+.simple-table-print th,
+.simple-table-print td{
+    text-align: center;
+}

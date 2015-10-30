@@ -46,6 +46,7 @@ export default {
         columns: 'Columnas',
         close: 'Cerrar',
         back: 'Volver',
+        print: 'Imprimir',
         changePassword: 'Cambiar contraseña',
         logout: 'Cerrar sesión'
     },

@@ -46,6 +46,7 @@ export default {
         columns: 'Columns',
         close: 'Close',
         back: 'Back',
+        print: 'Print',
         changePassword: 'Change password',
         logout: 'Logout'
     },

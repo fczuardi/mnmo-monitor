@@ -6,7 +6,7 @@ class Menu {
         const p = merge({}, this.props);
         const userActions = p.flux.getActions('user');
         const actions = {
-            closePanel: () => 
+            closePanel: () =>
                 userActions.closePanel(),
             logoutClick: (event) => {
                 event.preventDefault();
@@ -15,6 +15,10 @@ class Menu {
             changePasswordClick: (event) => {
                 event.preventDefault();
                 userActions.navigateToScreen('password');
+            },
+            printClick: (event) => {
+                event.preventDefault();
+                userActions.printRequested();
             },
             autoUpdateChange: (event) =>
                 p.flux.getActions('user').autoUpdateToggle(event.target.checked),
