@@ -55,13 +55,13 @@ class ColumnsStore extends Store {
         this.fetchColumns(this.sessionStore.state.token);
     }
 
-    // userChanged(newState) {
-    //     console.log('userChanged');
-    //     if (newState.groupID !== this.previousSelectedGroup){
-    //         this.fetchColumns(this.sessionStore.state.token);
-    //         this.previousSelectedGroup = newState.groupID;
-    //     }
-    // }
+    userChanged(newState) {
+        console.log('userChanged');
+        if (newState.groupID !== this.previousSelectedGroup){
+            this.fetchColumns(this.sessionStore.state.token);
+            this.previousSelectedGroup = newState.groupID;
+        }
+    }
     fetchColumns(token) {
         console.log('fetchColumns');
         let store = this;
