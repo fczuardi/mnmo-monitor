@@ -416,13 +416,14 @@ class RowsStore extends Store {
         console.log('printTable');
 
         let tableProperties = {
-            // flux: this.flux,
+            flux: this.flux,
             // groups: this.flux.getStore('groups').state,
             vars: this.flux.getStore('vars').state,
             // user: this.flux.getStore('user').state,
             // language: this.flux.getStore('language').state,
             columns: this.flux.getStore('columns').state,
             rows: this.state,
+            iconWidth: 30
             // ui: this.flux.getStore('ui').state
         };
         let tableHTML = renderToStaticMarkup(
@@ -434,14 +435,16 @@ class RowsStore extends Store {
                     })
                 ),
                 DOM.body(null,
-                    createElement(SimpleTable, tableProperties)
+                    createElement(SimpleTable, tableProperties),
+                    DOM.script(null,
+                        'window.print();'
+                    )
                 )
             )
         );
         // console.log(tableHTML);
         let printWindow = window.open('', 'printWindow', 'scrollbars=yes');
         printWindow.document.write(tableHTML);
-        printWindow.print();
     }
 }
 
