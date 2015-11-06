@@ -2,7 +2,7 @@ import {Actions} from 'flummox';
 
 class CountryActions extends Actions {
     select(countryID) {
-        return countryID;
+        return parseInt(countryID);
     }
 }
 

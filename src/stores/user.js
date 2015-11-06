@@ -335,7 +335,7 @@ class UserStore extends Store {
                 tosURL = item.tosURL;
             }
         });
-        // console.log('set user state: changeCountryPref');
+        // console.log('set user state: changeCountryPref', tosURL, countryID, this.countryStore.state);
         this.setState({
             countryID: countryID,
             tosURL: tosURL || this.state.tosURL

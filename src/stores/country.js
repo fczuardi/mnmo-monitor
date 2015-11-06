@@ -22,6 +22,7 @@ class CountryStore extends Store {
         .then(function(payload){
             console.log('OK', URLs.country.list);
             let options = parseCountryList(payload);
+            // console.log(options);
             store.setState({
                 options: options
             });
