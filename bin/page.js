@@ -152,6 +152,7 @@ var analyticsHTML = `
     </script>
 `;
 
+console.log('<!DOCTYPE html>');
 console.log(
 html(
     renderToStaticMarkup(
