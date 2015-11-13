@@ -46,7 +46,7 @@ export default (p, a) => {
     <div
         style={{
             position: 'relative',
-            top: 0
+            top: 5
         }}
     >
         <img src="./img/logo_login_small.png" />
