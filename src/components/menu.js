@@ -26,7 +26,14 @@ class Menu {
                 p.flux.getActions('user').languageUpdate(event.target.value),
             openColumnsSelection: (event) => {
                 event.preventDefault();
-                p.flux.getActions('user').openSubmenu('columns');
+                // if the user doesnt have a selected group
+                // open the group selection panel instead
+                // of the columns subpanel
+                if (p.groups.selected === null){
+                    this.props.flux.getActions('user').openPanel('groups');
+                }else{
+                    p.flux.getActions('user').openSubmenu('columns');
+                }
             }
         };
         p.panelsOpened = (p.ui.submenu !== null) ? 2 : 1;

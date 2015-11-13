@@ -67,6 +67,7 @@ class GroupsStore extends Store {
             let groups = parseGroups(payload).groups,
                 partitionedGroups = partition(groups, 'type', 1),
                 userStore = store.flux.getStore('user');
+            console.log('parsed result', URLs.filters.groups, partitionedGroups);
             store.setState({
                 type1: partitionedGroups[0],
                 type2: partitionedGroups[1]
