@@ -30,7 +30,7 @@ class Menu {
                 // open the group selection panel instead
                 // of the columns subpanel
                 if (p.groups.selected === null){
-                    this.props.flux.getActions('user').openPanel('groups');
+                    p.flux.getActions('user').openPanel('groups');
                 }else{
                     p.flux.getActions('user').openSubmenu('columns');
                 }
