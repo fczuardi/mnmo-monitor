@@ -29,7 +29,7 @@ for (let m = 0; m < 60; m++){
 }
 
 export default (p, a) => {
-    let selectedDay = (p.user.archivedReport && p.user.archivedReport.date) ? 
+    let selectedDay = (p.user.archivedReport && p.user.archivedReport.date) ?
                                             p.user.archivedReport.date : null;
     let initialMonth = moment(selectedDay);
     let modifiers = {
@@ -50,11 +50,11 @@ export default (p, a) => {
     };
 
     let datePicker = (p.user.autoUpdate === true) ? null : (
-        <List 
+        <List
             title={p.language.messages.rows.date}
         >
             <div style={{marginLeft:-10}}>
-            <DayPicker 
+            <DayPicker
                 initialMonth={initialMonth}
                 modifiers={modifiers}
                 onDayClick={a.calendarDayClick}
@@ -66,13 +66,15 @@ export default (p, a) => {
         </List>
     );
     let startingHour = (p.user.archivedReport &&
-                        p.user.archivedReport.start) ? 
+                        p.user.archivedReport.start) ?
                             parseInt(p.user.archivedReport.start.split(':')[0]) : null;
     let startingMinute = (p.user.archivedReport &&
-                        p.user.archivedReport.start) ? 
+                        p.user.archivedReport.start) ?
                             parseInt(p.user.archivedReport.start.split(':')[1]) : null;
-    let startingTime = ( (p.rows.type === 'list') ||
-                         (p.user.autoUpdate === true) ) ? null : (
+    let startingTime =  (p.groups.selected !== null) && (
+                            (p.rows.type === 'list') ||
+                            (p.user.autoUpdate === true)
+                        ) ? null : (
         <MultiPicker 
             title={p.language.messages.rows.startingTime}
             cells={[
@@ -92,13 +94,13 @@ export default (p, a) => {
         />
     );
     let endingHour = (p.user.archivedReport &&
-                        p.user.archivedReport.end) ? 
+                        p.user.archivedReport.end) ?
                             parseInt(p.user.archivedReport.end.split(':')[0]) : null;
     let endingMinute = (p.user.archivedReport &&
-                        p.user.archivedReport.end) ? 
+                        p.user.archivedReport.end) ?
                             parseInt(p.user.archivedReport.end.split(':')[1]) : null;
     let endingTime = (p.user.autoUpdate === true) ? null : (
-        <MultiPicker 
+        <MultiPicker
             title={p.language.messages.rows.endingTime}
             cells={[
                 {
@@ -116,8 +118,8 @@ export default (p, a) => {
             ]}
         />
     );
-    
-    let frequencyPicker = (p.rows.type === 'list' || 
+
+    let frequencyPicker = (p.rows.type === 'list' ||
                             p.frequency.options.length === 0) ? null : (
         <List
             title={p.language.messages.rows.interval}
@@ -133,10 +135,10 @@ export default (p, a) => {
                 marginLeft: -10
             }}>
             {p.frequency.options.map( (freq, key) => (
-                <Radio  
+                <Radio
                     key={key}
-                    name='settings-frequency' 
-                    id={'settings-frequency-' + key} 
+                    name='settings-frequency'
+                    id={'settings-frequency-' + key}
                     value={freq.id}
                     checked={(freq.id == p.user.mergedRows.frequencyID)}
                     isRowCell={true}
@@ -152,13 +154,13 @@ export default (p, a) => {
                 marginLeft: -20,
                 textAlign: 'center'
             }}>
-                <Switch 
-                    id="merge-function-toggle" 
+                <Switch
+                    id="merge-function-toggle"
                     onChange={a.mergeFunctionChange}
                     isMiddleSwitch={true}
                     isItem={false}
                     checked={
-                        (p.user.mergedRows !== null && 
+                        (p.user.mergedRows !== null &&
                             p.user.mergedRows.mergeFunctionID === 1)
                     }
                 >
@@ -172,7 +174,7 @@ export default (p, a) => {
             </div>
         </List>
     );
-    
+
     let isFullscreen = p.ui.screenWidth < fullScreenLimit;
     return (
         <Dialog align='center' fullscreen={isFullscreen}>
