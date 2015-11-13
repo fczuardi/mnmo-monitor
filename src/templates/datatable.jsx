@@ -8,17 +8,31 @@ import tableStyles from '../styles/tablestyles';
 import merge from 'lodash/object/merge';
 
 export default (p, a) => {
+    let firstCellIcon = (
+        <img
+            style={{
+                height:'60%'
+            }}
+            src={
+                p.ui.isMobile ?
+                    './img/icon_split_mobile.png' :
+                    './img/icon_split_desktop.png'
+            }
+        />
+    );
     let firstCell = (
         <button
             className='headerCell tableHeader'
             style={{
                 border: 'none',
+                padding: 0,
                 width: '100%',
                 height: p.rowHeight
             }}
             data-type={p.rows.type}
             onClick={a.firstHeaderButtonClick}
         >
+            {firstCellIcon}
         </button>
     );
 
