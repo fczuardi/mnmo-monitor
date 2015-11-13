@@ -56,15 +56,15 @@ export default {
         type2: 'Tipo 2'
     },
     vars: {
-        title: "Variables",
-        input1: "Primaria",
-        input2: "Secundaria",
-        displaySecondary: "Ver variable secundaria en la tabla"
+        title: 'Variables',
+        input1: 'Primaria',
+        input2: 'Secundaria',
+        displaySecondary: 'Ver variable secundaria en la tabla'
     },
     error: {
-        error: "Error",
-        ok: "OK",
-        tryAgain: "Inténtalo de nuevo"
+        error: 'Error',
+        ok: 'OK',
+        tryAgain: 'Inténtalo de nuevo'
     },
     rows: {
         title: {
