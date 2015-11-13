@@ -30,7 +30,10 @@ export default (p, a) => {
     onCloseClick={a.closePanel}
     container={true}
     panelsOpened={p.panelsOpened}>
-    <div style={{display: (p.ui.submenu !== null) ? 'none' : 'block'}}>
+    <div style={{
+        display: (p.ui.submenu !== null) ? 'none' : 'block',
+        marginLeft: -2
+    }}>
     <Drawer>
         <List bottomSpace={true}>
             <LI>

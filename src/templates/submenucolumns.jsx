@@ -6,6 +6,10 @@ import LI from 'mnmo-components/lib/themes/mnmo/li';
 import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
 
 export default (p, a) =>
+<div style={{
+    marginLeft: -2,
+    marginTop: -46
+}}>
 <Drawer
     title={p.language.messages.settings.columns}
     closeLabel={p.language.messages.settings.back}
@@ -13,7 +17,7 @@ export default (p, a) =>
     doneLabel={p.language.messages.settings.close}
     onCloseClick={a.closeDrawer}
 >
-    <EnabledColumns 
+    <EnabledColumns
         items={p.columns.enabled}
         uiStore={p.ui}
         actions={a}
@@ -30,9 +34,9 @@ export default (p, a) =>
                 onChange={a.columnChange}
             >
             {
-                (column.icons && !column.iconError) ? 
+                (column.icons && !column.iconError) ?
                     React.DOM.img({
-                        src: p.ui.supportsSVG ? 
+                        src: p.ui.supportsSVG ?
                                     column.icons.menu : column.icons.menuBitmap,
                         width: 30,
                         height: 30,
@@ -46,3 +50,4 @@ export default (p, a) =>
     )}
     </List>
 </Drawer>;
+</div>
