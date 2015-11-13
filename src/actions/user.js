@@ -118,6 +118,9 @@ class UserActions extends Actions {
     printRequested() {
         return null;
     }
+    splitScreenButtonToggle() {
+        return null;
+    }
 }
 
 export default UserActions;

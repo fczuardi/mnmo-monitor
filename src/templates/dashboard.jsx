@@ -1,4 +1,5 @@
 import React from 'react';
+import merge from 'lodash/object/merge';
 import Menu from '../components/menu';
 import Header from '../components/header';
 import PanelRouter from '../components/panelrouter';
@@ -119,6 +120,63 @@ export default (p, a) => {
             <ErrorDialog {...p} />
         </div>
     );
+
+    let circleStyles = {
+        'div': {
+            'mobile': {
+                width: 220,
+                height: 220,
+                borderRadius: 220,
+                left: -60,
+                top: -80
+            },
+            'desktop': {
+                width: 500,
+                height: 500,
+                borderRadius: 500,
+                left: -80,
+                top: -225
+            }
+        },
+        'img': {
+            'mobile': {
+                position: 'absolute',
+                top: 46,
+                left: 80,
+                height: 110
+            },
+            'desktop': {
+                position: 'absolute',
+                top: 200,
+                left: 100
+            }
+        }
+
+    };
+    let splitScreenMenuBackgroundCircle = (
+        <div
+            style={merge({
+                position: 'absolute',
+                backgroundColor: '#000000',
+                zIndex: 2,
+                display: p.ui.splitScreenMenuClosed ? 'none' : 'block'
+            }, p.ui.isMobile ? circleStyles.div.mobile : circleStyles.div.desktop)}
+            onClick={p.flux.getActions('user').splitScreenButtonToggle}
+        >
+            <img
+                style={
+                    p.ui.isMobile ?
+                        circleStyles.img.mobile :
+                        circleStyles.img.desktop
+                }
+                src={
+                    p.ui.isMobile ?
+                        './img/icon_split_big_mobile.png' :
+                        './img/icon_split_big_desktop.png'
+                }
+            />
+        </div>
+    );
     let dashboard = p.ui.displaySplash ? splashScreen : (
         <div style={{paddingTop: 53, width: '100%'}}>
             <Header {...p} />
@@ -126,6 +184,26 @@ export default (p, a) => {
             <PanelRouter {...p} />
             {chartContainer}
             {tableTitle}
+            <div
+                style={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                    top: 0,
+                    zIndex: 1,
+                    backgroundColor: '#000000',
+                    opacity: 0.7,
+                    display: p.ui.splitScreenMenuClosed ? 'none' : 'block'
+                }}
+                onClick={p.flux.getActions('user').splitScreenButtonToggle}
+            />
+            <div
+                style={{
+                    position: 'relative'
+                }}
+            >
+                {splitScreenMenuBackgroundCircle}
+            </div>
             <DataTable {...p} />
             <NetworkMessages {...p} />
             <ErrorDialog {...p} />

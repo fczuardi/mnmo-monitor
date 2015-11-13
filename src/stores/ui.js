@@ -36,6 +36,7 @@ class UIStore extends Store {
         this.register(userActions.forgotPasswordAccepted, this.resetScreen);
         this.register(userActions.errorArrived, this.displayError);
         this.register(userActions.errorDismissed, this.resetError);
+        this.register(userActions.splitScreenButtonToggle, this.splitScreenMenuToggle);
         this.register(sessionActions.tokenGranted, this.resetError);
         this.register(columnsActions.columnHeaderSelected, this.resetMenuState);
         this.userActions = userActions;
@@ -48,6 +49,7 @@ class UIStore extends Store {
             panel: null,
             screen: null,
             chartVisible: true,
+            splitScreenMenuClosed: true,
             displaySplash: true,
             supportsSVG: document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#Image', '1.1'),
             screenWidth: window.innerWidth,
@@ -407,6 +409,12 @@ class UIStore extends Store {
             window.requestAnimationFrame(this.scrollMainTable.bind(this));
         }
         return false;
+    }
+
+    splitScreenMenuToggle(){
+        this.setState({
+            splitScreenMenuClosed: !this.state.splitScreenMenuClosed
+        })
     }
 }
 
