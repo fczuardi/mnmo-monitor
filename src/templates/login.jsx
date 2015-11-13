@@ -43,20 +43,17 @@ export default (p, a) => {
     );
     return (
 <CenteredBox>
+    <div
+        style={{
+            position: 'relative',
+            top: 0
+        }}
+    >
+        <img src="./img/logo_login_small.png" />
+    </div>
     <form onSubmit={a.formSubmit}>
-        <FieldSet
-            legend={p.language.messages.login.welcome}
-            className="LoginFieldset"
-        >
-            <div
-                style={{
-                    position: 'absolute',
-                    top: 28,
-                    right: 28
-                }}
-            >
-                <img src="./img/logo_login_small.png" />
-            </div>
+        <FieldSet legend={p.language.messages.login.welcome}
+                    className="PPTCorners">
             <TextInput
                 value={p.user.username}
                 placeholder={p.language.messages.login.username}
