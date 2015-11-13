@@ -24,14 +24,18 @@ class Dashboard {
 
         const actions = {
             chartOnClicked: (event) => {
-                console.log('chartOnClicked');
                 event.stopPropagation();
                 this.props.flux.getActions('user').chartVisibilityToggle('on');
             },
             chartOffClicked: (event) => {
-                console.log('chartOffClicked');
                 event.stopPropagation();
                 this.props.flux.getActions('user').chartVisibilityToggle('off');
+            },
+            rowTypeListClicked: (event) => {
+                this.props.flux.getActions('rows').rowsTypeSwitchClicked('merged')
+            },
+            rowTypeMergedClicked: (event) => {
+                this.props.flux.getActions('rows').rowsTypeSwitchClicked('list')
             },
             subgroupsButtonClicked: () =>
                 this.props.flux.getActions('user').openPanel('subgroups')

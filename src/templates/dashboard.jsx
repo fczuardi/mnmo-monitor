@@ -286,6 +286,7 @@ export default (p, a) => {
                         selectorActiveButtonStyles :
                         selectorButtonStyles
                 }
+                onClick={a.rowTypeListClicked}
             >
                 {p.language.messages.rows.unmergeRows}
             </button>
@@ -295,6 +296,7 @@ export default (p, a) => {
                         selectorActiveButtonStyles :
                         selectorButtonStyles
                 }
+                onClick={a.rowTypeMergedClicked}
             >
                 {p.language.messages.rows.mergeRows}
             </button>
