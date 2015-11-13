@@ -153,13 +153,27 @@ export default (p, a) => {
         }
 
     };
+    let splitScreenMenuBackground = (
+        <div
+            style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                top: 0,
+                zIndex: 1,
+                backgroundColor: '#000000',
+                opacity: 0.7,
+                display: p.ui.splitScreenMenuClosed ? 'none' : 'block'
+            }}
+            onClick={p.flux.getActions('user').splitScreenButtonToggle}
+        />
+    );
     let splitScreenMenuBackgroundCircle = (
         <div
             style={merge({
                 position: 'absolute',
                 backgroundColor: '#000000',
-                zIndex: 2,
-                display: p.ui.splitScreenMenuClosed ? 'none' : 'block'
+                zIndex: 2
             }, p.ui.isMobile ? circleStyles.div.mobile : circleStyles.div.desktop)}
             onClick={p.flux.getActions('user').splitScreenButtonToggle}
         >
@@ -177,6 +191,71 @@ export default (p, a) => {
             />
         </div>
     );
+    let balloonStyle = {
+        position: 'absolute',
+        zIndex: 2,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 15,
+        padding: 25
+    }
+    let balloonStyles = {
+        'desktop': {
+            left: 135
+        },
+        'mobile': {
+            left: 95
+        },
+        'top': {
+            mobile: {
+                bottom: -17
+            },
+            desktop: {
+                bottom: -7
+            }
+        },
+        'bottom': {
+            mobile: {
+                top: 22
+            },
+            desktop: {
+                top: 13
+            }
+        }
+    }
+    let topSelector = (
+        <div
+            style={merge(
+                {},
+                balloonStyle,
+                p.ui.isMobile ? balloonStyles.mobile : balloonStyles.desktop,
+                p.ui.isMobile ? balloonStyles.top.mobile : balloonStyles.top.desktop
+            )}
+        >
+        </div>
+    );
+    let bottomSelector = (
+        <div
+            style={merge(
+                {},
+                balloonStyle,
+                p.ui.isMobile ? balloonStyles.mobile : balloonStyles.desktop,
+                p.ui.isMobile ? balloonStyles.bottom.mobile : balloonStyles.bottom.desktop
+            )}
+        >
+        </div>
+    );
+    let splitMenu = (
+        <div
+            style={{
+                position: 'relative',
+                display: p.ui.splitScreenMenuClosed ? 'none' : 'block'
+            }}
+        >
+            {splitScreenMenuBackgroundCircle}
+            {topSelector}
+            {bottomSelector}
+        </div>
+    );
     let dashboard = p.ui.displaySplash ? splashScreen : (
         <div style={{paddingTop: 53, width: '100%'}}>
             <Header {...p} />
@@ -184,26 +263,8 @@ export default (p, a) => {
             <PanelRouter {...p} />
             {chartContainer}
             {tableTitle}
-            <div
-                style={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    top: 0,
-                    zIndex: 1,
-                    backgroundColor: '#000000',
-                    opacity: 0.7,
-                    display: p.ui.splitScreenMenuClosed ? 'none' : 'block'
-                }}
-                onClick={p.flux.getActions('user').splitScreenButtonToggle}
-            />
-            <div
-                style={{
-                    position: 'relative'
-                }}
-            >
-                {splitScreenMenuBackgroundCircle}
-            </div>
+            {splitScreenMenuBackground}
+            {splitMenu}
             <DataTable {...p} />
             <NetworkMessages {...p} />
             <ErrorDialog {...p} />
