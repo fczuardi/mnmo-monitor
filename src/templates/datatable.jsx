@@ -12,24 +12,20 @@ export default (p, a) => {
         <button
             className='headerCell tableHeader'
             style={{
-                border: 'none', 
-                width: '100%', 
+                border: 'none',
+                width: '100%',
                 height: p.rowHeight
             }}
             data-type={p.rows.type}
             onClick={a.firstHeaderButtonClick}
         >
-            {( p.rows.type === 'list' ?
-                p.language.messages.rows.mergeRows :
-                p.language.messages.rows.unmergeRows
-            )}
         </button>
     );
-    
+
     let thumbnails = p.rows.type === 'detailed' ? (
         <ImageRow {...p} />
     ) : null;
-    
+
     let slider = p.rows.type === 'detailed' && p.ui.chartVisible ? (
         <Slider {...p} />
     ) : null;
@@ -77,10 +73,10 @@ export default (p, a) => {
                     float: 'left'
                 }}
             >
-                <div 
+                <div
                     style={merge({
-                        
-                    }, 
+
+                    },
                     tableStyles(p).borderBottom,
                     tableStyles(p).borderRight
                     )}
@@ -89,7 +85,7 @@ export default (p, a) => {
                 </div>
                 <RowHeaders {...p} />
             </div>
-            <div 
+            <div
                 style={{
                     float: 'left',
                 }}
