@@ -23,6 +23,16 @@ class Dashboard {
             rowHeight = this.props.ui.screenHeight < 640 ? smallerRowHeight : smallColumnWidth;
 
         const actions = {
+            chartOnClicked: (event) => {
+                console.log('chartOnClicked');
+                event.stopPropagation();
+                this.props.flux.getActions('user').chartVisibilityToggle('on');
+            },
+            chartOffClicked: (event) => {
+                console.log('chartOffClicked');
+                event.stopPropagation();
+                this.props.flux.getActions('user').chartVisibilityToggle('off');
+            },
             subgroupsButtonClicked: () =>
                 this.props.flux.getActions('user').openPanel('subgroups')
         };

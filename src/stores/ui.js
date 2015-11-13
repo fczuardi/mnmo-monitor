@@ -43,7 +43,7 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.4.5',
+            version: 'v3.0.4.6',
             menuClosed: true,
             submenu: null,
             panel: null,
@@ -141,8 +141,11 @@ class UIStore extends Store {
             document.body.scrollTop = 0;
         }
     }
-    toggleChart() {
-        let newVisibility = ! this.state.chartVisible;
+    toggleChart(status) {
+        console.log('toggleChart', status);
+        let newVisibility = status !== undefined ?
+                                status === 'on' :
+                                ! this.state.chartVisible;
         this.setState({
             chartVisible: newVisibility
         });

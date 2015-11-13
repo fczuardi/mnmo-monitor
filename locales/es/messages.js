@@ -50,6 +50,10 @@ export default {
         changePassword: 'Cambiar contraseña',
         logout: 'Cerrar sesión'
     },
+    chart: {
+        onButton: 'Gráfico',
+        offButton: 'Vazio'
+    },
     groups: {
         title: 'Grupos',
         type1: 'Tipo 1',

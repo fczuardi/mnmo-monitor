@@ -128,14 +128,14 @@ export default (p, a) => {
                 height: 220,
                 borderRadius: 220,
                 left: -60,
-                top: -80
+                top: -20
             },
             'desktop': {
-                width: 500,
-                height: 500,
-                borderRadius: 500,
+                width: 300,
+                height: 300,
+                borderRadius: 300,
                 left: -80,
-                top: -225
+                top: -30
             }
         },
         'img': {
@@ -147,7 +147,7 @@ export default (p, a) => {
             },
             'desktop': {
                 position: 'absolute',
-                top: 200,
+                top: 90,
                 left: 100
             }
         }
@@ -207,21 +207,39 @@ export default (p, a) => {
         },
         'top': {
             mobile: {
-                bottom: -17
+                bottom: -77
             },
             desktop: {
-                bottom: -7
+                bottom: -87
             }
         },
         'bottom': {
             mobile: {
-                top: 22
+                top: 82
             },
             desktop: {
-                top: 13
+                top: 93
             }
         }
-    }
+    };
+    let selectorButtonStyles = {
+        background: 'none',
+        borderRadius: 5,
+        padding: 20,
+        fontSize: 12,
+        marginRight: 5,
+        //shared styles blue[1]
+        color: '#0d99db',
+        border: '1px solid #0d99db',
+        backgroundColor: '#FFFFFF'
+    };
+    let selectorActiveButtonStyles = merge({},
+        selectorButtonStyles,
+        {
+            color: selectorButtonStyles.backgroundColor,
+            backgroundColor: selectorButtonStyles.color
+        }
+    );
     let topSelector = (
         <div
             style={merge(
@@ -231,6 +249,26 @@ export default (p, a) => {
                 p.ui.isMobile ? balloonStyles.top.mobile : balloonStyles.top.desktop
             )}
         >
+            <button
+                style={
+                    p.ui.chartVisible ?
+                        selectorActiveButtonStyles :
+                        selectorButtonStyles
+                }
+                onClick={a.chartOnClicked}
+            >
+                {p.language.messages.chart.onButton}
+            </button>
+            <button
+                style={
+                    !p.ui.chartVisible ?
+                        selectorActiveButtonStyles :
+                        selectorButtonStyles
+                }
+                onClick={a.chartOffClicked}
+            >
+                {p.language.messages.chart.offButton}
+            </button>
         </div>
     );
     let bottomSelector = (
@@ -242,6 +280,24 @@ export default (p, a) => {
                 p.ui.isMobile ? balloonStyles.bottom.mobile : balloonStyles.bottom.desktop
             )}
         >
+            <button
+                style={
+                    p.rows.type === 'list' ?
+                        selectorActiveButtonStyles :
+                        selectorButtonStyles
+                }
+            >
+                {p.language.messages.rows.unmergeRows}
+            </button>
+            <button
+                style={
+                    p.rows.type === 'merged' ?
+                        selectorActiveButtonStyles :
+                        selectorButtonStyles
+                }
+            >
+                {p.language.messages.rows.mergeRows}
+            </button>
         </div>
     );
     let splitMenu = (
