@@ -30,8 +30,12 @@ export default (row, key, p) => {
     let splittedFirstValue = firstValue.split(' - ');
     let isMerged  = (splittedFirstValue.length > 1);
     let fontSizes = [15, 17, 25, 14, 12, 36];
-    if (isMerged && p.ui.screenHeight <= 640) {
-        fontSizes = [10, 12, 17, 9, 7, 26];
+    if (p.ui.screenHeight <= 640){
+        if (isMerged) {
+            fontSizes = [10, 12, 17, 9, 7, 26];
+        } else {
+            fontSizes = [13, 15, 23, 12, 10, 34];
+        }
     }
     let titleStyle = {
         fontSize: isMerged ? fontSizes[0] : fontSizes[1]
@@ -74,7 +78,7 @@ export default (row, key, p) => {
         </span>
     );
     let mainHeader = (
-        <p style={{margin: 0, position: 'relative', fontSize: fontSizes[1]}}>
+        <p style={{margin: 0, position: 'relative', fontSize: titleStyle.fontSize}}>
             {firstIcon}
             {mergedIcon}
             {firstTitle}
