@@ -5,7 +5,9 @@
 .header-icon-1,
 .header-icon-2,
 .header-icon-13,
-.header-icon-chart-bar,
+.icon-chart-bar,
+.icon-empty,
+.icon-clock,
 .header-icon-chart-line,
 .icon-attention{
     font-family: "Custom-Entypo-mnmo" !important;
@@ -25,14 +27,21 @@
 .header-icon-13:before {
   content: "h";
 }
-.header-icon-chart-bar:before {
-  content: "l";
-}
 .header-icon-chart-line:before {
   content: "l";
 }
 .icon-attention:before {
   content: "n";
+}
+
+.icon-chart-bar:before {
+  content: "k";
+}
+.icon-empty:before {
+  content: "q";
+}
+.icon-clock:before {
+  content: "s";
 }
 
 .spinner {

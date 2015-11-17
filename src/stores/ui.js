@@ -43,7 +43,7 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.4.7',
+            version: 'v3.0.4.8',
             menuClosed: true,
             submenu: null,
             panel: null,

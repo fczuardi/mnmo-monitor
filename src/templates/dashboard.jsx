@@ -233,6 +233,10 @@ export default (p, a) => {
         border: '1px solid #0d99db',
         backgroundColor: '#FFFFFF'
     };
+    let selectorButtonIconStyle = {
+        fontSize: 30,
+        display: 'block'
+    }
     let selectorActiveButtonStyles = merge({},
         selectorButtonStyles,
         {
@@ -257,7 +261,13 @@ export default (p, a) => {
                 }
                 onClick={a.chartOnClicked}
             >
-                {p.language.messages.chart.onButton}
+                <i
+                    className="icon-chart-bar"
+                    style={selectorButtonIconStyle}
+                />
+                <span>
+                    {p.language.messages.chart.onButton}
+                </span>
             </button>
             <button
                 style={
@@ -267,7 +277,13 @@ export default (p, a) => {
                 }
                 onClick={a.chartOffClicked}
             >
+            <i
+                className="icon-empty"
+                style={selectorButtonIconStyle}
+            />
+            <span>
                 {p.language.messages.chart.offButton}
+            </span>
             </button>
         </div>
     );
@@ -288,7 +304,13 @@ export default (p, a) => {
                 }
                 onClick={a.rowTypeListClicked}
             >
-                {p.language.messages.rows.unmergeRows}
+                <i
+                    className="icon-clock"
+                    style={selectorButtonIconStyle}
+                />
+                <span>
+                    {p.language.messages.rows.unmergeRows}
+                </span>
             </button>
             <button
                 style={
@@ -298,7 +320,17 @@ export default (p, a) => {
                 }
                 onClick={a.rowTypeMergedClicked}
             >
-                {p.language.messages.rows.mergeRows}
+                <i
+                    className="icon-chart-bar"
+                    style={selectorButtonIconStyle}
+                />
+                <span style={{
+                    position:'absolute',
+                    top: 59
+                }}>----------</span>
+                <span>
+                    {p.language.messages.rows.mergeRows}
+                </span>
             </button>
         </div>
     );
