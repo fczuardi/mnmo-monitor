@@ -43,12 +43,13 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.4.9',
+            version: 'v3.0.4.10',
             menuClosed: true,
             submenu: null,
             panel: null,
             screen: null,
             chartVisible: true,
+            secondTableVisible: false,
             splitScreenMenuClosed: true,
             displaySplash: true,
             supportsSVG: document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#Image', '1.1'),

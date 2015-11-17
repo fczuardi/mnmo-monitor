@@ -27,6 +27,11 @@ class Dashboard {
                 event.stopPropagation();
                 this.props.flux.getActions('user').chartVisibilityToggle('on');
             },
+            secondTableOnClicked: (event) => {
+                event.stopPropagation();
+                console.log('secondTableOnClicked');
+                // this.props.flux.getActions('user').chartVisibilityToggle('on');
+            },
             chartOffClicked: (event) => {
                 event.stopPropagation();
                 this.props.flux.getActions('user').chartVisibilityToggle('off');

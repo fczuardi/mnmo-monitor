@@ -82,6 +82,7 @@ export default {
         startingTime: 'Hora Inicial',
         endingTime: 'Hora Final',
         interval: 'Periodicidade (em minutos)',
+        secondTable: 'Comparar',
         mergeRows: 'Agrupar linhas',
         unmergeRows: 'Ver todas'
     },

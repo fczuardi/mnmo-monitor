@@ -203,7 +203,7 @@ export default (p, a) => {
             left: 135
         },
         'mobile': {
-            left: 95
+            left: 85
         },
         'top': {
             mobile: {
@@ -226,6 +226,10 @@ export default (p, a) => {
         background: 'none',
         borderRadius: 5,
         padding: 20,
+        width: 70,
+        height: 90,
+        float: 'left',
+        overflow: 'hidden',
         fontSize: 12,
         marginRight: 5,
         //shared styles blue[1]
@@ -271,7 +275,36 @@ export default (p, a) => {
             </button>
             <button
                 style={
-                    !p.ui.chartVisible ?
+                    p.ui.secondTableVisible ?
+                        selectorActiveButtonStyles :
+                        selectorButtonStyles
+                }
+                onClick={a.secondTableOnClicked}
+            >
+                <i
+                    className="icon-chart-bar"
+                    style={selectorButtonIconStyle}
+                />
+                <span style={{
+                    position:'relative',
+                    top: -24
+                }}>----------</span>
+                <span
+                    style={{
+                        fontSize: 9,
+                        display: 'block',
+                        width: 70,
+                        marginLeft: -21,
+                        marginTop: -10,
+                        textAlign: 'center'
+                    }}
+                >
+                    {p.language.messages.rows.secondTable}
+                </span>
+            </button>
+            <button
+                style={
+                    !p.ui.chartVisible && !p.ui.secondTableVisible ?
                         selectorActiveButtonStyles :
                         selectorButtonStyles
                 }

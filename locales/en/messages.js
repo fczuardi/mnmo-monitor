@@ -82,6 +82,7 @@ export default {
         startingTime: 'Starting Hour',
         endingTime: 'Ending Hour',
         interval: 'Frequency (in minutes)',
+        secondTable: 'Compare',
         mergeRows: 'Merge rows',
         unmergeRows: 'All rows'
     },
