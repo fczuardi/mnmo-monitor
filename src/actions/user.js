@@ -121,6 +121,9 @@ class UserActions extends Actions {
     splitScreenButtonToggle() {
         return null;
     }
+    secondTableEnabled() {
+        return null;
+    }
 }
 
 export default UserActions;

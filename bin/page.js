@@ -130,6 +130,8 @@ var options = {
         './js/components/networkmessages.js',
         './js/components/errordialog.js',
         './js/components/analytics.js',
+        './js/components/splitscreenmenu.js',
+        './js/components/secondtable.js',
         './js/components/dashboard.js',
         './js/components/password.js',
         './js/components/forgotpassword.js',

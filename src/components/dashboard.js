@@ -8,6 +8,7 @@ const smallerRowHeight = 40;
 const mediumColumnWidth = 106;
 const cellPadding = 8;
 const subgroupPickerHeight = 25;
+const secondTableToolbarHeight = 50;
 
 
 class Dashboard {
@@ -23,27 +24,6 @@ class Dashboard {
             rowHeight = this.props.ui.screenHeight < 640 ? smallerRowHeight : smallColumnWidth;
 
         const actions = {
-            chartOnClicked: (event) => {
-                event.stopPropagation();
-                this.props.flux.getActions('user').chartVisibilityToggle('on');
-            },
-            secondTableOnClicked: (event) => {
-                event.stopPropagation();
-                console.log('secondTableOnClicked');
-                // this.props.flux.getActions('user').chartVisibilityToggle('on');
-            },
-            chartOffClicked: (event) => {
-                event.stopPropagation();
-                this.props.flux.getActions('user').chartVisibilityToggle('off');
-            },
-            rowTypeListClicked: (event) => {
-                this.props.flux.getActions('rows').rowsTypeSwitchClicked('merged')
-            },
-            rowTypeMergedClicked: (event) => {
-                this.props.flux.getActions('rows').rowsTypeSwitchClicked('list')
-            },
-            subgroupsButtonClicked: () =>
-                this.props.flux.getActions('user').openPanel('subgroups')
         };
 
         let columnWidth = p.ui.isMobile ? smallColumnWidth : mediumColumnWidth;
@@ -68,6 +48,13 @@ class Dashboard {
         if (!p.ui.chartVisible){
             p.tableHeight -= tableTitleHeight;
         }
+        // when secondTable is visible subtract the second table height
+        // from the main table
+        if (p.ui.secondTableVisible){
+            p.tableHeight -= secondTableToolbarHeight;
+            //TBD second table row height * number of rows (1-5)
+        }
+
         //on the detail screen there is also thumbnails and slider heights to
         //be considered
         if (p.rows.type == 'detailed'){

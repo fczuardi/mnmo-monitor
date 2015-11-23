@@ -102,3 +102,9 @@
     }
 
 }
+.addRowButton{
+    opacity: 0.5;
+}
+.addRowButton:hover{
+    opacity: 1;
+}

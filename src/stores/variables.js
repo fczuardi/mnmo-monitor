@@ -23,6 +23,7 @@ class VariablesStore extends Store {
         this.register(varsActions.changePrimarySelection, this.firstVarChange);
         this.register(varsActions.changeSecondarySelection, this.secondVarChange);
         this.state = {
+            rawCombos: [],
             combos: null,
             primary: [],
             secondary: [],
@@ -38,7 +39,7 @@ class VariablesStore extends Store {
     userPreferencesFetched(pref) {
         this.fetchVars(this.sessionStore.state.token);
     }
-    
+
     fetchVars(token) {
         let store = this;
         if (token === null){ return false; }
@@ -50,16 +51,19 @@ class VariablesStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            // console.log('result', URLs.filters.variables, payload);
+            console.log('result', URLs.filters.variables, payload);
             console.log('OK', URLs.filters.variables);
-            let newCombos = parseVariables(payload).combos;
+            let parsedResult = parseVariables(payload);
+            let newCombos = parsedResult.combos;
+            console.log('newCombos', newCombos, parsedResult.rawCombos);
             let primaryOptions = keys(
                                     newCombos
-                                ).map( 
-                                    (label) => ({ label: label, value: label}) 
+                                ).map(
+                                    (label) => ({ label: label, value: label})
                                 );
             let userState = store.flux.getStore('user').state;
             let newState = {
+                rawCombos: parsedResult.rawCombos,
                 combos: newCombos,
                 primary: primaryOptions
             };
@@ -73,7 +77,7 @@ class VariablesStore extends Store {
             console.log('parsing failed ' + URLs.filters.variables, e); // eslint-disable-line
         });
     }
-    
+
     firstVarChange(label) {
         let secondOptions = this.state.combos[label],
             secondOption = '-',
@@ -87,7 +91,7 @@ class VariablesStore extends Store {
         });
         this.updateCombo(comboID);
     }
-    
+
     secondVarChange(label) {
         let secondOptions = this.state.combos[this.state.combo.first],
             comboID;
@@ -98,7 +102,7 @@ class VariablesStore extends Store {
         });
         this.updateCombo(comboID);
     }
-    
+
     updateCombo(comboID, newState){
         newState = newState || this.state;
         if (newState.combos === null) { return false; }
@@ -115,16 +119,17 @@ class VariablesStore extends Store {
                     };
                     secondary = pluck(
                                     newState.combos[i], 'label'
-                                ).map( 
-                                    (label) => ({ label: label, value: label}) 
+                                ).map(
+                                    (label) => ({ label: label, value: label})
                                 );
                 }
             }
         }
         this.setState({
-            combo: combo, 
+            combo: combo,
             combos: newState.combos,
             primary: newState.primary,
+            rawCombos: newState.rawCombos,
             secondary: secondary
         });
     }

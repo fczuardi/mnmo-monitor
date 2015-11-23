@@ -54,7 +54,11 @@ class RowsStore extends Store {
             data: [],
             columns: [],
             date: '',
-            loading: true
+            loading: true,
+            secondary: {
+                headers: [],
+                data: []
+            }
         };
         this.previousUserState = userStore.state;
         this.autoUpdateStatusChanged = false;

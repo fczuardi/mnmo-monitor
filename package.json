@@ -62,6 +62,8 @@
     "../components/networkmessages": "global:APPNetworkMessages",
     "../components/errordialog": "global:APPErrorDialog",
     "../components/analytics": "global:APPAnalytics",
+    "../components/secondtable": "global:APPSecondTable",
+    "../components/splitscreenmenu": "global:APPSplitScreenMenu",
     "../lib/local": "global:LocalStorageHelpers",
     "../styles/tablestyles": "global:TableStyles",
     "./actions/country": "global:ActionsCountry",
