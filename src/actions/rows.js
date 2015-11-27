@@ -4,6 +4,9 @@ class RowsActions extends Actions {
     rowsFetchCompleted(data) {
         return data;
     }
+    secondaryRowsFetchCompleted(data) {
+        return data;
+    }
     rowsTypeSwitchClicked(currentType) {
         let nextType = currentType === 'list' ? 'merged' : 'list';
         return nextType;

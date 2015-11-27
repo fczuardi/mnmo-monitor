@@ -34,8 +34,10 @@ export default {
     rows: {
         list: '/rows',
         merged: '/rows/merged',
-        detailed: '/rows/detailed',
         endTimeParam: 'time',
+        detailed: '/rows/detailed',
+        secondTable: '/rows/secondTable',
+        secondTableDayParam: 'day',
         rowsError: '/rows/error',
         rowsErrorStatus: 500
     },

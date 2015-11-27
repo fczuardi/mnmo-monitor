@@ -40,12 +40,14 @@ class RowsStore extends Store {
         this.register(userActions.preferencesPublished, this.userChanged);
         this.register(userActions.tableScrollEnded, this.getNextPage);
         this.register(userActions.printRequested, this.printTable);
+        this.register(userActions.secondTableEnabled, this.fetchSecondaryRows);
         this.register(columnsActions.columnsPublished, this.columnsChanged);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
         this.register(columnsActions.columnHeaderSelected, this.columnClicked);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
         this.register(rowsActions.fetchAgainRequested, this.tryAgain);
+        this.register(rowsActions.secondaryRowsFetchCompleted, this.updateSecondTable);
         this.state = {
             lastLoad: 0,
             type: 'list', // merged | list | detailed
@@ -55,8 +57,11 @@ class RowsStore extends Store {
             columns: [],
             date: '',
             loading: true,
+            //second table (comparative)
             secondary: {
+                lastLoad: 0,
                 headers: [],
+                columns: [],
                 data: []
             }
         };
@@ -135,6 +140,36 @@ class RowsStore extends Store {
         this.previousColumnsState = merge({}, newState);
     }
 
+    fetchSecondaryRows() {
+        console.log('fetchSecondaryRows');
+        let store = this;
+        let token = store.sessionStore.state.token;
+        let url = URLs.baseUrl + URLs.rows.secondTable + '?' +
+                    URLs.rows.secondTableDayParam + '=';
+        fetch(url, {
+            method: 'GET',
+            headers: authHeaders(token)
+        })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
+        .then(chooseTextOrJSON)
+        .then(function(payload){
+            console.log('OK', URLs.rows.secondTable);
+            console.log('result', payload);
+            let result = parseRows(payload);
+            console.log('parsed result', result);
+            store.rowsActions.secondaryRowsFetchCompleted(result.rows);
+        })
+        .catch(function(e){
+            console.log('fetch error ' + URLs.rows.secondTable, e); // eslint-disable-line
+        });
+    }
+    updateSecondTable(data){
+        console.log('updateSecondTable', data);
+        data.lastLoad = new Date().getTime();
+        this.setState({
+            secondary: data
+        });
+    }
     fetchRows(token, newType, endTime) {
         let store = this;
         let type = store.state.type;
