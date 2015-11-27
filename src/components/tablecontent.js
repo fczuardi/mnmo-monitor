@@ -11,7 +11,8 @@ class TableContent {
             (nextProps.ui.screenWidth !== this.props.ui.screenWidth) ||
             (nextProps.ui.screenHeight !== this.props.ui.screenHeight) ||
             (nextProps.columns.enabled.length !== this.props.columns.enabled.length) ||
-            (nextProps.columns.selected !== this.props.columns.selected)
+            (nextProps.columns.selected !== this.props.columns.selected) ||
+            (nextProps.ui.secondTableVisible !== this.props.ui.secondTableVisible)
         );
     }
     render() {
@@ -19,11 +20,18 @@ class TableContent {
         let p = merge({}, this.props);
         const userActions = this.props.flux.getActions('user');
         let actions = {
-            onTableScroll: (event) =>
+            onTableScroll: (event) => {
                 // null
-                userActions.tableScroll(
-                    event.target.scrollTop, event.target.scrollLeft
-                )
+                if (event.target.id === 'secondTableContents') {
+                    userActions.secondTableScroll(
+                        event.target.scrollTop, event.target.scrollLeft
+                    )
+                }else{
+                    userActions.tableScroll(
+                        event.target.scrollTop, event.target.scrollLeft
+                    )
+                }
+            }
         };
         if (p.rows.type === 'detailed' && p.rows.data){
             let rowsWithSeparators = [];

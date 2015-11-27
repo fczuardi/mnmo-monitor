@@ -141,7 +141,9 @@ export default (p, a) => {
             {tableTitle}
             {splitScreenMenuBackground}
             <SplitScreenMenu {...p} />
-            <DataTable {...p} />
+            <div style={{position:'absolute'}}>
+                <DataTable {...p} />
+            </div>
             <NetworkMessages {...p} />
             <ErrorDialog {...p} />
             <Analytics {...p} />

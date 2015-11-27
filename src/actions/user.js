@@ -100,6 +100,12 @@ class UserActions extends Actions {
             left: left
         };
     }
+    secondTableScroll(top, left){
+        return {
+            top: top,
+            left: left
+        };
+    }
     sliderScroll(percent){
         return percent;
     }

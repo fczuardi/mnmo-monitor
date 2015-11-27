@@ -3,9 +3,9 @@ import rowRenderer from './rowheader.jsx';
 import tableStyles from '../styles/tablestyles';
 import merge from 'lodash/object/merge';
 
-export default (p) => 
+export default (p) =>
 <div
-    id="row-headers"
+    id={p.rowHeadersElementId || 'row-headers'}
     style={{
         height: p.tableHeight - p.rowHeight,
         width: p.columnWidth,

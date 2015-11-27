@@ -15,8 +15,8 @@ export default (p, a) => {
     }
 
     return (
-<div 
-    id="table-contents"
+<div
+    id={p.tableContentsElementId || 'table-contents'}
     onScroll={a.onTableScroll}
     style={style}
 >

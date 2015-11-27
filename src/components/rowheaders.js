@@ -11,7 +11,8 @@ class RowHeaders extends Component {
             (nextProps.rows.lastLoad > this.props.rows.lastLoad) ||
             (nextProps.ui.screenWidth !== this.props.ui.screenWidth) ||
             (nextProps.ui.screenHeight !== this.props.ui.screenHeight) ||
-            (nextProps.columns.enabled.length !== this.props.columns.enabled.length)
+            (nextProps.columns.enabled.length !== this.props.columns.enabled.length) ||
+            (nextProps.ui.secondTableVisible !== this.props.ui.secondTableVisible)
         );
     }
     render() {

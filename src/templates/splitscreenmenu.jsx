@@ -112,6 +112,37 @@ export default (p, a) => {
             backgroundColor: selectorButtonStyles.color
         }
     );
+    let secondTableButton = p.rows.type !== 'detailed' ? (
+        <button
+            style={
+                p.ui.secondTableVisible ?
+                    selectorActiveButtonStyles :
+                    selectorButtonStyles
+            }
+            onClick={a.secondTableOnClicked}
+        >
+            <i
+                className="icon-chart-bar"
+                style={selectorButtonIconStyle}
+            />
+            <span style={{
+                position:'relative',
+                top: -24
+            }}>----------</span>
+            <span
+                style={{
+                    fontSize: 9,
+                    display: 'block',
+                    width: 70,
+                    marginLeft: -21,
+                    marginTop: -10,
+                    textAlign: 'center'
+                }}
+            >
+                {p.language.messages.rows.secondTable}
+            </span>
+        </button>
+    ): null;
     let topSelector = (
         <div
             style={merge(
@@ -137,35 +168,7 @@ export default (p, a) => {
                     {p.language.messages.chart.onButton}
                 </span>
             </button>
-            <button
-                style={
-                    p.ui.secondTableVisible ?
-                        selectorActiveButtonStyles :
-                        selectorButtonStyles
-                }
-                onClick={a.secondTableOnClicked}
-            >
-                <i
-                    className="icon-chart-bar"
-                    style={selectorButtonIconStyle}
-                />
-                <span style={{
-                    position:'relative',
-                    top: -24
-                }}>----------</span>
-                <span
-                    style={{
-                        fontSize: 9,
-                        display: 'block',
-                        width: 70,
-                        marginLeft: -21,
-                        marginTop: -10,
-                        textAlign: 'center'
-                    }}
-                >
-                    {p.language.messages.rows.secondTable}
-                </span>
-            </button>
+            {secondTableButton}
             <button
                 style={
                     !p.ui.chartVisible && !p.ui.secondTableVisible ?
@@ -184,7 +187,7 @@ export default (p, a) => {
             </button>
         </div>
     );
-    let bottomSelector = (
+    let bottomSelector = p.rows.type !== 'detailed' ? (
         <div
             style={merge(
                 {},
@@ -230,7 +233,7 @@ export default (p, a) => {
                 </span>
             </button>
         </div>
-    );
+    ): null;
     return (
         <div
             style={{

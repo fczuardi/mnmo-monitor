@@ -51,7 +51,10 @@ class Dashboard {
         // when secondTable is visible subtract the second table height
         // from the main table
         if (p.ui.secondTableVisible){
-            p.tableHeight -= secondTableToolbarHeight;
+            p.seconTableHeight = secondTableToolbarHeight;
+            p.seconTableHeight += 5 * p.rowHeight;
+            p.tableHeight -= p.seconTableHeight;
+
             //TBD second table row height * number of rows (1-5)
         }
 

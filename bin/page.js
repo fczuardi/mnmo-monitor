@@ -131,6 +131,7 @@ var options = {
         './js/components/errordialog.js',
         './js/components/analytics.js',
         './js/components/splitscreenmenu.js',
+        './js/components/secondtabletoolbar.js',
         './js/components/secondtable.js',
         './js/components/dashboard.js',
         './js/components/password.js',
