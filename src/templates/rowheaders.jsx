@@ -7,7 +7,7 @@ export default (p) =>
 <div
     id={p.rowHeadersElementId || 'row-headers'}
     style={{
-        height: p.tableHeight - p.rowHeight,
+        height: p.rows.type === 'secondary' ? p.tableHeight : p.tableHeight - p.rowHeight,
         width: p.columnWidth,
         // backgroundColor: 'orange',
         overflow: 'hidden'

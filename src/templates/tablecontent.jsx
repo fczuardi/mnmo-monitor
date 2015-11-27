@@ -2,9 +2,12 @@ import React from 'react';
 import rowRenderer from './tablerow.jsx';
 
 export default (p, a) => {
+    let tableContentHeight = p.rows.type === 'secondary' ?
+                                                    p.tableHeight :
+                                                    p.tableHeight - p.rowHeight;
     let style = {
         width: p.tableWidth - p.columnWidth,
-        height: p.tableHeight - p.rowHeight
+        height: tableContentHeight
     };
     if (p.rows.type === 'detailed'){
         // style.overflowY = 'hidden';

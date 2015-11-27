@@ -46,7 +46,7 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.4.13',
+            version: 'v3.0.4.14',
             menuClosed: true,
             submenu: null,
             panel: null,
@@ -319,8 +319,8 @@ class UIStore extends Store {
 
     }
     secondScrollUpdate(){
-        console.log('secondScrollUpdate ---');
-        console.log('secondScrollUpdate', this.secondCoordX);
+        // console.log('secondScrollUpdate ---');
+        // console.log('secondScrollUpdate', this.secondCoordX);
         let tableheaders = document.getElementById('table-headers') || {},
             tableContents = document.getElementById('table-contents') || {};
         tableheaders.scrollLeft = this.secondCoordX;
@@ -407,7 +407,7 @@ class UIStore extends Store {
         }
     }
     changeSecondTableScroll(coord){
-        console.log('changeSecondTableScroll', coord, this.secondTicking, this.secondScrollUpdate);
+        // console.log('changeSecondTableScroll', coord, this.secondTicking, this.secondScrollUpdate);
         this.secondCoordX = coord.left;
         this.secondCoordY = coord.top;
         if (!this.ticking && !this.secondTicking) {

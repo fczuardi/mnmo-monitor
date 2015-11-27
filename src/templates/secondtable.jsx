@@ -9,6 +9,7 @@ export default (p) => {
     secondTableParams.tableHeight = p.seconTableHeight;
     secondTableParams.rowHeadersElementId = 'secondTableRowHeaders';
     secondTableParams.tableContentsElementId = 'secondTableContents';
+    secondTableParams.rows.type = 'secondary';
     secondTableParams.rows.data = p.rows.secondary.data;
     secondTableParams.rows.headers = p.rows.secondary.headers;
     return (
