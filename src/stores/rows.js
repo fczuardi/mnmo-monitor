@@ -177,8 +177,8 @@ class RowsStore extends Store {
         let token = store.sessionStore.state.token;
         let url = URLs.baseUrl + URLs.rows.secondTable;
         let postBody = {};
-        let headers = authHeaders(token);
-        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+        let postHeaders = authHeaders(token, true);
         postBody[URLs.rows.secondTableAutoupdateParam] = params.autoUpdate;
         if (!params.autoUpdate){
             postBody[URLs.rows.secondTableActionParam] = params.action == 'add' ?
@@ -188,14 +188,16 @@ class RowsStore extends Store {
             postBody[URLs.rows.secondTableStartTimeParam] = params.startTime;
             postBody[URLs.rows.secondTableEndTimeParam] = params.endTime;
         }
+        postBody = queryString.stringify(postBody);
         console.log('---------');
-        console.log('modifySecondaryTable POST body', postBody, headers);
+        console.log('modifySecondaryTable POST body', postBody, postHeaders);
         console.log('---------');
+
 
         fetch(url, {
             method: 'POST',
-            headers: authHeaders(token),
-            body: queryString.stringify(postBody)
+            headers: postHeaders,
+            body: postBody
         })
         .then((response) => statusRouter(
             response,
