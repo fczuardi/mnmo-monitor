@@ -7,7 +7,8 @@ import {
     authHeaders,
     statusRouter,
     chooseTextOrJSON,
-    parseRows
+    parseRows,
+    parseSecondaryRows
 } from '../../config/apiHelpers';
 import {
     DOM,
@@ -157,7 +158,7 @@ class RowsStore extends Store {
         .then(function(payload){
             console.log('OK', URLs.rows.secondTable);
             console.log('result', payload);
-            let result = parseRows(payload);
+            let result = parseSecondaryRows(payload);
             console.log('parsed result', result);
             store.rowsActions.secondaryRowsFetchCompleted(result.rows);
         })
