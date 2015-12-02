@@ -57,6 +57,7 @@ class UserStore extends Store {
         this.register(userActions.endMinuteUpdated, this.changeEndMinute);
         this.register(userActions.frequencyUpdated, this.changeFrequency);
         this.register(userActions.mergeFunctionUpdated, this.changeMergeFunction);
+        this.register(userActions.secondTableFormChanged, this.secondTableFormUpdate);
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
@@ -88,7 +89,14 @@ class UserStore extends Store {
             primaryVarLabel: '-',
             secondaryVarLabel: '-',
             variableComboID: null,
-            compareVariables: true
+            compareVariables: true,
+            newSecondaryRow: {
+                variableComboID: null,
+                day: null,
+                startTime: null,
+                endTime: null,
+                autoUpdate: false
+            }
         };
         this.loadSavedPreferences();
         //user preferences state changed
@@ -498,6 +506,19 @@ class UserStore extends Store {
         this.setState({
             confirmNewPassword: password
         });
+    }
+    secondTableFormUpdate(change) {
+        console.log('secondTableFormUpdate', change);
+        let newState = merge({},this.state.newSecondaryRow);
+        switch (change.field){
+            case 'autoUpdate':
+                newState.autoUpdate = !newState.autoUpdate;
+            break;
+        }
+        this.setState({
+            newSecondaryRow: newState
+        })
+
     }
 }
 

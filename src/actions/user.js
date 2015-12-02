@@ -130,6 +130,9 @@ class UserActions extends Actions {
     secondTableEnabled() {
         return null;
     }
+    secondTableFormChanged(field, value) {
+        return { field, value}
+    }
 }
 
 export default UserActions;

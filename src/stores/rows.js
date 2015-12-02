@@ -1,4 +1,5 @@
 import {Store} from 'flummox';
+import queryString from 'query-string';
 import merge from 'lodash/object/merge';
 import pluck from 'lodash/collection/pluck';
 import URLs from '../../config/endpoints.js';
@@ -41,6 +42,7 @@ class RowsStore extends Store {
         this.register(userActions.tableScrollEnded, this.getNextPage);
         this.register(userActions.printRequested, this.printTable);
         this.register(userActions.secondTableEnabled, this.fetchSecondaryRows);
+        this.register(userActions.secondTableFormChanged, this.secondTableFormUpdate);
         this.register(columnsActions.columnsPublished, this.columnsChanged);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
         this.register(columnsActions.columnHeaderSelected, this.columnClicked);
@@ -48,6 +50,7 @@ class RowsStore extends Store {
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
         this.register(rowsActions.fetchAgainRequested, this.tryAgain);
         this.register(rowsActions.secondaryRowsFetchCompleted, this.updateSecondTable);
+        this.register(rowsActions.secondTableAddFormSubmitted, this.addSecondaryRow);
         this.state = {
             lastLoad: 0,
             type: 'list', // merged | list | detailed
@@ -141,11 +144,10 @@ class RowsStore extends Store {
     }
 
     fetchSecondaryRows() {
-        console.log('fetchSecondaryRows');
         let store = this;
         let token = store.sessionStore.state.token;
-        let url = URLs.baseUrl + URLs.rows.secondTable + '?' +
-                    URLs.rows.secondTableDayParam + '=';
+        let url = URLs.baseUrl + URLs.rows.secondTable + '?';
+        url += URLs.rows.secondTableDayParam + '=';
         fetch(url, {
             method: 'GET',
             headers: authHeaders(token)
@@ -170,6 +172,70 @@ class RowsStore extends Store {
             secondary: data
         });
     }
+    modifySecondaryTable(params){
+        let store = this;
+        let token = store.sessionStore.state.token;
+        let url = URLs.baseUrl + URLs.rows.secondTable;
+        let postBody = {};
+        let headers = authHeaders(token);
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        postBody[URLs.rows.secondTableAutoupdateParam] = params.autoUpdate;
+        if (!params.autoUpdate){
+            postBody[URLs.rows.secondTableActionParam] = params.action == 'add' ?
+                                            URLs.rows.secondTableAddActionValue :
+                                            URLs.rows.secondTableRemoveActionValue;
+            postBody[URLs.rows.secondTableDayPostParam] = params.day;
+            postBody[URLs.rows.secondTableStartTimeParam] = params.startTime;
+            postBody[URLs.rows.secondTableEndTimeParam] = params.endTime;
+        }
+        console.log('---------');
+        console.log('modifySecondaryTable POST body', postBody, headers);
+        console.log('---------');
+
+        fetch(url, {
+            method: 'POST',
+            headers: authHeaders(token),
+            body: queryString.stringify(postBody)
+        })
+        .then((response) => statusRouter(
+            response,
+            store.sessionActions.signOut
+        ))
+        .then(chooseTextOrJSON)
+        .then(function(payload){
+            console.log('OK (post)', URLs.rows.secondTableAutoupdateParam);
+            console.log('result (post)', URLs.rows.secondTableAutoupdateParam, payload);
+        })
+        .catch(function(e){
+            console.log('parsing failed ' + URLs.rows.secondTableAutoupdateParam, e); // eslint-disable-line
+        });
+
+    }
+    addSecondaryRow(){
+        console.log('addSecondaryRow');
+        let params = {
+            action: 'add',
+            day: this.newSecondaryRow.userStore.day,
+            startTime: this.newSecondaryRow.userStore.startTime,
+            endTime: this.newSecondaryRow.userStore.endTime,
+            autoUpdate: this.newSecondaryRow.userStore.autoUpdate
+        }
+        this.modifySecondaryTable(params);
+    }
+
+    secondTableFormUpdate(change){
+        if (change.field === 'autoUpdate' &&
+            this.userStore.state.newSecondaryRow.autoUpdate === true
+        ){
+            console.log('User changed secondary table autoupdate to true');
+            console.log('make post request passing autoUpdate parameter');
+            this.modifySecondaryTable({
+                autoUpdate: true
+            });
+        }
+
+    }
+
     fetchRows(token, newType, endTime) {
         let store = this;
         let type = store.state.type;

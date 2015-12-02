@@ -14,6 +14,10 @@ class RowsActions extends Actions {
     fetchAgainRequested() {
         return null;
     }
+    secondTableAddFormSubmitted(){
+        return null;
+    }
+
 }
 
 export default RowsActions;

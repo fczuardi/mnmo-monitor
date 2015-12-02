@@ -1,4 +1,4 @@
-export default (p) =>
+export default (p, a) =>
 <div
     id={'secondTableToolbar'}
     style={{
@@ -46,6 +46,9 @@ export default (p) =>
         </label>
         <select
             id={'secondTableVarsCombo'}
+            onChange={a.onVarChange}
+            onBlur={a.onVarChange}
+            value={p.user.newSecondaryRow.variableComboID}
         >
             { p.vars.rawCombos.map( (item, key) => (
                 <option
@@ -72,6 +75,9 @@ export default (p) =>
             style={{
                 width: 80
             }}
+            value={p.user.newSecondaryRow.day}
+            onChange={a.onDayChange}
+            onBlur={a.onDayChange}
         >
         </input>
         <input
@@ -81,6 +87,9 @@ export default (p) =>
             style={{
                 width: 40
             }}
+            value={p.user.newSecondaryRow.startTime}
+            onChange={a.onStartTimeChange}
+            onBlur={a.onStartTimeChange}
         >
         </input>
         <input
@@ -90,6 +99,9 @@ export default (p) =>
             style={{
                 width: 40
             }}
+            value={p.user.newSecondaryRow.endTime}
+            onChange={a.onEndTimeChange}
+            onBlur={a.onEndTimeChange}
         >
         </input>
         <div
@@ -108,6 +120,7 @@ export default (p) =>
                 textAlign: 'center',
                 display: 'inline-block'
             }}
+            onClick={a.onAddClicked}
         >
             +
         </div>
@@ -122,7 +135,12 @@ export default (p) =>
             width: '15%'
         }}
     >
-        <div>
+        <div
+            style={{
+                cursor: 'pointer'
+            }}
+            onClick={a.onAutoUpdateClicked}
+        >
             {p.language.messages.settings.autoUpdateStatus}
             <div
                 style={{
@@ -130,9 +148,10 @@ export default (p) =>
                     height: 10,
                     borderRadius: 10,
                     display: 'inline-block',
-                    backgroundColor: '#389D97',
+                    backgroundColor: p.user.newSecondaryRow.autoUpdate === true ?
+                                                    '#389D97':
+                                                    'rgba(255, 255, 255, 0.5)',
                     marginLeft: 10
-
                 }}
             >
             </div>
