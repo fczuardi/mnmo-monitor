@@ -63,6 +63,7 @@ class RowsStore extends Store {
             loading: true,
             //second table (comparative)
             secondary: {
+                loading: true,
                 lastLoad: 0,
                 headers: [],
                 columns: [],
@@ -147,6 +148,11 @@ class RowsStore extends Store {
     fetchSecondaryRows() {
         let store = this;
         let token = store.sessionStore.state.token;
+        let secondaryObj = merge({}, this.state.secondary);
+        secondaryObj.loading = true;
+        this.setState({
+            secondary: secondaryObj
+        });
         let url = URLs.baseUrl + URLs.rows.secondTable + '?';
         url += URLs.rows.secondTableDayParam + '=';
         fetch(url, {
@@ -169,6 +175,7 @@ class RowsStore extends Store {
     updateSecondTable(data){
         console.log('updateSecondTable', data);
         data.lastLoad = new Date().getTime();
+        data.loading = false;
         this.setState({
             secondary: data
         });
@@ -227,14 +234,26 @@ class RowsStore extends Store {
     }
 
     secondTableFormUpdate(change){
-        if (change.field === 'autoUpdate' &&
-            this.userStore.state.newSecondaryRow.autoUpdate === true
-        ){
-            console.log('User changed secondary table autoupdate to true');
-            console.log('make post request passing autoUpdate parameter');
-            this.modifySecondaryTable({
-                autoUpdate: true
-            });
+        if (change.field === 'autoUpdate'){
+            if (this.userStore.state.newSecondaryRow.autoUpdate === true){
+                // User changed secondary table autoupdate to true
+                // make post request passing autoUpdate parameter
+                this.modifySecondaryTable({
+                    autoUpdate: true
+                });
+            } else {
+                // User changed secondary table autoupdate to false
+                // clear secondary table
+                this.setState({
+                    secondary: {
+                        loading: false,
+                        lastLoad: new Date().getTime(),
+                        headers: [],
+                        columns: [],
+                        data: []
+                    }
+                });
+            }
         }
 
     }
