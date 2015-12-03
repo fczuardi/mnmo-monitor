@@ -83,6 +83,7 @@ export default (p, a) => {
             </span>
         </span>
     );
+    let isSecondTableVisible = (p.ui.secondTableVisible && p.rows.type !== 'detailed')
     let tableTitle = (
         <div style={{
             position: p.ui.chartVisible ? 'absolute' : 'inherit',
@@ -127,7 +128,7 @@ export default (p, a) => {
             onClick={p.flux.getActions('user').splitScreenButtonToggle}
         />
     );
-    let secondTable = (p.ui.secondTableVisible && p.rows.type !== 'detailed') ?
+    let secondTable = isSecondTableVisible ?
         (
             <SecondTable {...p} />
         ) : null;

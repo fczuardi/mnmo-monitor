@@ -6,7 +6,7 @@ import TableContent from '../components/tablecontent';
 export default (p) => {
 
     let secondTableParams = merge({}, p);
-    secondTableParams.tableHeight = p.seconTableHeight;
+    secondTableParams.tableHeight = p.secondTableHeight;
     secondTableParams.rowHeadersElementId = 'secondTableRowHeaders';
     secondTableParams.tableContentsElementId = 'secondTableContents';
     secondTableParams.rows.type = 'secondary';
