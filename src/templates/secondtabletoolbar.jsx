@@ -67,7 +67,7 @@ export default (p, a) => {
             <input
                 type={'text'}
                 id={'secondTableRangeDateCombo'}
-                placeholder={'DD/MM/YYYY'}
+                placeholder={'YYYY-MM-DD'}
                 style={{
                     width: 80,
                     opacity: autoUpdate ? 0.5 : 1

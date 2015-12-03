@@ -33,8 +33,10 @@ class UserStore extends Store {
         const loginValidationActions = flux.getActions('loginValidation');
         const sessionActions = flux.getActions('session');
         const groupsActions = flux.getActions('groups');
+        const rowsActions = flux.getActions('rows');
         this.sessionActions = sessionActions;
         this.flux = flux;
+        this.register(rowsActions.rowsFetchCompleted, this.updateSecondTableFormDay);
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
         this.register(userActions.emailInput, this.changeEmailPref);
@@ -116,6 +118,13 @@ class UserStore extends Store {
         //variables store changed
         this.varsStore.addListener('change', this.changeVarsPref.bind(this));
         this.fetchPreferences();
+    }
+    updateSecondTableFormDay(data){
+        let values = merge({}, this.state.newSecondaryRow);
+        values.day = data.date;
+        this.setState({
+            newSecondaryRow: values
+        });
     }
     loadSavedPreferences() {
         let preferences = getLocalItem('userPreference');

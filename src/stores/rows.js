@@ -8,7 +8,8 @@ import {
     statusRouter,
     chooseTextOrJSON,
     parseRows,
-    parseSecondaryRows
+    parseSecondaryRows,
+    secondTablePostResponseOK
 } from '../../config/apiHelpers';
 import {
     DOM,
@@ -198,9 +199,9 @@ class RowsStore extends Store {
             postBody[URLs.rows.secondTableEndTimeParam] = params.endTime;
         }
         postBody = queryString.stringify(postBody);
-        console.log('---------');
-        console.log('modifySecondaryTable POST body', postBody, postHeaders);
-        console.log('---------');
+        // console.log('---------');
+        // console.log('modifySecondaryTable POST body', postBody, postHeaders);
+        // console.log('---------');
 
 
         fetch(url, {
@@ -216,6 +217,12 @@ class RowsStore extends Store {
         .then(function(payload){
             console.log('OK (post)', URLs.rows.secondTableAutoupdateParam);
             console.log('result (post)', URLs.rows.secondTableAutoupdateParam, payload);
+            let result = secondTablePostResponseOK(payload);
+            if (result.error !== null) {
+                store.userActions.errorArrived(result.error);
+            } else if (result.success){
+                store.fetchSecondaryRows();
+            }
         })
         .catch(function(e){
             console.log('parsing failed ' + URLs.rows.secondTableAutoupdateParam, e); // eslint-disable-line
@@ -296,7 +303,7 @@ class RowsStore extends Store {
             console.log('result', payload);
             let result = parseRows(payload, store.state.type);
             console.log('parsed result', result);
-            // console.log(result.rows.data.length +' rows');
+            console.log(result.rows.data.length +' rows');
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error,
