@@ -76,6 +76,7 @@ class RowsStore extends Store {
         this.autoUpdateStatusChanged = false;
         this.previousColumnsState = columnsStore.state;
         this.autoUpdateInterval = undefined;
+        this.secondaryAutoUpdateInterval = undefined;
     }
     tryAgain(){
         this.userPreferencesFetched(this.userStore.state);
@@ -171,6 +172,17 @@ class RowsStore extends Store {
             let result = parseSecondaryRows(payload);
             console.log('parsed result', result);
             store.rowsActions.secondaryRowsFetchCompleted(result.rows);
+
+            if (result.error !== null) {
+                store.userActions.errorArrived(result.error);
+                store.stopSecondaryAutoUpdate();
+            } else {
+                if (store.state.secondary.autoUpdate) {
+                    store.startSecondaryAutoUpdate();
+                }
+            }
+
+
         })
         .catch(function(e){
             console.log('fetch error ' + URLs.rows.secondTable, e); // eslint-disable-line
@@ -270,6 +282,8 @@ class RowsStore extends Store {
                     secondary.headers = [];
                     secondary.columns = [];
                     secondary.data = [];
+                    //and stop the auto fetching
+                    this.stopSecondaryAutoUpdate();
                 }
                 this.setState({ secondary: secondary});
                 break;
@@ -375,6 +389,24 @@ class RowsStore extends Store {
     stopAutoUpdate() {
         // console.log('stopAutoUpdate');
         window.clearInterval(this.autoUpdateInterval);
+    }
+
+    startSecondaryAutoUpdate(){
+        console.log('startSecondaryAutoUpdate');
+        let store = this;
+        window.clearInterval(store.secondaryAutoUpdateInterval);
+        store.secondaryAutoUpdateInterval = window.setInterval(function(){
+            console.log('secondary autoupdate fetch');
+            store.fetchSecondaryRows(
+                store.userStore.state.newSecondaryRow.day + ' ' +
+                store.userStore.state.newSecondaryRow.startTime
+            );
+        }, AUTOUPDATE_INTERVAL);
+    }
+
+    stopSecondaryAutoUpdate(){
+        console.log('stopSecondaryAutoUpdate');
+        window.clearInterval(this.secondaryAutoUpdateInterval);
     }
 
     getNextPage() {
