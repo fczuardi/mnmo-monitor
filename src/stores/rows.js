@@ -179,7 +179,7 @@ class RowsStore extends Store {
         data.lastLoad = new Date().getTime();
         data.loading = false;
         this.setState({
-            secondary: data
+            secondary: merge({}, this.state.secondary, data)
         });
     }
     modifySecondaryTable(params){
