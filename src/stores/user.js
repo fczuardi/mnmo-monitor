@@ -36,7 +36,7 @@ class UserStore extends Store {
         const rowsActions = flux.getActions('rows');
         this.sessionActions = sessionActions;
         this.flux = flux;
-        this.register(rowsActions.rowsFetchCompleted, this.updateSecondTableFormDay);
+        this.register(rowsActions.secondaryRowsFetchCompleted, this.updateSecondTableFormDay);
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
         this.register(userActions.emailInput, this.changeEmailPref);
@@ -120,8 +120,12 @@ class UserStore extends Store {
         this.fetchPreferences();
     }
     updateSecondTableFormDay(data){
+        // console.log('updateSecondTableFormDay', data);
         let values = merge({}, this.state.newSecondaryRow);
-        values.day = data.date;
+        values.day = data.day;
+        values.startTime = data.startTime;
+        values.endTime = data.endTime;
+        // values.autoUpdate = data.autoUpdate;
         this.setState({
             newSecondaryRow: values
         });

@@ -27,7 +27,32 @@ export default (p, a) => {
         fontSize: 12,
         textAlign: 'center'
     }
-    let center = loading ? (<div style={centerStyle}>...</div>) : (
+    let addButtonIcon = autoUpdate ? 'icon-check' : 'icon-plus';
+    addButtonIcon += loading ? ' addRowButtonDisabled' :  ' addRowButton';
+    let addButton = (
+        <div
+            className={addButtonIcon}
+            style={{
+                marginLeft: 10,
+                border: '2px solid white',
+                color: 'white',
+                backgroundColor: 'black',
+                borderRadius: 17,
+                width:  17,
+                height: 17,
+                fontSize: 17,
+                lineHeight: '17px',
+                cursor: loading ? 'auto': 'pointer',
+                textAlign: 'center',
+                display: 'inline-block',
+                position: 'relative',
+                top: '3px'
+            }}
+            onClick={loading ? null : a.onAddClicked}
+        ></div>
+
+    );
+    let center = (
         <div
             id={'secondTableToolbarCenter'}
             style={centerStyle}
@@ -45,7 +70,7 @@ export default (p, a) => {
                 onChange={a.onVarChange}
                 onBlur={a.onVarChange}
                 value={p.user.newSecondaryRow.variableComboID}
-                disabled={autoUpdate}
+                disabled={autoUpdate || loading}
             >
                 { p.vars.rawCombos.map( (item, key) => (
                     <option
@@ -71,12 +96,12 @@ export default (p, a) => {
                 placeholder={'YYYY-MM-DD'}
                 style={{
                     width: 80,
-                    opacity: autoUpdate ? 0.5 : 1
+                    opacity: (autoUpdate || loading) ? 0.5 : 1
                 }}
                 value={p.user.newSecondaryRow.day}
                 onChange={a.onDayChange}
                 onBlur={a.onDayChange}
-                disabled={autoUpdate}
+                disabled={autoUpdate || loading}
             >
             </input>
             <input
@@ -84,11 +109,13 @@ export default (p, a) => {
                 id={'secondTableBeginHour'}
                 placeholder={'HH:MM'}
                 style={{
-                    width: 40
+                    width: 40,
+                    opacity: loading ? 0.5 : 1
                 }}
                 value={p.user.newSecondaryRow.startTime}
                 onChange={a.onStartTimeChange}
                 onBlur={a.onStartTimeChange}
+                disabled={loading}
             >
             </input>
             <input
@@ -97,34 +124,15 @@ export default (p, a) => {
                 placeholder={'HH:MM'}
                 style={{
                     width: 40,
-                    opacity: autoUpdate ? 0.5 : 1
+                    opacity: (autoUpdate || loading) ? 0.5 : 1
                 }}
                 value={p.user.newSecondaryRow.endTime}
                 onChange={a.onEndTimeChange}
                 onBlur={a.onEndTimeChange}
-                disabled={autoUpdate}
+                disabled={autoUpdate || loading}
             >
             </input>
-            <div
-                className={autoUpdate ? 'addRowButtonDisabled' : 'addRowButton'}
-                style={{
-                    marginLeft: 10,
-                    border: '2px solid white',
-                    color: 'white',
-                    backgroundColor: 'black',
-                    borderRadius: 20,
-                    width:  20,
-                    height: 20,
-                    fontSize: 20,
-                    lineHeight: '20px',
-                    cursor: autoUpdate ? 'auto': 'pointer',
-                    textAlign: 'center',
-                    display: 'inline-block'
-                }}
-                onClick={autoUpdate ? null : a.onAddClicked}
-            >
-                +
-            </div>
+            {addButton}
         </div>
     );
     let rightStyle = {
@@ -132,9 +140,10 @@ export default (p, a) => {
         fontSize: 12,
         textAlign: 'center',
         cursor: 'pointer',
+        opacity: loading ? 0.5 : 1,
         width: '15%'
     }
-    let right = loading ? (<div style={rightStyle}></div>) : (
+    let right = (
         <div
             id={'secondTableToolbarRight'}
             style={rightStyle}

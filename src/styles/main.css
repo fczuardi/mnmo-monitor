@@ -7,6 +7,8 @@
 .header-icon-13,
 .icon-chart-bar,
 .icon-empty,
+.icon-plus,
+.icon-check,
 .icon-clock,
 .header-icon-chart-line,
 .icon-attention{
@@ -42,6 +44,12 @@
 }
 .icon-clock:before {
   content: "s";
+}
+.icon-plus:before {
+    content: "t";
+}
+.icon-check:before {
+    content: "b";
 }
 
 .spinner {
@@ -102,9 +110,11 @@
     }
 
 }
-.addRowButton,
-.addRowButtonDisabled{
+.addRowButton{
     opacity: 0.5;
+}
+.addRowButtonDisabled{
+    opacity: 0.2;
 }
 .addRowButton:hover{
     opacity: 1;

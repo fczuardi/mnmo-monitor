@@ -147,9 +147,10 @@ class RowsStore extends Store {
         this.previousColumnsState = merge({}, newState);
     }
 
-    fetchSecondaryRows() {
+    fetchSecondaryRows(dayParam) {
         let store = this;
         let token = store.sessionStore.state.token;
+        dayParam = dayParam || '';
         //reset rows
         let secondaryObj = merge({}, this.state.secondary);
         secondaryObj.loading = true;
@@ -157,7 +158,7 @@ class RowsStore extends Store {
             secondary: secondaryObj
         });
         let url = URLs.baseUrl + URLs.rows.secondTable + '?';
-        url += URLs.rows.secondTableDayParam + '=';
+        url += URLs.rows.secondTableDayParam + '=' + dayParam;
         fetch(url, {
             method: 'GET',
             headers: authHeaders(token)
@@ -183,6 +184,7 @@ class RowsStore extends Store {
         newValues.data = data.data;
         newValues.lastLoad = new Date().getTime();
         newValues.loading = false;
+        newValues.autoUpdate = data.autoUpdate;
         console.log('newValues', newValues);
         this.setState({
             secondary: newValues
@@ -250,9 +252,9 @@ class RowsStore extends Store {
     }
 
     secondTableFormUpdate(change){
+        let secondary = merge({}, this.state.secondary);
         switch (change.field){
             case 'autoUpdate':
-                let secondary = merge({}, this.state.secondary);
                 secondary.autoUpdate = !secondary.autoUpdate;
                 if (secondary.autoUpdate === true){
                     // User changed secondary table autoupdate to true
@@ -272,7 +274,15 @@ class RowsStore extends Store {
                 this.setState({ secondary: secondary});
                 break;
             case 'action':
-                this.addSecondaryRow();
+                if (!secondary.autoUpdate){
+                    this.addSecondaryRow();
+                } else {
+                    //example: '2015-10-09 06:00'
+                    this.fetchSecondaryRows(
+                        this.userStore.state.newSecondaryRow.day + ' ' +
+                        this.userStore.state.newSecondaryRow.startTime
+                    );
+                }
                 break;
             default:
                 break;
