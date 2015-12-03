@@ -150,6 +150,7 @@ class RowsStore extends Store {
     fetchSecondaryRows() {
         let store = this;
         let token = store.sessionStore.state.token;
+        //reset rows
         let secondaryObj = merge({}, this.state.secondary);
         secondaryObj.loading = true;
         this.setState({
@@ -176,10 +177,15 @@ class RowsStore extends Store {
     }
     updateSecondTable(data){
         console.log('updateSecondTable', data);
-        data.lastLoad = new Date().getTime();
-        data.loading = false;
+        let newValues = merge({}, this.state.secondary);
+        //overwrite rows and headers
+        newValues.headers = data.headers;
+        newValues.data = data.data;
+        newValues.lastLoad = new Date().getTime();
+        newValues.loading = false;
+        console.log('newValues', newValues);
         this.setState({
-            secondary: merge({}, this.state.secondary, data)
+            secondary: newValues
         });
     }
     modifySecondaryTable(params){
@@ -190,18 +196,19 @@ class RowsStore extends Store {
 
         let postHeaders = authHeaders(token, true);
         postBody[URLs.rows.secondTableAutoupdateParam] = params.autoUpdate;
-        if (!params.autoUpdate){
+        if (params.autoUpdate === false){
             postBody[URLs.rows.secondTableActionParam] = params.action == 'add' ?
                                             URLs.rows.secondTableAddActionValue :
                                             URLs.rows.secondTableRemoveActionValue;
             postBody[URLs.rows.secondTableDayPostParam] = params.day;
             postBody[URLs.rows.secondTableStartTimeParam] = params.startTime;
             postBody[URLs.rows.secondTableEndTimeParam] = params.endTime;
+            postBody[URLs.rows.secondTableVariableParam] = params.variableComboID;
         }
         postBody = queryString.stringify(postBody);
-        // console.log('---------');
-        // console.log('modifySecondaryTable POST body', postBody, postHeaders);
-        // console.log('---------');
+        console.log('---------');
+        console.log('modifySecondaryTable POST body', postBody, postHeaders);
+        console.log('---------');
 
 
         fetch(url, {
@@ -230,39 +237,46 @@ class RowsStore extends Store {
 
     }
     addSecondaryRow(){
-        console.log('addSecondaryRow');
         let params = {
             action: 'add',
-            day: this.newSecondaryRow.userStore.day,
-            startTime: this.newSecondaryRow.userStore.startTime,
-            endTime: this.newSecondaryRow.userStore.endTime,
-            autoUpdate: this.newSecondaryRow.userStore.autoUpdate
+            day: this.userStore.state.newSecondaryRow.day,
+            startTime: this.userStore.state.newSecondaryRow.startTime,
+            endTime: this.userStore.state.newSecondaryRow.endTime,
+            variableComboID: this.userStore.state.newSecondaryRow.variableComboID,
+            autoUpdate: false
         }
+        console.log('addSecondaryRow', params);
         this.modifySecondaryTable(params);
     }
 
     secondTableFormUpdate(change){
-        if (change.field === 'autoUpdate'){
-            let secondary = merge({}, this.state.secondary);
-            secondary.autoUpdate = !secondary.autoUpdate;
-            if (secondary.autoUpdate === true){
-                // User changed secondary table autoupdate to true
-                // make post request passing autoUpdate parameter
-                this.modifySecondaryTable({
-                    autoUpdate: true
-                });
-            } else {
-                // User changed secondary table autoupdate to false
-                // clear secondary table
-                secondary.loading = false;
-                secondary.lastLoad = new Date().getTime();
-                secondary.headers = [];
-                secondary.columns = [];
-                secondary.data = [];
-            }
-            this.setState({ secondary: secondary});
+        switch (change.field){
+            case 'autoUpdate':
+                let secondary = merge({}, this.state.secondary);
+                secondary.autoUpdate = !secondary.autoUpdate;
+                if (secondary.autoUpdate === true){
+                    // User changed secondary table autoupdate to true
+                    // make post request passing autoUpdate parameter
+                    this.modifySecondaryTable({
+                        autoUpdate: true
+                    });
+                } else {
+                    // User changed secondary table autoupdate to false
+                    // clear secondary table
+                    secondary.loading = false;
+                    secondary.lastLoad = new Date().getTime();
+                    secondary.headers = [];
+                    secondary.columns = [];
+                    secondary.data = [];
+                }
+                this.setState({ secondary: secondary});
+                break;
+            case 'action':
+                this.addSecondaryRow();
+                break;
+            default:
+                break;
         }
-
     }
 
     fetchRows(token, newType, endTime) {
@@ -332,6 +346,10 @@ class RowsStore extends Store {
             data: [],
             lastLoad: new Date().getTime()
         });
+    }
+
+    resetSecondaryRows(){
+
     }
 
     startAutoUpdate() {

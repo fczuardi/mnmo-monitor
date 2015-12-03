@@ -521,7 +521,12 @@ class UserStore extends Store {
         switch (change.field){
             case 'autoUpdate':
                 newState.autoUpdate = !newState.autoUpdate;
-            break;
+                break;
+            case 'action':
+                break;
+            default:
+                newState[change.field] = change.value;
+                break;
         }
         this.setState({
             newSecondaryRow: newState

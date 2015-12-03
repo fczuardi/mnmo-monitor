@@ -22,7 +22,7 @@ class SecondTableToolbar{
                 userActions.secondTableFormChanged('endTime', ev.target.value);
             },
             onAddClicked: (ev) => {
-                console.log('onAddClicked', ev.target.value);
+                userActions.secondTableFormChanged('action', 'add');
             },
             onAutoUpdateClicked: (ev) => {
                 console.log('onAutoUpdateClicked', ev.target.value);

@@ -4,7 +4,7 @@ import keys from 'lodash/object/keys';
 
 class TableContent {
     shouldComponentUpdate(nextProps) {
-        return (
+        let shouldUpdate = (
             (nextProps.ui.chartVisible !== this.props.ui.chartVisible) ||
             (nextProps.ui.lastVisibleRow !== this.props.ui.lastVisibleRow) ||
             (nextProps.rows.lastLoad > this.props.rows.lastLoad) ||
@@ -15,6 +15,8 @@ class TableContent {
             (nextProps.columns.selected !== this.props.columns.selected) ||
             (nextProps.ui.secondTableVisible !== this.props.ui.secondTableVisible)
         );
+        // console.log('-- shouldUpdate TableContent-', shouldUpdate, nextProps.rows.secondary.lastLoad);
+        return shouldUpdate;
     }
     render() {
         // console.log('render table contents');
