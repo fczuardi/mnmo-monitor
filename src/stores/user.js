@@ -94,8 +94,7 @@ class UserStore extends Store {
                 variableComboID: null,
                 day: null,
                 startTime: null,
-                endTime: null,
-                autoUpdate: false
+                endTime: null
             }
         };
         this.loadSavedPreferences();

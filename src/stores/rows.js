@@ -63,6 +63,7 @@ class RowsStore extends Store {
             loading: true,
             //second table (comparative)
             secondary: {
+                autoUpdate: false,
                 loading: true,
                 lastLoad: 0,
                 headers: [],
@@ -235,7 +236,9 @@ class RowsStore extends Store {
 
     secondTableFormUpdate(change){
         if (change.field === 'autoUpdate'){
-            if (this.userStore.state.newSecondaryRow.autoUpdate === true){
+            let secondary = merge({}, this.state.secondary);
+            secondary.autoUpdate = !secondary.autoUpdate;
+            if (secondary.autoUpdate === true){
                 // User changed secondary table autoupdate to true
                 // make post request passing autoUpdate parameter
                 this.modifySecondaryTable({
@@ -244,16 +247,13 @@ class RowsStore extends Store {
             } else {
                 // User changed secondary table autoupdate to false
                 // clear secondary table
-                this.setState({
-                    secondary: {
-                        loading: false,
-                        lastLoad: new Date().getTime(),
-                        headers: [],
-                        columns: [],
-                        data: []
-                    }
-                });
+                secondary.loading = false;
+                secondary.lastLoad = new Date().getTime();
+                secondary.headers = [];
+                secondary.columns = [];
+                secondary.data = [];
             }
+            this.setState({ secondary: secondary});
         }
 
     }

@@ -1,5 +1,6 @@
 export default (p, a) => {
     let loading = p.rows.secondary.loading === true;
+    let autoUpdate = p.rows.secondary.autoUpdate === true;
     let left = (
         <div
             id={'secondTableToolbarLeft'}
@@ -43,6 +44,7 @@ export default (p, a) => {
                 onChange={a.onVarChange}
                 onBlur={a.onVarChange}
                 value={p.user.newSecondaryRow.variableComboID}
+                disabled={autoUpdate}
             >
                 { p.vars.rawCombos.map( (item, key) => (
                     <option
@@ -67,11 +69,13 @@ export default (p, a) => {
                 id={'secondTableRangeDateCombo'}
                 placeholder={'DD/MM/YYYY'}
                 style={{
-                    width: 80
+                    width: 80,
+                    opacity: autoUpdate ? 0.5 : 1
                 }}
                 value={p.user.newSecondaryRow.day}
                 onChange={a.onDayChange}
                 onBlur={a.onDayChange}
+                disabled={autoUpdate}
             >
             </input>
             <input
@@ -91,15 +95,17 @@ export default (p, a) => {
                 id={'secondTableEndHour'}
                 placeholder={'HH:MM'}
                 style={{
-                    width: 40
+                    width: 40,
+                    opacity: autoUpdate ? 0.5 : 1
                 }}
                 value={p.user.newSecondaryRow.endTime}
                 onChange={a.onEndTimeChange}
                 onBlur={a.onEndTimeChange}
+                disabled={autoUpdate}
             >
             </input>
             <div
-                className={'addRowButton'}
+                className={autoUpdate ? 'addRowButtonDisabled' : 'addRowButton'}
                 style={{
                     marginLeft: 10,
                     border: '2px solid white',
@@ -110,11 +116,11 @@ export default (p, a) => {
                     height: 20,
                     fontSize: 20,
                     lineHeight: '20px',
-                    cursor: 'pointer',
+                    cursor: autoUpdate ? 'auto': 'pointer',
                     textAlign: 'center',
                     display: 'inline-block'
                 }}
-                onClick={a.onAddClicked}
+                onClick={autoUpdate ? null : a.onAddClicked}
             >
                 +
             </div>
@@ -145,9 +151,7 @@ export default (p, a) => {
                         height: 10,
                         borderRadius: 10,
                         display: 'inline-block',
-                        backgroundColor: p.user.newSecondaryRow.autoUpdate === true ?
-                                                        '#389D97':
-                                                        'rgba(255, 255, 255, 0.5)',
+                        backgroundColor: autoUpdate ? '#389D97': 'rgba(255, 255, 255, 0.5)',
                         marginLeft: 10
                     }}
                 >
