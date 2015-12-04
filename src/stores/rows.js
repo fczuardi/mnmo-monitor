@@ -1,6 +1,7 @@
 import {Store} from 'flummox';
 import queryString from 'query-string';
 import merge from 'lodash/object/merge';
+import find from 'lodash/collection/find';
 import pluck from 'lodash/collection/pluck';
 import URLs from '../../config/endpoints.js';
 import {
@@ -28,7 +29,7 @@ class RowsStore extends Store {
         const userStore = flux.getStore('user');
         const userActions = flux.getActions('user');
         const columnsStore = flux.getStore('columns');
-        const variablesStore = flux.getStore('columns');
+        const variablesStore = flux.getStore('vars');
         const columnsActions = flux.getActions('columns');
         const sessionActions = flux.getActions('session');
         const rowsActions = flux.getActions('rows');
@@ -259,7 +260,21 @@ class RowsStore extends Store {
             variableComboID: this.userStore.state.newSecondaryRow.variableComboID,
             autoUpdate: false
         }
-        console.log('addSecondaryRow', params);
+        this.modifySecondaryTable(params);
+    }
+    removeSecondaryRow(key){
+        let rowHeaders = this.state.secondary.headers[Math.floor(key/2)];
+        let rowHeaderParts = rowHeaders[4].replace('- ', '').split(' ');
+        let varComboItem = find(this.variablesStore.state.rawCombos,
+                                                    'label', rowHeaders[0]);
+        let params = {
+            action: 'remove',
+            day: rowHeaderParts[0],
+            startTime: rowHeaderParts[1],
+            endTime: rowHeaderParts[2],
+            variableComboID: varComboItem.id,
+            autoUpdate: false
+        }
         this.modifySecondaryTable(params);
     }
 
@@ -288,14 +303,19 @@ class RowsStore extends Store {
                 this.setState({ secondary: secondary});
                 break;
             case 'action':
-                if (!secondary.autoUpdate){
-                    this.addSecondaryRow();
-                } else {
-                    //example: '2015-10-09 06:00'
-                    this.fetchSecondaryRows(
-                        this.userStore.state.newSecondaryRow.day + ' ' +
-                        this.userStore.state.newSecondaryRow.startTime
-                    );
+                if (change.value === 'add'){
+                    if (!secondary.autoUpdate){
+                        this.addSecondaryRow();
+                    } else {
+                        //example: '2015-10-09 06:00'
+                        this.fetchSecondaryRows(
+                            this.userStore.state.newSecondaryRow.day + ' ' +
+                            this.userStore.state.newSecondaryRow.startTime
+                        );
+                    }
+                }else{
+                    console.log('=== REMOVE ROW ===', change.value);
+                    this.removeSecondaryRow(change.value);
                 }
                 break;
             default:

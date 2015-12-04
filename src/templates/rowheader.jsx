@@ -138,6 +138,7 @@ export default (row, key, p, a) => {
                     top: 5,
                     left: 5
                 }}
+                data-key={key}
                 onClick={loading ? null : a.onRemoveClicked}
             ></div>
         )

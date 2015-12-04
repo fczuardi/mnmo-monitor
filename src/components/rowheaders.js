@@ -17,6 +17,13 @@ class RowHeaders extends Component {
         );
     }
     render() {
+        const userActions = this.props.flux.getActions('user');
+        const actions = {
+            onRemoveClicked: (ev) => {
+                console.log('remove row clicked!', ev.target.getAttribute('data-key'));
+                userActions.secondTableFormChanged('action', ev.target.getAttribute('data-key'));
+            }
+        }
         let p = merge({}, this.props);
         let isSecondary = p.rows.type === 'secondary';
         if (
@@ -42,11 +49,6 @@ class RowHeaders extends Component {
                 rowsWithSeparators.push(row);
             });
             p.rows.headers = rowsWithSeparators;
-        }
-        let actions = {
-            onRemoveClicked: (event) => {
-                console.log('remove row clicked!');
-            }
         }
         // console.log('render RowHeaders', this.props.rows.headers);
         return template(p, actions);
