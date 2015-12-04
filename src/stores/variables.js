@@ -54,8 +54,8 @@ class VariablesStore extends Store {
             console.log('result', URLs.filters.variables, payload);
             console.log('OK', URLs.filters.variables);
             let parsedResult = parseVariables(payload);
+            console.log('parsedResult', parsedResult);
             let newCombos = parsedResult.combos;
-            console.log('newCombos', newCombos, parsedResult.rawCombos);
             let primaryOptions = keys(
                                     newCombos
                                 ).map(

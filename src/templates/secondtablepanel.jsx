@@ -1,6 +1,9 @@
 import React from 'react';
 import Dialog from 'mnmo-components/lib/themes/mnmo/dialog';
 import Drawer from 'mnmo-components/lib/themes/mnmo/drawer';
+import List from 'mnmo-components/lib/themes/mnmo/list';
+import LI from 'mnmo-components/lib/themes/mnmo/li';
+import Switch from 'mnmo-components/lib/themes/mnmo/switch';
 import MultiPicker from 'mnmo-components/lib/themes/mnmo/multipicker';
 
 const fullScreenLimit = 400;
@@ -22,6 +25,43 @@ for (let m = 0; m < 60; m++){
 }
 
 export default (p, a) => {
+
+
+    let autoUpdateSwitch = (
+        <List>
+            <LI>
+                <Switch
+                    id="secondaryAutoUpdateToggle"
+                    onChange={a.autoUpdateChange}
+                    isItem={true}
+                    checked={p.rows.secondary.autoUpdate}
+                >
+                    {p.language.messages.settings.autoUpdate}
+                </Switch>
+            </LI>
+        </List>
+    );
+
+    let varsPicker = (p.rows.secondary.autoUpdate === true) ? null : (
+        <MultiPicker
+            title={p.language.messages.vars.title}
+            cells={[
+                {
+                    label: p.language.messages.vars.input1,
+                    value: p.user.newSecondaryRow.primaryVarLabel,
+                    options: p.vars.primary,
+                    onChange: a.firstVarChange
+                },
+                {
+                    label: p.language.messages.vars.input2,
+                    value: p.user.newSecondaryRow.secondaryVarLabel,
+                    options: p.user.newSecondaryRow.secondaryVarOptions,
+                    onChange: a.secondVarChange
+                }
+            ]}
+        />
+    );
+
     let startingHour = parseInt(p.user.newSecondaryRow.startTime.split(':')[0]);
     let startingMinute = parseInt(p.user.newSecondaryRow.startTime.split(':')[1]);
     let startingTime =  (
@@ -65,16 +105,20 @@ export default (p, a) => {
         />
     );
 
+    let isFullscreen = p.ui.screenWidth < fullScreenLimit;
     return (
-<Dialog align='center' fullscreen={p.ui.screenWidth < fullScreenLimit}>
+<Dialog align='center' fullscreen={isFullscreen}>
     <Drawer
         title={p.language.messages.rows.secondTable}
         closeLabel={p.language.messages.settings.close}
         onCloseClick={a.closePanel}
         saveLabel={p.language.messages.settings.save}
         onSaveClick={a.savePanel}
-        fullscreen={p.ui.screenWidth < fullScreenLimit}
+        fullHeight={true}
+        fullscreen={isFullscreen}
     >
+        {autoUpdateSwitch}
+        {varsPicker}
         {startingTime}
         {endingTime}
     </Drawer>

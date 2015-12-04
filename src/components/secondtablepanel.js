@@ -19,6 +19,16 @@ class SecondTablePanel {
                 userActions.secondTableFormChanged('action', 'add');
                 userActions.closePanel();
             },
+            autoUpdateChange: (ev) => {
+                console.log('autoUpdateChange');
+                userActions.secondTableFormChanged('autoUpdate', null);
+            },
+            firstVarChange: (ev) => {
+                userActions.secondTableFormChanged('primaryVarLabel', ev.target.value);
+            },
+            secondVarChange: (ev) => {
+                userActions.secondTableFormChanged('secondaryVarLabel', ev.target.value);
+            },
             startHourChange: (ev) => {
                 userActions.secondTableFormChanged('startTime', updateTimeStringHours(
                     this.props.user.newSecondaryRow.startTime,

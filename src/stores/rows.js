@@ -150,6 +150,7 @@ class RowsStore extends Store {
     }
 
     fetchSecondaryRows(dayParam) {
+        // console.log('===fetchSecondaryRows===', JSON.stringify(this.userStore.state.newSecondaryRow))
         let store = this;
         let token = store.sessionStore.state.token;
         dayParam = dayParam || '';
