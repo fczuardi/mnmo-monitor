@@ -6,7 +6,7 @@ export default (p) => {
     let bottom = (
         p.ui.isLoading ||
         p.ui.isFakeLoading ||
-        p.rows.secondary.loading
+        (p.ui.secondTableVisible && p.rows.secondary.loading)
     ) ? 0 : -100;
     return (
 <div
