@@ -26,6 +26,7 @@ class SecondTableToolbar{
             },
             onMobileAddClicked: (ev) => {
                 console.log('onMobileAddClicked');
+                userActions.openPanel('secondtable');
             },
             onAutoUpdateClicked: (ev) => {
                 console.log('onAutoUpdateClicked', ev.target.value);

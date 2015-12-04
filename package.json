@@ -54,6 +54,7 @@
     "../components/varspanel": "global:APPVarsPanel",
     "../components/rowspanel": "global:APPRowsPanel",
     "../components/subgroupspanel": "global:APPSubgroupsPanel",
+    "../components/secondtablepanel": "global:APPSecondTablePanel",
     "../components/classespanel": "global:APPClassesPanel",
     "../components/panelrouter": "global:APPPanelsRouter",
     "../components/datatable": "global:APPDataTable",

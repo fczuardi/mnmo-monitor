@@ -119,6 +119,7 @@ var options = {
         './js/components/rowspanel.js',
         './js/components/subgroupspanel.js',
         './js/components/classespanel.js',
+        './js/components/secondtablepanel.js',
         './js/components/panelrouter.js',
         '$comment=dialogs',
         './js/components/header.js',
