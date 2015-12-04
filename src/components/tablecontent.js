@@ -36,13 +36,20 @@ class TableContent {
                 }
             }
         };
-        if (p.rows.type === 'detailed' && p.rows.data){
+        let isSecondary = p.rows.type === 'secondary';
+        if (
+            isSecondary ||
+            (p.rows.type === 'detailed' && p.rows.data)
+        ){
             let rowsWithSeparators = [];
             let headerRowsWithSeparators = [];
             let varsCount = keys(p.vars.combos).length;
             let displaySeparators = (!p.ui.chartVisible || !p.ui.isMobile);
             p.rows.data.forEach( (row, key) => {
-                if (displaySeparators && (key % varsCount === 0) ){
+                if (
+                    isSecondary ||
+                    displaySeparators && (key % varsCount === 0)
+                ){
                     //duplicate row
                     let rowCopy = row.slice();
                     rowCopy[0] = 'separator';
@@ -54,7 +61,10 @@ class TableContent {
             // of headers as well because this is used by the code
             // that styles the lines (getRowClassName)
             p.rows.headers.forEach( (row, key) => {
-                if (displaySeparators && (key % varsCount === 0) ){
+                if (
+                    isSecondary ||
+                    displaySeparators && (key % varsCount === 0)
+                ){
                     //duplicate row
                     let rowCopy = row.slice();
                     rowCopy[2] = 'separator';

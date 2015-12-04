@@ -9,6 +9,7 @@ const mediumColumnWidth = 106;
 const cellPadding = 8;
 const subgroupPickerHeight = 25;
 const secondTableToolbarHeight = 50;
+const secondTableSeparatorHeight = 20;
 
 
 class Dashboard {
@@ -50,10 +51,12 @@ class Dashboard {
         }
         // when secondTable is visible subtract the second table height
         // from the main table
-        if (p.ui.secondTableVisible){
+        if (p.ui.secondTableVisible && p.rows.type !== 'detailed'){
             // p.secondTableHeight = secondTableToolbarHeight;
             p.secondTableHeight = Math.max(1, p.rows.secondary.data.length) * p.rowHeight;
+            p.secondTableHeight += p.rows.secondary.data.length * secondTableSeparatorHeight;
             p.tableHeight -= (p.secondTableHeight + secondTableToolbarHeight);
+            p.secondTableSeparatorHeight = secondTableSeparatorHeight;
         }
 
         //on the detail screen there is also thumbnails and slider heights to

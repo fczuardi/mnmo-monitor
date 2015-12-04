@@ -26,6 +26,9 @@ export default (row, key, p) => {
     if (row[3] === 'separator'){
         firstValue = row[0].split('__')[0];
         trProps.style = merge(trProps.style, tableStyles(p).separator);
+        if (p.rows.type === 'secondary'){
+            trProps.style.height = p.secondTableSeparatorHeight;
+        }
     }
     let splittedFirstValue = firstValue.split(' - ');
     let isMerged  = (splittedFirstValue.length > 1);

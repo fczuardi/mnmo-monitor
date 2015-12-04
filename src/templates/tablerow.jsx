@@ -10,10 +10,10 @@ export default (row, key, p) => {
             renderRow.push('');
         }
     }
-    
-    
+
+
     let isVisible = (key < p.ui.lastVisibleRow);
-    
+
     if (!isVisible) {
         return null;
     }
@@ -24,6 +24,9 @@ export default (row, key, p) => {
 
     if (renderRow[0] === 'separator'){
         trStyle = merge(trStyle, tableStyles(p).separator);
+        if (p.rows.type === 'secondary'){
+            trStyle.height = p.secondTableSeparatorHeight;
+        }
         trContents = (
             <td
                 colSpan={renderRow.length}
@@ -37,7 +40,7 @@ export default (row, key, p) => {
         });
     }
     return (
-        <tr 
+        <tr
             key={key}
             className={className}
             style={trStyle}
