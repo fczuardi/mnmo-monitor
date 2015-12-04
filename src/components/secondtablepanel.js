@@ -52,6 +52,17 @@ class SecondTablePanel {
                     this.props.user.newSecondaryRow.endTime,
                     ev.target.value
                 ));
+            },
+            calendarDayClick: (day) => {
+                let newDay = day.format('YYYY-MM-DD');
+                console.log('calendarDayClick', newDay);
+                userActions.secondTableFormChanged('day', newDay);
+
+            },
+            monthChange: (day) => {
+                let newDay = day.format('YYYY-MM-DD');
+                console.log('monthChange', newDay);
+                userActions.secondTableFormChanged('day', newDay);
             }
         };
         return template(this.props, actions);

@@ -5,6 +5,8 @@ import List from 'mnmo-components/lib/themes/mnmo/list';
 import LI from 'mnmo-components/lib/themes/mnmo/li';
 import Switch from 'mnmo-components/lib/themes/mnmo/switch';
 import MultiPicker from 'mnmo-components/lib/themes/mnmo/multipicker';
+import DayPicker from 'react-day-picker';
+import moment from 'moment';
 
 const fullScreenLimit = 400;
 
@@ -61,6 +63,47 @@ export default (p, a) => {
             ]}
         />
     );
+
+
+
+    let selectedDay = p.user.newSecondaryRow.day;
+    let initialMonth = moment(selectedDay);
+    let modifiers = {
+        selected: (day) => (selectedDay === day.format('YYYY-MM-DD')),
+        disabled: (day) => {
+            let result = false,
+                month = day.format('YYYYMM'),
+                dayIndex = (day.date() - 1),
+                storedMonth = p.calendar.months[month];
+            if (day.startOf('day').isAfter(moment().startOf('day'))) {
+                return true;
+            }
+            if (storedMonth && storedMonth[dayIndex]){
+                result = (storedMonth[dayIndex] === '0');
+            }
+            return result;
+        }
+    };
+
+    let datePicker = (p.rows.secondary.autoUpdate === true) ? null : (
+        <List
+            title={p.language.messages.rows.date}
+        >
+            <div style={{marginLeft:-10}}>
+            <DayPicker
+                initialMonth={initialMonth}
+                modifiers={modifiers}
+                onDayClick={a.calendarDayClick}
+                onPrevMonthClick={a.monthChange}
+                onNextMonthClick={a.monthChange}
+                enableOutsideDays={true}
+            />
+            </div>
+        </List>
+    );
+
+
+
 
     let startingHour = parseInt(p.user.newSecondaryRow.startTime.split(':')[0]);
     let startingMinute = parseInt(p.user.newSecondaryRow.startTime.split(':')[1]);
@@ -119,6 +162,7 @@ export default (p, a) => {
     >
         {autoUpdateSwitch}
         {varsPicker}
+        {datePicker}
         {startingTime}
         {endingTime}
     </Drawer>
