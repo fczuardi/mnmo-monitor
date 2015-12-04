@@ -6,7 +6,7 @@ export default (p, a) => {
         <div
             id={'secondTableToolbarLeft'}
             style={{
-                display: 'table-cell',
+                display: p.ui.screenWidth < 670 ? 'none' : 'table-cell',
                 width: '20%'
             }}
         >
@@ -14,7 +14,8 @@ export default (p, a) => {
                 id={'secondTabtleToolbarTitle'}
                 style={{
                     color: '#389D97',
-                    marginLeft: 10
+                    marginLeft: 10,
+                    whiteSpace: 'nowrap'
                 }}
             >
                 {p.language.messages.rows.secondTable}
@@ -24,6 +25,7 @@ export default (p, a) => {
     let centerStyle = {
         display: 'table-cell',
         width: '50%',
+        minWidth: 362,
         fontSize: 12,
         textAlign: 'center'
     }
@@ -73,6 +75,9 @@ export default (p, a) => {
                 onBlur={a.onVarChange}
                 value={p.user.newSecondaryRow.variableComboID}
                 disabled={autoUpdate || loading}
+                style={{
+                    borderColor: 'transparent'
+                }}
             >
                 { p.vars.rawCombos.map( (item, key) => (
                     <option
@@ -97,7 +102,7 @@ export default (p, a) => {
                 id={'secondTableRangeDateCombo'}
                 placeholder={'YYYY-MM-DD'}
                 style={{
-                    width: 80,
+                    width: 65,
                     opacity: (autoUpdate || loading) ? 0.5 : 1
                 }}
                 value={p.user.newSecondaryRow.day}
@@ -111,7 +116,7 @@ export default (p, a) => {
                 id={'secondTableBeginHour'}
                 placeholder={'HH:MM'}
                 style={{
-                    width: 40,
+                    width: 32,
                     opacity: loading ? 0.5 : 1
                 }}
                 value={p.user.newSecondaryRow.startTime}
@@ -125,7 +130,7 @@ export default (p, a) => {
                 id={'secondTableEndHour'}
                 placeholder={'HH:MM'}
                 style={{
-                    width: 40,
+                    width: 32,
                     opacity: (autoUpdate || loading) ? 0.5 : 1
                 }}
                 value={p.user.newSecondaryRow.endTime}
@@ -143,7 +148,8 @@ export default (p, a) => {
         textAlign: 'center',
         cursor: 'pointer',
         opacity: loading ? 0.5 : 1,
-        width: '15%'
+        width: '18%',
+        minWidth: 100
     }
     let right = p.ui.isMobile ? null: (
         <div

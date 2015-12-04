@@ -3,7 +3,9 @@ import rowRenderer from './rowheader.jsx';
 import tableStyles from '../styles/tablestyles';
 import merge from 'lodash/object/merge';
 
-export default (p, a) =>
+export default (p, a) => {
+    p.rowHeight = p.rows.type === 'secondary' ? p.secondTableRowHeight : p.rowHeight;
+    return (
 <div
     id={p.rowHeadersElementId || 'row-headers'}
     style={{
@@ -24,4 +26,6 @@ export default (p, a) =>
             {p.rows.headers.map((row, key) => rowRenderer(row, key, p, a))}
         </tbody>
     </table>
-</div>;
+</div>
+    );
+}

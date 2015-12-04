@@ -4,6 +4,7 @@ import keys from 'lodash/object/keys';
 
 const appHeaderHeight = 55;
 const smallColumnWidth = 60;
+const secondTableRowHeight = 50;
 const smallerRowHeight = 40;
 const mediumColumnWidth = 106;
 const cellPadding = 8;
@@ -19,16 +20,19 @@ class Dashboard {
         let thumbnailsRowHeight = 120,
             sliderHeight = 30,
             tableTitleHeight = 24,
+            secondTableVisible = (p.ui.secondTableVisible && p.rows.type !== 'detailed'),
             defaultChartHeight = this.props.ui.isMobile ?
                                     Math.round(p.ui.screenHeight * 0.3) : 264,
             // rowHeight = (this.props.ui.isMobile && p.rows.type == 'detailed') ? 40 : smallColumnWidth;
-            rowHeight = this.props.ui.screenHeight < 640 ? smallerRowHeight : smallColumnWidth;
+            rowHeight = this.props.ui.screenHeight < 640 ? smallerRowHeight :
+                                                                smallColumnWidth;
 
         const actions = {
         };
 
         let columnWidth = p.ui.isMobile ? smallColumnWidth : mediumColumnWidth;
         p.rowHeight = rowHeight;
+        p.secondTableRowHeight = secondTableRowHeight;
         p.tableWidth = p.ui.screenWidth;
         p.tableContentWidth = p.columns.enabled.length * columnWidth;
         p.columnWidth = p.tableContentWidth > p.tableWidth ? columnWidth :
@@ -51,9 +55,9 @@ class Dashboard {
         }
         // when secondTable is visible subtract the second table height
         // from the main table
-        if (p.ui.secondTableVisible && p.rows.type !== 'detailed'){
+        if (secondTableVisible){
             // p.secondTableHeight = secondTableToolbarHeight;
-            p.secondTableHeight = Math.max(1, p.rows.secondary.data.length) * p.rowHeight;
+            p.secondTableHeight = Math.max(1, p.rows.secondary.data.length) * p.secondTableRowHeight;
             p.secondTableHeight += p.rows.secondary.data.length * secondTableSeparatorHeight;
             p.tableHeight -= (p.secondTableHeight + secondTableToolbarHeight);
             p.secondTableSeparatorHeight = secondTableSeparatorHeight;

@@ -19,7 +19,9 @@ export default (p) => {
     {p.ui.isMobile ? null : (
         <SecondTableToolbar {...p} />
     )}
-    <div>
+    <div
+        className={'dataTable'}
+    >
         <div
             style={{
                 float:'left'

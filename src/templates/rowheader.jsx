@@ -32,6 +32,7 @@ export default (row, key, p, a) => {
     }
     let splittedFirstValue = firstValue.split(' - ');
     let isMerged  = (splittedFirstValue.length > 1);
+    let isSecondTable = (p.rows.type === 'secondary');
     let fontSizes = [15, 17, 25, 14, 12, 36];
     if (p.ui.screenHeight <= 640){
         if (isMerged) {
@@ -41,7 +42,8 @@ export default (row, key, p, a) => {
         }
     }
     let titleStyle = {
-        fontSize: isMerged ? fontSizes[0] : fontSizes[1]
+        fontSize: isMerged ? fontSizes[0] :
+                    isSecondTable ? fontSizes[3] : fontSizes[1]
     }
     let firstTitle = isMerged ? (
         <span
@@ -93,7 +95,7 @@ export default (row, key, p, a) => {
     // ): null;
     // let varsCount = keys(p.vars.combos).length;
     let secondHeader = isNaN(secondValue) ? (null) : (
-        <p style={{margin: 0, fontSize: fontSizes[0]}}>
+        <p style={{margin: 0, fontSize: isSecondTable ? fontSizes[3] : fontSizes[0]}}>
             <i
                 className={(p.user.classID !== null) ?
                         ('header-icon-' + p.user.classID) : ''}
@@ -123,7 +125,7 @@ export default (row, key, p, a) => {
     ){
         let loading = p.rows.secondary.loading === true;
         let removeButtonIcon = 'icon-cancel';
-        removeButtonIcon += loading ? ' addRowButtonDisabled' :  ' addRowButton';
+        removeButtonIcon += loading ? ' addRowButtonDisabled' : '';
         removeButton = (
             <div
                 className={removeButtonIcon}
@@ -131,15 +133,15 @@ export default (row, key, p, a) => {
                     border: '2px solid white',
                     color: 'white',
                     backgroundColor: 'black',
-                    borderRadius: 17,
-                    width:  17,
-                    height: 17,
-                    fontSize: 17,
-                    lineHeight: '17px',
+                    borderRadius: 12,
+                    width:  12,
+                    height: 12,
+                    fontSize: 12,
+                    lineHeight: '12px',
                     cursor: loading ? 'auto': 'pointer',
                     textAlign: 'center',
                     position: 'absolute',
-                    top: 5,
+                    top: -14,
                     left: 5
                 }}
                 data-key={key}

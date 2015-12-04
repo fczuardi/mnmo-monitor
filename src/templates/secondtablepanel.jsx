@@ -148,7 +148,8 @@ export default (p, a) => {
         />
     );
 
-    let isFullscreen = p.ui.screenWidth < fullScreenLimit;
+    // let isFullscreen = p.ui.screenWidth < fullScreenLimit;
+    let isFullscreen = true;
     return (
 <Dialog align='center' fullscreen={isFullscreen}>
     <Drawer
@@ -160,11 +161,16 @@ export default (p, a) => {
         fullHeight={true}
         fullscreen={isFullscreen}
     >
-        {autoUpdateSwitch}
-        {varsPicker}
-        {datePicker}
-        {startingTime}
-        {endingTime}
+        <div style={{
+            height: '90%',
+            overflow: 'auto'
+        }}>
+            {autoUpdateSwitch}
+            {varsPicker}
+            {datePicker}
+            {startingTime}
+            {endingTime}
+        </div>
     </Drawer>
 </Dialog>
     );
