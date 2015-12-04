@@ -24,13 +24,20 @@ export default (row, key, p) => {
 
     if (renderRow[0] === 'separator'){
         trStyle = merge(trStyle, tableStyles(p).separator);
-        if (p.rows.type === 'secondary'){
+
+        let separatorText = '';
+        let cellStyle = {
+            textAlign: 'left',
+            fontSize: 11,
+            paddingLeft:10
+        };
+        if (p.rows.type === 'secondary') {
             trStyle.height = p.secondTableSeparatorHeight;
+            separatorText = p.rows.headers[key][4];
         }
         trContents = (
-            <td
-                colSpan={renderRow.length}
-            >
+            <td colSpan={renderRow.length} style={cellStyle}>
+                {separatorText}
             </td>
         );
     }else{
