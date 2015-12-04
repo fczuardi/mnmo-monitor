@@ -5,7 +5,7 @@ import merge from 'lodash/object/merge';
 import keys from 'lodash/object/keys';
 
 
-export default (row, key, p) => {
+export default (row, key, p, a) => {
     // console.log('row, key', row, key);
     let isVisible = (key < p.ui.lastVisibleRow);
     let className = tableStyles(p).getRowClassName(key);
@@ -115,11 +115,41 @@ export default (row, key, p) => {
         secondHeader = null;
 
     }
+    let removeButton = null;
+    if (p.rows.type === 'secondary' && row[3] !== 'separator'){
+        let loading = p.rows.secondary.loading === true;
+        let removeButtonIcon = 'icon-cancel';
+        removeButtonIcon += loading ? ' addRowButtonDisabled' :  ' addRowButton';
+        removeButton = (
+            <div
+                className={removeButtonIcon}
+                style={{
+                    border: '2px solid white',
+                    color: 'white',
+                    backgroundColor: 'black',
+                    borderRadius: 17,
+                    width:  17,
+                    height: 17,
+                    fontSize: 17,
+                    lineHeight: '17px',
+                    cursor: loading ? 'auto': 'pointer',
+                    textAlign: 'center',
+                    position: 'absolute',
+                    top: 5,
+                    left: 5
+                }}
+                onClick={loading ? null : a.onRemoveClicked}
+            ></div>
+        )
+    }
     return (
         <tr {...trProps}>
-            <td>
+            <td style={{
+                position: 'relative'
+            }}>
                 {mainHeader}
                 {secondHeader}
+                {removeButton}
             </td>
         </tr>
     );

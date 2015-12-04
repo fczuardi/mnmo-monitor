@@ -10,6 +10,7 @@
 .icon-plus,
 .icon-check,
 .icon-clock,
+.icon-cancel,
 .header-icon-chart-line,
 .icon-attention{
     font-family: "Custom-Entypo-mnmo" !important;
@@ -50,6 +51,9 @@
 }
 .icon-check:before {
     content: "b";
+}
+.icon-cancel:before {
+    content: "u";
 }
 
 .spinner {

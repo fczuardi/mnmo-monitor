@@ -43,8 +43,13 @@ class RowHeaders extends Component {
             });
             p.rows.headers = rowsWithSeparators;
         }
+        let actions = {
+            onRemoveClicked: (event) => {
+                console.log('remove row clicked!');
+            }
+        }
         // console.log('render RowHeaders', this.props.rows.headers);
-        return template(p);
+        return template(p, actions);
     }
 }
 
