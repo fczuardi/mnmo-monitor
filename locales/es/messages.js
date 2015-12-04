@@ -45,6 +45,7 @@ export default {
         autoUpdateStatus:'AUTO UPDATE',
         columns: 'Columnas',
         close: 'Cerrar',
+        save: 'Guardar',
         back: 'Volver',
         print: 'Imprimir',
         changePassword: 'Cambiar contraseña',
