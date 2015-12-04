@@ -2,7 +2,7 @@ export default (p, a) => {
     let loading = p.rows.secondary.loading === true;
     let autoUpdate = p.rows.secondary.autoUpdate === true;
     // console.log('===RENDER===', autoUpdate);
-    let left = (
+    let left = p.ui.isMobile ? null : (
         <div
             id={'secondTableToolbarLeft'}
             style={{
@@ -48,11 +48,13 @@ export default (p, a) => {
                 position: 'relative',
                 top: '3px'
             }}
-            onClick={loading ? null : a.onAddClicked}
+            onClick={loading ? null :
+                                p.ui.isMobile ? a.onMobileAddClicked :
+                                                            a.onAddClicked}
         ></div>
 
     );
-    let center = (
+    let center = p.ui.isMobile ? null: (
         <div
             id={'secondTableToolbarCenter'}
             style={centerStyle}
@@ -143,7 +145,7 @@ export default (p, a) => {
         opacity: loading ? 0.5 : 1,
         width: '15%'
     }
-    let right = (
+    let right = p.ui.isMobile ? null: (
         <div
             id={'secondTableToolbarRight'}
             style={rightStyle}
@@ -169,12 +171,13 @@ export default (p, a) => {
             </div>
         </div>
     );
+    let modibleToolbarContent = p.ui.isMobile ? addButton : null;
     return (
 <div
     id={'secondTableToolbar'}
     style={{
         width: '100%',
-        backgroundColor: 'rgba(255,255,255,0.2)',
+        backgroundColor: p.ui.isMobile ? '#000' : 'rgba(255,255,255,0.2)',
         height: 50,
         lineHeight: '50px',
         overflow: 'hidden',
@@ -184,6 +187,7 @@ export default (p, a) => {
     {left}
     {center}
     {right}
+    {modibleToolbarContent}
 </div>
     );
 }

@@ -16,7 +16,9 @@ export default (p) => {
 <div
     id={'secondTableContainer'}
 >
-    <SecondTableToolbar {...p} />
+    {p.ui.isMobile ? null : (
+        <SecondTableToolbar {...p} />
+    )}
     <div>
         <div
             style={{
@@ -27,6 +29,9 @@ export default (p) => {
         </div>
         <TableContent {...secondTableParams} />
     </div>
+    {!p.ui.isMobile ? null : (
+        <SecondTableToolbar {...p} />
+    )}
 </div>
 );
 }

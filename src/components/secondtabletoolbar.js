@@ -24,6 +24,9 @@ class SecondTableToolbar{
             onAddClicked: (ev) => {
                 userActions.secondTableFormChanged('action', 'add');
             },
+            onMobileAddClicked: (ev) => {
+                console.log('onMobileAddClicked');
+            },
             onAutoUpdateClicked: (ev) => {
                 console.log('onAutoUpdateClicked', ev.target.value);
                 userActions.secondTableFormChanged('autoUpdate', null);

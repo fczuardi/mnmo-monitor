@@ -116,7 +116,11 @@ export default (row, key, p, a) => {
 
     }
     let removeButton = null;
-    if (p.rows.type === 'secondary' && row[3] !== 'separator'){
+    if (
+        !p.rows.secondary.autoUpdate &&
+        p.rows.type === 'secondary' &&
+        row[3] !== 'separator'
+    ){
         let loading = p.rows.secondary.loading === true;
         let removeButtonIcon = 'icon-cancel';
         removeButtonIcon += loading ? ' addRowButtonDisabled' :  ' addRowButton';
