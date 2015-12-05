@@ -151,10 +151,16 @@ class UserStore extends Store {
     savePreferences() {
         // console.log('savePreferences');
         let localUserPreference = merge({}, this.state);
-        delete localUserPreference.captchaAnswer;
-        delete localUserPreference.currentPassword;
-        delete localUserPreference.newPassword;
-        delete localUserPreference.confirmNewPassword;
+        let doNotStore = [
+            'captchaAnswer',
+            'currentPassword',
+            'newPassword',
+            'confirmNewPassword',
+            'newSecondaryRow'
+        ];
+        doNotStore.forEach( (prefName) => {
+            delete localUserPreference[prefName];
+        });
         if (this.state.rememberLogin === true) {
             setLocalItem('userPreference', localUserPreference);
         }

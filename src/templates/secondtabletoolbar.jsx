@@ -6,7 +6,8 @@ export default (p, a) => {
         <div
             id={'secondTableToolbarLeft'}
             style={{
-                display: p.ui.screenWidth < 670 ? 'none' : 'table-cell'
+                display: p.ui.screenWidth < 670 ? 'none' : 'table-cell',
+                verticalAlign: 'middle'
             }}
         >
             <span
@@ -23,6 +24,7 @@ export default (p, a) => {
     );
     let centerStyle = {
         display: 'table-cell',
+        verticalAlign: 'middle',
         // width: '50%',
         // minWidth: 362,
         fontSize: 12,
@@ -143,6 +145,7 @@ export default (p, a) => {
     );
     let rightStyle = {
         display: 'table-cell',
+        verticalAlign: 'middle',
         fontSize: 12,
         textAlign: 'center',
         cursor: 'pointer',

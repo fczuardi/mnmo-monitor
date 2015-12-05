@@ -17,6 +17,7 @@ class VariablesStore extends Store {
         const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
         this.varsActions = varsActions;
+        this.userActions = userActions;
         this.sessionActions = sessionActions;
         this.sessionStore = sessionStore;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
@@ -72,6 +73,11 @@ class VariablesStore extends Store {
             }else {
                 store.setState(newState);
             }
+            if (userState.newSecondaryRow.variableComboID === null){
+                store.userActions.secondTableFormChanged('variableComboID',
+                                                parsedResult.rawCombos[0].id);
+            }
+
         })
         .catch(function(e){
             console.log('parsing failed ' + URLs.filters.variables, e); // eslint-disable-line
