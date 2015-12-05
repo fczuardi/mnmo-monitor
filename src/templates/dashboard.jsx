@@ -133,7 +133,7 @@ export default (p, a) => {
             <SecondTable {...p} />
         ) : null;
     let dashboard = p.ui.displaySplash ? splashScreen : (
-        <div style={{paddingTop: 53, width: '100%'}}>
+        <div style={{paddingTop: 50, width: '100%'}}>
             <Header {...p} />
             <Menu {...p} />
             <PanelRouter {...p} />

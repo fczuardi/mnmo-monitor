@@ -15,21 +15,41 @@ export default (p) => {
     return (
 <div
     id={'secondTableContainer'}
+    style={{
+        height: secondTableParams.tableHeight + 50
+    }}
 >
     {p.ui.isMobile ? null : (
         <SecondTableToolbar {...p} />
     )}
     <div
         className={'dataTable'}
+        style={{
+            width: secondTableParams.tableWidth,
+            height: secondTableParams.tableHeight,
+            overflow: 'hidden',
+            border: '1px solid #000',
+            textAlign: 'center'
+        }}
     >
         <div
             style={{
-                float:'left'
+                width: secondTableParams.columnWidth,
+                height: secondTableParams.tableHeight,
+                overflow: 'hidden',
+                // backgroundColor: 'blue',
+                float: 'left'
             }}
         >
             <RowHeaders {...secondTableParams} />
         </div>
-        <TableContent {...secondTableParams} />
+        <div
+            style={{
+                float: 'left',
+            }}
+        >
+            <TableContent {...secondTableParams} />
+        </div>
     </div>
     {!p.ui.isMobile ? null : (
         <SecondTableToolbar {...p} />

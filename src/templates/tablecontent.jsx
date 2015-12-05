@@ -14,7 +14,9 @@ export default (p, a) => {
         // style.overflowY = 'hidden';
         // style.overflowX = 'auto';
         style.overflow = 'auto';
-    } else {
+    } else if (p.rows.type === 'secondary'){
+        style.overflow = 'hidden';
+    }else{
         style.overflow = 'auto';
     }
 

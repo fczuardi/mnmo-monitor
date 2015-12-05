@@ -6,8 +6,7 @@ export default (p, a) => {
         <div
             id={'secondTableToolbarLeft'}
             style={{
-                display: p.ui.screenWidth < 670 ? 'none' : 'table-cell',
-                width: '20%'
+                display: p.ui.screenWidth < 670 ? 'none' : 'table-cell'
             }}
         >
             <span
@@ -24,8 +23,8 @@ export default (p, a) => {
     );
     let centerStyle = {
         display: 'table-cell',
-        width: '50%',
-        minWidth: 362,
+        // width: '50%',
+        // minWidth: 362,
         fontSize: 12,
         textAlign: 'center'
     }
@@ -147,9 +146,9 @@ export default (p, a) => {
         fontSize: 12,
         textAlign: 'center',
         cursor: 'pointer',
-        opacity: loading ? 0.5 : 1,
-        width: '18%',
-        minWidth: 100
+        opacity: loading ? 0.5 : 1
+        // width: '18%',
+        // minWidth: 100
     }
     let right = p.ui.isMobile ? null: (
         <div
@@ -185,7 +184,7 @@ export default (p, a) => {
         width: '100%',
         backgroundColor: p.ui.isMobile ? '#000' : 'rgba(255,255,255,0.2)',
         height: 50,
-        lineHeight: '50px',
+        lineHeight: '40px',
         overflow: 'hidden',
         display: 'table'
     }}
