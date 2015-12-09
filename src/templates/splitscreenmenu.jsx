@@ -99,7 +99,8 @@ export default (p, a) => {
         //shared styles blue[1]
         color: '#0d99db',
         border: '1px solid #0d99db',
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
+        position: 'relative'
     };
     let selectorButtonIconStyle = {
         fontSize: 30,
@@ -134,9 +135,10 @@ export default (p, a) => {
                     fontSize: 9,
                     display: 'block',
                     width: 70,
-                    marginLeft: -21,
-                    marginTop: -10,
-                    textAlign: 'center'
+                    top: 56,
+                    left: 0,
+                    textAlign: 'center',
+                    position: 'absolute'
                 }}
             >
                 {p.language.messages.rows.secondTable}
