@@ -55,8 +55,8 @@ class UserActions extends Actions {
     menuVisibilityToggle() {
         return true;
     }
-    chartVisibilityToggle() {
-        return true;
+    chartVisibilityToggle(status) {
+        return status;
     }
     openSubmenu(name) {
         return name;
@@ -100,6 +100,12 @@ class UserActions extends Actions {
             left: left
         };
     }
+    secondTableScroll(top, left){
+        return {
+            top: top,
+            left: left
+        };
+    }
     sliderScroll(percent){
         return percent;
     }
@@ -117,6 +123,15 @@ class UserActions extends Actions {
     }
     printRequested() {
         return null;
+    }
+    splitScreenButtonToggle() {
+        return null;
+    }
+    secondTableEnabled() {
+        return null;
+    }
+    secondTableFormChanged(field, value) {
+        return { field, value}
     }
 }
 

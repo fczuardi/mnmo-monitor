@@ -22,6 +22,7 @@ class UIStore extends Store {
         this.register(sessionActions.tokenGranted, this.showSplash);
         this.register(userActions.preferencesFetched, this.hideSplash);
         this.register(rowsActions.rowsFetchCompleted, this.hideSplash);
+        this.register(rowsActions.rowsTypeSwitchClicked, this.rowTypeSwitched);
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.chartVisibilityToggle, this.toggleChart);
         this.register(userActions.openSubmenu, this.changeSubmenu);
@@ -30,24 +31,29 @@ class UIStore extends Store {
         this.register(userActions.closePanel, this.changePanel);
         this.register(userActions.navigateToScreen, this.changeScreen);
         this.register(userActions.tableScroll, this.changeTableScroll);
+        this.register(userActions.secondTableScroll, this.changeSecondTableScroll);
         this.register(userActions.sliderScroll, this.sliderTableScroll);
         this.register(sessionActions.signOut, this.resetMenuState);
         this.register(userActions.changePasswordPublished, this.resetScreen);
         this.register(userActions.forgotPasswordAccepted, this.resetScreen);
         this.register(userActions.errorArrived, this.displayError);
         this.register(userActions.errorDismissed, this.resetError);
+        this.register(userActions.splitScreenButtonToggle, this.splitScreenMenuToggle);
+        this.register(userActions.secondTableEnabled, this.displaySecondTable);
         this.register(sessionActions.tokenGranted, this.resetError);
         this.register(columnsActions.columnHeaderSelected, this.resetMenuState);
         this.userActions = userActions;
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.3.5',
+            version: 'v3.0.6.7',
             menuClosed: true,
             submenu: null,
             panel: null,
             screen: null,
             chartVisible: true,
+            secondTableVisible: false,
+            splitScreenMenuClosed: true,
             displaySplash: true,
             supportsSVG: document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#Image', '1.1'),
             screenWidth: window.innerWidth,
@@ -65,13 +71,17 @@ class UIStore extends Store {
             canDragSlide: true
         };
         this.ticking = false;
+        this.secondTicking = false;
         this.nextPageLoadSent = true;
         this.coordX = 0;
         this.coordY = 0;
+        this.secondCoordX = 0;
+        this.secondCoordY = 0;
         this.scrollEndInterval = 0;
         this.imageUpdateInterval = 0;
         window.addEventListener('resize', this.widthChange.bind(this));
         this.scrollUpdate = this.scrollUpdate.bind(this);
+        this.secondScrollUpdate = this.secondScrollUpdate.bind(this);
         this.addListener('change', this.stopTicking);
         this.rowStateChanged = this.rowStateChanged.bind(this);
         this.sliderTableScroll = this.sliderTableScroll.bind(this);
@@ -139,10 +149,14 @@ class UIStore extends Store {
             document.body.scrollTop = 0;
         }
     }
-    toggleChart() {
-        let newVisibility = ! this.state.chartVisible;
+    toggleChart(status) {
+        let newVisibility = status !== undefined ?
+                                status === 'on' :
+                                ! this.state.chartVisible;
         this.setState({
-            chartVisible: newVisibility
+            chartVisible: newVisibility,
+            secondTableVisible: false,
+            splitScreenMenuClosed: true
         });
     }
     changeSubmenu(name) {
@@ -304,10 +318,20 @@ class UIStore extends Store {
         store.setState(newState);
 
     }
+    secondScrollUpdate(){
+        // console.log('secondScrollUpdate ---');
+        // console.log('secondScrollUpdate', this.secondCoordX);
+        let tableheaders = document.getElementById('table-headers') || {},
+            tableContents = document.getElementById('table-contents') || {};
+        tableheaders.scrollLeft = this.secondCoordX;
+        tableContents.scrollLeft = this.secondCoordX;
+        this.secondTicking = false;
+    }
     scrollUpdate(){
         let tableheaders = document.getElementById('table-headers'),
             rowheaders = document.getElementById('row-headers'),
             tableContents = document.getElementById('table-contents'),
+            secondTableContents = document.getElementById('secondTableContents') || {},
             tableImages = document.getElementById('table-images'),
             columnBars = document.getElementById('column-bars') || {};
 
@@ -325,6 +349,7 @@ class UIStore extends Store {
 
 
         tableheaders.scrollLeft = this.coordX;
+        secondTableContents.scrollLeft = this.coordX;
         rowheaders.scrollTop = this.coordY;
         if (tableImages) {
             tableImages.scrollLeft = this.coordX;
@@ -376,9 +401,18 @@ class UIStore extends Store {
     changeTableScroll(coord){
         this.coordX = coord.left;
         this.coordY = coord.top;
-        if (!this.ticking) {
+        if (!this.ticking && !this.secondTicking) {
             this.ticking = true;
             window.requestAnimationFrame(this.scrollUpdate);
+        }
+    }
+    changeSecondTableScroll(coord){
+        // console.log('changeSecondTableScroll', coord, this.secondTicking, this.secondScrollUpdate);
+        this.secondCoordX = coord.left;
+        this.secondCoordY = coord.top;
+        if (!this.ticking && !this.secondTicking) {
+            this.secondTicking = true;
+            window.requestAnimationFrame(this.secondScrollUpdate);
         }
     }
     sliderTableScroll(percent){
@@ -407,6 +441,26 @@ class UIStore extends Store {
             window.requestAnimationFrame(this.scrollMainTable.bind(this));
         }
         return false;
+    }
+
+    splitScreenMenuToggle(){
+        this.setState({
+            splitScreenMenuClosed: !this.state.splitScreenMenuClosed
+        })
+    }
+
+    displaySecondTable(){
+        this.setState({
+            chartVisible: false,
+            secondTableVisible: true,
+            splitScreenMenuClosed: true
+        });
+    }
+
+    rowTypeSwitched(){
+        this.setState({
+            splitScreenMenuClosed: true
+        });
     }
 }
 

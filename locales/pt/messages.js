@@ -45,10 +45,15 @@ export default {
         autoUpdateStatus:'AUTO UPDATE',
         columns: 'Colunas',
         close: 'Fechar',
+        save: 'Salvar',
         back: 'Voltar',
         print: 'Imprimir',
         changePassword: 'Alterar senha',
         logout: 'Sair'
+    },
+    chart: {
+        onButton: 'Gráfico',
+        offButton: 'Vazio'
     },
     groups: {
         title: 'Grupos',
@@ -78,8 +83,10 @@ export default {
         startingTime: 'Hora Inicial',
         endingTime: 'Hora Final',
         interval: 'Periodicidade (em minutos)',
+        secondTable: 'Comparar',
         mergeRows: 'Agrupar linhas',
-        unmergeRows: 'Ver todas'
+        unmergeRows: 'Ver todas',
+        range: 'Período'
     },
     subgroups: {
         title: 'Sub-grupos',

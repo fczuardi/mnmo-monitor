@@ -2,21 +2,27 @@ import React from 'react';
 import rowRenderer from './tablerow.jsx';
 
 export default (p, a) => {
+    let tableContentHeight = p.rows.type === 'secondary' ?
+                                                    p.tableHeight :
+                                                    p.tableHeight - p.rowHeight;
+    p.rowHeight = p.rows.type === 'secondary' ? p.secondTableRowHeight : p.rowHeight;
     let style = {
         width: p.tableWidth - p.columnWidth,
-        height: p.tableHeight - p.rowHeight
+        height: tableContentHeight
     };
     if (p.rows.type === 'detailed'){
         // style.overflowY = 'hidden';
         // style.overflowX = 'auto';
         style.overflow = 'auto';
-    } else {
+    } else if (p.rows.type === 'secondary'){
+        style.overflow = 'hidden';
+    }else{
         style.overflow = 'auto';
     }
 
     return (
-<div 
-    id="table-contents"
+<div
+    id={p.tableContentsElementId || 'table-contents'}
     onScroll={a.onTableScroll}
     style={style}
 >

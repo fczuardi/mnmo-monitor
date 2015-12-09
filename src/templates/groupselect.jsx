@@ -13,19 +13,20 @@ export default (p, a) =>
         title={p.language.messages.groups.title}
         closeLabel={p.language.messages.settings.close}
         onCloseClick={a.closePanel}
+        fullHeight={true}
         fullscreen={p.ui.screenWidth < fullScreenLimit}
     >
         <div style={{
             height: '90%',
             overflow: 'auto'
         }}>
-        <List 
+        <List
             title={p.groups.type1.length > 0 ?
                     p.language.messages.groups.type1 : null}
         >
             {p.groups.type1.map( (group, key) =>
             <LI key={key}>
-                <Radio 
+                <Radio
                     name="groups"
                     id={'group-' + group.id}
                     value={group.id}
@@ -38,13 +39,13 @@ export default (p, a) =>
             </LI>
             )}
         </List>
-        <List 
+        <List
             title={p.groups.type2.length > 0 ?
                     p.language.messages.groups.type2 : null}
         >
             {p.groups.type2.map( (group, key) =>
             <LI key={key}>
-                <Radio 
+                <Radio
                     name="groups"
                     id={'group-' + group.id}
                     value={group.id}

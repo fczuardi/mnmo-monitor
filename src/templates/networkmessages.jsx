@@ -3,7 +3,11 @@ import React from 'react';
 const textColor = '#a89c7f';
 
 export default (p) => {
-    let bottom = (p.ui.isLoading || p.ui.isFakeLoading) ? 0 : -100;
+    let bottom = (
+        p.ui.isLoading ||
+        p.ui.isFakeLoading ||
+        (p.ui.secondTableVisible && p.rows.secondary.loading)
+    ) ? 0 : -100;
     return (
 <div
     style={{

@@ -5,7 +5,7 @@ import merge from 'lodash/object/merge';
 import keys from 'lodash/object/keys';
 
 
-export default (row, key, p) => {
+export default (row, key, p, a) => {
     // console.log('row, key', row, key);
     let isVisible = (key < p.ui.lastVisibleRow);
     let className = tableStyles(p).getRowClassName(key);
@@ -26,9 +26,13 @@ export default (row, key, p) => {
     if (row[3] === 'separator'){
         firstValue = row[0].split('__')[0];
         trProps.style = merge(trProps.style, tableStyles(p).separator);
+        if (p.rows.type === 'secondary'){
+            trProps.style.height = p.secondTableSeparatorHeight;
+        }
     }
     let splittedFirstValue = firstValue.split(' - ');
     let isMerged  = (splittedFirstValue.length > 1);
+    let isSecondTable = (p.rows.type === 'secondary');
     let fontSizes = [15, 17, 25, 14, 12, 36];
     if (p.ui.screenHeight <= 640){
         if (isMerged) {
@@ -38,7 +42,8 @@ export default (row, key, p) => {
         }
     }
     let titleStyle = {
-        fontSize: isMerged ? fontSizes[0] : fontSizes[1]
+        fontSize: isMerged ? fontSizes[0] :
+                    isSecondTable ? fontSizes[3] : fontSizes[1]
     }
     let firstTitle = isMerged ? (
         <span
@@ -90,7 +95,7 @@ export default (row, key, p) => {
     // ): null;
     // let varsCount = keys(p.vars.combos).length;
     let secondHeader = isNaN(secondValue) ? (null) : (
-        <p style={{margin: 0, fontSize: fontSizes[0]}}>
+        <p style={{margin: 0, fontSize: isSecondTable ? fontSizes[3] : fontSizes[0]}}>
             <i
                 className={(p.user.classID !== null) ?
                         ('header-icon-' + p.user.classID) : ''}
@@ -112,11 +117,46 @@ export default (row, key, p) => {
         secondHeader = null;
 
     }
+    let removeButton = null;
+    if (
+        !p.rows.secondary.autoUpdate &&
+        p.rows.type === 'secondary' &&
+        row[3] !== 'separator'
+    ){
+        let loading = p.rows.secondary.loading === true;
+        let removeButtonIcon = 'icon-cancel';
+        removeButtonIcon += loading ? ' addRowButtonDisabled' : '';
+        removeButton = (
+            <div
+                className={removeButtonIcon}
+                style={{
+                    border: '2px solid white',
+                    color: 'white',
+                    backgroundColor: 'black',
+                    borderRadius: 12,
+                    width:  12,
+                    height: 12,
+                    fontSize: 12,
+                    lineHeight: '12px',
+                    cursor: loading ? 'auto': 'pointer',
+                    textAlign: 'center',
+                    position: 'absolute',
+                    top: -14,
+                    left: 5
+                }}
+                data-key={key}
+                onClick={loading ? null : a.onRemoveClicked}
+            ></div>
+        )
+    }
     return (
         <tr {...trProps}>
-            <td>
+            <td style={{
+                position: 'relative'
+            }}>
                 {mainHeader}
                 {secondHeader}
+                {removeButton}
             </td>
         </tr>
     );

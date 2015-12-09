@@ -4,12 +4,11 @@ import merge from 'lodash/object/merge';
 
 class DataTable {
     render() {
-        const rowsActions = this.props.flux.getActions('rows');
+        const userActions = this.props.flux.getActions('user');
         let actions = {
-            firstHeaderButtonClick: (event) => 
-                rowsActions.rowsTypeSwitchClicked(
-                    event.target.getAttribute('data-type')
-                )
+            firstHeaderButtonClick: (event) => {
+                userActions.splitScreenButtonToggle();
+            }
         };
         return template(this.props, actions);
     }

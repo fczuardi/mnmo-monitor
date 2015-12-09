@@ -1,3 +1,6 @@
+body{
+    overflow:hidden;
+}
 .no-bg {
     background: none !important;
     box-shadow: none !important;
@@ -5,7 +8,12 @@
 .header-icon-1,
 .header-icon-2,
 .header-icon-13,
-.header-icon-chart-bar,
+.icon-chart-bar,
+.icon-empty,
+.icon-plus,
+.icon-check,
+.icon-clock,
+.icon-cancel,
 .header-icon-chart-line,
 .icon-attention{
     font-family: "Custom-Entypo-mnmo" !important;
@@ -25,14 +33,30 @@
 .header-icon-13:before {
   content: "h";
 }
-.header-icon-chart-bar:before {
-  content: "l";
-}
 .header-icon-chart-line:before {
   content: "l";
 }
 .icon-attention:before {
   content: "n";
+}
+
+.icon-chart-bar:before {
+  content: "k";
+}
+.icon-empty:before {
+  content: "q";
+}
+.icon-clock:before {
+  content: "s";
+}
+.icon-plus:before {
+    content: "t";
+}
+.icon-check:before {
+    content: "b";
+}
+.icon-cancel:before {
+    content: "u";
 }
 
 .spinner {
@@ -92,4 +116,13 @@
         font-size: 10px;
     }
 
+}
+.addRowButton{
+    opacity: 0.5;
+}
+.addRowButtonDisabled{
+    opacity: 0.2;
+}
+.addRowButton:hover{
+    opacity: 1;
 }

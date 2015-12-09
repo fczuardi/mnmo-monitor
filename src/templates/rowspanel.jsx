@@ -75,7 +75,7 @@ export default (p, a) => {
                             (p.rows.type === 'list') ||
                             (p.user.autoUpdate === true)
                         ) ? null : (
-        <MultiPicker 
+        <MultiPicker
             title={p.language.messages.rows.startingTime}
             cells={[
                 {
@@ -182,6 +182,7 @@ export default (p, a) => {
                 title={p.language.messages.rows.title[p.rows.type]}
                 closeLabel={p.language.messages.settings.close}
                 onCloseClick={a.closePanel}
+                fullHeight={true}
                 fullscreen={isFullscreen}
             >
             <div style={{

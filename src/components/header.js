@@ -7,10 +7,6 @@ class Header {
                 event.stopPropagation();
                 this.props.flux.getActions('user').menuVisibilityToggle();
             },
-            chartToggleClicked: (event) => {
-                event.stopPropagation();
-                this.props.flux.getActions('user').chartVisibilityToggle();
-            },
             groupsButtonClicked: () =>
                 this.props.flux.getActions('user').openPanel('groups'),
             varsButtonClicked: () => {

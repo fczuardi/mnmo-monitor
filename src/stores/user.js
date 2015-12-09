@@ -33,8 +33,10 @@ class UserStore extends Store {
         const loginValidationActions = flux.getActions('loginValidation');
         const sessionActions = flux.getActions('session');
         const groupsActions = flux.getActions('groups');
+        const rowsActions = flux.getActions('rows');
         this.sessionActions = sessionActions;
         this.flux = flux;
+        this.register(rowsActions.secondaryRowsFetchCompleted, this.updateSecondTableFormDay);
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
         this.register(userActions.emailInput, this.changeEmailPref);
@@ -57,6 +59,7 @@ class UserStore extends Store {
         this.register(userActions.endMinuteUpdated, this.changeEndMinute);
         this.register(userActions.frequencyUpdated, this.changeFrequency);
         this.register(userActions.mergeFunctionUpdated, this.changeMergeFunction);
+        this.register(userActions.secondTableFormChanged, this.secondTableFormUpdate);
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
@@ -88,7 +91,16 @@ class UserStore extends Store {
             primaryVarLabel: '-',
             secondaryVarLabel: '-',
             variableComboID: null,
-            compareVariables: true
+            compareVariables: true,
+            newSecondaryRow: {
+                primaryVarLabel: '-',
+                secondaryVarLabel: '-',
+                secondaryVarOptions: [{label: '-', value: '-'}],
+                variableComboID: null,
+                day: null,
+                startTime: null,
+                endTime: null
+            }
         };
         this.loadSavedPreferences();
         //user preferences state changed
@@ -108,10 +120,29 @@ class UserStore extends Store {
         this.groupsStore.addListener('change', this.groupsChanged.bind(this));
         //variables store changed
         this.varsStore.addListener('change', this.changeVarsPref.bind(this));
+        // this.addListener('change', this.stateChange.bind(this));
         this.fetchPreferences();
     }
+    // stateChange(){
+    //     console.log('==--==CHANGE', this.state);
+    // }
+    updateSecondTableFormDay(data){
+        // console.log('--..--..updateSecondTableFormDay', data,
+        //                 JSON.stringify(this.state.newSecondaryRow));
+        let values = merge({}, this.state.newSecondaryRow);
+        values.day = data.day;
+        values.startTime = data.startTime;
+        values.endTime = data.endTime;
+        values.primaryVarLabel = this.state.newSecondaryRow.primaryVarLabel;
+        values.secondaryVarLabel = this.state.newSecondaryRow.secondaryVarLabel;
+        values.secondaryVarOptions = this.state.newSecondaryRow.secondaryVarOptions;
+        // console.log('setState updateSecondTableFormDay', this.state, '---', values);
+        this.setState({
+            newSecondaryRow: values
+        });
+    }
     loadSavedPreferences() {
-        let preferences = getLocalItem('userPreference');
+        let preferences = merge({}, this.state, getLocalItem('userPreference'));
         if (preferences === null) { return false; }
         // console.log('set user state: loadSavedPreferences');
         this.setState(preferences);
@@ -120,10 +151,16 @@ class UserStore extends Store {
     savePreferences() {
         // console.log('savePreferences');
         let localUserPreference = merge({}, this.state);
-        delete localUserPreference.captchaAnswer;
-        delete localUserPreference.currentPassword;
-        delete localUserPreference.newPassword;
-        delete localUserPreference.confirmNewPassword;
+        let doNotStore = [
+            'captchaAnswer',
+            'currentPassword',
+            'newPassword',
+            'confirmNewPassword',
+            'newSecondaryRow'
+        ];
+        doNotStore.forEach( (prefName) => {
+            delete localUserPreference[prefName];
+        });
         if (this.state.rememberLogin === true) {
             setLocalItem('userPreference', localUserPreference);
         }
@@ -283,7 +320,7 @@ class UserStore extends Store {
                 store.userActions.errorArrived(result.error);
                 //userPreferencesPostResponseOK returns the last known-to-work
                 //user preferences on error, so we rollback to that
-                console.log('set user state: updatePreferences error', newState.archivedReport.start, newState.archivedReport.end);
+                // console.log('set user state: updatePreferences error', newState.archivedReport.start, newState.archivedReport.end);
                 store.setState(newState);
             }
         })
@@ -314,7 +351,7 @@ class UserStore extends Store {
         });
     }
     clearPasswordPref(password) {
-        console.log('clear user state: clearPasswordPref');
+        // console.log('clear user state: clearPasswordPref');
         this.setState({
             password: '',
             currentPassword: '',
@@ -323,7 +360,7 @@ class UserStore extends Store {
         });
     }
     changeEmailPref(email) {
-        console.log('email changed');
+        // console.log('email changed');
         this.setState({
             email: email
         });
@@ -477,7 +514,7 @@ class UserStore extends Store {
         });
     }
     resetChangePasswordFields() {
-        console.log('resetChangePasswordFields');
+        // console.log('resetChangePasswordFields');
         this.setState({
             currentPassword: '',
             newPassword: '',
@@ -498,6 +535,52 @@ class UserStore extends Store {
         this.setState({
             confirmNewPassword: password
         });
+    }
+    getVariableComboIDFromLabels(s1, s2){
+        let item = find(this.varsStore.state.rawCombos, 'label', s1 + '-' + s2) ||
+                    find(this.varsStore.state.rawCombos, 'label', s1);
+        let result = item.id;
+        // console.log('getVariableComboIDFromLabels', result);
+        return result;
+    }
+    secondTableFormUpdate(change) {
+        console.log('secondTableFormUpdate', change);
+        let newState = merge({},this.state.newSecondaryRow);
+        switch (change.field){
+            case 'autoUpdate':
+                newState.autoUpdate = !newState.autoUpdate;
+                break;
+            case 'action':
+                break;
+            case 'primaryVarLabel':
+                // console.log('primaryVarLabel changed to', change.value, this.varsStore.state.combos)
+                newState[change.field] = change.value;
+                newState.secondaryVarOptions =
+                    this.varsStore.state.combos[change.value].map( (item) => {
+                        return {
+                            label: item.label,
+                            value: item.label
+                        }
+                    });
+                // console.log('--> secondaryVarOptions', newState.secondaryVarOptions);
+                newState.variableComboID = this.getVariableComboIDFromLabels(
+                    newState.primaryVarLabel, newState.secondaryVarLabel);
+                break;
+            case 'secondaryVarLabel':
+                console.log('secondaryVarLabel changed to', change.value)
+                newState[change.field] = change.value;
+                newState.variableComboID = this.getVariableComboIDFromLabels(
+                    newState.primaryVarLabel, newState.secondaryVarLabel);
+                break;
+            default:
+                newState[change.field] = change.value;
+                break;
+        }
+        // console.log('setState secondTableFormUpdate',newState);
+        this.setState({
+            newSecondaryRow: newState
+        })
+
     }
 }
 

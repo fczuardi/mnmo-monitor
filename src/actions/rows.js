@@ -4,6 +4,9 @@ class RowsActions extends Actions {
     rowsFetchCompleted(data) {
         return data;
     }
+    secondaryRowsFetchCompleted(data) {
+        return data;
+    }
     rowsTypeSwitchClicked(currentType) {
         let nextType = currentType === 'list' ? 'merged' : 'list';
         return nextType;
@@ -11,6 +14,10 @@ class RowsActions extends Actions {
     fetchAgainRequested() {
         return null;
     }
+    secondTableAddFormSubmitted(){
+        return null;
+    }
+
 }
 
 export default RowsActions;

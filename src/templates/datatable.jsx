@@ -8,28 +8,38 @@ import tableStyles from '../styles/tablestyles';
 import merge from 'lodash/object/merge';
 
 export default (p, a) => {
+    let firstCellIcon = (
+        <img
+            style={{
+                height:'60%'
+            }}
+            src={
+                p.ui.isMobile ?
+                    './img/icon_split_mobile.png' :
+                    './img/icon_split_desktop.png'
+            }
+        />
+    );
     let firstCell = (
         <button
             className='headerCell tableHeader'
             style={{
-                border: 'none', 
-                width: '100%', 
+                border: 'none',
+                padding: 0,
+                width: '100%',
                 height: p.rowHeight
             }}
             data-type={p.rows.type}
             onClick={a.firstHeaderButtonClick}
         >
-            {( p.rows.type === 'list' ?
-                p.language.messages.rows.mergeRows :
-                p.language.messages.rows.unmergeRows
-            )}
+            {firstCellIcon}
         </button>
     );
-    
+
     let thumbnails = p.rows.type === 'detailed' ? (
         <ImageRow {...p} />
     ) : null;
-    
+
     let slider = p.rows.type === 'detailed' && p.ui.chartVisible ? (
         <Slider {...p} />
     ) : null;
@@ -77,10 +87,10 @@ export default (p, a) => {
                     float: 'left'
                 }}
             >
-                <div 
+                <div
                     style={merge({
-                        
-                    }, 
+
+                    },
                     tableStyles(p).borderBottom,
                     tableStyles(p).borderRight
                     )}
@@ -89,7 +99,7 @@ export default (p, a) => {
                 </div>
                 <RowHeaders {...p} />
             </div>
-            <div 
+            <div
                 style={{
                     float: 'left',
                 }}

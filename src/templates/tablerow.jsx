@@ -10,10 +10,10 @@ export default (row, key, p) => {
             renderRow.push('');
         }
     }
-    
-    
+
+
     let isVisible = (key < p.ui.lastVisibleRow);
-    
+
     if (!isVisible) {
         return null;
     }
@@ -24,10 +24,20 @@ export default (row, key, p) => {
 
     if (renderRow[0] === 'separator'){
         trStyle = merge(trStyle, tableStyles(p).separator);
+
+        let separatorText = '';
+        let cellStyle = {
+            textAlign: 'left',
+            fontSize: 11,
+            paddingLeft:10
+        };
+        if (p.rows.type === 'secondary') {
+            trStyle.height = p.secondTableSeparatorHeight;
+            separatorText = p.rows.headers[key][4];
+        }
         trContents = (
-            <td
-                colSpan={renderRow.length}
-            >
+            <td colSpan={renderRow.length} style={cellStyle}>
+                {separatorText}
             </td>
         );
     }else{
@@ -37,7 +47,7 @@ export default (row, key, p) => {
         });
     }
     return (
-        <tr 
+        <tr
             key={key}
             className={className}
             style={trStyle}

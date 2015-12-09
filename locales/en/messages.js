@@ -45,10 +45,15 @@ export default {
         autoUpdateStatus:'AUTO UPDATE',
         columns: 'Columns',
         close: 'Close',
+        save: 'Save',
         back: 'Back',
         print: 'Print',
         changePassword: 'Change password',
         logout: 'Logout'
+    },
+    chart: {
+        onButton: 'Chart',
+        offButton: 'Empty'
     },
     groups: {
         title: 'Groups',
@@ -78,6 +83,7 @@ export default {
         startingTime: 'Starting Hour',
         endingTime: 'Ending Hour',
         interval: 'Frequency (in minutes)',
+        secondTable: 'Compare',
         mergeRows: 'Merge rows',
         unmergeRows: 'All rows'
     },

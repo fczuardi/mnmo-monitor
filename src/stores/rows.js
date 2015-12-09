@@ -1,12 +1,16 @@
 import {Store} from 'flummox';
+import queryString from 'query-string';
 import merge from 'lodash/object/merge';
+import find from 'lodash/collection/find';
 import pluck from 'lodash/collection/pluck';
 import URLs from '../../config/endpoints.js';
 import {
     authHeaders,
     statusRouter,
     chooseTextOrJSON,
-    parseRows
+    parseRows,
+    parseSecondaryRows,
+    secondTablePostResponseOK
 } from '../../config/apiHelpers';
 import {
     DOM,
@@ -25,7 +29,7 @@ class RowsStore extends Store {
         const userStore = flux.getStore('user');
         const userActions = flux.getActions('user');
         const columnsStore = flux.getStore('columns');
-        const variablesStore = flux.getStore('columns');
+        const variablesStore = flux.getStore('vars');
         const columnsActions = flux.getActions('columns');
         const sessionActions = flux.getActions('session');
         const rowsActions = flux.getActions('rows');
@@ -40,12 +44,16 @@ class RowsStore extends Store {
         this.register(userActions.preferencesPublished, this.userChanged);
         this.register(userActions.tableScrollEnded, this.getNextPage);
         this.register(userActions.printRequested, this.printTable);
+        this.register(userActions.secondTableEnabled, this.fetchSecondaryRows);
+        this.register(userActions.secondTableFormChanged, this.secondTableFormUpdate);
         this.register(columnsActions.columnsPublished, this.columnsChanged);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
         this.register(columnsActions.columnHeaderSelected, this.columnClicked);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
         this.register(rowsActions.fetchAgainRequested, this.tryAgain);
+        this.register(rowsActions.secondaryRowsFetchCompleted, this.updateSecondTable);
+        this.register(rowsActions.secondTableAddFormSubmitted, this.addSecondaryRow);
         this.state = {
             lastLoad: 0,
             type: 'list', // merged | list | detailed
@@ -54,12 +62,22 @@ class RowsStore extends Store {
             data: [],
             columns: [],
             date: '',
-            loading: true
+            loading: true,
+            //second table (comparative)
+            secondary: {
+                autoUpdate: false,
+                loading: true,
+                lastLoad: 0,
+                headers: [],
+                columns: [],
+                data: []
+            }
         };
         this.previousUserState = userStore.state;
         this.autoUpdateStatusChanged = false;
         this.previousColumnsState = columnsStore.state;
         this.autoUpdateInterval = undefined;
+        this.secondaryAutoUpdateInterval = undefined;
     }
     tryAgain(){
         this.userPreferencesFetched(this.userStore.state);
@@ -131,6 +149,181 @@ class RowsStore extends Store {
         this.previousColumnsState = merge({}, newState);
     }
 
+    fetchSecondaryRows(dayParam) {
+        // console.log('===fetchSecondaryRows===', JSON.stringify(this.userStore.state.newSecondaryRow))
+        let store = this;
+        let token = store.sessionStore.state.token;
+        dayParam = dayParam || '';
+        //reset rows
+        let secondaryObj = merge({}, this.state.secondary);
+        secondaryObj.loading = true;
+        this.setState({
+            secondary: secondaryObj
+        });
+        let url = URLs.baseUrl + URLs.rows.secondTable + '?';
+        url += URLs.rows.secondTableDayParam + '=' + dayParam;
+        fetch(url, {
+            method: 'GET',
+            headers: authHeaders(token)
+        })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
+        .then(chooseTextOrJSON)
+        .then(function(payload){
+            console.log('OK', URLs.rows.secondTable);
+            console.log('result', payload);
+            let result = parseSecondaryRows(payload);
+            console.log('parsed result', result);
+            store.rowsActions.secondaryRowsFetchCompleted(result.rows);
+
+            if (result.error !== null) {
+                store.userActions.errorArrived(result.error);
+                store.stopSecondaryAutoUpdate();
+            } else {
+                if (store.state.secondary.autoUpdate) {
+                    store.startSecondaryAutoUpdate();
+                }
+            }
+
+
+        })
+        .catch(function(e){
+            console.log('fetch error ' + URLs.rows.secondTable, e); // eslint-disable-line
+        });
+    }
+    updateSecondTable(data){
+        console.log('updateSecondTable', data);
+        let newValues = merge({}, this.state.secondary);
+        //overwrite rows and headers
+        newValues.headers = data.headers;
+        newValues.data = data.data;
+        newValues.lastLoad = new Date().getTime();
+        newValues.loading = false;
+        newValues.autoUpdate = data.autoUpdate;
+        console.log('newValues', newValues);
+        this.setState({
+            secondary: newValues
+        });
+    }
+    modifySecondaryTable(params){
+        let store = this;
+        let token = store.sessionStore.state.token;
+        let url = URLs.baseUrl + URLs.rows.secondTable;
+        let postBody = {};
+
+        let postHeaders = authHeaders(token, true);
+        postBody[URLs.rows.secondTableAutoupdateParam] = params.autoUpdate;
+        if (params.autoUpdate === false){
+            postBody[URLs.rows.secondTableActionParam] = params.action == 'add' ?
+                                            URLs.rows.secondTableAddActionValue :
+                                            URLs.rows.secondTableRemoveActionValue;
+            postBody[URLs.rows.secondTableDayPostParam] = params.day;
+            postBody[URLs.rows.secondTableStartTimeParam] = params.startTime;
+            postBody[URLs.rows.secondTableEndTimeParam] = params.endTime;
+            postBody[URLs.rows.secondTableVariableParam] = params.variableComboID;
+        }
+        postBody = queryString.stringify(postBody);
+        console.log('---------');
+        console.log('modifySecondaryTable POST body', postBody, postHeaders);
+        console.log('---------');
+
+
+        fetch(url, {
+            method: 'POST',
+            headers: postHeaders,
+            body: postBody
+        })
+        .then((response) => statusRouter(
+            response,
+            store.sessionActions.signOut
+        ))
+        .then(chooseTextOrJSON)
+        .then(function(payload){
+            console.log('OK (post)', URLs.rows.secondTableAutoupdateParam);
+            console.log('result (post)', URLs.rows.secondTableAutoupdateParam, payload);
+            let result = secondTablePostResponseOK(payload);
+            if (result.error !== null) {
+                store.userActions.errorArrived(result.error);
+            } else if (result.success){
+                store.fetchSecondaryRows();
+            }
+        })
+        .catch(function(e){
+            console.log('parsing failed ' + URLs.rows.secondTableAutoupdateParam, e); // eslint-disable-line
+        });
+
+    }
+    addSecondaryRow(){
+        let params = {
+            action: 'add',
+            day: this.userStore.state.newSecondaryRow.day,
+            startTime: this.userStore.state.newSecondaryRow.startTime,
+            endTime: this.userStore.state.newSecondaryRow.endTime,
+            variableComboID: this.userStore.state.newSecondaryRow.variableComboID,
+            autoUpdate: false
+        }
+        this.modifySecondaryTable(params);
+    }
+    removeSecondaryRow(key){
+        let rowHeaders = this.state.secondary.headers[Math.floor(key/2)];
+        let rowHeaderParts = rowHeaders[4].replace('- ', '').split(' ');
+        let varComboItem = find(this.variablesStore.state.rawCombos,
+                                                    'label', rowHeaders[0]);
+        let params = {
+            action: 'remove',
+            day: rowHeaderParts[0],
+            startTime: rowHeaderParts[1],
+            endTime: rowHeaderParts[2],
+            variableComboID: varComboItem.id,
+            autoUpdate: false
+        }
+        this.modifySecondaryTable(params);
+    }
+
+    secondTableFormUpdate(change){
+        let secondary = merge({}, this.state.secondary);
+        switch (change.field){
+            case 'autoUpdate':
+                secondary.autoUpdate = !secondary.autoUpdate;
+                if (secondary.autoUpdate === true){
+                    // User changed secondary table autoupdate to true
+                    // make post request passing autoUpdate parameter
+                    this.modifySecondaryTable({
+                        autoUpdate: true
+                    });
+                } else {
+                    // User changed secondary table autoupdate to false
+                    // clear secondary table
+                    secondary.loading = false;
+                    secondary.lastLoad = new Date().getTime();
+                    secondary.headers = [];
+                    secondary.columns = [];
+                    secondary.data = [];
+                    //and stop the auto fetching
+                    this.stopSecondaryAutoUpdate();
+                }
+                this.setState({ secondary: secondary});
+                break;
+            case 'action':
+                if (change.value === 'add'){
+                    if (!secondary.autoUpdate){
+                        this.addSecondaryRow();
+                    } else {
+                        //example: '2015-10-09 06:00'
+                        this.fetchSecondaryRows(
+                            this.userStore.state.newSecondaryRow.day + ' ' +
+                            this.userStore.state.newSecondaryRow.startTime
+                        );
+                    }
+                }else{
+                    console.log('=== REMOVE ROW ===', change.value);
+                    this.removeSecondaryRow(change.value);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
     fetchRows(token, newType, endTime) {
         let store = this;
         let type = store.state.type;
@@ -169,7 +362,7 @@ class RowsStore extends Store {
             console.log('result', payload);
             let result = parseRows(payload, store.state.type);
             console.log('parsed result', result);
-            // console.log(result.rows.data.length +' rows');
+            console.log(result.rows.data.length +' rows');
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error,
@@ -200,6 +393,10 @@ class RowsStore extends Store {
         });
     }
 
+    resetSecondaryRows(){
+
+    }
+
     startAutoUpdate() {
         // console.log('startAutoUpdate');
         let store = this;
@@ -213,6 +410,24 @@ class RowsStore extends Store {
     stopAutoUpdate() {
         // console.log('stopAutoUpdate');
         window.clearInterval(this.autoUpdateInterval);
+    }
+
+    startSecondaryAutoUpdate(){
+        console.log('startSecondaryAutoUpdate');
+        let store = this;
+        window.clearInterval(store.secondaryAutoUpdateInterval);
+        store.secondaryAutoUpdateInterval = window.setInterval(function(){
+            console.log('secondary autoupdate fetch');
+            store.fetchSecondaryRows(
+                store.userStore.state.newSecondaryRow.day + ' ' +
+                store.userStore.state.newSecondaryRow.startTime
+            );
+        }, AUTOUPDATE_INTERVAL);
+    }
+
+    stopSecondaryAutoUpdate(){
+        console.log('stopSecondaryAutoUpdate');
+        window.clearInterval(this.secondaryAutoUpdateInterval);
     }
 
     getNextPage() {

@@ -25,7 +25,7 @@ class SessionStore extends Store {
             error: null
         };
         this.sessionActions = sessionActions;
-        this.loadSavedToken();
+        // this.loadSavedToken();
     }
     loadSavedToken() {
         this.setState({
@@ -57,7 +57,7 @@ class SessionStore extends Store {
             let sessionDataError = (sessionData.error_description || sessionData.error);
             if (sessionData.token){
                 store.setState(sessionData);
-                setLocalItem('sessionToken', sessionData.token);
+                // setLocalItem('sessionToken', sessionData.token);
                 store.flux.getActions('session').tokenGranted(sessionData.token);
             }else if (sessionData.error) {
                 store.sessionActions.signOut();
