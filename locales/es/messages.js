@@ -47,6 +47,8 @@ export default {
         close: 'Cerrar',
         save: 'Guardar',
         back: 'Volver',
+        tos: 'Termos de serviço',
+        help: 'Ajuda',
         print: 'Imprimir',
         changePassword: 'Cambiar contraseña',
         logout: 'Cerrar sesión'

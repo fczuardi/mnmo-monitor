@@ -5,13 +5,25 @@ import LI from 'mnmo-components/lib/themes/mnmo/li';
 import Switch from 'mnmo-components/lib/themes/mnmo/switch';
 import Radio from 'mnmo-components/lib/themes/mnmo/radio';
 import A from 'mnmo-components/lib/themes/mnmo/a';
-import extraLinks from '../../config/menulinks';
+// import extraLinks from '../../config/menulinks';
 import SubmenuRouter from '../components/submenurouter';
 
 const minWidth = window.innerWidth > 320 ? 300 : 270;
 
 export default (p, a) => {
-    extraLinks[0][0].link = p.user.tosURL;
+    let extraLinks = [
+        [
+            {
+                link: p.user.tosURL,
+                label: p.language.messages.settings.tos
+            },
+            {
+                // TODO get this link from the API
+                link: 'http://example.com',
+                label: p.language.messages.settings.help
+            }
+        ]
+    ];
     return (
 <div
     id='menu-container'

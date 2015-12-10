@@ -632,7 +632,7 @@ class RowsStore extends Store {
 
         let tableProperties = {
             flux: this.flux,
-            // groups: this.flux.getStore('groups').state,
+            // ggroups: this.flux.getStore('groups').state,
             vars: this.flux.getStore('vars').state,
             // user: this.flux.getStore('user').state,
             // language: this.flux.getStore('language').state,

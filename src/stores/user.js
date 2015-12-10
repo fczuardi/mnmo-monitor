@@ -114,6 +114,10 @@ class UserStore extends Store {
         this.sessionStore = flux.getStore('session');
         this.groupsStore = flux.getStore('groups');
         this.varsStore = flux.getStore('vars');
+        //some user settings updatas such as changing the languageID
+        //doesnt return the other affected values in the POST return
+        //so a new fetch is necessary after the change is published
+        this.needsRefetch = false;
         //country store changed
         this.countryStore.addListener('change', this.countryOptionsLoaded.bind(this));
         //groups store changed
@@ -188,7 +192,14 @@ class UserStore extends Store {
                 store.userActions.errorArrived(result.error);
                 return null;
             } else {
-                store.userActions.preferencesFetched(userPreferences);
+                if (store.needsRefetch){
+                    store.needsRefetch = false;
+                    store.setState({
+                        tosURL: userPreferences.tosURL
+                    });
+                } else {
+                    store.userActions.preferencesFetched(userPreferences);
+                }
             }
         })
         .catch(function(e){
@@ -313,7 +324,12 @@ class UserStore extends Store {
             let result = userPreferencesPostResponseOK(payload),
                 newState = result.data;
             // console.log('newState', newState);
-            // console.log('post success', payload, newState);
+            console.log('parsed newState', newState);
+            console.log('store.state.languageID',store.state.languageID, newState.languageID);
+            if (store.needsRefetch){
+                console.log('Language changed, fetch user preferences again');
+                store.fetchPreferences();
+            }
             // userPreferencesPostResponseOK(payload);
             store.userActions.preferencesPublished(newState);
             if (result.error !== null) {
@@ -415,7 +431,8 @@ class UserStore extends Store {
         });
     }
     changeLanguagePref(languageID) {
-        // console.log('set user state: changeLanguagePref');
+        console.log('set user state: changeLanguagePref');
+        this.needsRefetch = true;
         this.setState({
             languageID: languageID
         });

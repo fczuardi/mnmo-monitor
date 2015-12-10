@@ -47,6 +47,8 @@ export default {
         close: 'Close',
         save: 'Save',
         back: 'Back',
+        tos: 'Terms of service',
+        help: 'Help',
         print: 'Print',
         changePassword: 'Change password',
         logout: 'Logout'
