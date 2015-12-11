@@ -365,8 +365,10 @@ class RowsStore extends Store {
             console.log(result.rows.data.length +' rows');
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {
+                let isWarning = result.errorCode === 1001;
+                console.log('errorCode', result.errorCode, isWarning);
                 store.userActions.errorArrived(result.error,
-                    store.rowsActions.fetchAgainRequested);
+                    store.rowsActions.fetchAgainRequested, isWarning);
                 store.stopAutoUpdate();
             } else {
                 if (store.userStore.state.autoUpdate) {

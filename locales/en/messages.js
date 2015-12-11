@@ -71,7 +71,8 @@ export default {
     error: {
         error: 'Error',
         ok: 'OK',
-        tryAgain: 'Try Again'
+        tryAgain: 'Try Again',
+        warning: 'Aviso'
     },
     rows: {
         title: {

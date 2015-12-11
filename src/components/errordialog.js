@@ -6,7 +6,16 @@ class ErrorDialog {
         const actions = {
             buttonClicked: (event) => {
                 event.preventDefault();
+                console.log('this.props.columns.enabled', this.props.columns.enabled,
+                this.props.columns.enabled.length, this.props.groups.selected);
                 userActions.errorDismissed();
+                if (this.props.groups.selected === null){
+                    this.props.flux.getActions('user').menuVisibilityToggle();
+                    this.props.flux.getActions('user').openPanel('groups');
+                }else if (this.props.columns.enabled.length === 0){
+                    this.props.flux.getActions('user').menuVisibilityToggle();
+                    this.props.flux.getActions('user').openSubmenu('columns');
+                }
             },
             tryAgainClicked: (event) => {
                 event.preventDefault();

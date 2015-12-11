@@ -46,7 +46,7 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.6.7',
+            version: 'v3.0.6.8',
             menuClosed: true,
             submenu: null,
             panel: null,
@@ -68,6 +68,7 @@ class UIStore extends Store {
             oldestMinute: '000000',
             newestMinute: '000000',
             error: null,
+            warning: null,
             canDragSlide: true
         };
         this.ticking = false;
@@ -109,9 +110,11 @@ class UIStore extends Store {
     }
 
     displayError(info){
+        console.log('displayError', info);
         this.setState({
             error: info.message,
-            errorTryAgainAction: info.tryAgainAction
+            errorTryAgainAction: info.tryAgainAction,
+            warning: info.warning
         });
     }
     resetError() {

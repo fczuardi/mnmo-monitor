@@ -112,10 +112,11 @@ class UserActions extends Actions {
     tableScrollEnded() {
         return null;
     }
-    errorArrived(message, tryAgainAction) {
+    errorArrived(message, tryAgainAction, isWarning) {
         return {
             message: message,
-            tryAgainAction: tryAgainAction || null
+            tryAgainAction: tryAgainAction || null,
+            warning: isWarning || null
         };
     }
     errorDismissed() {

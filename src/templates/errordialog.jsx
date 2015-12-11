@@ -5,7 +5,12 @@ import Button from 'mnmo-components/lib/themes/mnmo/button';
 
 export default (p, a) => {
     let display = p.ui.error !== null ? 'table' : 'none',
+        title = p.ui.warning ?
+                    p.language.messages.error.warning :
+                    p.language.messages.error.error,
+        backgroundColor = p.ui.warning ? '#2D2D2D' : '#5D0000',
         width = 320;
+
     let tryAgainButton = p.ui.errorTryAgainAction ? (
         <div style={{
             marginTop: 15
@@ -53,7 +58,7 @@ export default (p, a) => {
             style={{
                 borderRadius:   5,
                 padding: 15,
-                backgroundColor: '#5D0000',
+                backgroundColor: backgroundColor,
                 boxSizing: 'border-box'
             }}
         >
@@ -65,7 +70,7 @@ export default (p, a) => {
                     width: '100%'
                 }}
             >
-                {p.language.messages.error.error}
+                {title}
             </h1>
             <p
                 style={{
@@ -74,7 +79,7 @@ export default (p, a) => {
             >
                 {p.ui.error}
             </p>
-            <form 
+            <form
                 style={{
                     marginBottom: 0
                 }}
