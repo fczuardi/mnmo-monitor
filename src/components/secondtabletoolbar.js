@@ -9,17 +9,26 @@ class SecondTableToolbar{
                 console.log('onVarChange', ev.target.value);
                 userActions.secondTableFormChanged('variableComboID', ev.target.value);
             },
-            onDayChange: (ev) => {
-                console.log('onDayChange', ev.target.value);
-                userActions.secondTableFormChanged('day', ev.target.value);
+            // onDayChange: (ev) => {
+            //     console.log('onDayChange', ev.target.value);
+            //     userActions.secondTableFormChanged('day', ev.target.value);
+            // },
+            onDayClick: () => {
+                userActions.openPanel('secondtable');
             },
-            onStartTimeChange: (ev) => {
-                console.log('onStartTimeChange', ev.target.value);
-                userActions.secondTableFormChanged('startTime', ev.target.value);
+            // onStartTimeChange: (ev) => {
+            //     console.log('onStartTimeChange', ev.target.value);
+            //     userActions.secondTableFormChanged('startTime', ev.target.value);
+            // },
+            onStartTimeClick: () => {
+                userActions.openPanel('secondtable');
             },
-            onEndTimeChange: (ev) => {
-                console.log('onEndTimeChange', ev.target.value);
-                userActions.secondTableFormChanged('endTime', ev.target.value);
+            // onEndTimeChange: (ev) => {
+            //     console.log('onEndTimeChange', ev.target.value);
+            //     userActions.secondTableFormChanged('endTime', ev.target.value);
+            // },
+            onEndTimeClick: () => {
+                userActions.openPanel('secondtable');
             },
             onAddClicked: (ev) => {
                 userActions.secondTableFormChanged('action', 'add');

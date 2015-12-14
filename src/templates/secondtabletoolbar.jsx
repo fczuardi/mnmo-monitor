@@ -6,7 +6,7 @@ export default (p, a) => {
         <div
             id={'secondTableToolbarLeft'}
             style={{
-                display: p.ui.screenWidth < 670 ? 'none' : 'table-cell',
+                display: p.ui.screenWidth < 780 ? 'none' : 'table-cell',
                 verticalAlign: 'middle'
             }}
         >
@@ -57,6 +57,30 @@ export default (p, a) => {
         ></div>
 
     );
+    let varsComboStyle = {
+        marginRight: '5%',
+        width: 90,
+        height: 24,
+        lineHeight: '24px',
+        minWidth: 90
+    };
+    let dayButtonStyle = {
+        height: 24,
+        lineHeight: '24px',
+        opacity: (autoUpdate || loading) ? 0.5 : 1
+    };
+    let startTimeButtonStyle = {
+        height: 24,
+        lineHeight: '24px',
+        width: 50,
+        opacity: loading ? 0.5 : 1
+    };
+    let endTimeButtonStyle = {
+        height: 24,
+        lineHeight: '24px',
+        width: 50,
+        opacity: (autoUpdate || loading) ? 0.5 : 1
+    };
     let center = p.ui.isMobile ? null: (
         <div
             id={'secondTableToolbarCenter'}
@@ -76,9 +100,7 @@ export default (p, a) => {
                 onBlur={a.onVarChange}
                 value={p.user.newSecondaryRow.variableComboID}
                 disabled={autoUpdate || loading}
-                style={{
-                    borderColor: 'transparent'
-                }}
+                style={varsComboStyle}
             >
                 { p.vars.rawCombos.map( (item, key) => (
                     <option
@@ -99,44 +121,45 @@ export default (p, a) => {
                 {p.language.messages.rows.range}
             </label>
             <input
-                type={'text'}
+                type={'button'}
                 id={'secondTableRangeDateCombo'}
                 placeholder={'YYYY-MM-DD'}
-                style={{
-                    width: 65,
-                    opacity: (autoUpdate || loading) ? 0.5 : 1
-                }}
+                style={dayButtonStyle}
                 value={p.user.newSecondaryRow.day}
-                onChange={a.onDayChange}
-                onBlur={a.onDayChange}
+                onClick={a.onDayClick}
                 disabled={autoUpdate || loading}
             >
             </input>
+            <span
+                style={{
+                    fontSize: 17,
+                    marginRight: '5%',
+                    marginLeft: 10,
+                    position: 'relative',
+                    top: 3
+                }}
+                className="icon-calendar"
+                onClick={a.onDayClick}
+            >
+            </span>
             <input
-                type={'text'}
+                type={'button'}
                 id={'secondTableBeginHour'}
                 placeholder={'HH:MM'}
-                style={{
-                    width: 32,
-                    opacity: loading ? 0.5 : 1
-                }}
+                style={startTimeButtonStyle}
                 value={p.user.newSecondaryRow.startTime}
-                onChange={a.onStartTimeChange}
-                onBlur={a.onStartTimeChange}
+                onClick={a.onStartTimeClick}
                 disabled={loading}
             >
             </input>
+            -
             <input
-                type={'text'}
+                type={'button'}
                 id={'secondTableEndHour'}
                 placeholder={'HH:MM'}
-                style={{
-                    width: 32,
-                    opacity: (autoUpdate || loading) ? 0.5 : 1
-                }}
+                style={endTimeButtonStyle}
                 value={p.user.newSecondaryRow.endTime}
-                onChange={a.onEndTimeChange}
-                onBlur={a.onEndTimeChange}
+                onClick={a.onEndTimeClick}
                 disabled={autoUpdate || loading}
             >
             </input>

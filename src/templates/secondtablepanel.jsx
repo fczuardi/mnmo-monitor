@@ -148,8 +148,8 @@ export default (p, a) => {
         />
     );
 
-    // let isFullscreen = p.ui.screenWidth < fullScreenLimit;
-    let isFullscreen = true;
+    let isFullscreen = p.ui.screenWidth < fullScreenLimit;
+    // let isFullscreen = true;
     return (
 <Dialog align='center' fullscreen={isFullscreen}>
     <Drawer
