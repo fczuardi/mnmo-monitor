@@ -88,7 +88,8 @@ export default {
         interval: 'Periodicidad (en minutos)',
         secondTable: 'Comparar',
         mergeRows: 'Agrupar filas',
-        unmergeRows: 'Ver todas'
+        unmergeRows: 'Ver todas',
+        range: 'Período'
    },
     subgroups: {
         title: 'Sub-grupos',

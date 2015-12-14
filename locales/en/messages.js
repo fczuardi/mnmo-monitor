@@ -88,7 +88,8 @@ export default {
         interval: 'Frequency (in minutes)',
         secondTable: 'Compare',
         mergeRows: 'Merge rows',
-        unmergeRows: 'All rows'
+        unmergeRows: 'All rows',
+        range: 'Range'
     },
     subgroups: {
         title: 'Subgroups',
