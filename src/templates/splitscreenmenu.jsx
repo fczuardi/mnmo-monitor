@@ -67,7 +67,7 @@ export default (p, a) => {
             left: 135
         },
         'mobile': {
-            left: 85
+            left: 45
         },
         'top': {
             mobile: {
