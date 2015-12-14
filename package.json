@@ -202,6 +202,9 @@
     "classic:clean": "rm -rf ../monitor-traditional/lib ../monitor-traditional/js ../monitor-traditional/*.html",
     "classic:js:app": "cp -R ./dist/classic/js ../monitor-traditional/.",
     "classic:js:lib": "cp -R ./dist/classic/lib ../monitor-traditional/.",
+    "classic:js:secretconfig": "cp ./config/secret.* ../monitor-traditional/_dev/config/.",
+    "classic:js:secretlocales": "cp ./locales/pt/secret.* ../monitor-traditional/_dev/locales/pt/. && cp ./locales/es/secret.* ../monitor-traditional/_dev/locales/es/. && cp ./locales/en/secret.* ../monitor-traditional/_dev/locales/en/.",
+    "classic:secret": "npm run classic:js:secretconfig && npm run classic:js:secretlocales",
     "classic:html": "cp -R ./dist/classic/*.html ../monitor-traditional/.",
     "classic:css": "cp -R ./dist/classic/css/* ../monitor-traditional/css/.",
     "classic:www": "cp -R ./dist/classic/* ../monitor-traditional/",
@@ -217,7 +220,7 @@
     "preclassic:www": "npm run www",
     "preclassic:img": "npm run www:img",
     "preclassic": "npm run classic:clean",
-    "classic": "npm run classic:www & npm run classic:docs",
+    "classic": "npm run classic:www & npm run classic:docs && npm run classic:secret",
     "start": "babel-node server.js",
     "test": "node ."
   },
