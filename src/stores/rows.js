@@ -653,8 +653,11 @@ class RowsStore extends Store {
                 ),
                 DOM.body(null,
                     createElement(SimpleTable, tableProperties),
-                    DOM.script(null,
-                        'window.print();'
+                    DOM.script({dangerouslySetInnerHTML: {__html: `
+                        window.onload = function(){
+                            window.print();
+                        };
+                        `}}
                     )
                 )
             )
@@ -662,6 +665,7 @@ class RowsStore extends Store {
         // console.log(tableHTML);
         let printWindow = window.open('', 'printWindow', 'scrollbars=yes');
         printWindow.document.write(tableHTML);
+        printWindow.document.close();
     }
 }
 
