@@ -84,7 +84,7 @@ export default (p, a) => {
             style={{
                 fontSize: 12,
                 color: 'rgba(255,255,255,0.5)',
-                position: p.ui.isMobile ? 'absolute': 'relative',
+                position: p.ui.isMobile ? 'inherit': 'relative',
                 right: p.ui.isMobile ? 10: 'auto',
                 top: p.ui.isMobile ? 60: 'auto',
             }}

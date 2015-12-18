@@ -176,33 +176,44 @@ export default (p, a) => {
         // width: '18%',
         // minWidth: 100
     }
+    let autoUpdateButton = (
+        <div
+            style={{
+                cursor: 'pointer',
+                float: p.ui.isMobile ? 'right': 'none',
+                fontSize: p.ui.isMobile ? 12 : 'inherit',
+                marginRight: p.ui.isMobile ? 12 : 'inherit'
+            }}
+            onClick={a.onAutoUpdateClicked}
+        >
+            {p.language.messages.settings.autoUpdateStatus}
+            <div
+                style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 10,
+                    display: 'inline-block',
+                    backgroundColor: autoUpdate ? '#389D97': 'rgba(255, 255, 255, 0.5)',
+                    marginLeft: 10
+                }}
+            >
+            </div>
+        </div>
+    );
     let right = p.ui.isMobile ? null: (
         <div
             id={'secondTableToolbarRight'}
             style={rightStyle}
         >
-            <div
-                style={{
-                    cursor: 'pointer'
-                }}
-                onClick={a.onAutoUpdateClicked}
-            >
-                {p.language.messages.settings.autoUpdateStatus}
-                <div
-                    style={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: 10,
-                        display: 'inline-block',
-                        backgroundColor: autoUpdate ? '#389D97': 'rgba(255, 255, 255, 0.5)',
-                        marginLeft: 10
-                    }}
-                >
-                </div>
-            </div>
+            {autoUpdateButton}
         </div>
     );
-    let modibleToolbarContent = p.ui.isMobile ? addButton : null;
+    let modibleToolbarContent = p.ui.isMobile ? (
+        <div>
+            {addButton}
+            {autoUpdateButton}
+        </div>
+    ) : null;
     return (
 <div
     id={'secondTableToolbar'}
