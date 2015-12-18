@@ -46,7 +46,7 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.6.12',
+            version: 'v3.0.6.13',
             menuClosed: true,
             submenu: null,
             panel: null,
@@ -80,7 +80,11 @@ class UIStore extends Store {
         this.secondCoordY = 0;
         this.scrollEndInterval = 0;
         this.imageUpdateInterval = 0;
-        window.addEventListener('resize', this.widthChange.bind(this));
+        if (window.addEventListener) {
+            window.addEventListener('resize', this.widthChange.bind(this));
+        }else{
+            window.attachEvent('onresize', this.widthChange.bind(this));
+        }
         this.scrollUpdate = this.scrollUpdate.bind(this);
         this.secondScrollUpdate = this.secondScrollUpdate.bind(this);
         this.addListener('change', this.stopTicking);
