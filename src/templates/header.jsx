@@ -87,7 +87,10 @@ export default (p, a) => {
                 position: p.ui.isMobile ? 'inherit': 'relative',
                 right: p.ui.isMobile ? 10: 'auto',
                 top: p.ui.isMobile ? 60: 'auto',
+                cursor: 'pointer'
             }}
+            checked={p.user.autoUpdate}
+            onClick={a.autoUpdateChange}
         >
             {p.ui.isMobile ? '' : p.language.messages.settings.autoUpdateStatus}
             <span

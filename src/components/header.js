@@ -20,7 +20,10 @@ class Header {
             },
             backButtonClicked: () => {
                 this.props.flux.getActions('rows').rowsTypeSwitchClicked('detailed');
-            }
+            },
+            autoUpdateChange: (event) =>
+                this.props.flux.getActions('user').autoUpdateToggle(!this.props.user.autoUpdate)
+
         };
         return template(this.props, actions);
     }
