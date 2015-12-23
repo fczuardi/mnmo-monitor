@@ -31,10 +31,12 @@ export default (p, a) => {
         textAlign: 'center'
     }
     let addButtonIcon = autoUpdate ? 'icon-check' : 'icon-plus';
-    addButtonIcon += loading ? ' addRowButtonDisabled' :  ' addRowButton';
+    let addButtonDisabled = p.rows.secondary.data.length >= 5;
+    addButtonIcon += loading || addButtonDisabled ? ' addRowButtonDisabled' :  ' addRowButton';
     let addButton = (
         <div
             className={addButtonIcon}
+            disabled={addButtonDisabled}
             style={{
                 marginLeft: 10,
                 border: '2px solid white',
@@ -45,17 +47,16 @@ export default (p, a) => {
                 height: 17,
                 fontSize: 17,
                 lineHeight: '17px',
-                cursor: loading ? 'auto': 'pointer',
+                cursor: loading || addButtonDisabled ? 'auto': 'pointer',
                 textAlign: 'center',
                 display: 'inline-block',
                 position: 'relative',
                 top: '3px'
             }}
-            onClick={loading ? null :
+            onClick={loading || addButtonDisabled ? null :
                                 p.ui.isMobile ? a.onMobileAddClicked :
                                                             a.onAddClicked}
         ></div>
-
     );
     let varsComboStyle = {
         marginRight: '5%',
@@ -99,7 +100,7 @@ export default (p, a) => {
                 onChange={a.onVarChange}
                 onBlur={a.onVarChange}
                 value={p.user.newSecondaryRow.variableComboID}
-                disabled={autoUpdate || loading}
+                disabled={autoUpdate || loading || addButtonDisabled}
                 style={varsComboStyle}
             >
                 { p.vars.rawCombos.map( (item, key) => (
@@ -126,8 +127,8 @@ export default (p, a) => {
                 placeholder={'YYYY-MM-DD'}
                 style={dayButtonStyle}
                 value={p.user.newSecondaryRow.day}
-                onClick={a.onDayClick}
-                disabled={autoUpdate || loading}
+                onClick={addButtonDisabled ? null : a.onDayClick}
+                disabled={autoUpdate || loading || addButtonDisabled}
             >
             </input>
             <span
@@ -148,8 +149,8 @@ export default (p, a) => {
                 placeholder={'HH:MM'}
                 style={startTimeButtonStyle}
                 value={p.user.newSecondaryRow.startTime}
-                onClick={a.onStartTimeClick}
-                disabled={loading}
+                onClick={addButtonDisabled ? null : a.onStartTimeClick}
+                disabled={loading || addButtonDisabled}
             >
             </input>
             -
@@ -159,8 +160,8 @@ export default (p, a) => {
                 placeholder={'HH:MM'}
                 style={endTimeButtonStyle}
                 value={p.user.newSecondaryRow.endTime}
-                onClick={a.onEndTimeClick}
-                disabled={autoUpdate || loading}
+                onClick={addButtonDisabled ? null : a.onEndTimeClick}
+                disabled={autoUpdate || loading || addButtonDisabled}
             >
             </input>
             {addButton}
