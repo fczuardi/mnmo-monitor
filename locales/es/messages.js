@@ -18,7 +18,7 @@ export default {
             missingUsername: 'Llena tu nombre de usuario y la contraseña',
             missingPassword: 'Llena tu nombre de usuario y la contraseña',
             missingTos: 'Usted debe estar de acuerdo para usar',
-            missingCaptcha: 'yo le contesté la pregunta?',
+            missingCaptcha: 'Ha contestado la pregunta?',
             access: 'Acceso'
         },
         loadingCaptcha: 'Carga de la pregunta…'
