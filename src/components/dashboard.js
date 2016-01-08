@@ -40,7 +40,7 @@ class Dashboard {
         p.iconWidth = rowHeight - 2 * cellPadding;
         p.cellPadding = cellPadding;
 
-        p.chartHeight = !p.ui.chartVisible ? 0 : defaultChartHeight;
+        p.chartHeight = !p.ui.chartVisible ? 7 : defaultChartHeight;
         p.tableTitleHeight = tableTitleHeight;
         p.appHeaderHeight = appHeaderHeight;
 
