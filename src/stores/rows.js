@@ -63,6 +63,7 @@ class RowsStore extends Store {
             columns: [],
             date: '',
             loading: true,
+            autoUpdateFirstMinute: null,
             //second table (comparative)
             secondary: {
                 autoUpdate: false,
@@ -70,7 +71,8 @@ class RowsStore extends Store {
                 lastLoad: 0,
                 headers: [],
                 columns: [],
-                data: []
+                data: [],
+                autoUpdateFirstMinute: null
             }
         };
         this.previousUserState = userStore.state;
@@ -199,6 +201,7 @@ class RowsStore extends Store {
         newValues.lastLoad = new Date().getTime();
         newValues.loading = false;
         newValues.autoUpdate = data.autoUpdate;
+        newValues.autoUpdateFirstMinute = data.autoUpdateFirstMinute;
         console.log('newValues', newValues);
         this.setState({
             secondary: newValues
@@ -459,9 +462,11 @@ class RowsStore extends Store {
     //merge new loaded rows into the existing table already in memory
     updateRows(newHeaders, newRows) {
         let shouldReplaceTable = (this.state.data.length === 0 || this.autoUpdateStatusChanged),
+            autoUpdateFirstMinute = null,
             mergedData = {
                 headers: newHeaders,
-                rows: newRows
+                rows: newRows,
+                autoUpdateFirstMinute: autoUpdateFirstMinute
             };
         this.autoUpdateStatusChanged = false;
         if (shouldReplaceTable){
@@ -522,13 +527,15 @@ class RowsStore extends Store {
                 let oldRowsTail = updatedRows.slice(1);
                 return {
                     headers: newHeaders.concat(oldHeadersTail),
-                    rows: newRows.concat(oldRowsTail)
+                    rows: newRows.concat(oldRowsTail),
+                    autoUpdateFirstMinute: autoUpdateFirstMinute
                 };
             } else {
                 // console.log('replace the whole table');
                 return {
                     headers: newHeaders,
-                    rows: newRows
+                    rows: newRows,
+                    autoUpdateFirstMinute: autoUpdateFirstMinute
                 };
             }
         }
@@ -563,12 +570,32 @@ class RowsStore extends Store {
                 // console.log('same row');
             }
         });
+
+        let headers = appendToEnd ? updatedHeaders.concat(headersToAdd) :
+                                headersToAdd.concat(updatedHeaders);
+        let rows = appendToEnd ? updatedRows.concat(rowsToAdd) :
+                                rowsToAdd.concat(updatedRows);
+        //the first item in a header can be one of the 3 options bellow
+        // - 03:52__AAA
+        // - 04:11
+        // - 06:00 - 04:12
+        // so we use the getLastTimeFromString helper
+        // console.log('headers[0][0]', headers[0][0], this.getLastTimeFromString);
+        autoUpdateFirstMinute = this.getLastTimeFromString(headers[0][0]);
         return {
-            headers: appendToEnd ? updatedHeaders.concat(headersToAdd) :
-                                    headersToAdd.concat(updatedHeaders),
-            rows: appendToEnd ? updatedRows.concat(rowsToAdd) :
-                                    rowsToAdd.concat(updatedRows)
+            headers: headers,
+            rows: rows,
+            autoUpdateFirstMinute: autoUpdateFirstMinute
         };
+    }
+
+    //returns the last hh:mm ocurrency in a string containing times
+    getLastTimeFromString(s){
+        // console.log('getLastTimeFromString', s);
+        let lastColonCharIndex = s.lastIndexOf(':');
+        let output = s.substring(lastColonCharIndex - 2, lastColonCharIndex + 3);
+        // console.log('getLastTimeFromString', output);
+        return output;
     }
 
     getColumnsFromRows(rows){
@@ -616,11 +643,16 @@ class RowsStore extends Store {
             menuLabel: (newLabel || '-'),
             headers: mergedData.headers,
             data: mergedData.rows,
+            autoUpdateFirstMinute: mergedData.autoUpdateFirstMinute || null,
             columns: columns,
             date: data.date,
             lastLoad: new Date().getTime(),
             loading: false
         });
+        // console.log('=> autoUpdateFirstMinute main <=------- ',
+        //     mergedData.autoUpdateFirstMinute,
+        //     this.state.secondary.autoUpdateFirstMinute
+        // );
     }
 
     updateRowsType(newType) {
