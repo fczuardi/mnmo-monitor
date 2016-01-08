@@ -6,7 +6,7 @@ import keys from 'lodash/object/keys';
 
 const defaultPercentProps = {
     style: 'percent',
-    minimumFractionDigits: 0,
+    minimumFractionDigits: 1,
     maximumFractionDigits: 2
 };
 
