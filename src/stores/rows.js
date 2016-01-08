@@ -121,7 +121,7 @@ class RowsStore extends Store {
             if (archivedReportIntervalChanged){
                 this.resetRows();
             }
-            this.fetchRows();
+            this.fetchRows(null, null, null, true);
             this.previousUserState = merge({}, newState);
             this.toggleAutoUpdate(newState.autoUpdate);
         }
@@ -324,7 +324,7 @@ class RowsStore extends Store {
         }
     }
 
-    fetchRows(token, newType, endTime) {
+    fetchRows(token, newType, endTime, resetRows) {
         let store = this;
         let type = store.state.type;
         if (typeof newType === 'string'){
@@ -358,11 +358,14 @@ class RowsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK', URLs.rows[type]);
+            console.log('OK', URLs.rows[type], resetRows);
             console.log('result', payload);
             let result = parseRows(payload, store.state.type);
             console.log('parsed result', result);
             console.log(result.rows.data.length +' rows');
+            if (resetRows){
+                store.resetRows();
+            }
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {
                 let isWarning = result.errorCode === 1001;
@@ -581,6 +584,8 @@ class RowsStore extends Store {
                 let value = cell;
                 if (Array.isArray(columns[index])){
                     columns[index].push(value);
+                }else{
+                    console.warn('some rows has more columns than expected');
                 }
             });
         }

@@ -41,7 +41,11 @@ export default (p) => {
         if (rowIndex >= lineChartLength) { return; }
         row.forEach( (cell, index) => {
             let value = parseData(cell)[0];
-            columns[index].push(value);
+            if (Array.isArray(columns[index])){
+                columns[index].push(value);
+            }else{
+                console.warn('some rows has more columns than expected');
+            }
             maxValue = Math.max(maxValue, value);
         });
     });
