@@ -23,6 +23,7 @@ class UIStore extends Store {
         this.register(userActions.preferencesFetched, this.hideSplash);
         this.register(rowsActions.rowsFetchCompleted, this.hideSplash);
         this.register(rowsActions.rowsTypeSwitchClicked, this.rowTypeSwitched);
+        this.register(rowsActions.rowPanelHeightCalculated, this.setRowPanelHeight);
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
         this.register(userActions.chartVisibilityToggle, this.toggleChart);
         this.register(userActions.openSubmenu, this.changeSubmenu);
@@ -46,7 +47,7 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.6.17',
+            version: 'v3.0.6.18',
             menuClosed: true,
             submenu: null,
             panel: null,
@@ -58,6 +59,7 @@ class UIStore extends Store {
             supportsSVG: document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#Image', '1.1'),
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
+            rowPanelHeight: 0,
             isMobile: (window.innerWidth <= mobileBreakpointWidth),
             lastVisibleRow: ROWS_PAGE_SIZE,
             tableScrollTop: 0,
@@ -94,6 +96,12 @@ class UIStore extends Store {
         this.previousLoadingState = this.rowsStore.state.loading;
     }
 
+    setRowPanelHeight(h){
+        this.setState({
+            rowPanelHeight: h
+        });
+
+    }
     showSplash(){
         this.setState({
             displaySplash: true

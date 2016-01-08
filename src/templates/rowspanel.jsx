@@ -176,19 +176,23 @@ export default (p, a) => {
     );
 
     let isFullscreen = p.ui.screenWidth < fullScreenLimit;
+    let isFullHeight = p.ui.screenWidth < p.ui.rowPanelHeight;
     return (
         <Dialog align='center' fullscreen={isFullscreen}>
             <Drawer
                 title={p.language.messages.rows.title[p.rows.type]}
                 closeLabel={p.language.messages.settings.close}
                 onCloseClick={a.closePanel}
-                fullHeight={true}
+                fullHeight={isFullHeight}
                 fullscreen={isFullscreen}
             >
-            <div style={{
-                height: '90%',
-                overflow: 'auto'
-            }}>
+            <div
+                id={'rowPanelDrawer'}
+                style={{
+                    height: '90%',
+                    overflow: 'auto'
+                }}
+            >
                 {datePicker}
                 {startingTime}
                 {endingTime}

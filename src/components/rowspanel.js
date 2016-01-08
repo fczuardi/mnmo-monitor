@@ -1,26 +1,35 @@
+// import {findDOMNode} from 'react';
 import template from '../templates/rowspanel.jsx';
 
 class RowsPanel {
+    componentDidUpdate(){
+        let dialogHeight = document.getElementById('rowPanelDrawer').offsetHeight + 90;
+        // let dialog = findDOMNode(this);
+        // console.log('rowPanelDrawer componentDidUpdate', dialogHeight);
+        if (dialogHeight != this.props.ui.rowPanelHeight){
+            this.props.flux.getActions('rows').rowPanelHeightCalculated(dialogHeight);
+        }
+    }
     render() {
         const userActions = this.props.flux.getActions('user');
         const actions = {
-            closePanel: () => 
+            closePanel: () =>
                 userActions.closePanel(),
             calendarDayClick: (day) =>
                 userActions.dateUpdated(day.format('YYYY-MM-DD')),
             monthChange: (day) =>
                 userActions.monthUpdated(day.format('YYYY-MM-DD')),
-            startHourChange: (event) => 
+            startHourChange: (event) =>
                 userActions.startHourUpdated(event.target.value),
-            startMinuteChange: (event) => 
+            startMinuteChange: (event) =>
                 userActions.startMinuteUpdated(event.target.value),
-            endHourChange: (event) => 
+            endHourChange: (event) =>
                 userActions.endHourUpdated(event.target.value),
-            endMinuteChange: (event) => 
+            endMinuteChange: (event) =>
                 userActions.endMinuteUpdated(event.target.value),
-            frequencyChange: (event) => 
+            frequencyChange: (event) =>
                 userActions.frequencyUpdated(event.target.value),
-            mergeFunctionChange: (event) => 
+            mergeFunctionChange: (event) =>
                 userActions.mergeFunctionUpdated(event.target.checked ? 1: 0)
         };
         return template(this.props, actions);

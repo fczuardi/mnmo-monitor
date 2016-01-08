@@ -17,7 +17,9 @@ class RowsActions extends Actions {
     secondTableAddFormSubmitted(){
         return null;
     }
-
+    rowPanelHeightCalculated(h){
+        return h;
+    }
 }
 
 export default RowsActions;
