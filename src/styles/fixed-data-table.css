@@ -51,7 +51,8 @@
     color: #379DCC;
 }
 .tableRow.failed,
-.tableRow.failed.even{
+.tableRow.failed.even,
+.tableRow.failed .secondary{
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.3);
     color: #7C6617;
