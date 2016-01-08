@@ -48,7 +48,7 @@ export default {
         save: 'Guardar',
         back: 'Volver',
         tos: 'Termos de serviço',
-        help: 'Ajuda',
+        help: 'Ayuda',
         print: 'Imprimir',
         changePassword: 'Cambiar contraseña',
         logout: 'Cerrar sesión'
