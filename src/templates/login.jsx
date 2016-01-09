@@ -38,7 +38,6 @@ export default (p, a) => {
             }}>
                 {errorMessage}
             </p>
-            {submitButton}
         </div>
     );
     return (
@@ -144,7 +143,7 @@ export default (p, a) => {
                 </Checkbox>
             </div>
         </FieldSet>
-        {firstAttempt ? submitButton : null}
+        {submitButton}
     </form>
 </CenteredBox>
     );
