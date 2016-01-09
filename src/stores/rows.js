@@ -146,7 +146,7 @@ class RowsStore extends Store {
         );
         if (needsRefetching) {
             // console.log('fetch rows again');
-            this.fetchRows();
+            this.fetchRows(null, null, null, true);
         }
         this.previousColumnsState = merge({}, newState);
     }
