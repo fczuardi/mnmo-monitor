@@ -2,7 +2,8 @@ import {Store} from 'flummox';
 import URLs from '../../config/endpoints.js';
 import {
     chooseTextOrJSON,
-    parseCaptchaSetup
+    parseCaptchaSetup,
+    languageNames
 } from '../../config/apiHelpers';
 
 const submitLabelKeys = {
@@ -68,9 +69,12 @@ class LoginValidationStore extends Store {
         this.setState({
             selectedAnswerIndex: null
         });
-        let store = this;
-        console.log('GET', URLs.validation.captcha);
-        fetch(URLs.baseUrl + URLs.validation.captcha)
+        let store = this,
+            url = URLs.baseUrl + URLs.validation.captcha + '?' +
+                URLs.session.loginLanguageParam + '=' +
+                (languageNames[this.userStore.state.languageID || 0]);
+        console.log('GET', url);
+        fetch(url)
         .then(chooseTextOrJSON)
         .then(function(payload) {
             console.log('OK', URLs.validation.captcha);
