@@ -104,7 +104,8 @@ export default (p, a) => {
     };
     let selectorButtonIconStyle = {
         fontSize: 30,
-        display: 'block'
+        display: 'block',
+        marginTop: -20
     }
     let selectorActiveButtonStyles = merge({},
         selectorButtonStyles,
@@ -113,6 +114,18 @@ export default (p, a) => {
             backgroundColor: selectorButtonStyles.color
         }
     );
+    let buttonTextStyle = {
+        display: 'block',
+        width: 70,
+        textAlign: 'center',
+        top: 52,
+        left: 0,
+        position: 'absolute'
+    }
+    let iconLine = {
+        position:'relative',
+        top: -24
+    };
     let secondTableButton = p.rows.type !== 'detailed' ? (
         <button
             style={
@@ -126,20 +139,11 @@ export default (p, a) => {
                 className="icon-chart-bar"
                 style={selectorButtonIconStyle}
             />
-            <span style={{
-                position:'relative',
-                top: -24
-            }}>----------</span>
+            <span style={iconLine}>----------</span>
             <span
-                style={{
-                    fontSize: 9,
-                    display: 'block',
-                    width: 70,
-                    top: 56,
-                    left: 0,
-                    textAlign: 'center',
-                    position: 'absolute'
-                }}
+                style={merge({}, buttonTextStyle, {
+                    fontSize: 9
+                })}
             >
                 {p.language.messages.rows.secondTable}
             </span>
@@ -166,7 +170,7 @@ export default (p, a) => {
                     className="icon-chart-bar"
                     style={selectorButtonIconStyle}
                 />
-                <span>
+                <span style={buttonTextStyle}>
                     {p.language.messages.chart.onButton}
                 </span>
             </button>
@@ -183,7 +187,7 @@ export default (p, a) => {
                 className="icon-empty"
                 style={selectorButtonIconStyle}
             />
-            <span>
+            <span style={buttonTextStyle}>
                 {p.language.messages.chart.offButton}
             </span>
             </button>
@@ -210,7 +214,7 @@ export default (p, a) => {
                     className="icon-clock"
                     style={selectorButtonIconStyle}
                 />
-                <span>
+                <span style={buttonTextStyle}>
                     {p.language.messages.rows.unmergeRows}
                 </span>
             </button>
@@ -226,11 +230,8 @@ export default (p, a) => {
                     className="icon-chart-bar"
                     style={selectorButtonIconStyle}
                 />
-                <span style={{
-                    position:'absolute',
-                    top: 59
-                }}>----------</span>
-                <span>
+                <span style={iconLine}>----------</span>
+                <span style={buttonTextStyle}>
                     {p.language.messages.rows.mergeRows}
                 </span>
             </button>
