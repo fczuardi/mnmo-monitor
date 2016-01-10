@@ -5,6 +5,9 @@ import merge from 'lodash/object/merge';
 
 export default (p, a) => {
     p.rowHeight = p.rows.type === 'secondary' ? p.secondTableRowHeight : p.rowHeight;
+
+    let hideFirstRow = p.rows.hideFirstRow && p.rows.type !== 'secondary';
+    let headers = p.rows.headers.slice(hideFirstRow ? 1 : 0);
     return (
 <div
     id={p.rowHeadersElementId || 'row-headers'}
@@ -23,7 +26,7 @@ export default (p, a) => {
         }, tableStyles(p).borderRight)}
     >
         <tbody key="tableheaders">
-            {p.rows.headers.map((row, key) => rowRenderer(row, key, p, a))}
+            {headers.map((row, key) => rowRenderer(row, key, p, a))}
         </tbody>
     </table>
 </div>

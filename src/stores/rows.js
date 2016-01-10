@@ -203,8 +203,20 @@ class RowsStore extends Store {
         newValues.autoUpdate = data.autoUpdate;
         newValues.autoUpdateFirstMinute = data.autoUpdateFirstMinute;
         console.log('newValues', newValues);
+        //if the first row of the main table is hidden (see bug #34)
+        //and the new autoUpdateFirstMinute value for the second table is
+        //the same of the main table, then we can unhide the hidden row
+        //because the tables are in sync
+        let menuLabel = this.state.menuLabel;
+        let hideFirstRow = this.state.hideFirstRow;
+        if (hideFirstRow && data.autoUpdateFirstMinute === this.state.autoUpdateFirstMinute){
+            hideFirstRow = false;
+            menuLabel = this.state.headers[0] ? this.state.headers[0][0] : null;
+        }
         this.setState({
-            secondary: newValues
+            menuLabel: menuLabel,
+            secondary: newValues,
+            hideFirstRow: hideFirstRow
         });
     }
     modifySecondaryTable(params){
@@ -463,10 +475,12 @@ class RowsStore extends Store {
     updateRows(newHeaders, newRows) {
         let shouldReplaceTable = (this.state.data.length === 0 || this.autoUpdateStatusChanged),
             autoUpdateFirstMinute = null,
+            hideFirstRow = false,
             mergedData = {
                 headers: newHeaders,
                 rows: newRows,
-                autoUpdateFirstMinute: autoUpdateFirstMinute
+                autoUpdateFirstMinute: autoUpdateFirstMinute,
+                hideFirstRow: hideFirstRow
             };
         this.autoUpdateStatusChanged = false;
         if (shouldReplaceTable){
@@ -528,14 +542,16 @@ class RowsStore extends Store {
                 return {
                     headers: newHeaders.concat(oldHeadersTail),
                     rows: newRows.concat(oldRowsTail),
-                    autoUpdateFirstMinute: autoUpdateFirstMinute
+                    autoUpdateFirstMinute: autoUpdateFirstMinute,
+                    hideFirstRow: hideFirstRow
                 };
             } else {
                 // console.log('replace the whole table');
                 return {
                     headers: newHeaders,
                     rows: newRows,
-                    autoUpdateFirstMinute: autoUpdateFirstMinute
+                    autoUpdateFirstMinute: autoUpdateFirstMinute,
+                    hideFirstRow: hideFirstRow
                 };
             }
         }
@@ -582,10 +598,12 @@ class RowsStore extends Store {
         // so we use the getLastTimeFromString helper
         // console.log('headers[0][0]', headers[0][0], this.getLastTimeFromString);
         autoUpdateFirstMinute = this.getLastTimeFromString(headers[0][0]);
+
         return {
             headers: headers,
             rows: rows,
-            autoUpdateFirstMinute: autoUpdateFirstMinute
+            autoUpdateFirstMinute: autoUpdateFirstMinute,
+            hideFirstRow: this.getFirstRowHiddenState(autoUpdateFirstMinute)
         };
     }
 
@@ -597,6 +615,34 @@ class RowsStore extends Store {
         // console.log('getLastTimeFromString', output);
         return output;
     }
+
+
+    getFirstRowHiddenState(autoUpdateFirstMinute){
+        console.log('updateHiddenRows');
+        //Check to see if both autoupdates are on and if so hide
+        //the first table row if it's minute is bigger than the minute row
+        //of the secondary table. See bug #34.
+        let hideFirstRow = false;
+        if (
+            this.state.secondary.autoUpdate &&
+            this.userStore.state.autoUpdate &&
+            this.flux.getStore('ui').state.secondTableVisible &&
+            autoUpdateFirstMinute &&
+            this.state.secondary.autoUpdateFirstMinute &&
+            autoUpdateFirstMinute !== this.state.secondary.autoUpdateFirstMinute
+        ){
+            let mainMinuteNumber = parseInt(autoUpdateFirstMinute.replace(':', ''));
+            let secondaryMinuteNumber = parseInt(this.state.secondary.autoUpdateFirstMinute.replace(':', ''));
+            if (mainMinuteNumber > secondaryMinuteNumber){
+                console.log('----- hide first row of main table -----');
+                hideFirstRow = true;
+            }
+        }
+        console.log('hideFirstRow', hideFirstRow, this.flux.getStore('ui').state.secondTableVisible);
+        return hideFirstRow;
+    }
+
+
 
     getColumnsFromRows(rows){
         // console.log('getColumnsFromRows r', rows);
@@ -639,20 +685,24 @@ class RowsStore extends Store {
         let columns = this.getColumnsFromRows(mergedData.rows);
         // console.log('mergedData', mergedData.rows.length, mergedData.headers.length);
         let newLabel = mergedData.headers[0] ? mergedData.headers[0][0] : null;
+        if (mergedData.hideFirstRow) {
+            newLabel = mergedData.headers[1][0];
+        }
+        console.log('=> autoUpdateFirstMinute main <=------- ',
+            mergedData.autoUpdateFirstMinute,
+            this.state.secondary.autoUpdateFirstMinute
+        );
         this.setState({
             menuLabel: (newLabel || '-'),
             headers: mergedData.headers,
             data: mergedData.rows,
             autoUpdateFirstMinute: mergedData.autoUpdateFirstMinute || null,
+            hideFirstRow: mergedData.hideFirstRow,
             columns: columns,
             date: data.date,
             lastLoad: new Date().getTime(),
             loading: false
         });
-        // console.log('=> autoUpdateFirstMinute main <=------- ',
-        //     mergedData.autoUpdateFirstMinute,
-        //     this.state.secondary.autoUpdateFirstMinute
-        // );
     }
 
     updateRowsType(newType) {
