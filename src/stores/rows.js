@@ -123,7 +123,7 @@ class RowsStore extends Store {
             if (archivedReportIntervalChanged){
                 this.resetRows();
             }
-            this.fetchRows(null, null, null, true);
+            this.fetchRows(null, null, null, null, true);
             this.previousUserState = merge({}, newState);
             this.toggleAutoUpdate(newState.autoUpdate);
         }
@@ -146,7 +146,7 @@ class RowsStore extends Store {
         );
         if (needsRefetching) {
             // console.log('fetch rows again');
-            this.fetchRows(null, null, null, true);
+            this.fetchRows(null, null, null, null, true);
         }
         this.previousColumnsState = merge({}, newState);
     }
@@ -339,7 +339,7 @@ class RowsStore extends Store {
         }
     }
 
-    fetchRows(token, newType, endTime, resetRows) {
+    fetchRows(token, newType, endTime, lastEndTime, resetRows) {
         let store = this;
         let type = store.state.type;
         if (typeof newType === 'string'){
@@ -350,6 +350,7 @@ class RowsStore extends Store {
         console.log('GET', type, URLs.rows[type], endTime);
 
         endTime = endTime || '';
+        lastEndTime = lastEndTime || '';
 
         if (
             endTime === '' &&
@@ -361,7 +362,8 @@ class RowsStore extends Store {
         }
         // let url = URLs.baseUrl + URLs.rows.rowsError;
         let url = URLs.baseUrl + URLs.rows[type] + '?' +
-                        URLs.rows.endTimeParam + '=' + endTime;
+                        URLs.rows.endTimeParam + '=' + endTime + '&' +
+                        URLs.rows.lastEndTimeParam + '=' + lastEndTime;
         if (URLs.rows[type] === undefined){ return false; }
         store.setState({
             loading: true
