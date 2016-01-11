@@ -31,6 +31,7 @@ class LoginValidationStore extends Store {
             canSubmit: false
         };
         this.userStore = flux.getStore('user');
+        this.flux = flux;
         this.userStore.addListener('change', this.validate.bind(this));
         this.validate();
         this.fetchCaptcha();
@@ -78,7 +79,9 @@ class LoginValidationStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload) {
             console.log('OK', URLs.validation.captcha);
-            let options = parseCaptchaSetup(payload);
+            let languageStore = store.flux.getStore('language');
+            let questionTemplate = languageStore.state.messages.login.question;
+            let options = parseCaptchaSetup(payload, questionTemplate);
             store.setState({
                 captchaQuestionID: options.questionID,
                 captchaQuestion: options.question,

@@ -52,6 +52,7 @@ class UserStore extends Store {
         this.register(userActions.changePasswordPublished, this.clearPasswordPref);
         this.register(userActions.forgotPasswordSubmitted, this.startForgotPassword);
         this.register(userActions.preferencesFetched, this.preferencesFetched);
+        this.register(userActions.localPreferencesFetched, this.localPreferencesFetched);
         this.register(userActions.dateUpdated, this.changeDate);
         this.register(userActions.startHourUpdated, this.changeStartHour);
         this.register(userActions.startMinuteUpdated, this.changeStartMinute);
@@ -102,7 +103,6 @@ class UserStore extends Store {
                 endTime: null
             }
         };
-        this.loadSavedPreferences();
         //user preferences state changed
         this.addListener('change', function(){
             this.savePreferences();
@@ -124,8 +124,8 @@ class UserStore extends Store {
         this.groupsStore.addListener('change', this.groupsChanged.bind(this));
         //variables store changed
         this.varsStore.addListener('change', this.changeVarsPref.bind(this));
-        // this.addListener('change', this.stateChange.bind(this));
-        this.fetchPreferences();
+        //after all initial setup, load local preferences
+        window.setTimeout(this.loadSavedPreferences.bind(this), 0);
     }
     // stateChange(){
     //     console.log('==--==CHANGE', this.state);
@@ -148,9 +148,7 @@ class UserStore extends Store {
     loadSavedPreferences() {
         let preferences = merge({}, this.state, getLocalItem('userPreference'));
         if (preferences === null) { return false; }
-        // console.log('set user state: loadSavedPreferences');
-        this.setState(preferences);
-        this.userActions.languageUpdate(preferences.languageID);
+        this.userActions.localPreferencesFetched(preferences);
     }
     savePreferences() {
         // console.log('savePreferences');
@@ -205,6 +203,10 @@ class UserStore extends Store {
         .catch(function(e){
             console.log('fetch error', e); // eslint-disable-line
         });
+    }
+    localPreferencesFetched(preferences){
+        // console.log('localPreferencesFetched');
+        this.preferencesFetched(preferences);
     }
     preferencesFetched(preferences) {
         // console.log('set user state: preferencesFetched');

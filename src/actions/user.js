@@ -49,6 +49,9 @@ class UserActions extends Actions {
     preferencesPublished(preferences) {
         return preferences;
     }
+    localPreferencesFetched(preferences) {
+        return preferences;
+    }
     preferencesFetched(preferences) {
         return preferences;
     }

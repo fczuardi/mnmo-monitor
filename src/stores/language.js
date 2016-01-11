@@ -27,18 +27,19 @@ class LanguageStore extends Store {
         this.sessionStore = sessionStore;
         this.sessionActions = sessionActions;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
+        this.register(userActions.localPreferencesFetched, this.userPreferencesFetched);
         this.register(userActions.languageUpdate, this.changeLanguage);
         this.state = {
             messages: defaultMessages,
             list: []
         };
     }
-    
+
     userPreferencesFetched(pref){
         this.changeLanguage(pref.languageID);
         this.fetchLanguages();
     }
-    
+
     fetchLanguages(token) {
         let store = this;
         token = token || store.sessionStore.state.token;

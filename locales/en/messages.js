@@ -21,7 +21,8 @@ export default {
             missingCaptcha: 'Have you answered the question?',
             access: 'Access'
         },
-        loadingCaptcha: 'Loading the question…'
+        loadingCaptcha: 'Loading the question…',
+        question: 'How much is {captchaChallenge} ?'
     },
     password: {
         forgotPasswordLink: 'Forgot password',

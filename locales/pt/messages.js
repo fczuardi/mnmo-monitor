@@ -21,7 +21,8 @@ export default {
             missingCaptcha: 'Já respondeu a pergunta?',
             access: 'Acessar'
         },
-        loadingCaptcha: 'Carregando a pergunta…'
+        loadingCaptcha: 'Carregando a pergunta…',
+        question: 'Quanto é {captchaChallenge} ?'
     },
     password: {
         newPasswordTitle: 'Redefinir senha',
