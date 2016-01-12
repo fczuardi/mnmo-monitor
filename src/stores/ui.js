@@ -47,7 +47,7 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.6.36',
+            version: 'v3.0.7.0',
             menuClosed: true,
             submenu: null,
             panel: null,
@@ -265,9 +265,10 @@ class UIStore extends Store {
         tableImages.scrollTop =
         tableImages.scrollLeft =
         columnBars.scrollLeft = 0;
-        this.setState({
-            lastVisibleRow: ROWS_PAGE_SIZE
-        });
+        // reset the artificial pagination limit for performance reasons
+        // this.setState({
+        //     lastVisibleRow: ROWS_PAGE_SIZE
+        // });
     }
     minuteFromHeader(text){
         return text.substring(5,0).replace(':', '') + '00';

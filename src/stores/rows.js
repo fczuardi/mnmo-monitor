@@ -63,6 +63,7 @@ class RowsStore extends Store {
             columns: [],
             date: '',
             loading: true,
+            lastEndTime: '',
             autoUpdateFirstMinute: null,
             //second table (comparative)
             secondary: {
@@ -123,7 +124,7 @@ class RowsStore extends Store {
             if (archivedReportIntervalChanged){
                 this.resetRows();
             }
-            this.fetchRows(null, null, null, null, true);
+            this.fetchRows(null, null, null, true);
             this.previousUserState = merge({}, newState);
             this.toggleAutoUpdate(newState.autoUpdate);
         }
@@ -146,7 +147,7 @@ class RowsStore extends Store {
         );
         if (needsRefetching) {
             // console.log('fetch rows again');
-            this.fetchRows(null, null, null, null, true);
+            this.fetchRows(null, null, null, true);
         }
         this.previousColumnsState = merge({}, newState);
     }
@@ -339,7 +340,7 @@ class RowsStore extends Store {
         }
     }
 
-    fetchRows(token, newType, endTime, lastEndTime, resetRows) {
+    fetchRows(token, newType, endTime, resetRows) {
         let store = this;
         let type = store.state.type;
         if (typeof newType === 'string'){
@@ -349,24 +350,26 @@ class RowsStore extends Store {
         if (token === null){ return false; }
         console.log('GET', type, URLs.rows[type], endTime);
 
+        let lastEndTime = endTime || store.state.lastEndTime;
         endTime = endTime || '';
-        lastEndTime = lastEndTime || '';
 
-        if (
-            endTime === '' &&
-            ! store.userStore.state.autoUpdate &&
-            store.userStore.state.archivedReport &&
-            store.userStore.state.archivedReport.end
-        ) {
-            endTime = store.userStore.state.archivedReport.end.substring(0, 5);
-        }
+        // if (
+        //     endTime === '' &&
+        //     ! store.userStore.state.autoUpdate &&
+        //     store.userStore.state.archivedReport &&
+        //     store.userStore.state.archivedReport.end
+        // ) {
+        //     endTime = store.userStore.state.archivedReport.end.substring(0, 5);
+        // }
         // let url = URLs.baseUrl + URLs.rows.rowsError;
         let url = URLs.baseUrl + URLs.rows[type] + '?' +
                         URLs.rows.endTimeParam + '=' + endTime + '&' +
                         URLs.rows.lastEndTimeParam + '=' + lastEndTime;
+        console.log('== fetch Rows url ==', url);
         if (URLs.rows[type] === undefined){ return false; }
         store.setState({
-            loading: true
+            loading: true,
+            lastEndTime: lastEndTime
         });
         fetch(url, {
             method: 'GET',
