@@ -4,6 +4,8 @@ import URLs from '../../config/endpoints.js';
 import {messagesPt, messagesEs, messagesEn} from '../../config/languageHelpers';
 
 const defaultMessages = messagesPt;
+const defaultLanguageID = '1';
+
 
 const locales = {
     '1': messagesPt,
@@ -36,7 +38,7 @@ class LanguageStore extends Store {
     }
 
     userPreferencesFetched(pref){
-        this.changeLanguage(pref.languageID);
+        this.changeLanguage(pref.languageID || defaultLanguageID);
         this.fetchLanguages();
     }
 
