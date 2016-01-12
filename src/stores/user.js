@@ -81,7 +81,7 @@ class UserStore extends Store {
             captchaAnswer: null,
             tosAgree: false,
             tosURL: '#',
-            languageID: null,
+            languageID: defaultLanguageID,
             autoUpdate: null,
             archivedReport: null,
             mergedRows: null,
