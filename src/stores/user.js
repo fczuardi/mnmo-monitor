@@ -106,6 +106,7 @@ class UserStore extends Store {
         };
         //user preferences state changed
         this.addListener('change', function(){
+            // console.log('user preferences state changed');
             this.savePreferences();
         });
         //TODO this can be better:
@@ -193,11 +194,16 @@ class UserStore extends Store {
             } else {
                 if (store.needsRefetch){
                     store.needsRefetch = false;
+                    // console.log('setState tosURL');
                     store.setState({
                         tosURL: userPreferences.tosURL
                     });
                 } else {
                     store.userActions.preferencesFetched(userPreferences);
+                    if (result.warning) {
+                        store.userActions.navigateToScreen('password');
+                        store.userActions.errorArrived(result.warning, null, true);
+                    }
                 }
             }
         })
@@ -542,16 +548,19 @@ class UserStore extends Store {
         });
     }
     changeCurrentPasswordPref(password) {
+        // console.log('set user state: currentPassword');
         this.setState({
             currentPassword: password
         });
     }
     changeNewPasswordPref(password) {
+        // console.log('set user state: newPassword');
         this.setState({
             newPassword: password
         });
     }
     changeConfirmNewPasswordPref(password) {
+        // console.log('set user state: confirmNewPassword');
         this.setState({
             confirmNewPassword: password
         });

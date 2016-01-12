@@ -64,15 +64,11 @@ class SessionStore extends Store {
                 // setLocalItem('sessionToken', sessionData.token);
                 store.flux.getActions('session').tokenGranted(sessionData.token);
             }else if (sessionData.error) {
-                if (sessionData.error === 'password_alert'){
-                    store.userActions.navigateToScreen('password');
-                    store.userActions.errorArrived(sessionDataError, null, true);
-                }else if (sessionData.error === 'password_expired'){
-                    store.sessionActions.signOut();
+                store.sessionActions.signOut();
+                if (sessionData.error === 'password_expired'){
                     store.userActions.navigateToScreen('password');
                     store.userActions.errorArrived(sessionDataError);
                 }else{
-                    store.sessionActions.signOut();
                     store.setState({
                         error: sessionDataError
                     });
