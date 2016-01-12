@@ -23,6 +23,7 @@ import {
 } from '../../config/apiHelpers';
 import queryString from 'query-string';
 
+const defaultLanguageID = 1;
 
 class UserStore extends Store {
     constructor(flux) {
