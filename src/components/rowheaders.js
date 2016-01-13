@@ -33,7 +33,8 @@ class RowHeaders extends Component {
         ){
             let rowsWithSeparators = [];
             let varsCount = keys(p.vars.combos).length;
-            let displaySeparators = (!p.ui.chartVisible || !p.ui.isMobile);
+            // let displaySeparators = (!p.ui.chartVisible || !p.ui.isMobile);
+            let displaySeparators = true;
             p.rows.headers.forEach( (row, key) => {
                 if (
                     isSecondary ||

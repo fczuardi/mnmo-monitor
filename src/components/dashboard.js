@@ -11,6 +11,7 @@ const cellPadding = 8;
 const subgroupPickerHeight = 25;
 const secondTableToolbarHeight = 50;
 const secondTableSeparatorHeight = 20;
+const separatorHeight = 40;
 
 
 class Dashboard {
@@ -76,6 +77,7 @@ class Dashboard {
                 // table height must be the height of x rows
                 // where x is the number of indexes
                 p.tableHeight = p.rowHeight * varsCount +
+                                    separatorHeight +
                                     p.rowHeight; // table header
                 // chart height is the rest of the screen
                 p.chartHeight = p.ui.screenHeight -

@@ -48,7 +48,7 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.7.6',
+            version: 'v3.0.7.7',
             menuClosed: true,
             submenu: null,
             panel: null,
@@ -280,7 +280,8 @@ class UIStore extends Store {
         let store = this;
         let varsCount = keys(this.variablesStore.state.combos).length;
         let rowHeight = this.state.screenHeight < 640 ? smallerRowHeight : smallColumnWidth;
-        let displaySeparators = (!this.state.chartVisible || !this.state.isMobile);
+        // let displaySeparators = (!this.state.chartVisible || !this.state.isMobile);
+        let displaySeparators = true;
         let separatorHeight = displaySeparators ? 40 : 0;
         // let currentRow = Math.floor(this.coordY / (rowHeight + separatorHeight));
         let currentMinuteIndex = Math.floor(
