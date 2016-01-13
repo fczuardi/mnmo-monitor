@@ -10,6 +10,11 @@ const defaultPercentProps = {
     maximumFractionDigits: 2
 };
 
+const defaultNumberProps = {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 2
+}
+
 export default (content, rowKey, cellKey, p) => {
     let tableHasSeparators = (p.rows.type === 'detailed' && (!p.ui.chartVisible || !p.ui.isMobile));
     let firstRowWithValue = tableHasSeparators ? 1 : 0;
@@ -23,7 +28,7 @@ export default (content, rowKey, cellKey, p) => {
     };
     const renderValue = (v, enumValue) => {
         let value = getValue(v, enumValue),
-            percentProps = isPercent(enumValue) ? defaultPercentProps : null;
+            percentProps = isPercent(enumValue) ? defaultPercentProps : defaultNumberProps;
         return (typeof value === 'number') ? (
             <FormattedNumber
                 locales={'en-US'/* p.language.messages.locale */}
