@@ -3,6 +3,7 @@ import URLs from '../../config/endpoints.js';
 import ToolbarButton from 'mnmo-components/lib/themes/mnmo/toolbarbutton';
 import merge from 'lodash/object/merge';
 import tableStyles from '../styles/tablestyles';
+import moment from 'moment';
 
 const smallColumnWidth = 60;
 const mediumColumnWidth = 106;
@@ -88,7 +89,7 @@ export default (p,a) => {
         };
         if (column === null){
             return(
-                <div 
+                <div
                     key={key}
                     style={divStyle}>
                 </div>
@@ -101,12 +102,39 @@ export default (p,a) => {
                 style = merge(style, {height: '100%', width:'auto'});
             }
         }
+        //different than the dates on the tables that can change
+        //from one day to another at different times depending on country,
+        //for the thumbnails call the day always turn at 00:00
+        //so we must add 1 day if the time is from 00:00 until the 'lastMinute'
+        //value for that country
+        let tableDay = moment(
+            p.rows.date.replace(/-/gi, '') + 'T' + p.ui.minute
+        );
+        let tableDayStart = moment(
+            p.rows.date.replace(/-/gi, '') + 'T' + p.calendar.firstMinute.replace(/:/gi, '')
+        );
+        let realDayStart = moment(
+            p.rows.date.replace(/-/gi, '') + 'T0000'
+        );
+        let realDay = tableDay.clone();
+
+        // console.log('tableDay', tableDay.format('YYYYMMDD'),
+        //             'tableDayEnd', tableDayEnd.format('YYYYMMDD'));
+
+        //isBetween match is exclusive http://momentjs.com/docs/#/query/is-between/
+        if (tableDay.isBetween(realDayStart.subtract(1, 'm'), tableDayStart)){
+            realDay.add(1, 'd');
+        }
+
+        let dayParam = realDay.format('YYYYMMDD');
+
+        // console.log('dayParam', dayParam);
         return (
-            <div 
+            <div
                 key={key}
                 style={divStyle}
             >
-            <img 
+            <img
                 onLoad={loadedImage}
                 onError={failedImage}
                 style={style}
@@ -115,11 +143,11 @@ export default (p,a) => {
                     '?' +
                     URLs.images.groupParam + '=' + groupID + '&' +
                     URLs.images.columnParam + '=' + column.id + '&' +
-                    URLs.images.dayParam + '=' + p.rows.date.split('-').join('') + '&' +
+                    URLs.images.dayParam + '=' + dayParam + '&' +
                     URLs.images.hourParam + '=' + p.ui.minute
                 )}
             />
-            <div 
+            <div
                 style={{
                     position: 'absolute',
                     backgroundColor: backgroundColor,
@@ -129,7 +157,7 @@ export default (p,a) => {
                     right: 0
                 }}
             ></div>
-            
+
             </div>
         );
     };
@@ -168,7 +196,7 @@ export default (p,a) => {
                 let isPreviousSelected = ((key - 1) === selected);
                 let isNextSelected = ((key + 1) === selected);
                 let isOdd = (key % 2 === 1);
-                
+
                 if (isSelected){
                     first.push({
                         key: key,
@@ -207,11 +235,11 @@ export default (p,a) => {
             second.push({
                 key: -1,
                 rowSpan: 1
-            });            
+            });
         }
         // console.log('first, second', first, second);
-        
-        firstLine = ( 
+
+        firstLine = (
             <tr>
             {first.map( (cell, key) => {
                 let column = p.columns.enabled[cell.key];
@@ -223,7 +251,7 @@ export default (p,a) => {
             })}
             </tr>
         );
-        secondLine = ( 
+        secondLine = (
             <tr>
             {second.map( (cell, key) => {
                 let isEmptyCell = cell.key === -1;
@@ -242,7 +270,7 @@ export default (p,a) => {
             </tr>
         );
 
-        
+
     }
     return (
         <div
