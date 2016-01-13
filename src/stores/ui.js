@@ -48,7 +48,7 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.7.4',
+            version: 'v3.0.7.5',
             menuClosed: true,
             submenu: null,
             panel: null,
@@ -292,9 +292,9 @@ class UIStore extends Store {
         //     displaySeparators,
         //     separatorHeight
         // );
-        let minute = this.rowsStore.state.headers[currentMinuteIndex] ?
+        let minute = this.rowsStore.state.headers[currentMinuteIndex * varsCount] ?
                         this.minuteFromHeader(
-                            this.rowsStore.state.headers[currentMinuteIndex][0]
+                            this.rowsStore.state.headers[currentMinuteIndex * varsCount][0]
                         ):
                         '';
         let oldestMinute = this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1] ?

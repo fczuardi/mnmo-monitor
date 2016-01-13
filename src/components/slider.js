@@ -50,20 +50,27 @@ class Slider {
         let userActions = this.props.flux.getActions('user');
         let tableContentElement = document.getElementById('table-contents');
 
-        //the current minute is located at what percentage of the full table?
+        //the current minute is located at what percentage of the full (visible) table?
         //we use the scroll position to figure it out
         let tablePositionPercent = (
-            tableContentElement.scrollTop /
-            (tableContentElement.scrollHeight - tableContentElement.clientHeight)
+            (tableContentElement.scrollTop) /
+            // (tableContentElement.scrollHeight - tableContentElement.clientHeight)
+            (tableContentElement.scrollHeight)
         );
 
+        // console.log(
+        //     'tableContentElement.scrollTop', tableContentElement.scrollTop,
+        //     'tableContentElement.scrollHeight', tableContentElement.scrollHeight,
+        //     'tableContentElement.clientHeight', tableContentElement.clientHeight
+        // );
         //the slider handle is located at what percentage of the full slider?
         //based on the table scroll position we calculate where the handler
-        //should be considering that the slider follows a sin curve scale
+        //should be considering that the slider follows a quadratic curve scale
         //which means that a change in the handler position at the right-hand side
         //of the slider has more precision, minutes than at the far
         //left side where the same distance means hours
         let sliderPositionPercent = Math.sqrt(tablePositionPercent);
+        // let sliderPositionPercent = tablePositionPercent;
 
         let percent = 1 - sliderPositionPercent;
 
@@ -111,6 +118,7 @@ class Slider {
                   'translate(' + limitedX + 'px, ' + '0px)';
                 let percent = 1 - (limitedX - 30) / (xMax - 30);
                 userActions.sliderScroll(Math.pow(percent, 2));
+                // userActions.sliderScroll(percent);
                 // update the posiion attributes
                 target.setAttribute('data-x', limitedX);
                 this.isDragging = true;

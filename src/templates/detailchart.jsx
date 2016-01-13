@@ -31,15 +31,21 @@ export default (p) => {
     for (var i = 0; i < fullColumns.length; i++){
         let col = fullColumns[i];
         let newCol = [];
+        // console.log('col.length', col.length,
+        //     'p.ui.lastVisibleRow', p.ui.lastVisibleRow
+        // );
+        let rowSum = 0;
         for (var j= col.length - 1; j >= 0 ; j -= 1){
             if (
-                (j < p.ui.lastVisibleRow) &&
+                (rowSum < p.ui.lastVisibleRow + varsCount + 1) &&
                 (j % varsCount === 0)
             ){
                 let value = col[j];
                 maxValue = Math.max(maxValue, value);
                 newCol.push(value);
+                rowSum += 1;
             }
+            rowSum += 1;
         }
         columns.push(newCol);
     }
@@ -48,16 +54,18 @@ export default (p) => {
     let chartWidth = p.ui.screenWidth - 60;
     let chartHeight = p. chartHeight - chartTopPadding;
     let firstColumn = columns[0];
+    // console.log('firstColumn.length', firstColumn.length);
     let chartDivisions = firstColumn.map( (cell, cellIndex) => {
-        let percentX = (firstColumn.length - 1 - cellIndex) / (firstColumn.length - 1);
-        let scaledPercentX = Math.sqrt(percentX);
+        let percentX = (cellIndex) / (firstColumn.length - 1);
+        let scaledPercentX = Math.sqrt(1 - percentX);
+        // let scaledPercentX = 1 - percentX;
         let x = chartWidth - scaledPercentX * chartWidth;
         return Math.round(x);
     });
     let divisionElements = chartDivisions.map( (x, index) => {
-        if (index === chartDivisions.length - 1){
-            return null;
-        }
+        // if (index === chartDivisions.length - 1){
+        //     return null;
+        // }
         let headerIndex = varsCount * (chartDivisions.length - 2 - index);
         let nextX = chartDivisions[index + 1];
         let type = p.rows.headers[headerIndex] ? p.rows.headers[headerIndex][3] : 0;

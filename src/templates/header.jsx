@@ -61,7 +61,8 @@ export default (p, a) => {
                 disabled={(p.user.autoUpdate && p.rows.type === 'list') || (p.rows.type === 'detailed')}
                 closed={(p.ui.panel !== 'rows')}
             >
-                {p.rows.type !== 'detailed' ? p.rows.menuLabel : formatTime(p.ui.minute)}
+                {p.rows.type !== 'detailed' ? p.rows.menuLabel :
+                                                    formatTime(p.ui.minute)}
             </ToolbarButton>
         </div>
     );
