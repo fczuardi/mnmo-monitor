@@ -18,7 +18,7 @@ class Dashboard {
         let p = merge({}, this.props);
         let varsCount = keys(p.vars.combos).length;
         let thumbnailsRowHeight = 120,
-            sliderHeight = 30,
+            sliderHeight = p.ui.chartVisible ? 30 : 0,
             tableTitleHeight = 24,
             secondTableVisible = (p.ui.secondTableVisible && p.rows.type !== 'detailed'),
             defaultChartHeight = this.props.ui.isMobile ?
