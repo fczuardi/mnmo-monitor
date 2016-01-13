@@ -54,6 +54,11 @@ export default {
         changePassword: 'Change password',
         logout: 'Logout'
     },
+    calendar: {
+        weekdaysLong: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        weekdaysShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    },
     chart: {
         onButton: 'Chart',
         offButton: 'Empty'

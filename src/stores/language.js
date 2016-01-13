@@ -19,6 +19,45 @@ import {
     parseLanguages
 } from '../../config/apiHelpers';
 
+const WEEKDAYS_LONG = {
+  'en': messagesEn.calendar.weekdaysLong,
+  'pt': messagesPt.calendar.weekdaysLong,
+  'es': messagesEs.calendar.weekdaysLong
+}
+const WEEKDAYS_SHORT = {
+  'en': messagesEn.calendar.weekdaysShort,
+  'pt': messagesPt.calendar.weekdaysShort,
+  'es': messagesEs.calendar.weekdaysShort
+}
+const MONTHS = {
+  'en': messagesEn.calendar.months,
+  'pt': messagesPt.calendar.months,
+  'es': messagesEs.calendar.months
+};
+
+const localeUtils = {
+
+  formatMonthTitle(d, locale) {
+    return `${MONTHS[locale][d.getMonth()]} ${d.getFullYear()}`;
+  },
+
+  formatWeekdayShort(i, locale) {
+    return WEEKDAYS_SHORT[locale][i];
+  },
+
+  formatWeekdayLong(i, locale) {
+    return WEEKDAYS_LONG[locale][i];
+  },
+
+  getFirstDayOfWeek(locale) {
+    if (locale === 'es') {
+      return 1;
+    }
+    return 0;
+  }
+
+}
+
 class LanguageStore extends Store {
     constructor(flux) {
         super();
@@ -32,6 +71,7 @@ class LanguageStore extends Store {
         this.register(userActions.languageUpdate, this.changeLanguage);
         this.state = {
             messages: defaultMessages,
+            localeUtils: localeUtils,
             list: []
         };
     }

@@ -9,6 +9,7 @@ import DayPicker from 'react-day-picker';
 import moment from 'moment';
 
 const fullScreenLimit = 400;
+const localeCodes = ['','pt','es','en'];
 
 let startHours =[],
     endHours = [],
@@ -67,11 +68,12 @@ export default (p, a) => {
 
 
     let selectedDay = p.user.newSecondaryRow.day;
-    let initialMonth = moment(selectedDay);
+    // let initialMonth = moment(selectedDay);
     let modifiers = {
-        selected: (day) => (selectedDay === day.format('YYYY-MM-DD')),
-        disabled: (day) => {
+        selected: (day) => (selectedDay === moment(day).format('YYYY-MM-DD')),
+        disabled: (d) => {
             let result = false,
+                day = moment(d),
                 month = day.format('YYYYMM'),
                 dayIndex = (day.date() - 1),
                 storedMonth = p.calendar.months[month];
@@ -91,11 +93,11 @@ export default (p, a) => {
         >
             <div style={{marginLeft:-10}}>
             <DayPicker
-                initialMonth={initialMonth}
+                localeUtils={p.language.localeUtils}
+                locale={localeCodes[p.user.languageID]}
                 modifiers={modifiers}
                 onDayClick={a.calendarDayClick}
-                onPrevMonthClick={a.monthChange}
-                onNextMonthClick={a.monthChange}
+                onMonthChange={a.monthChange}
                 enableOutsideDays={true}
             />
             </div>

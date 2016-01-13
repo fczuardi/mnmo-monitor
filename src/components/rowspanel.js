@@ -15,10 +15,10 @@ class RowsPanel {
         const actions = {
             closePanel: () =>
                 userActions.closePanel(),
-            calendarDayClick: (day) =>
-                userActions.dateUpdated(day.format('YYYY-MM-DD')),
-            monthChange: (day) =>
-                userActions.monthUpdated(day.format('YYYY-MM-DD')),
+            calendarDayClick: (e, day) =>
+                userActions.dateUpdated(moment(day).format('YYYY-MM-DD')),
+            monthChange: (d) =>
+                userActions.monthUpdated(moment(d).format('YYYY-MM-DD')),
             startHourChange: (event) =>
                 userActions.startHourUpdated(event.target.value),
             startMinuteChange: (event) =>

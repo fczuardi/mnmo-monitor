@@ -53,16 +53,17 @@ class SecondTablePanel {
                     ev.target.value
                 ));
             },
-            calendarDayClick: (day) => {
+            calendarDayClick: (e, d) => {
+                let day = moment(d);
                 let newDay = day.format('YYYY-MM-DD');
                 console.log('calendarDayClick', newDay);
                 userActions.secondTableFormChanged('day', newDay);
 
             },
-            monthChange: (day) => {
+            monthChange: (d) => {
+                let day = moment(d);
                 let newDay = day.format('YYYY-MM-DD');
                 console.log('monthChange', newDay);
-                userActions.secondTableFormChanged('day', newDay);
             }
         };
         return template(this.props, actions);

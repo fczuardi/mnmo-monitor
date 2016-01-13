@@ -41,13 +41,14 @@ class UIStore extends Store {
         this.register(userActions.errorDismissed, this.resetError);
         this.register(userActions.splitScreenButtonToggle, this.splitScreenMenuToggle);
         this.register(userActions.secondTableEnabled, this.displaySecondTable);
+        this.register(userActions.monthUpdated, this.updateSelectedMonth);
         this.register(sessionActions.tokenGranted, this.resetError);
         this.register(columnsActions.columnHeaderSelected, this.resetMenuState);
         this.userActions = userActions;
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.7.0',
+            version: 'v3.0.7.1',
             menuClosed: true,
             submenu: null,
             panel: null,
@@ -71,7 +72,9 @@ class UIStore extends Store {
             newestMinute: '000000',
             error: null,
             warning: null,
-            canDragSlide: true
+            canDragSlide: true,
+            selectedMonth: null,
+            secondarySelectedMonth: null
         };
         this.ticking = false;
         this.secondTicking = false;
@@ -476,6 +479,12 @@ class UIStore extends Store {
     rowTypeSwitched(){
         this.setState({
             splitScreenMenuClosed: true
+        });
+    }
+
+    updateSelectedMonth(dayString){
+        this.setState({
+            selectedMonth: dayString
         });
     }
 }

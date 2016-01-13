@@ -10,6 +10,7 @@ import Switch from 'mnmo-components/lib/themes/mnmo/switch';
 
 
 const fullScreenLimit = 400;
+const localeCodes = ['','pt','es','en'];
 
 let startHours =[],
     endHours = [],
@@ -31,11 +32,14 @@ for (let m = 0; m < 60; m++){
 export default (p, a) => {
     let selectedDay = (p.user.archivedReport && p.user.archivedReport.date) ?
                                             p.user.archivedReport.date : null;
-    let initialMonth = moment(selectedDay);
+    let initialMonth = p.ui.selectedMonth ?
+                            moment(p.ui.selectedMonth).toDate() :
+                            moment(selectedDay).toDate();
     let modifiers = {
-        selected: (day) => (selectedDay === day.format('YYYY-MM-DD')),
-        disabled: (day) => {
+        selected: (day) => (selectedDay === moment(day).format('YYYY-MM-DD')),
+        disabled: (d) => {
             let result = false,
+                day = moment(d),
                 month = day.format('YYYYMM'),
                 dayIndex = (day.date() - 1),
                 storedMonth = p.calendar.months[month];
@@ -55,11 +59,12 @@ export default (p, a) => {
         >
             <div style={{marginLeft:-10}}>
             <DayPicker
+                localeUtils={p.language.localeUtils}
+                locale={localeCodes[p.user.languageID]}
                 initialMonth={initialMonth}
                 modifiers={modifiers}
                 onDayClick={a.calendarDayClick}
-                onPrevMonthClick={a.monthChange}
-                onNextMonthClick={a.monthChange}
+                onMonthChange={a.monthChange}
                 enableOutsideDays={true}
             />
             </div>
