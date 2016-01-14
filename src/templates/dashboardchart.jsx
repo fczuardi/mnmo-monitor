@@ -28,10 +28,11 @@ export default (p) => {
     let emptyCell = (
         <td key="first" style={cellStyle}></td>
     );
+    let isMerged = p.rows.type === 'merged';
     let groupID = p.groups.selected === null ? '' :
                 p.groups.selected.secondaryId !== -1 ?
                 p.groups.selected.secondaryId : p.groups.selected.id;
-    let firstRowIndex = p.rows.type === 'merged' ? 1 : 0;
+    let firstRowIndex = isMerged && !isPercent ? 1 : 0;
     let firstRowCells = p.rows.data[firstRowIndex] ? p.rows.data[firstRowIndex] : [];
     //create an array of n empty arrays where n = number of columns
     let columns = firstRowCells.map( () => ([]) );
