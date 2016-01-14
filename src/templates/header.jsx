@@ -6,18 +6,13 @@ import {groupTypeLabels} from '../../config/apiHelpers';
 export default (p, a) => {
     let formatTime = (text) => (text.substring(0, 2) + ':' + text.substring(2, 4));
     let fontSize = p.ui.isMobile ? 14 : 'inherit';
-    let left = (
-        <div style={{float: 'left', fontSize: fontSize}}>
-            <ToolbarButton
-                type="menuToggle"
-                onClick={a.menuToggleClicked}
-            />
-            <div
-                style={{
-                    display: 'inline',
-                    position:'relative'
-                }}
-            >
+    let groupsButton = (
+        <div
+            style={{
+                display: 'inline',
+                position:'relative'
+            }}
+        >
             <ToolbarButton
                 type={p.ui.isMobile ? null : 'dialogToggle'}
                 onClick={a.groupsButtonClicked}
@@ -38,7 +33,15 @@ export default (p, a) => {
             >
                 {p.groups.selected ? groupTypeLabels[p.groups.selected.type] : ''}
             </span>
-            </div>
+        </div>
+    );
+    let left = (
+        <div style={{float: 'left', fontSize: fontSize}}>
+            <ToolbarButton
+                type="menuToggle"
+                onClick={a.menuToggleClicked}
+            />
+            {groupsButton}
         </div>
     );
     let center = (
@@ -135,25 +138,34 @@ export default (p, a) => {
         </div>
     );
     let backButton = (
-        <div style={{float: 'left'}}>
-            <ToolbarButton
-                onClick={a.backButtonClicked}
-            >
-                <span
-                    data-icon="f"
-                    style={{
-                        display: 'block',
-                        float: 'left',
-                        color: '##767677',
-                        marginRight: 5
-                    }}
-                ></span>
-                {p.language.messages.settings.back}
-            </ToolbarButton>
-        </div>
+        <ToolbarButton
+            onClick={a.backButtonClicked}
+        >
+            <span
+                data-icon="f"
+                style={{
+                    display: 'block',
+                    float: 'left',
+                    color: '##767677',
+                    marginRight: 5
+                }}
+            ></span>
+            {p.language.messages.settings.back}
+        </ToolbarButton>
     );
     if (p.rows.type === 'detailed') {
-        left = backButton;
+        left = (
+            <div style={{float: 'left'}}>
+                {backButton}
+                <div style={{
+                    position: 'absolute',
+                    right: 5,
+                    top: 10
+                }}>
+                    {groupsButton}
+                </div>
+            </div>
+        );
         right = (
             <div style={{float: 'right'}}>
                 {chartButton}

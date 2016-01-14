@@ -8,7 +8,10 @@ import Radio from 'mnmo-components/lib/themes/mnmo/radio';
 const fullScreenLimit = 400;
 
 export default (p, a) =>
-<Dialog align='left' fullscreen={p.ui.screenWidth < fullScreenLimit}>
+<Dialog
+    align={p.rows.type === 'detailed' ? 'right' : 'left'}
+    fullscreen={p.ui.screenWidth < fullScreenLimit}
+>
     <Drawer
         title={p.language.messages.groups.title}
         closeLabel={p.language.messages.settings.close}
