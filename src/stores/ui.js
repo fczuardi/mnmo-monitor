@@ -459,6 +459,7 @@ class UIStore extends Store {
             this.coordY = newY;
             this.ticking = true;
             window.requestAnimationFrame(this.scrollMainTable.bind(this));
+            window.requestAnimationFrame(this.scrollUpdate);
         }
         return false;
     }
