@@ -20,11 +20,6 @@ export default (p, a) => {
         style.overflow = 'auto';
     }
 
-
-    let hideFirstRow = p.rows.hideFirstRow && p.rows.type !== 'secondary';
-    let rows = p.rows.data.slice(hideFirstRow ? 1 : 0);
-
-
     return (
 <div
     id={p.tableContentsElementId || 'table-contents'}
@@ -37,7 +32,7 @@ export default (p, a) => {
         }}
     >
         <tbody>
-            {rows.map((row, key) => rowRenderer(row, key, p))}
+            {p.rows.data.map((row, key) => rowRenderer(row, key, p))}
         </tbody>
     </table>
 </div>

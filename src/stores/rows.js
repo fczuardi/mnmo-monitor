@@ -201,20 +201,8 @@ class RowsStore extends Store {
         newValues.loading = false;
         newValues.autoUpdate = data.autoUpdate;
         console.log('newValues', newValues);
-        //if the first row of the main table is hidden (see bug #34)
-        //and the new autoUpdateFirstMinute value for the second table is
-        //the same of the main table, then we can unhide the hidden row
-        //because the tables are in sync
-        let menuLabel = this.state.menuLabel;
-        let hideFirstRow = this.state.hideFirstRow;
-        if (hideFirstRow && data.autoUpdateFirstMinute === this.state.autoUpdateFirstMinute){
-            hideFirstRow = false;
-            menuLabel = this.state.headers[0] ? this.state.headers[0][0] : null;
-        }
         this.setState({
-            menuLabel: menuLabel,
-            secondary: newValues,
-            hideFirstRow: hideFirstRow
+            secondary: newValues
         });
     }
     modifySecondaryTable(params){
@@ -476,7 +464,6 @@ class RowsStore extends Store {
     //merge new loaded rows into the existing table already in memory
     updateRows(newHeaders, newRows) {
         let shouldReplaceTable = (this.state.data.length === 0 || this.autoUpdateStatusChanged),
-            hideFirstRow = false,
             mergedData = {
                 headers: newHeaders,
                 rows: newRows
@@ -631,13 +618,6 @@ class RowsStore extends Store {
         let columns = this.getColumnsFromRows(mergedData.rows);
         // console.log('mergedData', mergedData.rows.length, mergedData.headers.length);
         let newLabel = mergedData.headers[0] ? mergedData.headers[0][0] : null;
-        if (mergedData.hideFirstRow) {
-            newLabel = mergedData.headers[1][0];
-        }
-        console.log('=> autoUpdateFirstMinute main <=------- ',
-            mergedData.autoUpdateFirstMinute,
-            this.state.secondary.autoUpdateFirstMinute
-        );
         this.setState({
             menuLabel: (newLabel || '-'),
             headers: mergedData.headers,

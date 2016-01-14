@@ -9,7 +9,6 @@ class TableContent {
             (nextProps.ui.lastVisibleRow !== this.props.ui.lastVisibleRow) ||
             (nextProps.rows.lastLoad > this.props.rows.lastLoad) ||
             (nextProps.rows.secondary.lastLoad > this.props.rows.secondary.lastLoad) ||
-            (nextProps.rows.hideFirstRow !== this.props.rows.hideFirstRow) ||
             (nextProps.ui.screenWidth !== this.props.ui.screenWidth) ||
             (nextProps.ui.screenHeight !== this.props.ui.screenHeight) ||
             (nextProps.columns.enabled.length !== this.props.columns.enabled.length) ||
