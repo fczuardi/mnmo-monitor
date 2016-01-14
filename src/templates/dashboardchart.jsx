@@ -32,8 +32,7 @@ export default (p) => {
     let groupID = p.groups.selected === null ? '' :
                 p.groups.selected.secondaryId !== -1 ?
                 p.groups.selected.secondaryId : p.groups.selected.id;
-    let firstRowIndex = isMerged && !isPercent ? 1 : 0;
-    let firstRowCells = p.rows.data[firstRowIndex] ? p.rows.data[firstRowIndex] : [];
+    let firstRowCells = p.rows.data[0] ? p.rows.data[0] : [];
     //create an array of n empty arrays where n = number of columns
     let columns = firstRowCells.map( () => ([]) );
 
@@ -98,20 +97,22 @@ export default (p) => {
                     if (
                         // ignore the first "special" row of the merged type
                         //tables for the line chart construction
-                        (rowIndex < firstRowIndex) ||
+                        (rowIndex === 0 && isMerged) ||
                         // ignore failed minutes
                         (parseInt(p.rows.headers[rowIndex][2]) === 0)
                     ){
                         return null;
                     }
-                    let pX = (dataHistory.length - 1 - rowIndex) / (dataHistory.length - 1 - firstRowIndex);
+                    let startIndex = isMerged ? 1 : 0;
+                    let pX = 1 - ((rowIndex - startIndex) / (dataHistory.length - 1 - startIndex));
                     let x = Math.round(pX * lineChartWidth);
                     let pY = value / maxValue;
                     let y = Math.round((lineChartHeight - 2) - pY * (lineChartHeight - 2)) + 1;
                     linePath += `L${x},${y} `;
                 });
                 linePath = 'M' + linePath.substring(1);
-                // console.log('linePath', key, linePath);
+                //the y position of the first point of linePath (that draws from right to left)
+                let dotBottom = maxPixelValue - parseInt(linePath.replace(/[^,]*,([^\s]*).*/, '$1')) - 2;
                 svgLine = (
                     <svg
                         width={lineChartWidth}
@@ -140,7 +141,7 @@ export default (p) => {
                             position: 'absolute',
                             backgroundColor: '#FFFFFF',
                             borderRadius: 5,
-                            top: -2,
+                            bottom: dotBottom,
                             right: -2,
                             zIndex: 1
                         }}
@@ -192,11 +193,11 @@ export default (p) => {
                         height: valuePixels
                     }}
                 >
-                    {lineDot}
                     {mainTextValue}
                     {secondaryTextValue}
                 </div>
                 {svgLine}
+                {lineDot}
             </td>
             );
         })}
