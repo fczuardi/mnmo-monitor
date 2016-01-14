@@ -64,7 +64,6 @@ class RowsStore extends Store {
             date: '',
             loading: true,
             lastEndTime: '',
-            autoUpdateFirstMinute: null,
             //second table (comparative)
             secondary: {
                 autoUpdate: false,
@@ -72,8 +71,7 @@ class RowsStore extends Store {
                 lastLoad: 0,
                 headers: [],
                 columns: [],
-                data: [],
-                autoUpdateFirstMinute: null
+                data: []
             }
         };
         this.previousUserState = userStore.state;
@@ -202,7 +200,6 @@ class RowsStore extends Store {
         newValues.lastLoad = new Date().getTime();
         newValues.loading = false;
         newValues.autoUpdate = data.autoUpdate;
-        newValues.autoUpdateFirstMinute = data.autoUpdateFirstMinute;
         console.log('newValues', newValues);
         //if the first row of the main table is hidden (see bug #34)
         //and the new autoUpdateFirstMinute value for the second table is
@@ -479,13 +476,10 @@ class RowsStore extends Store {
     //merge new loaded rows into the existing table already in memory
     updateRows(newHeaders, newRows) {
         let shouldReplaceTable = (this.state.data.length === 0 || this.autoUpdateStatusChanged),
-            autoUpdateFirstMinute = null,
             hideFirstRow = false,
             mergedData = {
                 headers: newHeaders,
-                rows: newRows,
-                autoUpdateFirstMinute: autoUpdateFirstMinute,
-                hideFirstRow: hideFirstRow
+                rows: newRows
             };
         this.autoUpdateStatusChanged = false;
         if (shouldReplaceTable){
@@ -546,17 +540,13 @@ class RowsStore extends Store {
                 let oldRowsTail = updatedRows.slice(1);
                 return {
                     headers: newHeaders.concat(oldHeadersTail),
-                    rows: newRows.concat(oldRowsTail),
-                    autoUpdateFirstMinute: autoUpdateFirstMinute,
-                    hideFirstRow: hideFirstRow
+                    rows: newRows.concat(oldRowsTail)
                 };
             } else {
                 // console.log('replace the whole table');
                 return {
                     headers: newHeaders,
-                    rows: newRows,
-                    autoUpdateFirstMinute: autoUpdateFirstMinute,
-                    hideFirstRow: hideFirstRow
+                    rows: newRows
                 };
             }
         }
@@ -592,62 +582,13 @@ class RowsStore extends Store {
             }
         });
 
-        let headers = appendToEnd ? updatedHeaders.concat(headersToAdd) :
-                                headersToAdd.concat(updatedHeaders);
-        let rows = appendToEnd ? updatedRows.concat(rowsToAdd) :
-                                rowsToAdd.concat(updatedRows);
-        //the first item in a header can be one of the 3 options bellow
-        // - 03:52__AAA
-        // - 04:11
-        // - 06:00 - 04:12
-        // so we use the getLastTimeFromString helper
-        // console.log('headers[0][0]', headers[0][0], this.getLastTimeFromString);
-        autoUpdateFirstMinute = this.getLastTimeFromString(headers[0][0]);
-
         return {
-            headers: headers,
-            rows: rows,
-            autoUpdateFirstMinute: autoUpdateFirstMinute,
-            hideFirstRow: this.getFirstRowHiddenState(autoUpdateFirstMinute)
+            headers: appendToEnd ? updatedHeaders.concat(headersToAdd) :
+                                    headersToAdd.concat(updatedHeaders),
+            rows: appendToEnd ? updatedRows.concat(rowsToAdd) :
+                                    rowsToAdd.concat(updatedRows)
         };
     }
-
-    //returns the last hh:mm ocurrency in a string containing times
-    getLastTimeFromString(s){
-        // console.log('getLastTimeFromString', s);
-        let lastColonCharIndex = s.lastIndexOf(':');
-        let output = s.substring(lastColonCharIndex - 2, lastColonCharIndex + 3);
-        // console.log('getLastTimeFromString', output);
-        return output;
-    }
-
-
-    getFirstRowHiddenState(autoUpdateFirstMinute){
-        console.log('updateHiddenRows');
-        //Check to see if both autoupdates are on and if so hide
-        //the first table row if it's minute is bigger than the minute row
-        //of the secondary table. See bug #34.
-        let hideFirstRow = false;
-        if (
-            this.state.secondary.autoUpdate &&
-            this.userStore.state.autoUpdate &&
-            this.flux.getStore('ui').state.secondTableVisible &&
-            autoUpdateFirstMinute &&
-            this.state.secondary.autoUpdateFirstMinute &&
-            autoUpdateFirstMinute !== this.state.secondary.autoUpdateFirstMinute
-        ){
-            let mainMinuteNumber = parseInt(autoUpdateFirstMinute.replace(':', ''));
-            let secondaryMinuteNumber = parseInt(this.state.secondary.autoUpdateFirstMinute.replace(':', ''));
-            if (mainMinuteNumber > secondaryMinuteNumber){
-                console.log('----- hide first row of main table -----');
-                hideFirstRow = true;
-            }
-        }
-        console.log('hideFirstRow', hideFirstRow, this.flux.getStore('ui').state.secondTableVisible);
-        return hideFirstRow;
-    }
-
-
 
     getColumnsFromRows(rows){
         // console.log('getColumnsFromRows r', rows);
@@ -701,8 +642,6 @@ class RowsStore extends Store {
             menuLabel: (newLabel || '-'),
             headers: mergedData.headers,
             data: mergedData.rows,
-            autoUpdateFirstMinute: mergedData.autoUpdateFirstMinute || null,
-            hideFirstRow: mergedData.hideFirstRow,
             columns: columns,
             date: data.date,
             lastLoad: new Date().getTime(),
