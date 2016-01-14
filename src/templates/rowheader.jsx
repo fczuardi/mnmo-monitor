@@ -22,8 +22,10 @@ export default (row, key, p, a) => {
     let firstValue = row[0].indexOf('__') === -1 ?
                                                 row[0] :
                                                 row[0].split('__')[1],
-        secondValue = parseFloat(row[1]);
-    if (row[3] === 'separator'){
+        secondValue = parseFloat(row[1]),
+        isSeparator = row[3] === 'separator',
+        isDetailed = p.rows.type === 'detailed';
+    if (isSeparator){
         firstValue = row[0].split('__')[0];
         trProps.style = merge(trProps.style, tableStyles(p).separator);
         if (p.rows.type === 'secondary'){
@@ -83,7 +85,12 @@ export default (row, key, p, a) => {
         </span>
     );
     let mainHeader = (
-        <p style={{margin: 0, position: 'relative', fontSize: titleStyle.fontSize}}>
+        <p style={{
+            margin: 0,
+            marginBottom: isDetailed ? 4 : 0,
+            position: 'relative',
+            fontSize: titleStyle.fontSize
+        }}>
             {firstIcon}
             {mergedIcon}
             {firstTitle}
@@ -113,9 +120,8 @@ export default (row, key, p, a) => {
             </span>
         </p>
     );
-    if (p.rows.type === 'detailed'){
+    if (isDetailed && isSeparator){
         secondHeader = null;
-
     }
     let removeButton = null;
     if (
