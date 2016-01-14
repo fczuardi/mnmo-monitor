@@ -345,8 +345,15 @@ class UserStore extends Store {
                 store.userActions.errorArrived(result.error);
                 //userPreferencesPostResponseOK returns the last known-to-work
                 //user preferences on error, so we rollback to that
+                //BUT only if autoupdate was already off otherwise this
+                //could create a situation where the user turned autoupdate on
+                //with an invalid time range and can't fix it through the interface
+                //because that panel is only available when autoUpdate is off
+                //see bug #87
                 // console.log('set user state: updatePreferences error', newState.archivedReport.start, newState.archivedReport.end);
-                store.setState(newState);
+                if (newState.autoUpdate === false){
+                    store.setState(newState);
+                }
             }
         })
         .catch(function(e){
