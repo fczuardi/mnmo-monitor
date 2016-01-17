@@ -26,11 +26,15 @@
 .tableRow .secondary{
     color: #B3B3B3;
 }
-.tableRow.type1,
-.tableRow.firstMergedRow{
+.tableRow.type1{
     background-color: #2D0000;
     background-color: rgba(255, 0, 0, 0.2);
 }
+.tableRow.firstMergedRow{
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 .tableRow.type1.even,
 .tableRow.firstMergedRow.even{
     background-color: #5A0000;
@@ -58,7 +62,7 @@
     color: #7C6617;
 }
 .firstMergedRow {
-    border-bottom: 2px solid #fff !important;
+    border-bottom: 4px solid #fff !important;
     border-bottom-color: rgba(255, 255, 255, 0.6) !important;
     border-top: 2px solid #fff;
     border-top-color: rgba(255, 255, 255, 0.6);
