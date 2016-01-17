@@ -91,6 +91,7 @@ function buildUserPreferencesPostBody(state){
     body.mergedRows = state.mergedRows;
     body.groupID = state.groupID;
     body.groupShortLabel = state.groupShortLabel;
+    body.groupLabel = state.groupLabel;
     body.subgroupID = state.subgroupID;
     body.classID = state.classID;
     body.primaryVarLabel = state.primaryVarLabel;
@@ -111,14 +112,14 @@ function buildColumnsListPostBody(state){
 
 function diffUserPreferences(state){
     return diffPayloads(
-        lastUserPreferenceResponse, 
+        lastUserPreferenceResponse,
         buildUserPreferencesPostBody(state)
     );
 }
 function diffColumnsList(state){
     // console.log('state', state);
     return diffPayloads(
-        lastColumnsResponse, 
+        lastColumnsResponse,
         buildColumnsListPostBody(state)
     );
 }

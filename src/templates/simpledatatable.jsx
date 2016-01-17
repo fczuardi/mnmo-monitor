@@ -42,7 +42,64 @@ function columnHeaderContent(column, p){
     return cellContent;
 }
 export default (p) =>
+<div>
+<div className={'simple-table-print-header'}>
+    <img src='./img/logo_splash_small.png' />
+</div>
+<div className={'simple-table-print-metadata'}>
+    <div className={'datablock'}>
+        <dt>
+            {p.language.messages.classes.title}
+        </dt>
+        <dd>
+            {p.user.classLabel}
+        </dd>
+    </div>
+    <div className={'datablock'}>
+        <dt>
+            {p.language.messages.rows.date}
+        </dt>
+        <dd>
+            {p.rows.date}
+        </dd>
+    </div>
+    <div className={'datablock'}>
+        <dt>
+            {p.language.messages.vars.title}
+        </dt>
+        <dd>
+            {p.vars.rawCombos[p.user.variableComboID].label}
+        </dd>
+    </div>
+    <div className={'datablock'}>
+        <dt>
+            {p.language.messages.groups.title}
+        </dt>
+        <dd>
+            {p.user.groupLabel}
+        </dd>
+    </div>
+    <div className={'datablock'}>
+        <dt>
+            {p.language.messages.customer.title}
+        </dt>
+        <dd>
+            {p.user.customerName}
+        </dd>
+    </div>
+    <div className={'datablock'}>
+        <dt>
+            {p.language.messages.login.username}
+        </dt>
+        <dd>
+            {p.user.username}
+        </dd>
+    </div>
+</div>
 <table className={'simple-table-print'}  cellSpacing="0">
+    <caption>
+        {p.language.messages.rows.printTableTitle[p.rows.type]}
+    </caption>
     <thead>
         <th key={'headers-column'}></th>
         {p.columns.enabled.map( (column, key) => (
@@ -63,4 +120,5 @@ export default (p) =>
             )
         )}
     </tbody>
-</table>;
+</table>
+</div>;

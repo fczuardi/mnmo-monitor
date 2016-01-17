@@ -77,6 +77,7 @@ class UserStore extends Store {
             currentPassword: '',
             newPassword: '',
             confirmNewPassword: '',
+            customerName: '',
             countryID: null,
             rememberLogin: false,
             captchaAnswer: null,
@@ -89,7 +90,9 @@ class UserStore extends Store {
             groupID: null,
             subgroupID: null,
             classID: null,
+            classLabel: '',
             groupShortLabel: '',
+            groupLabel: '',
             primaryVarLabel: '-',
             secondaryVarLabel: '-',
             variableComboID: null,
@@ -216,7 +219,7 @@ class UserStore extends Store {
         this.preferencesFetched(preferences);
     }
     preferencesFetched(preferences) {
-        // console.log('set user state: preferencesFetched');
+        console.log('set user state: preferencesFetched', preferences.classLabel);
         this.setState(preferences);
     }
     publishPasswordChange(){
@@ -457,6 +460,7 @@ class UserStore extends Store {
         let groupsState = this.flux.getStore('groups').state;
         let allGroups = groupsState.type1.concat(groupsState.type2);
         let selectedGroup = find(allGroups, 'id', groupID);
+        // console.log('getGroupFromStore', selectedGroup);
         return selectedGroup;
     }
     changeGroupPref(groupID){
@@ -466,11 +470,12 @@ class UserStore extends Store {
         let selectedGroup = this.getGroupFromStore(intGroupID);
         let classID = selectedGroup.classes.length === 1 ?
                         selectedGroup.classes[0].id : this.state.classID;
-        // console.log('set user state: changeGroupPref');
+        // console.log('set user state: changeGroupPref', selectedGroup);
         this.setState({
             groupID: intGroupID,
             subgroupID: null,
             groupShortLabel: selectedGroup.shortLabel,
+            groupLabel: selectedGroup.label,
             classID: classID
         });
     }

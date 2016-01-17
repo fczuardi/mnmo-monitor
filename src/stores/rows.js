@@ -647,8 +647,8 @@ class RowsStore extends Store {
             flux: this.flux,
             // ggroups: this.flux.getStore('groups').state,
             vars: this.flux.getStore('vars').state,
-            // user: this.flux.getStore('user').state,
-            // language: this.flux.getStore('language').state,
+            user: this.flux.getStore('user').state,
+            language: this.flux.getStore('language').state,
             columns: this.flux.getStore('columns').state,
             rows: this.state,
             iconWidth: 30
@@ -657,6 +657,14 @@ class RowsStore extends Store {
         let tableHTML = renderToStaticMarkup(
             DOM.html(null,
                 DOM.head(null,
+                    DOM.link({
+                        href: './lib/css/normalize.css',
+                        rel: 'stylesheet'
+                    }),
+                    DOM.link({
+                        href: './lib/css/typography.css',
+                        rel: 'stylesheet'
+                    }),
                     DOM.link({
                         href: './css/main.css',
                         rel: 'stylesheet'
