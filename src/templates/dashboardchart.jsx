@@ -21,6 +21,7 @@ export default (p) => {
     let columnColors = tableStyles(p).columnColors;
     let cellStyle = {
         position: 'relative',
+        verticalAlign: 'bottom',
         // borderRight: '1px solid #000',
         width: p.columnWidth - 1,
         minWidth: p.columnWidth - 1
@@ -187,7 +188,7 @@ export default (p) => {
                 <div
                     style={{
                         backgroundColor: backgroundColor,
-                        position: 'absolute',
+                        position: 'relative',
                         bottom: 0,
                         width: '100%',
                         height: valuePixels
@@ -195,9 +196,9 @@ export default (p) => {
                 >
                     {mainTextValue}
                     {secondaryTextValue}
+                    {svgLine}
+                    {lineDot}
                 </div>
-                {svgLine}
-                {lineDot}
             </td>
             );
         })}
