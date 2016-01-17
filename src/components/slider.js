@@ -54,23 +54,18 @@ class Slider {
         //we use the scroll position to figure it out
         let tablePositionPercent = (
             (tableContentElement.scrollTop) /
-            // (tableContentElement.scrollHeight - tableContentElement.clientHeight)
             (tableContentElement.scrollHeight)
         );
 
-        // console.log(
-        //     'tableContentElement.scrollTop', tableContentElement.scrollTop,
-        //     'tableContentElement.scrollHeight', tableContentElement.scrollHeight,
-        //     'tableContentElement.clientHeight', tableContentElement.clientHeight
-        // );
         //the slider handle is located at what percentage of the full slider?
         //based on the table scroll position we calculate where the handler
         //should be considering that the slider follows a quadratic curve scale
         //which means that a change in the handler position at the right-hand side
         //of the slider has more precision, minutes than at the far
         //left side where the same distance means hours
-        let sliderPositionPercent = Math.sqrt(tablePositionPercent);
-        // let sliderPositionPercent = tablePositionPercent;
+
+        let sliderPositionPercent = Math.sqrt(tablePositionPercent);//exponential
+        // let sliderPositionPercent = tablePositionPercent;//linear
 
         let percent = 1 - sliderPositionPercent;
 
@@ -79,20 +74,15 @@ class Slider {
         let sliderElement = findDOMNode(this);
         let sliderHandleElement = document.getElementById('table-slider-handle');
         let sliderEnabledRegion = document.getElementById('slider-enabled-region');
-        // let rowsPerPage = Math.ceil(tableContentElement.offsetHeight / rowHeight);
 
+        let sliderWidth = sliderEnabledRegion.offsetWidth;
+        let tablePercentLimit = (tableContentElement.scrollHeight - tableContentElement.clientHeight) /  tableContentElement.scrollHeight;
+        let sliderPercentLimit = Math.sqrt(tablePercentLimit);
 
-        // let percent = Math.min(1, this.percentFromMinute(
-        //     this.props.rows.date,
-        //     this.formatTime(this.props.ui.oldestMinute),
-        //     this.formatTime(this.props.ui.newestMinute),
-        //     this.props.ui.lastVisibleRow - rowsPerPage,
-        //     this.formatTime(this.props.ui.minute),
-        //     keys(this.props.vars.combos).length
-        // ));
-
-        let xMax = 30 + sliderEnabledRegion.offsetWidth;
-        let x0 = 30 + percent * sliderEnabledRegion.offsetWidth;
+        let unreachableSliderRegionWidth = sliderWidth * (1 - sliderPercentLimit);
+        let xMin = 30 + unreachableSliderRegionWidth;
+        let xMax = 30 + sliderWidth;
+        let x0 = 30 + percent * (sliderWidth);
         sliderHandleElement.style.webkitTransform =
         sliderHandleElement.style.transform =
           'translate(' + x0 + 'px, ' + '0px)';
@@ -111,14 +101,21 @@ class Slider {
                 var target = event.target,
                     // keep the dragged position in the data-x/data-y attributes
                     x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-                    limitedX = Math.max(30, Math.min(xMax, x));
+                    limitedX = Math.max(xMin, Math.min(xMax, x)),
+                    scrollPercent = 1 - ((limitedX - 30) / sliderWidth);
+
+                // console.log('percent', scrollPercent, sliderPercentLimit,
+                //                 limitedX, unreachableSliderRegionWidth, xMin
+                // );
+
                 // translate the element
                 target.style.webkitTransform =
                 target.style.transform =
                   'translate(' + limitedX + 'px, ' + '0px)';
-                let percent = 1 - (limitedX - 30) / (xMax - 30);
-                userActions.sliderScroll(Math.pow(percent, 2));
-                // userActions.sliderScroll(percent);
+
+                userActions.sliderScroll(Math.pow(scrollPercent, 2));//exponential
+                // userActions.sliderScroll(scrollPercent);//linear
+
                 // update the posiion attributes
                 target.setAttribute('data-x', limitedX);
                 this.isDragging = true;

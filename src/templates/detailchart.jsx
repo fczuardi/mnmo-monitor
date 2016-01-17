@@ -54,25 +54,32 @@ export default (p) => {
     let chartWidth = p.ui.screenWidth - 60;
     let chartHeight = p. chartHeight - chartTopPadding;
     let firstColumn = columns[0];
-    // console.log('firstColumn.length', firstColumn.length);
     let chartDivisions = firstColumn.map( (cell, cellIndex) => {
         let percentX = (cellIndex) / (firstColumn.length - 1);
-        let scaledPercentX = Math.sqrt(1 - percentX);
-        // let scaledPercentX = 1 - percentX;
+
+        let scaledPercentX = Math.sqrt(1 - percentX); //exponential
+        // let scaledPercentX = 1 - percentX; //linear
+
         let x = chartWidth - scaledPercentX * chartWidth;
         return Math.round(x);
     });
+    // chartDivisions = [0].concat(chartDivisions);
+    // console.log('chartDivisions', chartDivisions, chartDivisions.length);
+    // console.log('firstColumn', firstColumn, firstColumn.length);
     let divisionElements = chartDivisions.map( (x, index) => {
-        // if (index === chartDivisions.length - 1){
-        //     return null;
-        // }
+        if (index === chartDivisions.length - 1){
+            return null;
+        }
         let headerIndex = varsCount * (chartDivisions.length - 2 - index);
-        let nextX = chartDivisions[index + 1] || 0;
+        // console.log('headerIndex', headerIndex);
+        // let nextX = chartDivisions[index + 1] || 0;
+        let nextX = chartDivisions[index + 1];
         let type = p.rows.headers[headerIndex] ? p.rows.headers[headerIndex][3] : 0;
         let fillColor = type === '1' ? '#5A0000' :
                         type === '2' ? '#003C5A' :
                         '#444444';
         let fillOpacity = 0.4;
+        // console.log('division', x, nextX);
         let width = Math.max(0, nextX - x - 1);
         return width <= 0 ? null : (
             <rect

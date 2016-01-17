@@ -3,7 +3,7 @@ import keys from 'lodash/object/keys';
 import moment from 'moment';
 
 const INFINITE_SCROLL_THRESHOLD = 0;
-const ROWS_PAGE_SIZE = 30;
+const ROWS_PAGE_SIZE = 32;
 
 const mobileBreakpointWidth = 599;
 const smallColumnWidth = 60;
@@ -280,6 +280,7 @@ class UIStore extends Store {
         let store = this;
         let varsCount = keys(this.variablesStore.state.combos).length;
         let rowHeight = this.state.screenHeight < 640 ? smallerRowHeight : smallColumnWidth;
+        rowHeight -=1;
         // let displaySeparators = (!this.state.chartVisible || !this.state.isMobile);
         let displaySeparators = true;
         let separatorHeight = displaySeparators ? 40 : 0;
@@ -442,9 +443,9 @@ class UIStore extends Store {
             return null;
         }
         let maxYScroll = (
-                tableContents.scrollHeight -
-                tableContents.offsetHeight -
-                INFINITE_SCROLL_THRESHOLD
+                tableContents.scrollHeight
+                // - tableContents.offsetHeight
+                // - INFINITE_SCROLL_THRESHOLD
             ),
         //     // variablesCount = keys(this.variablesStore.state.combos).length,
             newY = maxYScroll * percent;
