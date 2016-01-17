@@ -335,7 +335,7 @@ class RowsStore extends Store {
         if (token === null){ return false; }
         console.log('GET', type, URLs.rows[type], endTime);
 
-        let lastEndTime = endTime || store.state.lastEndTime;
+        let lastEndTime = endTime || (resetRows ? '' : store.state.lastEndTime);
         endTime = endTime || '';
 
         // if (
