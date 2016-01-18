@@ -517,7 +517,7 @@ class RowsStore extends Store {
         //             firstNewHeaderLabel.substring(0,5), 'with',
         //             calendarStore.state.firstMinute.substring(0,5), dayChanged);
         if (dayChanged){
-            // console.log('replace data');
+            console.log('day changed replace data');
             return mergedData;
         }
 
@@ -554,10 +554,10 @@ class RowsStore extends Store {
         }
         //if received first header (16:59) is close to last existing header (17:00)
         //this is a pagination, so append to the end of the list
-        appendToEnd = (Math.abs(
-            this.TextToMinutes(lastHeaderLabel) -
-            this.TextToMinutes(firstNewHeaderLabel)
-            ) < 5);
+        let timeDiff = this.TextToMinutes(lastHeaderLabel) -
+                        this.TextToMinutes(firstNewHeaderLabel);
+        appendToEnd = (timeDiff > 0);
+        // console.log('APPEND TO END?', lastHeaderLabel, firstNewHeaderLabel, timeDiff, appendToEnd);
 
         // console.log('oldHeaderIndexes', oldHeaderIndexes);
         newHeaders.forEach( (header, index) => {
