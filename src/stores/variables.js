@@ -74,8 +74,8 @@ class VariablesStore extends Store {
                 store.setState(newState);
             }
             if (userState.newSecondaryRow.variableComboID === null){
-                store.userActions.secondTableFormChanged('variableComboID',
-                                                parsedResult.rawCombos[0].id);
+                store.userActions.secondTableFormChanged('primaryVarLabel',
+                                                parsedResult.rawCombos[0].label);
             }
 
         })
