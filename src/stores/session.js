@@ -64,21 +64,20 @@ class SessionStore extends Store {
         let store = this,
             userStore = store.flux.getStore('user'),
             validationStore = store.flux.getStore('loginValidation'),
-            url = URLs.baseUrl + URLs.session.login +
-                    '?' + URLs.session.loginLanguageParam + '=' +
-                    (languageNames[userStore.state.languageID || 0]);
+            url = URLs.baseUrl + URLs.session.login,
+            postBody = buildSignInRequestBody(validationStore, userStore);
 
         store.setState({
             error: null
         });
-        console.log('POST', url);
+        // console.log('POST', url, postBody);
         fetch(url, {
         // fetch(URLs.baseUrl + URLs.session.loginError, {
           method: 'post',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          body: buildSignInRequestBody(validationStore, userStore)
+          body: postBody
         })
         .then(chooseTextOrJSON)
         .then(function(payload) {
