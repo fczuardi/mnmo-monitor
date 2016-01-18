@@ -621,6 +621,17 @@ class UserStore extends Store {
                 break;
             case 'action':
                 break;
+            case 'variableComboID':
+                // console.log('secondary table variableComboID changed', change);
+                let extractedLabels = this.varsStore.state.rawCombos[change.value].label.split('-');
+                let primaryVarLabel = extractedLabels[0];
+                let secondaryVarLabel = extractedLabels[1] ? extractedLabels[1] : '-';
+                let secondaryVarOptions = this.varsStore.state.combos[primaryVarLabel];
+                newState[change.field] = change.value;
+                newState.primaryVarLabel = primaryVarLabel;
+                newState.secondaryVarLabel = secondaryVarLabel;
+                newState.secondaryVarOptions = secondaryVarOptions;
+                break;
             case 'primaryVarLabel':
                 // console.log('primaryVarLabel changed to', change.value, this.varsStore.state.combos)
                 newState[change.field] = change.value;
