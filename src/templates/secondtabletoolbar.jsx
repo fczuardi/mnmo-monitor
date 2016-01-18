@@ -82,7 +82,7 @@ export default (p, a) => {
         width: 50,
         opacity: (autoUpdate || loading) ? 0.5 : 1
     };
-    let center = p.ui.isMobile ? null: (
+    let center = p.ui.isMobile || loading ? null: (
         <div
             id={'secondTableToolbarCenter'}
             style={centerStyle}
@@ -201,7 +201,7 @@ export default (p, a) => {
             </div>
         </div>
     );
-    let right = p.ui.isMobile ? null: (
+    let right = p.ui.isMobile || loading ? null: (
         <div
             id={'secondTableToolbarRight'}
             style={rightStyle}
