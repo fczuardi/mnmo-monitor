@@ -186,7 +186,7 @@ class UserStore extends Store {
             method: 'GET',
             headers: authHeaders(token)
         })
-        .then((response) => statusRouter(response, store.sessionActions.signOut))
+        .then((response) => statusRouter(response, store.sessionActions.signOut, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK', URLs.user.preferences);
