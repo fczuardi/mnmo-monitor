@@ -195,6 +195,10 @@ class UserStore extends Store {
             console.log('parsed result', result);
             let userPreferences = merge({}, result.prefs);
             if (result.error !== null) {
+                if (result.errorCode === 500){
+                    // console.log('Error 500, must open rows panel');
+                    store.userActions.openPanel('rows');
+                }
                 store.userActions.errorArrived(result.error);
                 return null;
             } else {
@@ -339,7 +343,7 @@ class UserStore extends Store {
             console.log('result (post)', URLs.user.preferences, payload);
             let result = userPreferencesPostResponseOK(payload),
                 newState = result.data;
-            // console.log('newState', newState);
+            console.log('parsed result', result);
             console.log('parsed newState', newState);
             console.log('store.state.languageID',store.state.languageID, newState.languageID);
             if (store.needsRefetch){
@@ -350,6 +354,12 @@ class UserStore extends Store {
             store.userActions.preferencesPublished(newState);
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
+
+                if (result.errorCode === 500){
+                    // console.log('Error 500, must open rows panel');
+                    store.userActions.openPanel('rows');
+                }
+
                 //userPreferencesPostResponseOK returns the last known-to-work
                 //user preferences on error, so we rollback to that
                 //BUT only if autoupdate was already off otherwise this
@@ -357,8 +367,8 @@ class UserStore extends Store {
                 //with an invalid time range and can't fix it through the interface
                 //because that panel is only available when autoUpdate is off
                 //see bug #87
-                // console.log('set user state: updatePreferences error', newState.archivedReport.start, newState.archivedReport.end);
                 if (newState.autoUpdate === false){
+                    // console.log('set user state: updatePreferences error', newState.archivedReport.start, newState.archivedReport.end);
                     store.setState(newState);
                 }
             }
