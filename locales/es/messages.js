@@ -22,7 +22,7 @@ export default {
             access: 'Acceso'
         },
         loadingCaptcha: 'Carga de la pregunta…',
-        question: 'Quanto es {captchaChallenge} ?'
+        question: 'Cuanto es {captchaChallenge} ?'
     },
     password: {
         forgotPasswordLink: '¿Olvidaste tu contraseña?',
