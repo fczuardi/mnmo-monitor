@@ -11,17 +11,18 @@ export default (p, a) => {
         backgroundColor = p.ui.warning ? '#2D2D2D' : '#5D0000',
         width = 320;
 
-    let tryAgainButton = p.ui.errorTryAgainAction ? (
-        <div style={{
-            marginTop: 15
-        }}>
-            <Button
-                inside={true}
-                value={p.language.messages.error.tryAgain}
-                onClick={a.tryAgainClicked}
-            />
-        </div>
-        ): null;
+    // let tryAgainButton = p.ui.errorTryAgainAction ? (
+    //     <div style={{
+    //         marginTop: 15
+    //     }}>
+    //         <Button
+    //             inside={true}
+    //             value={p.language.messages.error.tryAgain}
+    //             onClick={a.tryAgainClicked}
+    //         />
+    //     </div>
+    //     ): null;
+    let tryAgainButton = null;
     return (
 <div
     style={{

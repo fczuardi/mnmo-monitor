@@ -37,6 +37,7 @@ class UserStore extends Store {
         const rowsActions = flux.getActions('rows');
         this.sessionActions = sessionActions;
         this.flux = flux;
+        this.register(rowsActions.returnChangedStartTime, this.updateStartTime);
         this.register(rowsActions.secondaryRowsFetchCompleted, this.updateSecondTableFormDay);
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
@@ -86,7 +87,7 @@ class UserStore extends Store {
             helpURL: '#',
             languageID: defaultLanguageID,
             autoUpdate: null,
-            archivedReport: null,
+            archivedReport: null, // ex: {date: "2015-12-05",end: "18:03:00",start: "05:40:00"}
             mergedRows: null,
             groupID: null,
             subgroupID: null,
@@ -513,6 +514,17 @@ class UserStore extends Store {
         newValue[(hourOrMinute === 'hour') ? 0 : 1] = value;
         archivedReport[startOrEnd] = newValue.join(':');
         // console.log('set user state: changeTime');
+        this.setState({
+            archivedReport: archivedReport
+        });
+    }
+    updateStartTime() {
+        // console.log('updateStartTime');
+        let calendarStore = this.flux.getStore('calendar');
+        let startTime = calendarStore.state.firstMinute;
+        let archivedReport = merge({}, this.state.archivedReport);
+        archivedReport.start = startTime;
+        // console.log('updateStartTime', archivedReport);
         this.setState({
             archivedReport: archivedReport
         });

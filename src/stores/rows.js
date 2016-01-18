@@ -377,7 +377,16 @@ class RowsStore extends Store {
                 console.log('errorCode', result.errorCode, isWarning);
                 store.userActions.errorArrived(result.error,
                     store.rowsActions.fetchAgainRequested, isWarning);
-                store.stopAutoUpdate();
+                if (result.errorCode !== 101){
+                    //error 101 returns the rows, so autoupdate don't need to be
+                    //interrupted.
+                    store.stopAutoUpdate();
+                }else {
+                    //error 101 changes the startTime on the server
+                    //but the app needs to change it on the UI
+                    //p.user.archivedReport.start
+                    store.rowsActions.returnChangedStartTime();
+                }
             } else {
                 if (store.userStore.state.autoUpdate) {
                     store.startAutoUpdate();

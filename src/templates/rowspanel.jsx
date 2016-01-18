@@ -77,8 +77,7 @@ export default (p, a) => {
                         p.user.archivedReport.start) ?
                             parseInt(p.user.archivedReport.start.split(':')[1]) : null;
     let startingTime =  (p.groups.selected !== null) && (
-                            (p.rows.type === 'list') ||
-                            (p.user.autoUpdate === true)
+                            (p.rows.type === 'list')
                         ) ? null : (
         <MultiPicker
             title={p.language.messages.rows.startingTime}
