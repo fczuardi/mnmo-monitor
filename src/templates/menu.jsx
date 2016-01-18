@@ -18,8 +18,7 @@ export default (p, a) => {
                 label: p.language.messages.settings.tos
             },
             {
-                // TODO get this link from the API
-                link: 'http://example.com',
+                link: p.user.helpURL,
                 label: p.language.messages.settings.help
             }
         ]

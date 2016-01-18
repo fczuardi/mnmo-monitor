@@ -83,6 +83,7 @@ class UserStore extends Store {
             captchaAnswer: null,
             tosAgree: false,
             tosURL: '#',
+            helpURL: '#',
             languageID: defaultLanguageID,
             autoUpdate: null,
             archivedReport: null,
@@ -200,7 +201,8 @@ class UserStore extends Store {
                     store.needsRefetch = false;
                     // console.log('setState tosURL');
                     store.setState({
-                        tosURL: userPreferences.tosURL
+                        tosURL: userPreferences.tosURL,
+                        helpURL: userPreferences.helpURL
                     });
                 } else {
                     store.userActions.preferencesFetched(userPreferences);
@@ -402,16 +404,19 @@ class UserStore extends Store {
         });
     }
     changeCountryPref(countryID) {
-        let tosURL;
+        let tosURL,
+            helpURL;
         this.countryStore.state.options.forEach(function(item){
             if (item.id === countryID){
                 tosURL = item.tosURL;
+                helpURL = item.helpURL;
             }
         });
         // console.log('set user state: changeCountryPref', tosURL, countryID, this.countryStore.state);
         this.setState({
             countryID: countryID,
-            tosURL: tosURL || this.state.tosURL
+            tosURL: tosURL || this.state.tosURL,
+            helpURL: helpURL || this.state.helpURL
         });
     }
     changeCaptchaAnswer(answer) {
