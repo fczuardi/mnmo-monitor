@@ -12,6 +12,8 @@ import {
     languageNames
 } from '../../config/apiHelpers';
 
+const REFRESH_TIME = 3 * 1000;
+
 class SessionStore extends Store {
     constructor(flux) {
         super();
@@ -26,12 +28,37 @@ class SessionStore extends Store {
             error: null
         };
         this.sessionActions = sessionActions;
-        // this.loadSavedToken();
+        if (window.addEventListener) {
+            window.addEventListener('unload', this.saveTimestamp.bind(this));
+        }else{
+            window.attachEvent('onunload', this.saveTimestamp.bind(this));
+        }
+        //after all initial setup, load local token
+        window.setTimeout(this.loadSavedToken.bind(this), 0);
     }
     loadSavedToken() {
+        let unloadTimestamp = getLocalItem('unloadTimestamp');
+        let timestamp = new Date().getTime();
+        let isUserRefresh = timestamp - unloadTimestamp < REFRESH_TIME;
+        // console.log('loadSavedToken', timestamp, unloadTimestamp, isUserRefresh);
+        if (!isUserRefresh){
+            return null;
+        }
+        let token = getLocalItem('sessionToken');
         this.setState({
-            token: getLocalItem('sessionToken')
+            token: token
         });
+        // console.log('call tokenGranted action', token);
+        this.flux.getActions('session').tokenGranted(token);
+    }
+    // save a timestamp locally if the app unloads
+    // in order to be able to compare it with the next time the app loads
+    // and use the same session if the user "hits refresh"
+    // which means unload and load again before 3 seconds
+    saveTimestamp(){
+        let timestamp = new Date().getTime();
+        // console.log('saveTimestamp', timestamp);
+        setLocalItem('unloadTimestamp', timestamp);
     }
     signIn() {
         let store = this,
@@ -61,7 +88,7 @@ class SessionStore extends Store {
             let sessionDataError = (sessionData.error_description || sessionData.error);
             if (sessionData.token){
                 store.setState(sessionData);
-                // setLocalItem('sessionToken', sessionData.token);
+                setLocalItem('sessionToken', sessionData.token);
                 store.flux.getActions('session').tokenGranted(sessionData.token);
             }else if (sessionData.error) {
                 store.sessionActions.signOut();

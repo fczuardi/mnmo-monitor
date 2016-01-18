@@ -176,6 +176,7 @@ class UserStore extends Store {
     }
     fetchPreferences(token) {
         let store = this;
+        // console.log('fetchPreferences', token, store.sessionStore.state.token);
         token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
         console.log('GET', URLs.user.preferences);
