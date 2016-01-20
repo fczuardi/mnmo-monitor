@@ -40,111 +40,136 @@ export default (p, a) => {
             </p>
         </div>
     );
-    return (
-<CenteredBox>
-    <div
-        style={{
-            position: 'relative',
-            top: 5
-        }}
-    >
-        <img src="./img/logo_login_small.png" />
-    </div>
-    <form onSubmit={a.formSubmit}>
-        <FieldSet legend={p.language.messages.login.welcome}
-                    className="PPTCorners">
-            <TextInput
-                value={p.user.username}
-                placeholder={p.language.messages.login.username}
-                onChange={a.usernameChange}
-                onBlur={a.usernameBlur}
-                name="username"
-            />
-            <TextInput
-                value={p.user.password}
-                placeholder={p.language.messages.login.password}
-                onChange={a.passwordChange}
-                onBlur={a.passwordBlur}
-                type="password"
-                name="password"
-            />
-            <div>
-                <Select
-                    value={p.user.countryID}
-                    onChange={a.countrySelect}
-                    onBlur={a.countryBlur}
-                    name="country"
-                >
-                    {p.country.options.map( (country, key) =>
-                        <option key={key} value={country.id}>
-                            {country.label}
-                        </option>
-                    )}
-                </Select>
-                <span>
-                    <a href="#" onClick={a.forgotPasswordClick}>
-                        {p.language.messages.password.forgotPasswordLink}
-                    </a>
-                </span>
-            </div>
-            <div style={{
-                clear: 'both',
-                marginTop: 15
-            }}>
-                <Checkbox
-                    id="saveInfoCheckbox"
-                    checked={p.user.rememberLogin}
-                    onChange={a.saveInfoChange}
-                    name="saveInfo"
-                >
-                    {p.language.messages.login.saveInfo}
-                </Checkbox>
-            </div>
-        </FieldSet>
-        {firstAttempt ? null : tryAgain}
-        <FieldSet legend={p.loginForm.captchaQuestion}>
-            <CaptchaAnswers>
-            {p.loginForm.captchaAnswers.map( (answer, key) =>
-                <RadioButton
-                    id={('radio-' + key)}
-                    name="captcha-answer"
-                    key={key}
-                    value={answer}
-                    first={(key === 0)}
-                    checked={(key === p.loginForm.selectedAnswerIndex)}
-                    onChange={a.captchaAnswerChange}
-                    isBox={true}
-                >
-                    {answer}
-                </RadioButton>
-            )}
-            </CaptchaAnswers>
-        </FieldSet>
-        <FieldSet className="no-bg">
-            <div>
-                <Checkbox
-                    id="TOSCheckBox"
-                    checked={p.user.tosAgree}
-                    onChange={a.agreementChange}
-                    name="agree"
-                >
-                    <FormattedMessage
-                        message={p.language.messages.login.iAgree}
-                        tosLink={(
-                            p.user.tosURL ? (
-                                    <a target='_blank' href={p.user.tosURL}>
-                                        {p.language.messages.login.tos}
-                                    </a>
-                                ) : (
-                                    p.language.messages.login.tos
-                                )
-                        )}
-                    />
-                </Checkbox>
-            </div>
-        </FieldSet>
-        {submitButton}
-    </form>
-</CenteredBox>
+    let brandingHeader = (
+        <div
+            style={{
+                position: 'relative',
+                top: 5
+            }}
+        >
+            <img src="./img/logo_login_small.png" />
+        </div>
     );
+    let formContents = (
+        <form onSubmit={a.formSubmit} style={{paddingBottom: 40}}>
+            <FieldSet legend={p.language.messages.login.welcome}
+                        className="PPTCorners">
+                <TextInput
+                    value={p.user.username}
+                    placeholder={p.language.messages.login.username}
+                    onChange={a.usernameChange}
+                    onBlur={a.usernameBlur}
+                    name="username"
+                />
+                <TextInput
+                    value={p.user.password}
+                    placeholder={p.language.messages.login.password}
+                    onChange={a.passwordChange}
+                    onBlur={a.passwordBlur}
+                    type="password"
+                    name="password"
+                />
+                <div>
+                    <Select
+                        value={p.user.countryID}
+                        onChange={a.countrySelect}
+                        onBlur={a.countryBlur}
+                        name="country"
+                    >
+                        {p.country.options.map( (country, key) =>
+                            <option key={key} value={country.id}>
+                                {country.label}
+                            </option>
+                        )}
+                    </Select>
+                    <span>
+                        <a href="#" onClick={a.forgotPasswordClick}>
+                            {p.language.messages.password.forgotPasswordLink}
+                        </a>
+                    </span>
+                </div>
+                <div style={{
+                    clear: 'both',
+                    marginTop: 15
+                }}>
+                    <Checkbox
+                        id="saveInfoCheckbox"
+                        checked={p.user.rememberLogin}
+                        onChange={a.saveInfoChange}
+                        name="saveInfo"
+                    >
+                        {p.language.messages.login.saveInfo}
+                    </Checkbox>
+                </div>
+            </FieldSet>
+            {firstAttempt ? null : tryAgain}
+            <FieldSet legend={p.loginForm.captchaQuestion}>
+                <CaptchaAnswers>
+                {p.loginForm.captchaAnswers.map( (answer, key) =>
+                    <RadioButton
+                        id={('radio-' + key)}
+                        name="captcha-answer"
+                        key={key}
+                        value={answer}
+                        first={(key === 0)}
+                        checked={(key === p.loginForm.selectedAnswerIndex)}
+                        onChange={a.captchaAnswerChange}
+                        isBox={true}
+                    >
+                        {answer}
+                    </RadioButton>
+                )}
+                </CaptchaAnswers>
+            </FieldSet>
+            <FieldSet className="no-bg">
+                <div>
+                    <Checkbox
+                        id="TOSCheckBox"
+                        checked={p.user.tosAgree}
+                        onChange={a.agreementChange}
+                        name="agree"
+                    >
+                        <FormattedMessage
+                            message={p.language.messages.login.iAgree}
+                            tosLink={(
+                                p.user.tosURL ? (
+                                        <a target='_blank' href={p.user.tosURL}>
+                                            {p.language.messages.login.tos}
+                                        </a>
+                                    ) : (
+                                        p.language.messages.login.tos
+                                    )
+                            )}
+                        />
+                    </Checkbox>
+                </div>
+            </FieldSet>
+            {submitButton}
+        </form>
+    );
+    let loginContents = (
+        <div>
+            {brandingHeader}
+            {formContents}
+        </div>
+    );
+    let bigScreen = (
+        <CenteredBox>
+            {loginContents}
+        </CenteredBox>
+    );
+    let smallScreen = (
+        <div style={{
+            height: '100%',
+            overflow: 'auto'
+        }}>
+            <div style={{
+                width: 333,
+                margin: 'auto'
+            }}>
+                {loginContents}
+            </div>
+        </div>
+    );
+    return p.ui.screenHeight < 700 ? smallScreen : bigScreen;
 }
