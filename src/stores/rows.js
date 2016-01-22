@@ -365,6 +365,7 @@ class RowsStore extends Store {
         .then(function(payload){
             console.log('OK', URLs.rows[type], resetRows);
             console.log('result', payload);
+            // console.log('result', JSON.stringify(payload));
             let result = parseRows(payload, store.state.type);
             console.log('parsed result', result);
             console.log(result.rows.data.length +' rows');

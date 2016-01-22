@@ -6,6 +6,11 @@ import {varTypes} from '../../config/apiHelpers';
 const chartTopPadding = 50;
 
 function parseData(valueString){
+    if (valueString === undefined){
+        return [0,0];
+    }
+    valueString = valueString.indexOf('|') !== -1 ? valueString : valueString+'|0';
+    // console.log('valueString', valueString);
     let values = valueString.split('|');
     let parsedValues = values.map( value => parseFloat(values[0]));
     let secondary = values[1] || null;
