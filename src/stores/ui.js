@@ -48,7 +48,8 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            version: 'v3.0.10.1',
+            //browserify transform browserify-versionify replaces the placeholder with proper version from package.json            
+            version: 'v3.__VERSION__',
             menuClosed: true,
             submenu: null,
             panel: null,
