@@ -118,9 +118,12 @@ export default (p, a) => {
                 disabled={(p.groups.selected && p.groups.selected.classes.length < 2 )}
                 onClick={a.classButtonClicked}
                 closed={(p.ui.panel !== 'classes')}
-                className={(p.user.classID !== null) ?
-                                ('header-icon-' + p.user.classID) : ''}
-            />
+            >
+                <span
+                    className={(p.user.classID !== null) ?
+                                    ('header-icon-' + p.user.classID) : ''}
+                />
+            </ToolbarButton>
             <ToolbarButton
                 type={p.ui.isMobile ? null : 'dialogToggle'}
                 onClick={a.varsButtonClicked}
