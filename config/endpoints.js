@@ -1,5 +1,5 @@
 export default {
-    baseUrl: 'http://192.168.1.132:9001',
+    baseUrl: 'http://192.168.1.183:9001',
     country: {
         list: '/country/list'
     },
@@ -8,6 +8,7 @@ export default {
     },
     session: {
         login: '/auth/login',
+        loginLanguageParam: 'lang', //ex: 'pt-BR'
         loginError: '/auth/login/error',
         loginErrorStatus: 400
     },

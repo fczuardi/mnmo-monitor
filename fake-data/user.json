@@ -16,5 +16,6 @@
     "classID": 1,
     "primaryVarLabel": "VarA",
     "secondaryVarLabel": "-",
-    "variableComboID": 1
+    "variableComboID": 1,
+    "groupLabel": ""
 }

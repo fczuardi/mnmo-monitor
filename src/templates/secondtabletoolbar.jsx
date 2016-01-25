@@ -1,3 +1,4 @@
+import React from 'react';
 export default (p, a) => {
     let loading = p.rows.secondary.loading === true;
     let autoUpdate = p.rows.secondary.autoUpdate === true;

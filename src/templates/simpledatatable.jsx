@@ -1,3 +1,4 @@
+import React from 'react';
 import cellRenderer from './tablecell.jsx';
 
 function rowHeaderCell(headers, index){

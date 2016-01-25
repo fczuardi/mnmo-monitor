@@ -13,6 +13,13 @@ const GROUP_TYPE_LABELS = [
     'CD'
 ];
 
+const LANGUAGE_NAMES = [
+    '', //0 empty
+    'pt-BR', //1 Portuguese
+    'es-ES', //2 Español
+    'en-US'  //3 English
+];
+
 let lastUserPreferenceResponse = null,
     lastColumnsResponse = null;
 
@@ -156,6 +163,7 @@ function passwordChangePostResponseOK(payload){
 export default {
     varTypes: VAR_TYPES,
     groupTypeLabels: GROUP_TYPE_LABELS,
+    languageNames: LANGUAGE_NAMES,
     authHeaders: authHeaders,
     statusRouter: statusRouter,
     chooseTextOrJSON: chooseTextOrJSON,

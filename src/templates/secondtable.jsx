@@ -1,3 +1,4 @@
+import React from 'react';
 import merge from 'lodash/object/merge';
 import SecondTableToolbar from '../components/secondtabletoolbar';
 import RowHeaders from '../components/rowheaders';

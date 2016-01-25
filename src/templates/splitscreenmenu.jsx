@@ -1,3 +1,4 @@
+import React from 'react';
 import merge from 'lodash/object/merge';
 export default (p, a) => {
     let circleStyles = {
