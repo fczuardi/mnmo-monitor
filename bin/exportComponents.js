@@ -14,6 +14,7 @@ function createUMD(entry, globalName, outFilename, isES6){
     if (isES6) {
         b.transform('babelify');
     }
+    b.transform('browserify-versionify');
     b.transform('browserify-shim')
         .bundle()
         .pipe(createWriteStream(outFilename, 'utf8'));
@@ -45,7 +46,7 @@ Object.keys(globalModules).forEach((key) => {
         }
         if (
             (subfolder === 'styles') &&
-            (key.indexOf('../styles/') !== -1) 
+            (key.indexOf('../styles/') !== -1)
         ){
             entry = entry.replace('/styles/', '/src/styles/');
         }
