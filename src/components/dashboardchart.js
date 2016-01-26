@@ -1,9 +1,10 @@
 import {Component, findDOMNode} from 'react';
 import template from '../templates/dashboardchart.jsx';
+import tryRender from '../lib/trycomponent';
 
 class DashboardChart extends Component {
     render() {
-        return template(this.props);
+        return tryRender('dashboardchart', template, this.props);
     }
 }
 

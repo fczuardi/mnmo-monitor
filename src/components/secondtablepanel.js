@@ -1,4 +1,5 @@
 import template from '../templates/secondtablepanel.jsx';
+import tryRender from '../lib/trycomponent';
 
 function updateTimeStringHours(s, v){
     let padded = (v < 10 ? '0' : '') + v;
@@ -66,7 +67,7 @@ class SecondTablePanel {
                 console.log('monthChange', newDay);
             }
         };
-        return template(this.props, actions);
+        return tryRender('secondtablepanel', template, this.props, actions);
     }
 }
 

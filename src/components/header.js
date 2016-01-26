@@ -1,4 +1,5 @@
 import template from '../templates/header.jsx';
+import tryRender from '../lib/trycomponent';
 
 class Header {
     render() {
@@ -25,7 +26,7 @@ class Header {
                 this.props.flux.getActions('user').autoUpdateToggle(!this.props.user.autoUpdate)
 
         };
-        return template(this.props, actions);
+        return tryRender('header', template, this.props, actions);
     }
 }
 

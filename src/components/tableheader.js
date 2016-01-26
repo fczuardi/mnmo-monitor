@@ -1,5 +1,6 @@
 import {Component} from 'react';
 import template from '../templates/tableheader.jsx';
+import tryRender from '../lib/trycomponent';
 
 class TableHeader extends Component {
     shouldComponentUpdate(nextProps) {
@@ -24,7 +25,7 @@ class TableHeader extends Component {
                 columnActions.columnIconFailed(event.target.getAttribute('data-id'));
             }
         };
-        return template(this.props, actions);
+        return tryRender('tableheader', template, this.props, actions);
     }
 }
 

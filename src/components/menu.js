@@ -1,4 +1,5 @@
 import template from '../templates/menu.jsx';
+import tryRender from '../lib/trycomponent';
 import merge from 'lodash/object/merge';
 
 class Menu {
@@ -37,7 +38,7 @@ class Menu {
             }
         };
         p.panelsOpened = (p.ui.submenu !== null) ? 2 : 1;
-        return template(p, actions);
+        return tryRender('menu', template, p, actions);
     }
 }
 

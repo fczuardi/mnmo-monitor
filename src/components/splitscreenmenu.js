@@ -1,5 +1,6 @@
 import {Component} from 'react';
 import template from '../templates/splitscreenmenu.jsx';
+import tryRender from '../lib/trycomponent';
 
 class SplitScreenMenu{
     render() {
@@ -26,7 +27,7 @@ class SplitScreenMenu{
             subgroupsButtonClicked: () =>
                 this.props.flux.getActions('user').openPanel('subgroups')
         };
-        return template(this.props, actions);
+        return tryRender('splitscreenmenu', template, this.props, actions);
     }
 }
 

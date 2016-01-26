@@ -111,8 +111,9 @@ export default (p) => {
                     let y = Math.round((lineChartHeight - 2) - pY * (lineChartHeight - 2)) + 1;
                     linePath += `L${x},${y} `;
                 });
-                linePath = 'M' + linePath.substring(1);
+                linePath = linePath.length > 1 ? 'M' + linePath.substring(1) : '';
                 //the y position of the first point of linePath (that draws from right to left)
+                // linePath = null; // force TypeError "Cannot read property 'replace' of null for debugging"
                 let dotBottom = maxPixelValue - parseInt(linePath.replace(/[^,]*,([^\s]*).*/, '$1')) - 2;
                 svgLine = (
                     <svg

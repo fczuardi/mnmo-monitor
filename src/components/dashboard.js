@@ -1,4 +1,5 @@
 import template from '../templates/dashboard.jsx';
+import tryRender from '../lib/trycomponent';
 import merge from 'lodash/object/merge';
 import keys from 'lodash/object/keys';
 
@@ -91,7 +92,7 @@ class Dashboard {
             }
         }
 
-        return template(p, actions);
+        return tryRender('dashboard', template, p, actions);
     }
 }
 

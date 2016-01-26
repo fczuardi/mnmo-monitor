@@ -87,6 +87,7 @@ var options = {
         './js/actions/rows.js',
         '$comment=actions',
         './lib/js/local.js',
+        './lib/js/trycomponent.js',
         './js/messages-pt.js',
         './js/messages-es.js',
         './js/messages-en.js',

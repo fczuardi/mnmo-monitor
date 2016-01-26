@@ -1,5 +1,6 @@
 // import {findDOMNode} from 'react';
 import template from '../templates/rowspanel.jsx';
+import tryRender from '../lib/trycomponent';
 
 class RowsPanel {
     componentDidUpdate(){
@@ -32,7 +33,7 @@ class RowsPanel {
             mergeFunctionChange: (event) =>
                 userActions.mergeFunctionUpdated(event.target.checked ? 1: 0)
         };
-        return template(this.props, actions);
+        return tryRender('rowspanel', template, this.props, actions);
     }
 }
 

@@ -1,5 +1,6 @@
 import {Component} from 'react';
 import template from '../templates/secondtabletoolbar.jsx';
+import tryRender from '../lib/trycomponent';
 
 class SecondTableToolbar{
     render() {
@@ -42,7 +43,7 @@ class SecondTableToolbar{
                 userActions.secondTableFormChanged('autoUpdate', null);
             }
         }
-        return template(this.props, actions);
+        return tryRender('secondtabletoolbar', template, this.props, actions);
     }
 }
 

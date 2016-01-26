@@ -1,34 +1,5 @@
-/**
- * Login screen
- *
- * @class
- *
- * Properties
- * ----------
- * @param {object} [country] - the state of the country store, see stores/country.js
- * @param {string} [country.selected] - the selected country ID
- * @param {object} [user] - the state of the user store, see stores/user.js
- * @param {string} [user.username]
- * @param {string} [user.password]
- * @param {boolean} [user.rememberLogin]
- * @param {boolean} [user.tosAgree]
- * @param {string} [nextPath]
- * @param {function} [onSubmit]
- * @param {function} [onInputBlur]
- * @param {function} [onCountryChange]
- * @param {function} [onChangeSaveInfo]
- * @param {function} [onChangeAgreement]
- * @param {object} [messages]
- * @param {string} [messages.login]
- * @param {string} [messages.login.welcome]
- * @param {string} [messages.login.username]
- * @param {string} [messages.login.password]
- * @param {string} [messages.login.saveInfo]
- * @param {string} [messages.login.iAgree]
- * @param {string} [messages.login.tos]
- *
- **/
-import render from '../templates/login.jsx';
+import template from '../templates/login.jsx';
+import tryRender from '../lib/trycomponent';
 
 class LoginForm {
     constructor() {
@@ -56,7 +27,7 @@ class LoginForm {
             }
         };
         this.render = () => {
-            return render(this.props, this.actions);
+            return tryRender('login', template, this.props, this.actions);
         };
     }
 }

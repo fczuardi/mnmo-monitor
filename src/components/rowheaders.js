@@ -1,5 +1,6 @@
 import {Component} from 'react';
 import template from '../templates/rowheaders.jsx';
+import tryRender from '../lib/trycomponent';
 import merge from 'lodash/object/merge';
 import keys from 'lodash/object/keys';
 
@@ -52,7 +53,7 @@ class RowHeaders extends Component {
             p.rows.headers = rowsWithSeparators;
         }
         // console.log('render RowHeaders', this.props.rows.headers);
-        return template(p, actions);
+        return tryRender('rowheaders', template, p, actions);
     }
 }
 

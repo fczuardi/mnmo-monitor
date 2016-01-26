@@ -1,9 +1,10 @@
 import {Component} from 'react';
 import template from '../templates/simpledatatable.jsx';
+import tryRender from '../lib/trycomponent';
 
 class SimpleDataTable{
     render() {
-        return template(this.props);
+        return tryRender('simpledatatable', template, this.props);
     }
 }
 

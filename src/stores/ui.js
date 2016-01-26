@@ -48,7 +48,7 @@ class UIStore extends Store {
         this.state = {
             // first digit is cosmetic, don't mean nothing,
             // the next 3 follows semver (major.minor.patch) http://semver.org/
-            //browserify transform browserify-versionify replaces the placeholder with proper version from package.json            
+            // browserify transform browserify-versionify replaces the placeholder with proper version from package.json
             version: 'v3.__VERSION__',
             menuClosed: true,
             submenu: null,
@@ -86,10 +86,13 @@ class UIStore extends Store {
         this.secondCoordY = 0;
         this.scrollEndInterval = 0;
         this.imageUpdateInterval = 0;
+
         if (window.addEventListener) {
             window.addEventListener('resize', this.widthChange.bind(this));
+            // window.addEventListener('error', this.unhandledJavascriptError.bind(this));
         }else{
             window.attachEvent('onresize', this.widthChange.bind(this));
+            // window.attachEvent('onerror', this.unhandledJavascriptError.bind(this));
         }
         this.scrollUpdate = this.scrollUpdate.bind(this);
         this.secondScrollUpdate = this.secondScrollUpdate.bind(this);
@@ -123,6 +126,18 @@ class UIStore extends Store {
         this.setState({
             displaySplash: false
         });
+    }
+
+    unhandledJavascriptError(e){
+        console.log('unhandledJavascriptError',
+            e.message,
+            e.filename,
+            e.lineno);
+        this.displayError({
+            error: [e.message, e.filename, e.lineno].join(', '),
+            tryAgainAction: null,
+            warning: null
+        })
     }
 
     displayError(info){

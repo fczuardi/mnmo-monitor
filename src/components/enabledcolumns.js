@@ -1,5 +1,6 @@
 import {findDOMNode} from 'react';
 import template from '../templates/enabledcolumns.jsx';
+import tryRender from '../lib/trycomponent';
 import interact from 'interact.js';
 import pluck from 'lodash/collection/pluck';
 
@@ -10,7 +11,7 @@ class EnabledColumns {
     }
 
     render() {
-        return template(this.props, this.props.actions);
+        return tryRender('enabledcolumns', template, this.props, this.props.actions);
     }
 
     componentDidMount() {

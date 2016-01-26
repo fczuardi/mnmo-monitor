@@ -1,4 +1,5 @@
 import template from '../templates/forgotpassword.jsx';
+import tryRender from '../lib/trycomponent';
 
 class ForgotPassword {
     render() {
@@ -17,7 +18,7 @@ class ForgotPassword {
                 userActions.forgotPasswordSubmitted();
             }
         };
-        return template(this.props, actions);
+        return tryRender('forgotpassword', template, this.props, actions);
     }
 }
 

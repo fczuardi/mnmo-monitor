@@ -1,4 +1,5 @@
 import template from '../templates/datatable.jsx';
+import tryRender from '../lib/trycomponent';
 import merge from 'lodash/object/merge';
 // import keys from 'lodash/object/keys';
 
@@ -10,7 +11,7 @@ class DataTable {
                 userActions.splitScreenButtonToggle();
             }
         };
-        return template(this.props, actions);
+        return tryRender('datatable', template, this.props, actions);
     }
 }
 

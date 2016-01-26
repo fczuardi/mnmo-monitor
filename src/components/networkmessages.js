@@ -1,8 +1,9 @@
 import template from '../templates/networkmessages.jsx';
+import tryRender from '../lib/trycomponent';
 
 class NetworkMessages {
     render() {
-        return template(this.props);
+        return tryRender('networkmessages', template, this.props);
     }
 }
 

@@ -1,4 +1,5 @@
 import template from '../templates/password.jsx';
+import tryRender from '../lib/trycomponent';
 
 class ChangePassword {
     render() {
@@ -8,7 +9,7 @@ class ChangePassword {
                 event.preventDefault();
                 console.log('cancel change password');
                 console.log(window.location.search.length);
-                //reset browser's location.search 
+                //reset browser's location.search
                 //to clear any forgot password parameters if they are present
                 if (window.location.search.length > 0) {
                     window.location.search = '';
@@ -29,7 +30,7 @@ class ChangePassword {
                 userActions.confirmNewPasswordInput(event.target.value);
             }
         };
-        return template(this.props, actions);
+        return tryRender('password', template, this.props, actions);
     }
 }
 

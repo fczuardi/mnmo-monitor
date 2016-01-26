@@ -1,6 +1,7 @@
 import interact from 'interact.js';
 import {findDOMNode} from 'react';
 import template from '../templates/slider.jsx';
+import tryRender from '../lib/trycomponent';
 import keys from 'lodash/object/keys';
 import moment from 'moment';
 
@@ -12,7 +13,7 @@ class Slider {
     }
 
     render() {
-        return template(this.props);
+        return tryRender('slider', template, this.props);
     }
 
     percentFromMinute(date, begin, end, total, current, linesPerMinute){

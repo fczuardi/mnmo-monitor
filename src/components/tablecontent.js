@@ -1,4 +1,5 @@
 import template from '../templates/tablecontent.jsx';
+import tryRender from '../lib/trycomponent';
 import merge from 'lodash/object/merge';
 import keys from 'lodash/object/keys';
 
@@ -76,7 +77,7 @@ class TableContent {
             p.rows.headers = headerRowsWithSeparators;
             p.rows.data = rowsWithSeparators;
         }
-        return template(p, actions);
+        return tryRender('tablecontent', template, p, actions);
     }
 }
 
