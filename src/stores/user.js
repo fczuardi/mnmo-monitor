@@ -324,12 +324,18 @@ class UserStore extends Store {
         let hasChanged = diffUserPreferences(store.state);
         if (hasChanged === false){ return false; }
         // console.log('updatePreferences...');
-        let postBody = buildUserPreferencesPostBody(store.state);
-        if (!postBody){ return false; }
         let debugParams = queryString.parse(location.search);
+        let state = merge({}, store.state);
         if (debugParams.debug === 'user'){
             console.log('DEBUG: ', debugParams);
+            //example http://localhost:8001/?debug=user&archivedReport={%22date%22:%222016-01-26%22,%22end%22:%2220:00:00%22,%22start%22:%2208:00:00%22}
+            let archivedReport = JSON.parse(debugParams.archivedReport);
+            if (archivedReport.date && archivedReport.end && archivedReport.start){
+                state.archivedReport = archivedReport;
+            }
         }
+        let postBody = buildUserPreferencesPostBody(state);
+        if (!postBody){ return false; }
         console.log('POST', URLs.user.preferences);
         // console.log('postBody', postBody);
         fetch(URLs.baseUrl + URLs.user.preferences, {
