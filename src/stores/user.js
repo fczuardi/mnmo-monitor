@@ -363,11 +363,23 @@ class UserStore extends Store {
             // userPreferencesPostResponseOK(payload);
             store.userActions.preferencesPublished(newState);
             if (result.error !== null) {
-                store.userActions.errorArrived(result.error);
-
                 if (result.errorCode === 500){
-                    // console.log('Error 500, must open rows panel');
-                    store.userActions.openPanel('rows');
+                    let calendarStore = store.flux.getStore('calendar');
+                    let startTime = calendarStore.state.firstMinute;
+                    console.log('Error 500, must do something', startTime);
+                    console.log(result.error);
+                    if (startTime !== store.state.archivedReport.start){
+                        //change user start time to the first minute of the day
+                        //automatically for the user and don't display any errors
+                        store.updateStartTime();
+                    }else{
+                        //start is already the first minute, so the end time
+                        //is the problem and the user must fix it manually
+                        store.userActions.errorArrived(result.error);
+                        store.userActions.openPanel('rows');
+                    }
+                }else{
+                    store.userActions.errorArrived(result.error);
                 }
 
                 //userPreferencesPostResponseOK returns the last known-to-work
