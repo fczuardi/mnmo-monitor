@@ -22,6 +22,7 @@ class LoginValidationStore extends Store {
         const sessionActions = flux.getActions('session');
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswerIndex);
         this.register(sessionActions.signOut, this.fetchCaptcha);
+        this.register(sessionActions.signIn, this.sessionStart);
         this.state = {
             captchaQuestion: null,
             captchaQuestionID: null,
@@ -100,6 +101,12 @@ class LoginValidationStore extends Store {
         });
         this.setState({
             selectedAnswerIndex: answerIndex
+        });
+    }
+    sessionStart(){
+        this.setState({
+            canSubmit: false,
+            submitLabelKey: submitLabelKeys.loading
         });
     }
 }

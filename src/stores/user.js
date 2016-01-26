@@ -326,6 +326,10 @@ class UserStore extends Store {
         // console.log('updatePreferences...');
         let postBody = buildUserPreferencesPostBody(store.state);
         if (!postBody){ return false; }
+        let debugParams = queryString.parse(location.search);
+        if (debugParams.debug === 'user'){
+            console.log('DEBUG: ', debugParams);
+        }
         console.log('POST', URLs.user.preferences);
         // console.log('postBody', postBody);
         fetch(URLs.baseUrl + URLs.user.preferences, {
