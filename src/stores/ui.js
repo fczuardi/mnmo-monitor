@@ -198,10 +198,11 @@ class UIStore extends Store {
             submenu: name
         });
     }
-    changePanel(name) {
-        if (this.state.panel === name) {
-            name = null;
-        }
+    changePanel(params) {
+        let name = (
+                        (params === null) ||
+                        (this.state.panel === params.name && !params.isVisible)
+                    ) ? null : params.name;
         this.setState({
             panel: name,
             menuClosed: true

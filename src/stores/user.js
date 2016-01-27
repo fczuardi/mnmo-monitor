@@ -363,12 +363,13 @@ class UserStore extends Store {
             // userPreferencesPostResponseOK(payload);
             store.userActions.preferencesPublished(newState);
             if (result.error !== null) {
-                if (result.errorCode === 500){
+                console.log('---ERROR---', result.errorCode, (result.errorCode >= 10051 && result.errorCode <= 10054));
+                if (result.errorCode >= 10051 && result.errorCode <= 10054){
                     let calendarStore = store.flux.getStore('calendar');
                     let startTime = calendarStore.state.firstMinute;
-                    console.log('Error 500, must do something', startTime);
+                    console.log('Invalid time interval errors, must do something', result.data.archivedReport.start);
                     console.log(result.error);
-                    if (startTime !== store.state.archivedReport.start){
+                    if (result.errorCode !== 10052){
                         //change user start time to the first minute of the day
                         //automatically for the user and don't display any errors
                         store.updateStartTime();
@@ -376,7 +377,7 @@ class UserStore extends Store {
                         //start is already the first minute, so the end time
                         //is the problem and the user must fix it manually
                         store.userActions.errorArrived(result.error);
-                        store.userActions.openPanel('rows');
+                        store.userActions.openPanel('rows', true);
                     }
                 }else{
                     store.userActions.errorArrived(result.error);

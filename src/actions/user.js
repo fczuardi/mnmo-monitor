@@ -67,8 +67,8 @@ class UserActions extends Actions {
     closeSubmenu() {
         return null;
     }
-    openPanel(name) {
-        return name;
+    openPanel(name, isVisible) {
+        return {name: name, isVisible: isVisible};
     }
     closePanel() {
         return null;
