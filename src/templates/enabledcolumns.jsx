@@ -8,7 +8,7 @@ export default (p, a) =>
     {p.items.map( (column, key) =>
         <LI
             key={key}
-            draggable={p.editing}
+            haveHandle={p.editing}
             handleClassName="handle"
             data-index={key}
         >
@@ -24,9 +24,9 @@ export default (p, a) =>
                 onChange={a.columnChange}
             >
             {
-            (column.icons && !column.iconError) ? 
+            (column.icons && !column.iconError) ?
                 React.DOM.img({
-                    src: p.uiStore.supportsSVG ? 
+                    src: p.uiStore.supportsSVG ?
                                 column.icons.menu : column.icons.menuBitmap,
                     width: 30,
                     height: 30,

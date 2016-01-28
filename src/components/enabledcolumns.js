@@ -47,7 +47,7 @@ class EnabledColumns {
             max: Infinity,
             inertia: true,
             restrict: {
-                restriction: "parent",
+                restriction: 'parent',
                 endOnly: true
             },
             axis: 'y',
@@ -90,6 +90,10 @@ class EnabledColumns {
                   'translate(0px, 0px)';
                 target.setAttribute('data-x', 0);
                 target.setAttribute('data-y', 0);
+                //for browsers not respecting the css rule user-select: none
+                //(aka Internet Explorer), remove any text selection
+                //after drag end with javascript
+                window.getSelection().removeAllRanges();
             }
 
         })
