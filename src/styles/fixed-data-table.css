@@ -6,7 +6,8 @@
 }
 .dataTableBackground {
     background-color: rgba(0, 0, 0, 0.5);
-    filter: blur(7px);
+    /*Causes bug on Microsoft Edge*/
+    /*filter: blur(7px); */
 }
 .tableHeader {
     font-size: 11px;
