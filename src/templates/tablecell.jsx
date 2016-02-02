@@ -16,7 +16,7 @@ const defaultNumberProps = {
 }
 
 export default (content, rowKey, cellKey, p) => {
-    let tableHasSeparators = (p.rows.type === 'detailed' && (!p.ui.chartVisible || !p.ui.isMobile));
+    let tableHasSeparators = (p.rows.type === 'detailed');
     let firstRowWithValue = tableHasSeparators ? 1 : 0;
     let varsCount = keys(p.vars.combos).length + firstRowWithValue; // +1 for the added separators
     const isPercent = (enumValue) => (p.rows.type === 'detailed') ?
