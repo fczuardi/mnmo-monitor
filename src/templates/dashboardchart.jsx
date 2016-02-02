@@ -30,7 +30,7 @@ export default (p) => {
         <td key="first" style={cellStyle}></td>
     );
     let isMerged = p.rows.type === 'merged';
-    let groupID = p.groups.selected === null ? '' :
+    let groupID = !p.groups.selected ? '' :
                 p.groups.selected.secondaryId !== -1 ?
                 p.groups.selected.secondaryId : p.groups.selected.id;
     let firstRowCells = p.rows.data[0] ? p.rows.data[0] : [];
