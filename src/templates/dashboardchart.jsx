@@ -215,6 +215,8 @@ export default (p) => {
     let startAngle = 0;
     let endAngle = 0;
     // console.log('lastPiePieceValue', lastPiePieceValue);
+    // console.log('pieValues:', pieValues);
+    // console.log('data:', data);
     let pieChart = !isPercent ? null : (
         <svg
             width={pieChartWidth}
@@ -227,7 +229,9 @@ export default (p) => {
         >
             {pieValues.map( (value, index) => {
                 if (value === 100) { return } //ignore total-kind values
+                if (pieSum === 0) { return } //ignore empty piechart
                 let percent = value / pieSum;
+                // console.log(value, percent, pieSum);
                 let backgroundColor = columnColors[(index % columnColors.length)];
                 endAngle = startAngle + percent * (2 * Math.PI);
                 if (percent > 0.999){
