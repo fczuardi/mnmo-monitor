@@ -22,8 +22,10 @@ class Header {
             backButtonClicked: () => {
                 this.props.flux.getActions('rows').rowsTypeSwitchClicked('detailed');
             },
-            autoUpdateChange: (event) =>
+            autoUpdateChange: (event) => {
+                this.props.flux.getActions('user').openPanel(null);
                 this.props.flux.getActions('user').autoUpdateToggle(!this.props.user.autoUpdate)
+            }
 
         };
         return tryRender('header', template, this.props, actions);
