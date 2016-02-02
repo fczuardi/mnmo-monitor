@@ -3,6 +3,7 @@ import {FormattedNumber} from 'react-intl';
 import {varTypes} from '../../config/apiHelpers';
 import tableStyles from '../styles/tablestyles';
 import keys from 'lodash/object/keys';
+import find from 'lodash/collection/find';
 
 const defaultPercentProps = {
     style: 'percent',
@@ -19,9 +20,23 @@ export default (content, rowKey, cellKey, p) => {
     let tableHasSeparators = (p.rows.type === 'detailed');
     let firstRowWithValue = tableHasSeparators ? 1 : 0;
     let varsCount = keys(p.vars.combos).length + firstRowWithValue; // +1 for the added separators
-    const isPercent = (enumValue) => (p.rows.type === 'detailed') ?
-                        (rowKey % varsCount !== firstRowWithValue) :
-                        (varTypes[p.vars.combo[enumValue]] === 'percent');
+    let cellRowHeader = (p.rows.headers && p.rows.headers[rowKey]) ? p.rows.headers[rowKey][0] : null;
+    //there are 3 possible headers from where we can extract the row var label:
+    //'18:02__VARLABEL', '18:02' and 'VARLABEL'
+    let cellVarLabel = (
+        cellRowHeader.indexOf('__') !== -1 ? cellRowHeader.split('__')[1] : ( //'18:02__VARLABEL'
+            cellRowHeader.indexOf(':') !== -1 ? //'18:02'
+                // in this case we get from the user selected main var
+                find(p.vars.rawCombos, 'id', p.user.variableComboID).label :
+                cellRowHeader //'VARLABEL'
+        )
+    );
+    // console.log('cellRowHeader', cellRowHeader, cellVarLabel);
+    const isPercent = (enumValue) => {
+        let labels = cellVarLabel.split('-');
+        let label = enumValue === 'first' ? labels[0] : (labels[1] || '-');
+        return (varTypes[label] === 'percent');
+    };
     const getValue = (v, enumValue) => {
         return !isNaN(parseFloat(v)) ?
             (parseFloat(v) / (isPercent(enumValue) ? 100 : 1)) : v
