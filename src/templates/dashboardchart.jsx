@@ -7,7 +7,7 @@ import tableStyles from '../styles/tablestyles';
 const lineChartLength = 30; //last 30 minutes
 
 function parseData(valueString){
-    let values = valueString.split('|');
+    let values = valueString ? valueString.split('|') : ['', ''];
     let parsedValues = values.map( value => parseFloat(values[0]));
     let secondary = values[1] || null;
     return([

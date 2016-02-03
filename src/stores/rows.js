@@ -39,6 +39,7 @@ class RowsStore extends Store {
         this.sessionStore = sessionStore;
         this.userStore = userStore;
         this.variablesStore = variablesStore;
+        this.columnsStore = columnsStore;
         this.sessionActions = sessionActions;
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.preferencesPublished, this.userChanged);
@@ -49,6 +50,8 @@ class RowsStore extends Store {
         this.register(columnsActions.columnsPublished, this.columnsChanged);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
         this.register(columnsActions.columnHeaderSelected, this.columnClicked);
+        this.register(columnsActions.columnMoved, this.columnMoved);
+        this.register(columnsActions.updateColumnSelectedState, this.columnSelectionChange);
         this.register(rowsActions.rowsFetchCompleted, this.updateMenuLabel);
         this.register(rowsActions.rowsTypeSwitchClicked, this.updateRowsType);
         this.register(rowsActions.fetchAgainRequested, this.tryAgain);
@@ -648,6 +651,41 @@ class RowsStore extends Store {
         if (this.state.type !== 'detailed') {
             this.updateRowsType('detailed');
         }
+    }
+
+    columnSelectionChange(obj){
+        // console.log('columnSelectionChange', obj);
+        if (!obj.checked){
+            //column removed
+            let columnIndex = obj.columnIndex;
+            let newRows = this.state.data.map((row) =>{
+                let newRow = row.slice();
+                newRow.splice(columnIndex, 1);
+                return newRow;
+            });
+            // console.log('--- --- columnSelectionChange', this.state.data[0], newRows[0]);
+            this.setState({
+                lastLoad: new Date().getTime(),
+                data: newRows
+            });
+        }
+    }
+
+    columnMoved(indexes){
+        if (indexes.oldIndex === indexes.newIndex){
+            return null;
+        }
+        let newRows = this.state.data.map((row) =>{
+            let newRow = row.slice();
+            let item = row[indexes.oldIndex];
+            newRow.splice(indexes.oldIndex, 1);
+            newRow.splice(indexes.newIndex, 0, item);
+            return newRow;
+        });
+        this.setState({
+            lastLoad: new Date().getTime(),
+            data: newRows
+        });
     }
 
     printTable(){

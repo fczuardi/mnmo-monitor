@@ -1,8 +1,9 @@
 import {Actions} from 'flummox';
 
 class ColumnActions extends Actions {
-    updateColumnSelectedState(columnID, checked) {
+    updateColumnSelectedState(columnID, checked, columnIndex) {
         return {
+            columnIndex: parseInt(columnIndex),
             columnID: columnID,
             checked: checked
         };

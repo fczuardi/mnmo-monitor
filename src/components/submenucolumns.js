@@ -7,8 +7,13 @@ class ColumnsSubmenu {
         const actions = {
             closeDrawer: () =>
                 this.props.flux.getActions('user').closeSubmenu(),
-            columnChange: (event) =>
-                this.props.flux.getActions('columns').updateColumnSelectedState(event.target.value, event.target.checked),
+            columnChange: (event) => {
+                return this.props.flux.getActions('columns').updateColumnSelectedState(
+                    event.target.value,
+                    event.target.checked,
+                    event.nativeEvent.target.getAttribute('data-index')
+                );
+            },
             columnMove: (draggableIndex, dropzoneIndex) =>
                 this.props.flux.getActions('columns').columnMoved(draggableIndex, dropzoneIndex),
             onImageError: (event) => {

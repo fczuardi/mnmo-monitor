@@ -22,6 +22,7 @@ export default (p, a) =>
                 isItem={true}
                 checked={true}
                 onChange={a.columnChange}
+                data-index={key}
             >
             {
             (column.icons && !column.iconError) ?
