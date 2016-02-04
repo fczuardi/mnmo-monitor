@@ -6,6 +6,7 @@ export default (p) => {
     let bottom = (
         p.ui.isLoading ||
         p.ui.isFakeLoading ||
+        p.rows.nonBlockingErrorMessage ||
         (p.ui.secondTableVisible && p.rows.secondary.loading)
     ) ? 0 : -100;
     return (
@@ -42,7 +43,10 @@ export default (p) => {
         i
     </div>
     <span>
-        {p.language.messages.network.loadingData}
+        {
+            p.rows.nonBlockingErrorMessage ||
+            p.language.messages.network.loadingData
+        }
     </span>
 </div>
     );

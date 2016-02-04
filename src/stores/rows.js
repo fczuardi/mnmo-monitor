@@ -67,6 +67,7 @@ class RowsStore extends Store {
             date: '',
             loading: true,
             lastEndTime: '',
+            nonBlockingErrorMessage: null,
             //second table (comparative)
             secondary: {
                 autoUpdate: false,
@@ -378,18 +379,29 @@ class RowsStore extends Store {
             store.rowsActions.rowsFetchCompleted(result);
             if (result.error !== null) {
                 let isWarning = result.errorCode === 1001;
-                console.log('errorCode', result.errorCode, isWarning);
-                store.userActions.errorArrived(result.error,
-                    store.rowsActions.fetchAgainRequested, isWarning);
-                if (result.errorCode !== 101){
-                    //error 101 returns the rows, so autoupdate don't need to be
-                    //interrupted.
-                    store.stopAutoUpdate();
-                }else {
+                let shouldAlert = result.errorCode !== 98;
+
+                // console.log('errorCode', result.errorCode, isWarning);
+
+                if (shouldAlert){
+                    store.userActions.errorArrived(result.error,
+                        store.rowsActions.fetchAgainRequested, isWarning);
+                }
+
+                //errors 101 and 98 returns the rows, so autoupdate don't need
+                //to be interrupted.
+                if (result.errorCode === 101){
                     //error 101 changes the startTime on the server
                     //but the app needs to change it on the UI
                     //p.user.archivedReport.start
                     store.rowsActions.returnChangedStartTime();
+                }else if (result.errorCode === 98){
+                    // error 98 should not warn the user nor interrupt autoUpdate
+                    // just do nothing.
+                    // na verdade mostrar a mensagem, no balaozinho debaixo, do carregando
+                    console.log('error 98:', result, result.error);
+                }else{
+                    store.stopAutoUpdate();
                 }
             } else {
                 if (store.userStore.state.autoUpdate) {
@@ -613,7 +625,8 @@ class RowsStore extends Store {
     }
 
     updateMenuLabel(data) {
-        // console.log('updateMenuLabel', data);
+        // console.log('updateMenuLabel', data.errorCode, data.error);
+        let nonBlockingErrorMessage = data.errorCode === 98 ? data.error : null;
         if (data.rows === undefined || data.rows.data === null ||
             data.rows.data.length === 0 ||
             (data.rows.data.length === 1 && data.rows.data[0].length === 1 && data.rows.data[0][0] === null)
@@ -621,7 +634,8 @@ class RowsStore extends Store {
             console.log('no data');
             this.setState({
                 lastLoad: new Date().getTime(),
-                loading: false
+                loading: false,
+                nonBlockingErrorMessage: nonBlockingErrorMessage
             });
             return null;
         }
@@ -638,7 +652,8 @@ class RowsStore extends Store {
             columns: columns,
             date: data.date,
             lastLoad: new Date().getTime(),
-            loading: false
+            loading: false,
+            nonBlockingErrorMessage: nonBlockingErrorMessage
         });
     }
 
