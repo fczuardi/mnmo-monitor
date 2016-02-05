@@ -369,10 +369,24 @@ class RowsStore extends Store {
         .then(function(payload){
             console.log('OK', URLs.rows[type], resetRows);
             console.log('result', payload);
-            // console.log('result', JSON.stringify(payload));
             let result = parseRows(payload, store.state.type);
             console.log('parsed result', result);
-            console.log(result.rows.data.length +' rows');
+            //edge case, column got removed from the backend between fetches
+            let enabledColumns = store.columnsStore.state.enabled;
+            if (
+                Array.isArray(enabledColumns) &&
+                Array.isArray(result.rows.data) &&
+                enabledColumns.length > 1 &&
+                result.rows.data.length > 1 &&
+                result.rows.data[0].length !== enabledColumns.length
+            ){
+                console.log('number of columns', result.rows.data[0].length, 'vs', enabledColumns.length);
+                console.log('--- COLUMN REMOVED FROM SERVER ---');
+                let languageStore = store.flux.getStore('language');
+                let columnsActions = store.flux.getActions('columns');
+                columnsActions.outOfSync();
+            }
+            // console.log(result.rows.data.length +' rows');
             if (resetRows){
                 store.resetRows();
             }

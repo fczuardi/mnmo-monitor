@@ -20,7 +20,8 @@ class ColumnsStore extends Store {
         const userActions = flux.getActions('user');
         const sessionActions = flux.getActions('session');
         const columnsActions = flux.getActions('columns');
-        // this.register(sessionActions.tokenGranted, this.fetchColumns);
+        this.register(userActions.menuVisibilityToggle, this.changeMenuState);
+        this.register(columnsActions.outOfSync, this.fetchColumns);
         this.register(columnsActions.updateColumnSelectedState, this.updateSelection);
         this.register(columnsActions.columnsFetched, this.columnsFetched);
         this.register(columnsActions.columnMoved, this.columnMoved);
@@ -40,6 +41,8 @@ class ColumnsStore extends Store {
         this.columnsActions = columnsActions;
         this.userStore = userStore;
         this.userActions = userActions;
+        this.flux = flux;
+        this.shouldPostChange = false;
         //columns state changed
         this.addListener('change', function(){
             this.savePreferences();
@@ -47,8 +50,10 @@ class ColumnsStore extends Store {
         this.previousSelectedGroup = userStore.state.groupID;
     }
     savePreferences() {
-        //post logged-user columns changes to the server
-        this.publishChanges();
+        //publich logged-user columns changes to the server
+        if (this.shouldPostChange){
+            this.publishChanges();
+        }
     }
 
     userPreferencesFetched(pref) {
@@ -62,9 +67,18 @@ class ColumnsStore extends Store {
             this.previousSelectedGroup = newState.groupID;
         }
     }
+
+    changeMenuState(){
+        if (this.flux.getStore('ui').state.menuClosed){
+            //refresh columns list every time the user opens the menu
+            this.fetchColumns();
+        }
+    }
+
     fetchColumns(token) {
         console.log('fetchColumns');
         let store = this;
+        token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
         console.log('GET', URLs.columns.list);
         fetch(URLs.baseUrl + URLs.columns.list, {
@@ -91,6 +105,7 @@ class ColumnsStore extends Store {
         });
     }
     columnsFetched(columns) {
+        this.shouldPostChange = false;
         this.setState(columns);
     }
     publishChanges() {
@@ -129,6 +144,7 @@ class ColumnsStore extends Store {
             partitionedGroup = partition(
                 groupToExclude, 'id', parseInt(obj.columnID)
             );
+        this.shouldPostChange = true;
         if (obj.checked === true){
             this.setState({
                 enabled: groupToInclude.concat(partitionedGroup[0]),
@@ -150,6 +166,7 @@ class ColumnsStore extends Store {
             item = newEnabled[indexes.oldIndex];
         newEnabled.splice(indexes.oldIndex, 1);
         newEnabled.splice(indexes.newIndex, 0, item);
+        this.shouldPostChange = true;
         this.setState({
             enabled: newEnabled
         });
@@ -168,6 +185,7 @@ class ColumnsStore extends Store {
             }
             return column;
         });
+        this.shouldPostChange = false;
         this.setState({
             enabled: enabledColumns,
             disabled: disabledColumns
@@ -175,6 +193,7 @@ class ColumnsStore extends Store {
     }
 
     columnSelected(index) {
+        this.shouldPostChange = false;
         this.setState({
             selected: index
         });

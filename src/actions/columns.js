@@ -26,6 +26,9 @@ class ColumnActions extends Actions {
     columnIconFailed(columnID){
         return parseInt(columnID);
     }
+    outOfSync(){
+        return null;
+    }
 }
 
 export default ColumnActions;
