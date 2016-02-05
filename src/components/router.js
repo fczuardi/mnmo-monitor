@@ -7,7 +7,8 @@ import queryString from 'query-string';
 
 class Router {
     render() {
-        let routerPath = queryString.parse(location.search).path || null;
+        let routerPath = (this.props.passwordForm.forgotPasswordToken !== null) ?
+            queryString.parse(location.search).path || null : null;
         const screen = (routerPath === 'forgotPassword') ? ChangePasswordScreen :
                 (this.props.ui.screen === 'forgotPassword') ? ForgotPasswordScreen :
                 (this.props.ui.screen === 'password') ? ChangePasswordScreen :

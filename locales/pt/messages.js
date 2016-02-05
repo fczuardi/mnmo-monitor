@@ -78,6 +78,7 @@ export default {
         error: 'Erro',
         ok: 'OK',
         tryAgain: 'Tentar Novamente',
+        invalidPasswordLink: 'Link para troca de senha inválido',
         warning: 'Aviso'
     },
     rows: {

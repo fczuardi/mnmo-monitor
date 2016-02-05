@@ -78,6 +78,7 @@ export default {
         error: 'Error',
         ok: 'OK',
         tryAgain: 'Inténtalo de nuevo',
+        invalidPasswordLink: 'Enlace para intercambiar contraseña no válida.',
         warning: 'Advertencia'
     },
     rows: {

@@ -1,8 +1,10 @@
 import {Store} from 'flummox';
 import URLs from '../../config/endpoints.js';
 import queryString from 'query-string';
+import keys from 'lodash/object/keys';
 import {
     chooseTextOrJSON,
+    statusRouter,
     parseForgotPasswordToken
 } from '../../config/apiHelpers';
 
@@ -14,6 +16,10 @@ const submitLabelKeys = {
 class PasswordValidationStore extends Store {
     constructor(flux) {
         super();
+
+        const sessionActions = flux.getActions('session');
+        this.sessionActions = sessionActions;
+        this.flux = flux;
 
         //if the user clicked on a forgot password email link
         //the app will be opened with a token passed as parameter
@@ -31,19 +37,28 @@ class PasswordValidationStore extends Store {
             this.checkForgotPasswordToken(forgotPasswordToken);
         }
     }
-    
+
     checkForgotPasswordToken(token) {
         let store = this;
         let params = {};
+        let qsParams = queryString.parse(window.location.search);
+        let qsParamsLower = {};
+        keys(qsParams).forEach( (key) => {
+            qsParamsLower[key.toLowerCase()] = qsParams[key];
+        });
         params[URLs.user.tokenParam] = token;
+        params[URLs.user.countryParam] = qsParamsLower[URLs.user.countryParam.toLowerCase()];
+        params[URLs.user.language] = qsParams[URLs.user.language];
         let url = URLs.baseUrl + URLs.user.forgotPassword + '?' +
                     queryString.stringify(params);
         console.log('GET', url);
         fetch(url, {method: 'GET'})
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK (get)', URLs.user.forgotPassword, payload);
-            let result = parseForgotPasswordToken(payload);
+            let languageStore = store.flux.getStore('language');
+            let result = parseForgotPasswordToken(payload, languageStore.state.messages);
             console.log('parsed result forgot token', result);
             if (result.success){
                 store.setState({
@@ -52,15 +67,12 @@ class PasswordValidationStore extends Store {
                     forgotPasswordToken: store.state.forgotPasswordToken
                 });
             } else {
-                //reset browser's location.search 
-                //to clear any forgot password parameters if they are present
-                if (window.location.search.length > 0) {
-                    window.location.search = '';
-                }
+                //clear invalid password token
                 store.setState({
                     forgotPasswordToken: null
                 });
                 store.userActions.navigateToScreen(null);
+                store.userActions.errorArrived(result.error);
             }
         })
         .catch(function(e){

@@ -1,6 +1,7 @@
 import {Store} from 'flummox';
 import merge from 'lodash/object/merge';
 import find from 'lodash/collection/find';
+import keys from 'lodash/object/keys';
 import {
     getObject as getLocalItem,
     setObject as setLocalItem,
@@ -19,11 +20,19 @@ import {
     forgotPasswordPostResponseOK,
     authHeaders,
     statusRouter,
-    chooseTextOrJSON
+    chooseTextOrJSON,
+    languageNames
 } from '../../config/apiHelpers';
 import queryString from 'query-string';
 
-const defaultLanguageID = 1;
+const qsParams = queryString.parse(window.location.search);
+const qsParamsLower = {};
+keys(qsParams).forEach( (key) => {
+    qsParamsLower[key.toLowerCase()] = qsParams[key];
+});
+const qsLanguage = qsParams[URLs.user.languageParam];
+const languageNameIndex = languageNames.indexOf(qsLanguage);
+const defaultLanguageID = languageNameIndex !== -1 ? languageNameIndex : 1;
 
 class UserStore extends Store {
     constructor(flux) {
@@ -153,7 +162,12 @@ class UserStore extends Store {
         });
     }
     loadSavedPreferences() {
-        let preferences = merge({}, this.state, getLocalItem('userPreference'));
+        let savedPreferences = getLocalItem('userPreference');
+        //override language if it's present on the query string
+        if (qsLanguage && qsLanguage.length > 1){
+            savedPreferences.languageID = defaultLanguageID;
+        }
+        let preferences = merge({}, this.state, savedPreferences);
         if (preferences === null) { return false; }
         this.userActions.localPreferencesFetched(preferences);
     }
@@ -234,7 +248,7 @@ class UserStore extends Store {
         // console.log('publishPasswordChange');
         let store = this;
         let token = store.sessionStore.state.token;
-        let passwordToken = queryString.parse(window.location.search).token || null;
+        let passwordToken = qsParams.token || null;
         if (token === null && passwordToken === null){
             // return false;
         }
@@ -244,11 +258,14 @@ class UserStore extends Store {
                     URLs.baseUrl + URLs.user.forgotPassword :
                     hasExpiredPassword ? URLs.baseUrl + URLs.user.expiredPassword :
                     URLs.baseUrl + URLs.user.password;
+        let postBodyWithPasswordToken = {};
+        postBodyWithPasswordToken[URLs.user.passwordTokenParam] = passwordToken;
+        postBodyWithPasswordToken[URLs.user.countryParam] = qsParamsLower[URLs.user.countryParam.toLowerCase()];
+        postBodyWithPasswordToken[URLs.user.languageParam] = qsParams[URLs.user.languageParam];
+
         let postBody = hasForgotPasswordToken ?
-                        buildUserForgotPasswordPostBody(merge(store.state, {
-                            passwordToken:passwordToken,
-                            countryID: queryString.parse(window.location.search.toUpperCase())[URLs.user.countryParam.toUpperCase()]
-                        })) : hasExpiredPassword ?
+                        buildUserForgotPasswordPostBody(merge(store.state, postBodyWithPasswordToken)) :
+                        hasExpiredPassword ?
                         buildUserExpiredPasswordPostBody(store.state) :
                         buildUserPasswordPostBody(store.state);
         let postHeaders = hasForgotPasswordToken || hasExpiredPassword ?
@@ -278,7 +295,6 @@ class UserStore extends Store {
                 //to clear any forgot password parameters if they are present
                 if (window.location.search.length > 0) {
                     window.location.search = '';
-                    store.userActions.navigateToScreen(null);
                 }else{
                     store.userActions.changePasswordPublished(store.state.newPassword);
                 }
@@ -296,10 +312,16 @@ class UserStore extends Store {
         //     URLs.user.countryParam, store.state.countryID,
         //     URLs.user.emailParam, store.state.email
         // );
-        let url = URLs.baseUrl + URLs.user.forgotPassword + '?' +
-                URLs.user.countryParam + '=' + store.state.countryID + '&' +
-                URLs.user.emailParam + '=' + store.state.email;
+
+        let postBody = {};
+        postBody[URLs.user.countryParam] = store.state.countryID;
+        postBody[URLs.user.emailParam] = store.state.email;
+        postBody[URLs.user.language] = languageNames[store.state.languageID || 0];
+
+        let url = URLs.baseUrl + URLs.user.forgotPassword;
+        url += '?' + queryString.stringify(postBody);
         fetch(url, {method: 'GET'})
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
             console.log('OK (get)', URLs.user.forgotPassword, payload);

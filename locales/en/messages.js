@@ -78,6 +78,7 @@ export default {
         error: 'Error',
         ok: 'OK',
         tryAgain: 'Try Again',
+        invalidPasswordLink: 'Password change link is invalid',
         warning: 'Warning'
     },
     rows: {
