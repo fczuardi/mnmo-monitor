@@ -563,6 +563,18 @@ class UserStore extends Store {
             variableComboID: newVars.comboID,
         });
     }
+    updateStartTimeIfList(archivedReport){
+        let result = merge({}, archivedReport);
+        let rowsType = this.flux.getStore('rows').state.type;
+        // console.log('=== updateStartTimeIfList ===', rowsType);
+        if (rowsType === 'list'){
+            //always set startTime to first minute when posting user endTime
+            //changes with the table type set to list
+            console.log('user is changing end time on a minutes table, reset start time');
+            result = this.overrideStartTime(result)
+        }
+        return result;
+    }
     changeTime(hourOrMinute, value, startOrEnd) {
         let archivedReport = merge({}, this.state.archivedReport);
         let newValue = archivedReport[startOrEnd].split(':');
@@ -570,16 +582,21 @@ class UserStore extends Store {
         newValue[(hourOrMinute === 'hour') ? 0 : 1] = value;
         archivedReport[startOrEnd] = newValue.join(':');
         // console.log('set user state: changeTime');
+        archivedReport = this.updateStartTimeIfList(archivedReport);
         this.setState({
             archivedReport: archivedReport
         });
     }
-    updateStartTime() {
-        // console.log('updateStartTime');
+    overrideStartTime(archivedReport){
         let calendarStore = this.flux.getStore('calendar');
         let startTime = calendarStore.state.firstMinute;
-        let archivedReport = merge({}, this.state.archivedReport);
-        archivedReport.start = startTime;
+        let result = merge({}, archivedReport);
+        result.start = startTime;
+        return result;
+    }
+    updateStartTime() {
+        // console.log('updateStartTime');
+        let archivedReport = this.overrideStartTime(this.state.archivedReport);
         // console.log('updateStartTime', archivedReport);
         this.setState({
             archivedReport: archivedReport
