@@ -90,7 +90,8 @@ export default (p) => {
 
             if (
                 !isPercent &&
-                dataHistory !== undefined
+                dataHistory !== undefined &&
+                maxValue > 0
                 // !(p.rows.type === 'merged' && p.user.autoUpdate === true)
             ) {
                 let linePath = '';
