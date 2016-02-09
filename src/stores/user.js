@@ -385,8 +385,9 @@ class UserStore extends Store {
             // userPreferencesPostResponseOK(payload);
             store.userActions.preferencesPublished(newState);
             if (result.error !== null) {
-                console.log('---ERROR---', result.errorCode, (result.errorCode >= 10051 && result.errorCode <= 10054));
-                if (result.errorCode >= 10051 && result.errorCode <= 10054){
+                let openedPanel = store.flux.getStore('ui').state.panel;
+                console.log('---ERROR---', openedPanel , result.errorCode, (result.errorCode >= 10051 && result.errorCode <= 10054));
+                if (result.errorCode >= 10051 && result.errorCode <= 10054 && openedPanel !== 'rows'){
                     let calendarStore = store.flux.getStore('calendar');
                     let startTime = calendarStore.state.firstMinute;
                     console.log('Invalid time interval errors, must do something', result.data.archivedReport.start);
