@@ -45,7 +45,7 @@ export default (p, a) => {
         </List>
     );
 
-    let varsPicker = (p.rows.secondary.autoUpdate === true) ? null : (
+    let varsPicker = (
         <MultiPicker
             title={p.language.messages.vars.title}
             cells={[

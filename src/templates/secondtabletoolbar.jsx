@@ -101,7 +101,7 @@ export default (p, a) => {
                 onChange={a.onVarChange}
                 onBlur={a.onVarChange}
                 value={p.user.newSecondaryRow.variableComboID}
-                disabled={autoUpdate || loading || addButtonDisabled}
+                disabled={loading || addButtonDisabled}
                 style={varsComboStyle}
             >
                 { p.vars.rawCombos.map( (item, key) => (

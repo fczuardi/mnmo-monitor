@@ -155,7 +155,13 @@ class RowsStore extends Store {
     }
 
     fetchSecondaryRows(dayParam) {
-        // console.log('===fetchSecondaryRows===', JSON.stringify(this.userStore.state.newSecondaryRow))
+        // console.log('fetchSecondaryRows', dayParam);
+        dayParam = dayParam || '';
+        let varParam = (
+            this.userStore.state.newSecondaryRow.variableComboID &&
+            this.state.secondary.autoUpdate
+        ) ? this.userStore.state.newSecondaryRow.variableComboID : '';
+        // console.log('===fetchSecondaryRows===', dayParam, '-', varParam, JSON.stringify(this.userStore.state.newSecondaryRow));
         let store = this;
         let token = store.sessionStore.state.token;
         dayParam = dayParam || '';
@@ -167,6 +173,7 @@ class RowsStore extends Store {
         });
         let url = URLs.baseUrl + URLs.rows.secondTable + '?';
         url += URLs.rows.secondTableDayParam + '=' + dayParam;
+        url += '&' + URLs.rows.secondTableVariableParam + '=' + varParam;
         fetch(url, {
             method: 'GET',
             headers: authHeaders(token)
@@ -253,8 +260,8 @@ class RowsStore extends Store {
                     store.fetchSecondaryRows();
                 }else{
                     store.fetchSecondaryRows(
-                        store.userStore.state.newSecondaryRow.day + ' ' +
-                        store.userStore.state.newSecondaryRow.startTime
+                        store.userStore.state.newSecondaryRow.day +
+                        ' ' + store.userStore.state.newSecondaryRow.startTime
                     );
                 }
             }
@@ -322,8 +329,8 @@ class RowsStore extends Store {
                     } else {
                         //example: '2015-10-09 06:00'
                         this.fetchSecondaryRows(
-                            this.userStore.state.newSecondaryRow.day + ' ' +
-                            this.userStore.state.newSecondaryRow.startTime
+                            this.userStore.state.newSecondaryRow.day +
+                            ' ' + this.userStore.state.newSecondaryRow.startTime
                         );
                     }
                 }else{
