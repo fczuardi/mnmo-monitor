@@ -249,7 +249,14 @@ class RowsStore extends Store {
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
             } else if (result.success){
-                store.fetchSecondaryRows();
+                if (!store.state.secondary.autoUpdate){
+                    store.fetchSecondaryRows();
+                }else{
+                    store.fetchSecondaryRows(
+                        store.userStore.state.newSecondaryRow.day + ' ' +
+                        store.userStore.state.newSecondaryRow.startTime
+                    );
+                }
             }
         })
         .catch(function(e){
