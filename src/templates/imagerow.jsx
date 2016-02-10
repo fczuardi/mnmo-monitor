@@ -87,7 +87,8 @@ export default (p,a) => {
             overflow: 'hidden',
             margin: p.ui.isMobile ? 0 : 'auto'
         };
-        if (column === null){
+        if ((column === null) ||
+            (column.thumbnails === false) ){
             return(
                 <div
                     key={key}
