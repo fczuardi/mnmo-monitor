@@ -61,6 +61,9 @@ export default (p, a) =>
             </LI>
             )}
         </List>
+        <div style={{
+            height: 50
+        }}></div>
         </div>
     </Drawer>
 </Dialog>;
