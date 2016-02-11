@@ -21,7 +21,7 @@ class UIStore extends Store {
         this.userStore = flux.getStore('user');
         this.register(sessionActions.tokenGranted, this.showSplash);
         this.register(userActions.preferencesFetched, this.hideSplash);
-        this.register(rowsActions.rowsFetchCompleted, this.hideSplash);
+        this.register(rowsActions.rowsFetchCompleted, this.rowsFetchCompleted);
         this.register(rowsActions.rowsTypeSwitchClicked, this.rowTypeSwitched);
         this.register(rowsActions.rowPanelHeightCalculated, this.setRowPanelHeight);
         this.register(userActions.menuVisibilityToggle, this.changeMenuState);
@@ -101,6 +101,7 @@ class UIStore extends Store {
         this.sliderTableScroll = this.sliderTableScroll.bind(this);
         this.rowsStore.addListener('change', this.rowStateChanged);
         this.previousLoadingState = this.rowsStore.state.loading;
+        this.previousNewestMinute = '';
     }
 
     setRowPanelHeight(h){
@@ -128,6 +129,24 @@ class UIStore extends Store {
         });
     }
 
+    rowsFetchCompleted(){
+        // console.log('rowsFetchCompleted', this.state.newestMinute, this.previousNewestMinute, this.state.newestMinute > this.previousNewestMinute);
+        let rowHeight = (this.state.screenHeight < 640) ?
+                                        smallerRowHeight : smallColumnWidth;
+        if (
+            (this.state.newestMinute > this.previousNewestMinute) && //first row changed
+            (this.coordY > rowHeight * 0.6) // and user have scrolled past half of first row
+        ){
+            // then auto scroll one row down so the user don't lose the place of
+            // the row she was interested in at the current scroll position
+            // see bug #128
+            this.coordY += rowHeight;
+            this.scrollUpdate();
+            this.scrollMainTable();
+        }
+        this.previousNewestMinute = this.state.newestMinute;
+        this.hideSplash();
+    }
     unhandledJavascriptError(e){
         console.log('unhandledJavascriptError',
             e.message,
