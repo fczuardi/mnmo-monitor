@@ -14,11 +14,18 @@ import Submit from 'mnmo-components/lib/themes/mnmo/submit';
 export default (p, a) => {
     let firstAttempt = (p.session.error === null) && (p.ui.error === null);
     let errorMessage = p.session.error || p.ui.error;
+    let submitText = p.language.messages.login.submit[p.loginForm.submitLabelKey];
+    let submitTextSize = submitText.length > 40 ? 13 :
+                            submitText.length > 30 ? 15 :'inherit';
     let submitButton = (
+        <div style={{
+            fontSize: submitTextSize
+        }}>
         <Submit
             value={p.language.messages.login.submit[p.loginForm.submitLabelKey]}
             disabled={(! p.loginForm.canSubmit)}
         />
+        </div>
     );
     let tryAgain = (
         <div
