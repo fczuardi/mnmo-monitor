@@ -10,6 +10,9 @@ class SessionActions extends Actions {
     tokenGranted(token) {
         return token;
     }
+    refreshDataLoaded(refreshData) {
+        return refreshData;
+    }
 }
 
 export default SessionActions;

@@ -41,6 +41,7 @@ class RowsStore extends Store {
         this.variablesStore = variablesStore;
         this.columnsStore = columnsStore;
         this.sessionActions = sessionActions;
+        this.register(sessionActions.refreshDataLoaded, this.overrideDefaults);
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.preferencesPublished, this.userChanged);
         this.register(userActions.tableScrollEnded, this.getNextPage);
@@ -83,6 +84,24 @@ class RowsStore extends Store {
         this.previousColumnsState = columnsStore.state;
         this.autoUpdateInterval = undefined;
         this.secondaryAutoUpdateInterval = undefined;
+    }
+    overrideDefaults(refreshData){
+        // console.log('overrideDefaults rows', refreshData);
+        if (!refreshData){
+            return null
+        }
+        let secondaryDefault = {
+            autoUpdate: false,
+            loading: true,
+            lastLoad: 0,
+            headers: [],
+            columns: [],
+            data: []
+        }
+        this.setState({
+            type: refreshData.rows.type || 'list',
+            secondary: refreshData.rows.secondary || secondaryDefault,
+        });
     }
     tryAgain(){
         this.userPreferencesFetched(this.userStore.state);
@@ -155,7 +174,10 @@ class RowsStore extends Store {
     }
 
     fetchSecondaryRows(dayParam) {
-        // console.log('fetchSecondaryRows', dayParam);
+        // console.log('fetchSecondaryRows', dayParam,
+        //     this.userStore.state.newSecondaryRow.variableComboID,
+        //     this.state.secondary.autoUpdate
+        // );
         dayParam = dayParam || '';
         let varParam = (
             this.userStore.state.newSecondaryRow.variableComboID &&
@@ -174,6 +196,7 @@ class RowsStore extends Store {
         let url = URLs.baseUrl + URLs.rows.secondTable + '?';
         url += URLs.rows.secondTableDayParam + '=' + dayParam;
         url += '&' + URLs.rows.secondTableVariableParam + '=' + varParam;
+        console.log('GET ', url);
         fetch(url, {
             method: 'GET',
             headers: authHeaders(token)

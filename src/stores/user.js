@@ -75,6 +75,7 @@ class UserStore extends Store {
         this.register(countryActions.select, this.changeCountryPref);
         this.register(loginValidationActions.captchaAnswered, this.changeCaptchaAnswer);
         this.register(sessionActions.signOut, this.resetCaptchaAnswer);
+        this.register(sessionActions.refreshDataLoaded, this.overrideDefaults);
         this.register(sessionActions.tokenGranted, this.fetchPreferences);
         this.register(groupsActions.changeGroupSelection, this.changeGroupPref);
         this.register(groupsActions.changeSubGroupSelection, this.changeSubGroupPref);
@@ -143,6 +144,19 @@ class UserStore extends Store {
         //after all initial setup, load local preferences
         window.setTimeout(this.loadSavedPreferences.bind(this), 0);
     }
+
+    overrideDefaults(refreshData){
+        // console.log('overrideDefaults user', refreshData);
+        if (!refreshData){
+            return null
+        }
+        this.setState({
+            newSecondaryRow: refreshData.user.newSecondaryRow === undefined ?
+                                true : refreshData.user.newSecondaryRow
+        });
+    }
+
+
     // stateChange(){
     //     console.log('==--==CHANGE', this.state);
     // }

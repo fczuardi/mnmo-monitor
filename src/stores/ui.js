@@ -19,6 +19,7 @@ class UIStore extends Store {
         this.rowsStore = flux.getStore('rows');
         this.variablesStore = flux.getStore('vars');
         this.userStore = flux.getStore('user');
+        this.register(sessionActions.refreshDataLoaded, this.overrideDefaults);
         this.register(sessionActions.tokenGranted, this.showSplash);
         this.register(userActions.preferencesFetched, this.hideSplash);
         this.register(rowsActions.rowsFetchCompleted, this.rowsFetchCompleted);
@@ -104,6 +105,19 @@ class UIStore extends Store {
         this.previousNewestMinute = '';
     }
 
+    overrideDefaults(refreshData){
+        // console.log('overrideDefaults ui', refreshData);
+        if (!refreshData){
+            return null
+        }
+        this.setState({
+            chartVisible: refreshData.ui.chartVisible === undefined ? true :
+                                                    refreshData.ui.chartVisible,
+            secondTableVisible: refreshData.ui.secondTableVisible === undefined ?
+                                        false : refreshData.ui.secondTableVisible
+        });
+        // console.log('overrideDefaults ui new state:', this.state);
+    }
     setRowPanelHeight(h){
         this.setState({
             rowPanelHeight: h

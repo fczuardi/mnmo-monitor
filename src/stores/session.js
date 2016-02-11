@@ -45,11 +45,16 @@ class SessionStore extends Store {
             return null;
         }
         let token = getLocalItem('sessionToken');
+        let refreshData = getLocalItem('refreshData');
         this.setState({
             token: token
         });
         // console.log('call tokenGranted action', token);
+        this.flux.getActions('session').refreshDataLoaded(refreshData);
         this.flux.getActions('session').tokenGranted(token);
+        if (refreshData.ui.secondTableVisible){
+            this.userActions.secondTableEnabled();
+        }
     }
     // save a timestamp locally if the app unloads
     // in order to be able to compare it with the next time the app loads
@@ -57,8 +62,26 @@ class SessionStore extends Store {
     // which means unload and load again before 3 seconds
     saveTimestamp(){
         let timestamp = new Date().getTime();
-        // console.log('saveTimestamp', timestamp);
+        //save extra information to help rebuild user's screen
+        let uiState = this.flux.getStore('ui').state;
+        let rowsState = this.flux.getStore('rows').state;
+        let userState = this.flux.getStore('user').state;
+        let refreshData = {
+            user: {
+                newSecondaryRow: userState.newSecondaryRow
+            },
+            ui: {
+                chartVisible: uiState.chartVisible,
+                secondTableVisible: uiState.secondTableVisible
+            },
+            rows: {
+                type: rowsState.type,
+                secondary: rowsState.secondary
+            }
+        };
         setLocalItem('unloadTimestamp', timestamp);
+        setLocalItem('refreshData', refreshData);
+        // console.log('saveTimestamp', timestamp, JSON.stringify(refreshData));
     }
     signIn() {
         let store = this,

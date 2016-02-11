@@ -139,14 +139,14 @@ export default (p,a) => {
                 onLoad={loadedImage}
                 onError={failedImage}
                 style={style}
-                src={(
+                src={p.groups.selected && p.groups.selected.thumbnailsUrl ? (
                     p.groups.selected.thumbnailsUrl +
                     '?' +
                     URLs.images.groupParam + '=' + groupID + '&' +
                     URLs.images.columnParam + '=' + column.id + '&' +
                     URLs.images.dayParam + '=' + dayParam + '&' +
                     URLs.images.hourParam + '=' + p.ui.minute
-                )}
+                ) : null}
             />
             <div
                 style={{
