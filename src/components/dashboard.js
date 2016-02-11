@@ -42,7 +42,7 @@ class Dashboard {
         p.iconWidth = rowHeight - 2 * cellPadding;
         p.cellPadding = cellPadding;
 
-        p.chartHeight = !p.ui.chartVisible ? 7 : defaultChartHeight;
+        p.chartHeight = !p.ui.chartVisible || p.ui.hasShortHeight ? 7 : defaultChartHeight;
         p.tableTitleHeight = tableTitleHeight;
         p.appHeaderHeight = appHeaderHeight;
 
@@ -52,12 +52,12 @@ class Dashboard {
                             p.chartHeight;
 
         //when chart is not visible, table title height takes the chart space
-        if (!p.ui.chartVisible){
+        if (!p.ui.chartVisible || p.ui.hasShortHeight){
             p.tableHeight -= tableTitleHeight;
         }
         // when secondTable is visible subtract the second table height
         // from the main table
-        if (secondTableVisible){
+        if (secondTableVisible && !p.ui.hasShortHeight){
             // p.secondTableHeight = secondTableToolbarHeight;
             p.secondTableHeight = Math.max(1, p.rows.secondary.data.length) * p.secondTableRowHeight;
             p.secondTableHeight += p.rows.secondary.data.length * secondTableSeparatorHeight;
@@ -74,7 +74,7 @@ class Dashboard {
                 p.groups.selectedGroupSubgroups.length > 0
             ) ? subgroupPickerHeight : 0;
 
-            if(p.ui.isMobile && p.ui.chartVisible) {
+            if(p.ui.isMobile && p.ui.chartVisible && !p.ui.hasShortHeight) {
                 // table height must be the height of x rows
                 // where x is the number of indexes
                 p.tableHeight = p.rowHeight * varsCount +
@@ -87,7 +87,7 @@ class Dashboard {
                                     thumbnailsRowHeight -
                                     p.subgroupPickerHeight -
                                     p.tableHeight;
-            } else {
+            } else if (!p.ui.hasShortHeight){
                 p.tableHeight -= (thumbnailsRowHeight + sliderHeight);
             }
         }

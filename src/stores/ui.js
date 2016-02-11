@@ -6,6 +6,7 @@ const INFINITE_SCROLL_THRESHOLD = 0;
 const ROWS_PAGE_SIZE = 32;
 
 const mobileBreakpointWidth = 599;
+const landscapeBreakpointHeight = 480;
 const smallColumnWidth = 60;
 const smallerRowHeight = 40;
 
@@ -64,6 +65,7 @@ class UIStore extends Store {
             screenHeight: window.innerHeight,
             rowPanelHeight: 0,
             isMobile: (window.innerWidth <= mobileBreakpointWidth),
+            hasShortHeight: (window.innerHeight < landscapeBreakpointHeight),
             lastVisibleRow: ROWS_PAGE_SIZE,
             tableScrollTop: 0,
             tableScrollLeft: 0,
@@ -261,6 +263,7 @@ class UIStore extends Store {
         this.setState({
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
+            hasShortHeight: (window.innerHeight < landscapeBreakpointHeight),
             isMobile: (window.innerWidth <= mobileBreakpointWidth)
         });
     }

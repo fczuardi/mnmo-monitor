@@ -127,7 +127,7 @@ export default (p, a) => {
         position:'relative',
         top: -24
     };
-    let secondTableButton = p.rows.type !== 'detailed' ? (
+    let secondTableButton = p.rows.type !== 'detailed' && !p.ui.hasShortHeight ? (
         <button
             style={
                 p.ui.secondTableVisible ?
@@ -150,6 +150,42 @@ export default (p, a) => {
             </span>
         </button>
     ): null;
+    let chartButton = p.ui.hasShortHeight ? null : (
+        <button
+            style={
+                p.ui.chartVisible ?
+                    selectorActiveButtonStyles :
+                    selectorButtonStyles
+            }
+            onClick={a.chartOnClicked}
+        >
+            <i
+                className="icon-chart-bar"
+                style={selectorButtonIconStyle}
+            />
+            <span style={buttonTextStyle}>
+                {p.language.messages.chart.onButton}
+            </span>
+        </button>
+    );
+    let emptyChartButton = (
+        <button
+            style={
+                !p.ui.chartVisible && !p.ui.secondTableVisible ?
+                    selectorActiveButtonStyles :
+                    selectorButtonStyles
+            }
+            onClick={a.chartOffClicked}
+        >
+        <i
+            className="icon-empty"
+            style={selectorButtonIconStyle}
+        />
+        <span style={buttonTextStyle}>
+            {p.language.messages.chart.offButton}
+        </span>
+        </button>
+    );
     let topSelector = (
         <div
             style={merge(
@@ -159,39 +195,9 @@ export default (p, a) => {
                 p.ui.isMobile ? balloonStyles.top.mobile : balloonStyles.top.desktop
             )}
         >
-            <button
-                style={
-                    p.ui.chartVisible ?
-                        selectorActiveButtonStyles :
-                        selectorButtonStyles
-                }
-                onClick={a.chartOnClicked}
-            >
-                <i
-                    className="icon-chart-bar"
-                    style={selectorButtonIconStyle}
-                />
-                <span style={buttonTextStyle}>
-                    {p.language.messages.chart.onButton}
-                </span>
-            </button>
+            {chartButton}
             {secondTableButton}
-            <button
-                style={
-                    !p.ui.chartVisible && !p.ui.secondTableVisible ?
-                        selectorActiveButtonStyles :
-                        selectorButtonStyles
-                }
-                onClick={a.chartOffClicked}
-            >
-            <i
-                className="icon-empty"
-                style={selectorButtonIconStyle}
-            />
-            <span style={buttonTextStyle}>
-                {p.language.messages.chart.offButton}
-            </span>
-            </button>
+            {emptyChartButton}
         </div>
     );
     let bottomSelector = p.rows.type !== 'detailed' ? (

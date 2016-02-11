@@ -36,11 +36,12 @@ export default (p, a) => {
         </button>
     );
 
-    let thumbnails = p.rows.type === 'detailed' ? (
+    let thumbnails = p.rows.type === 'detailed' && !p.ui.hasShortHeight ? (
         <ImageRow {...p} />
     ) : null;
 
-    let slider = p.rows.type === 'detailed' && p.ui.chartVisible ? (
+    let slider = p.rows.type === 'detailed' && p.ui.chartVisible
+                                                && !p.ui.hasShortHeight ? (
         <Slider {...p} />
     ) : null;
 

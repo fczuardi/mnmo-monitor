@@ -83,10 +83,11 @@ export default (p, a) => {
             </span>
         </span>
     );
-    let isSecondTableVisible = (p.ui.secondTableVisible && p.rows.type !== 'detailed')
+    let isSecondTableVisible = (p.ui.secondTableVisible &&
+        p.rows.type !== 'detailed' && !p.ui.hasShortHeight);
     let tableTitle = (
         <div style={{
-            position: p.ui.chartVisible ? 'absolute' : 'inherit',
+            position: p.ui.chartVisible && !p.ui.hasShortHeight ? 'absolute' : 'inherit',
             top: p.appHeaderHeight - 2,
             width: '100%',
             height: p.tableTitleHeight,
@@ -99,7 +100,7 @@ export default (p, a) => {
             {tableTitleText}
         </div>
     );
-    let chartContent = (!p.ui.chartVisible) ? null :
+    let chartContent = (!p.ui.chartVisible || p.ui.hasShortHeight) ? null :
                         (p.rows.type !== 'detailed') ? (
         <DashboardChart {...p} />
     ) : (
