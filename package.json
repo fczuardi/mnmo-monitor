@@ -1,6 +1,6 @@
 {
   "name": "mnmo-monitor",
-  "version": "0.11.21",
+  "version": "0.11.22",
   "description": "A modern web-application to monitor data.",
   "main": "index.js",
   "browserify-shim": {
