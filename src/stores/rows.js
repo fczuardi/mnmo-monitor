@@ -212,7 +212,14 @@ class RowsStore extends Store {
 
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
-                store.stopSecondaryAutoUpdate();
+                if (result.errorCode === 1002){
+                    // invalid start time error, use startTime, endTime and day
+                    // values from previous result
+                    // see updateSecondTableFormDay() of the user.js store
+                    console.log('errorCode 1002, dont stop autoupdate');
+                }else{
+                    store.stopSecondaryAutoUpdate();
+                }
             } else {
                 if (store.state.secondary.autoUpdate) {
                     store.startSecondaryAutoUpdate();
@@ -229,11 +236,13 @@ class RowsStore extends Store {
         console.log('updateSecondTable', data);
         let newValues = merge({}, this.state.secondary);
         //overwrite rows and headers
-        newValues.headers = data.headers;
-        newValues.data = data.data;
+        if (data.headers.length > 0){
+            newValues.headers = data.headers;
+            newValues.data = data.data;
+            newValues.autoUpdate = data.autoUpdate;
+        }
         newValues.lastLoad = new Date().getTime();
         newValues.loading = false;
-        newValues.autoUpdate = data.autoUpdate;
         console.log('newValues', newValues);
         this.setState({
             secondary: newValues

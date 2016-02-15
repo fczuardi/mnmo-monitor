@@ -164,9 +164,11 @@ class UserStore extends Store {
         // console.log('--..--..updateSecondTableFormDay', data,
         //                 JSON.stringify(this.state.newSecondaryRow));
         let values = merge({}, this.state.newSecondaryRow);
-        values.day = data.day;
-        values.startTime = data.startTime;
-        values.endTime = data.endTime;
+        if (data.day && data.startTime && data.endTime){
+            values.day = data.day;
+            values.startTime = data.startTime;
+            values.endTime = data.endTime;
+        }
         values.primaryVarLabel = this.state.newSecondaryRow.primaryVarLabel;
         values.secondaryVarLabel = this.state.newSecondaryRow.secondaryVarLabel;
         values.secondaryVarOptions = this.state.newSecondaryRow.secondaryVarOptions;
