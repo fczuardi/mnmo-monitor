@@ -150,15 +150,21 @@ class UIStore extends Store {
         let varsCount = keys(this.variablesStore.state.combos).length;
         let rowHeight = (this.state.screenHeight < 640) ?
                                         smallerRowHeight : smallColumnWidth;
+        let secondRowMinute = this.minuteFromHeader(this.rowsStore.state.headers[1][0]);
+        let currentMinute = this.rowsStore.state.type !== 'merged' ?
+                                    this.state.newestMinute : secondRowMinute;
+        let rowsHaveShifted = currentMinute > this.previousNewestMinute;
+        let positionPastFirstRow = this.coordY > rowHeight * 0.6;
         if (
-            (this.state.newestMinute > this.previousNewestMinute) && //first row changed
-            (this.coordY > rowHeight * 0.6) // and user have scrolled past half of first row
+            (rowsHaveShifted) && // "first" row changed
+            (positionPastFirstRow) // and user have scrolled past half of first row
         ){
             // then auto scroll one row down so the user don't lose the place of
             // the row she was interested in at the current scroll position
             // see bug #128
             if (this.rowsStore.state.type !== 'detailed'){
                 this.coordY += rowHeight;
+                // console.log('.. .. rowHeight', rowHeight);
             } else {
                 let separatorHeight = 40;
                 let minuteHeight = rowHeight * varsCount + separatorHeight -(varsCount+1);
@@ -168,7 +174,8 @@ class UIStore extends Store {
             this.scrollUpdate();
             this.scrollMainTable();
         }
-        this.previousNewestMinute = this.state.newestMinute;
+        // console.log('__ __ this.state.newestMinute', this.state.newestMinute, secondRowMinute, currentMinute);
+        this.previousNewestMinute = currentMinute;
         this.hideSplash();
     }
     unhandledJavascriptError(e){
