@@ -147,6 +147,7 @@ class UIStore extends Store {
 
     rowsFetchCompleted(){
         // console.log('rowsFetchCompleted', this.state.newestMinute, this.previousNewestMinute, this.state.newestMinute > this.previousNewestMinute);
+        let varsCount = keys(this.variablesStore.state.combos).length;
         let rowHeight = (this.state.screenHeight < 640) ?
                                         smallerRowHeight : smallColumnWidth;
         if (
@@ -156,7 +157,14 @@ class UIStore extends Store {
             // then auto scroll one row down so the user don't lose the place of
             // the row she was interested in at the current scroll position
             // see bug #128
-            this.coordY += rowHeight;
+            if (this.rowsStore.state.type !== 'detailed'){
+                this.coordY += rowHeight;
+            } else {
+                let separatorHeight = 40;
+                let minuteHeight = rowHeight * varsCount + separatorHeight -(varsCount+1);
+                this.coordY += minuteHeight;
+                // console.log('.. .. minuteHeight', minuteHeight);
+            }
             this.scrollUpdate();
             this.scrollMainTable();
         }
