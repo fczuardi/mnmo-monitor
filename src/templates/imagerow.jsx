@@ -111,8 +111,10 @@ export default (p,a) => {
         if (p.ui.isMobile){
             style = merge(style, {height: 'auto', width:'100%'});
             if (isSelected){
-                style = merge(style, {height: '100%', width:'auto'});
+                style = merge(style, {height: '100%', width:'auto', marginLeft: -22});
             }
+        }else{
+            style = merge(style, {marginLeft: -29});
         }
         //different than the dates on the tables that can change
         //from one day to another at different times depending on country,
