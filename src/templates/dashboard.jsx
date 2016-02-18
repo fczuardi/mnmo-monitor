@@ -100,8 +100,13 @@ export default (p, a) => {
             {tableTitleText}
         </div>
     );
-    let chartContent = (!p.ui.chartVisible || p.ui.hasShortHeight) ? null :
-                        (p.rows.type !== 'detailed') ? (
+    let chartContent = (
+        !p.ui.chartVisible ||
+        p.ui.hasShortHeight ||
+        (p.rows.type === 'detailed' && p.ui.hasShortHeightDetail)
+    ) ? null : (
+        p.rows.type !== 'detailed'
+    ) ? (
         <DashboardChart {...p} />
     ) : (
         <DetailChart {...p} />

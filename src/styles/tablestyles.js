@@ -35,7 +35,7 @@ export default (p) => ({
         '#5f5f5f'
     ],
     borderBottom: {
-        height: p.rowHeight - 1,
+        height: p.rowHeight,
         borderBottom: '1px solid #000'
     },
     borderRight: {

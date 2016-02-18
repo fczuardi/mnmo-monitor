@@ -8,6 +8,8 @@ import tableStyles from '../styles/tablestyles';
 import merge from 'lodash/object/merge';
 
 export default (p, a) => {
+    let isSecondTable = (p.rows.type === 'secondary');
+    let isSmall = p.ui.screenHeight < 640;
     let firstCellIcon = (
         <img
             style={{
@@ -40,8 +42,9 @@ export default (p, a) => {
         <ImageRow {...p} />
     ) : null;
 
-    let slider = p.rows.type === 'detailed' && p.ui.chartVisible
-                                                && !p.ui.hasShortHeight ? (
+    let slider = p.rows.type === 'detailed' &&
+                    p.ui.chartVisible &&
+                    !p.ui.hasShortHeightDetail ? (
         <Slider {...p} />
     ) : null;
 
@@ -69,7 +72,8 @@ export default (p, a) => {
             }}
         ></div>
         <div
-            className="dataTable"
+            className={isSmall && isSecondTable ?
+                            'dataTable small': 'dataTable'}
             style={{
                 position: 'absolute',
                 width: p.tableWidth,

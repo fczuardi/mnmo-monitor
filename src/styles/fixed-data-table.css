@@ -1,6 +1,9 @@
 .dataTable {
     font-size: 13px;
 }
+.dataTable.small {
+    font-size: 11px;
+}
 .dataTable tr{
     color: #fff;
 }

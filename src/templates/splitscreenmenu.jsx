@@ -244,12 +244,19 @@ export default (p, a) => {
             </button>
         </div>
     ): null;
+    let containerStyle = {
+        position: 'relative',
+        display: p.ui.splitScreenMenuClosed ? 'none' : 'block',
+        width: '100%',
+        zIndex: 3
+    };
+    if (p.ui.hasShortHeight || p.tableHeight < 220){
+        containerStyle.position = 'absolute';
+        containerStyle.bottom = 250;
+    }
     return (
         <div
-            style={{
-                position: 'relative',
-                display: p.ui.splitScreenMenuClosed ? 'none' : 'block'
-            }}
+            style={containerStyle}
         >
             {splitScreenMenuBackgroundCircle}
             {topSelector}

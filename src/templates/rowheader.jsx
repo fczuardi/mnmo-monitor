@@ -45,7 +45,7 @@ export default (row, key, p, a) => {
     }
     let titleStyle = {
         fontSize: isMerged ? fontSizes[0] :
-                    isSecondTable ? fontSizes[3] : fontSizes[1]
+                    isSecondTable ? fontSizes[4] : fontSizes[1]
     }
     let firstTitle = isMerged ? (
         <span
@@ -102,7 +102,7 @@ export default (row, key, p, a) => {
     // ): null;
     // let varsCount = keys(p.vars.combos).length;
     let secondHeader = isNaN(secondValue) ? (null) : (
-        <p style={{margin: 0, fontSize: isSecondTable ? fontSizes[3] : fontSizes[0]}}>
+        <p style={{margin: 0, fontSize: isSecondTable ? fontSizes[4] : fontSizes[0]}}>
             <i
                 className={(p.user.classID !== null) ?
                         ('header-icon-' + p.user.classID) : ''}

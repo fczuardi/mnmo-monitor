@@ -8,7 +8,13 @@ class DataTable {
         const userActions = this.props.flux.getActions('user');
         let actions = {
             firstHeaderButtonClick: (event) => {
-                userActions.splitScreenButtonToggle();
+                let isDisabled = (
+                    this.props.rows.type === 'detailed' &&
+                    this.props.ui.hasShortHeightDetail
+                );
+                if (!isDisabled){
+                    userActions.splitScreenButtonToggle();
+                }
             }
         };
         return tryRender('datatable', template, this.props, actions);

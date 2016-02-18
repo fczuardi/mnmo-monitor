@@ -5,8 +5,9 @@ import keys from 'lodash/object/keys';
 
 const appHeaderHeight = 55;
 const smallColumnWidth = 60;
-const secondTableRowHeight = 50;
 const smallerRowHeight = 40;
+const secondTableRowHeight = 50;
+const smallerSecondTableRowHeight = 30;
 const mediumColumnWidth = 106;
 const cellPadding = 8;
 const subgroupPickerHeight = 25;
@@ -20,7 +21,7 @@ class Dashboard {
         let p = merge({}, this.props);
         let varsCount = keys(p.vars.combos).length;
         let thumbnailsRowHeight = 120,
-            sliderHeight = p.ui.chartVisible ? 30 : 0,
+            sliderHeight = p.ui.chartVisible && !p.ui.hasShortHeightDetail ? 30 : 0,
             tableTitleHeight = 24,
             secondTableVisible = (p.ui.secondTableVisible && p.rows.type !== 'detailed'),
             defaultChartHeight = this.props.ui.isMobile ?
@@ -34,7 +35,8 @@ class Dashboard {
 
         let columnWidth = p.ui.isMobile ? smallColumnWidth : mediumColumnWidth;
         p.rowHeight = rowHeight;
-        p.secondTableRowHeight = secondTableRowHeight;
+        p.secondTableRowHeight = this.props.ui.screenHeight < 640 ?
+                            smallerSecondTableRowHeight : secondTableRowHeight;
         p.tableWidth = p.ui.screenWidth;
         p.tableContentWidth = p.columns.enabled.length * columnWidth;
         p.columnWidth = p.tableContentWidth > p.tableWidth ? columnWidth :
@@ -42,7 +44,11 @@ class Dashboard {
         p.iconWidth = rowHeight - 2 * cellPadding;
         p.cellPadding = cellPadding;
 
-        p.chartHeight = !p.ui.chartVisible || p.ui.hasShortHeight ? 7 : defaultChartHeight;
+        p.chartHeight = (
+                    !p.ui.chartVisible ||
+                    p.ui.hasShortHeight ||
+                    (p.ui.hasShortHeightDetail && p.rows.type === 'detailed')
+                ) ? 7 : defaultChartHeight;
         p.tableTitleHeight = tableTitleHeight;
         p.appHeaderHeight = appHeaderHeight;
 
@@ -74,7 +80,7 @@ class Dashboard {
                 p.groups.selectedGroupSubgroups.length > 0
             ) ? subgroupPickerHeight : 0;
 
-            if(p.ui.isMobile && p.ui.chartVisible && !p.ui.hasShortHeight) {
+            if(p.ui.isMobile && p.ui.chartVisible && !p.ui.hasShortHeightDetail ) {
                 // table height must be the height of x rows
                 // where x is the number of indexes
                 p.tableHeight = p.rowHeight * varsCount +

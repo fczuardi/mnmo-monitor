@@ -5,7 +5,7 @@ import RowHeaders from '../components/rowheaders';
 import TableContent from '../components/tablecontent';
 
 export default (p) => {
-
+    let isSmall = p.ui.screenHeight < 640;
     let secondTableParams = merge({}, p);
     secondTableParams.tableHeight = p.secondTableHeight;
     secondTableParams.rowHeadersElementId = 'secondTableRowHeaders';
@@ -24,7 +24,7 @@ export default (p) => {
         <SecondTableToolbar {...p} />
     )}
     <div
-        className={'dataTable'}
+        className={isSmall ? 'dataTable small': 'dataTable'}
         style={{
             width: secondTableParams.tableWidth,
             height: secondTableParams.tableHeight,
