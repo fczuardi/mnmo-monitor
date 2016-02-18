@@ -66,8 +66,8 @@ class UIStore extends Store {
             screenHeight: window.innerHeight,
             rowPanelHeight: 0,
             isMobile: (window.innerWidth <= mobileBreakpointWidth),
-            hasShortHeight: (window.innerHeight < landscapeBreakpointHeight),
-            hasShortHeightDetail: (window.innerHeight < detailShortHeight),
+            hasShortHeight: false,
+            hasShortHeightDetail: false,
             lastVisibleRow: ROWS_PAGE_SIZE,
             tableScrollTop: 0,
             tableScrollLeft: 0,
@@ -107,6 +107,7 @@ class UIStore extends Store {
         this.rowsStore.addListener('change', this.rowStateChanged);
         this.previousLoadingState = this.rowsStore.state.loading;
         this.previousNewestMinute = '';
+        window.setTimeout(this.widthChange.bind(this), 1);
     }
 
     overrideDefaults(refreshData){
