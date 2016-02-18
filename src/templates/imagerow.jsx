@@ -262,7 +262,7 @@ export default (p,a) => {
             </tr>
         );
         secondLine = (
-            <tr>
+            <tr style={{backgroundColor:'rgba(0,0,0,0.5)'}}>
             {second.map( (cell, key) => {
                 let isEmptyCell = cell.key === -1;
                 let column = isEmptyCell ? null :
