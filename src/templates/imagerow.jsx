@@ -78,7 +78,14 @@ export default (p,a) => {
                 p.groups.selected.secondaryId : p.groups.selected.id;
     let imgElement = (column, key) => {
         let columnColors = tableStyles(p).columnColors;
-        let backgroundColor = columnColors[(key % columnColors.length)]
+        let backgroundColor = columnColors[(key % columnColors.length)];
+        let hasThumbnail = (
+            column !== null &&
+            column.thumbnails !== false &&
+            p.groups.selected &&
+            p.groups.selected.thumbnailsUrl
+        );
+        let isSelected = p.columns.selected === key;
         let divStyle = {
             backgroundColor: backgroundColor,
             height: p.ui.isMobile ? 60 : 120,
@@ -87,8 +94,12 @@ export default (p,a) => {
             overflow: 'hidden',
             margin: p.ui.isMobile ? 0 : 'auto'
         };
-        if ((column === null) ||
-            (column.thumbnails === false) ){
+        if (p.ui.isMobile && isSelected && !hasThumbnail){
+            divStyle.position = 'absolute';
+            divStyle.height = divStyle.minHeight = 120;
+            divStyle.top = 0;
+        }
+        if (!hasThumbnail){
             return(
                 <div
                     key={key}
@@ -99,7 +110,7 @@ export default (p,a) => {
         let style = merge({}, imageStyle);
         if (p.ui.isMobile){
             style = merge(style, {height: 'auto', width:'100%'});
-            if (p.columns.selected === key){
+            if (isSelected){
                 style = merge(style, {height: '100%', width:'auto'});
             }
         }
@@ -128,7 +139,6 @@ export default (p,a) => {
         }
 
         let dayParam = realDay.format('YYYYMMDD');
-
         // console.log('dayParam', dayParam);
         return (
             <div
@@ -139,9 +149,8 @@ export default (p,a) => {
                 onLoad={loadedImage}
                 onError={failedImage}
                 style={style}
-                src={p.groups.selected && p.groups.selected.thumbnailsUrl ? (
-                    p.groups.selected.thumbnailsUrl +
-                    '?' +
+                src={hasThumbnail ? (
+                    p.groups.selected.thumbnailsUrl + '?' +
                     URLs.images.groupParam + '=' + groupID + '&' +
                     URLs.images.columnParam + '=' + column.id + '&' +
                     URLs.images.dayParam + '=' + dayParam + '&' +
