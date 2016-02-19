@@ -149,11 +149,14 @@ class UIStore extends Store {
     }
 
     rowsFetchCompleted(){
+        // console.log('__ this.rowsStore.state.headers.length', this.rowsStore.state.headers.length);
         // console.log('rowsFetchCompleted', this.state.newestMinute, this.previousNewestMinute, this.state.newestMinute > this.previousNewestMinute);
         let varsCount = keys(this.variablesStore.state.combos).length;
         let rowHeight = (this.state.screenHeight < 640) ?
                                         smallerRowHeight : smallColumnWidth;
-        let secondRowMinute = this.minuteFromHeader(this.rowsStore.state.headers[1][0]);
+        let secondRowMinute = this.rowsStore.state.headers.length > 1 ?
+                    this.minuteFromHeader(this.rowsStore.state.headers[1][0]) :
+                    this.state.newestMinute;
         let currentMinute = this.rowsStore.state.type !== 'merged' ?
                                     this.state.newestMinute : secondRowMinute;
         let rowsHaveShifted = currentMinute > this.previousNewestMinute;
