@@ -7,6 +7,7 @@ import moment from 'moment';
 
 const smallColumnWidth = 60;
 const mediumColumnWidth = 106;
+const thumbnailWidth = 157;
 
 export default (p,a) => {
     let cellStyle = {
@@ -114,7 +115,9 @@ export default (p,a) => {
                 style = merge(style, {height: '100%', width:'auto', marginLeft: -22});
             }
         }else{
-            style = merge(style, {marginLeft: -29});
+            if (p.columnWidth < thumbnailWidth){
+                style = merge(style, {marginLeft: -(thumbnailWidth - p.columnWidth)/2});
+            }
         }
         //different than the dates on the tables that can change
         //from one day to another at different times depending on country,
