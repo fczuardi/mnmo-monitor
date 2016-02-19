@@ -116,7 +116,7 @@ export default (p) => {
                     let percentY = cell / maxValue;
                     let x = chartDivisions[cellIndex];
                     let y = chartTopPadding + chartHeight - percentY * chartHeight;
-                    y = Number.isNaN(y) ? 0 : y;
+                    y = (typeof y !== 'number') ? 0 : y;
                     return `L${x}, ${y} `;
                 });
                 let strokeWidth = p.columns.selected === index ? 8 : 1;
