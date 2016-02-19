@@ -90,7 +90,7 @@ class UIStore extends Store {
         this.secondCoordX = 0;
         this.secondCoordY = 0;
         this.scrollEndInterval = 0;
-        this.imageUpdateInterval = 0;
+        this.imageUpdateInterval = undefined;
 
         if (window.addEventListener) {
             window.addEventListener('resize', this.widthChange.bind(this));
@@ -383,6 +383,13 @@ class UIStore extends Store {
         // console.log(
         //     'minute', minute, 'oldestMinute', oldestMinute, 'newestMinute', newestMinute
         // );
+        if (
+            minute.substring(0,4) === store.state.minute.substring(0,4) &&
+            this.imageUpdateInterval !== undefined
+        ){
+            // console.log('same minute. exit', this.imageUpdateInterval);
+            return null;
+        }
         let newState = {
             minute: minute,
             oldestMinute: oldestMinute,
@@ -396,6 +403,7 @@ class UIStore extends Store {
             this.userStore.state.autoUpdate &&
             this.rowsStore.state.type === 'detailed'){
             // console.log('start 10sec interval update');
+            let intervalSize = 10; //10 seconds
             this.imageUpdateInterval = window.setInterval(function(){
                 let formatedMinute = store.state.minute.substring(0,2) + ':' +
                                 store.state.minute.substring(2,4) + ':' +
@@ -404,12 +412,12 @@ class UIStore extends Store {
                                     moment().format('YYYY-MM-DDT') +
                                     formatedMinute +
                                     '.000Z'
-                                ).utc().add(10, 'seconds');
+                                ).utc().add(intervalSize, 'seconds');
                 // console.log('update image', newMinute.utc().format('HHmmss'));
                 store.setState({
                     minute: newMinute.utc().format('HHmmss')
                 });
-            }, 10 * 1000);
+            }, (intervalSize - 1) * 1000);
         }
         store.setState(newState);
 
