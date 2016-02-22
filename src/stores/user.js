@@ -178,7 +178,7 @@ class UserStore extends Store {
         });
     }
     loadSavedPreferences() {
-        let savedPreferences = getLocalItem('userPreference');
+        let savedPreferences = getLocalItem('userPreference') || {};
         //override language if it's present on the query string
         if (qsLanguage && qsLanguage.length > 1){
             savedPreferences.languageID = defaultLanguageID;
