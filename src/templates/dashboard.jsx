@@ -22,22 +22,19 @@ export default (p, a) => {
             height: '100%',
             display: 'table'
         }}>
-            <CenteredBox>
+            <div style={{
+                display: 'table-cell',
+                verticalAlign: 'middle'
+            }}>
                 <div style={{
                     width:'100%',
-                    textAlign: useMobileLogo ? 'center' : 'left',
-                    position: 'relative'
+                    textAlign: 'center',
                 }}>
                     <img
                         src={
                         useMobileLogo ? './img/logo_splash_small.png' :
                                         './img/logo_splash_big.png'
                         }
-                        style={{
-                            position: 'relative',
-                            left: useMobileLogo ? 0 : '50%',
-                            marginLeft: useMobileLogo ? -15 : - 347
-                        }}
                     />
                     <div className="spinner" style={{
                         position:'absolute',
@@ -46,7 +43,7 @@ export default (p, a) => {
                         marginLeft: -20
                     }}></div>
                 </div>
-            </CenteredBox>
+            </div>
             <footer
                 style={{
                     width: '100%',
