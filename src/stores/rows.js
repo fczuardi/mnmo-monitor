@@ -206,6 +206,7 @@ class RowsStore extends Store {
         .then(function(payload){
             console.log('OK', URLs.rows.secondTable);
             console.log('result', payload);
+            // console.log('result', JSON.stringify(payload, 2, ' '));
             let result = parseSecondaryRows(payload);
             console.log('parsed result', result);
             store.rowsActions.secondaryRowsFetchCompleted(result.rows);
@@ -239,8 +240,10 @@ class RowsStore extends Store {
         if (data.headers.length > 0){
             newValues.headers = data.headers;
             newValues.data = data.data;
-            newValues.autoUpdate = data.autoUpdate;
+        }else{
+            console.warn('BUG #99 - empty headers on secondary table result');
         }
+        newValues.autoUpdate = data.autoUpdate;
         newValues.lastLoad = new Date().getTime();
         newValues.loading = false;
         console.log('newValues', newValues);

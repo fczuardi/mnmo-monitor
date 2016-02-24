@@ -24,11 +24,12 @@ export default (content, rowKey, cellKey, p) => {
     //there are 3 possible headers from where we can extract the row var label:
     //'18:02__VARLABEL', '18:02' and 'VARLABEL'
     let selectedVar = find(p.vars.rawCombos, 'id', p.user.variableComboID);
+    let selectedVarLabel = selectedVar && selectedVar.label ? selectedVar.label : cellRowHeader;
     let cellVarLabel = (
         cellRowHeader.indexOf('__') !== -1 ? cellRowHeader.split('__')[1] : ( //'18:02__VARLABEL'
             cellRowHeader.indexOf(':') !== -1 ? //'18:02'
                 // in this case we get from the user selected main var
-                (selectedVar.label || cellRowHeader) :
+                selectedVarLabel :
                 cellRowHeader //'VARLABEL'
         )
     );
