@@ -159,7 +159,7 @@ export default (row, key, p, a) => {
         <tr {...trProps}>
             <td style={{
                 position: 'relative',
-                height: p.rowHeight
+                height: trProps.style.height
             }}>
                 {mainHeader}
                 {secondHeader}

@@ -35,6 +35,7 @@ export default (row, key, p) => {
             trStyle.height = p.secondTableSeparatorHeight;
             separatorText = p.rows.headers[key][4];
         }
+        cellStyle.height = trStyle.height;
         trContents = (
             <td colSpan={renderRow.length} style={cellStyle}>
                 {separatorText}
