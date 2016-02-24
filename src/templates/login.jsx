@@ -11,6 +11,9 @@ import Checkbox from 'mnmo-components/lib/themes/mnmo/checkbox';
 import RadioButton from 'mnmo-components/lib/themes/mnmo/radio';
 import CaptchaAnswers from 'mnmo-components/lib/themes/mnmo/radiogroup';
 import Submit from 'mnmo-components/lib/themes/mnmo/submit';
+
+const w = 320;
+
 export default (p, a) => {
     let firstAttempt = (p.session.error === null) && (p.ui.error === null);
     let errorMessage = p.session.error || p.ui.error;
@@ -51,7 +54,9 @@ export default (p, a) => {
         <div
             style={{
                 position: 'relative',
-                top: 5
+                top: 5,
+                width: w,
+                overflow: 'hidden'
             }}
         >
             <img src="./img/logo_login_small.png" />
@@ -171,7 +176,7 @@ export default (p, a) => {
             overflow: 'auto'
         }}>
             <div style={{
-                width: 320,
+                width: w,
                 margin: 'auto'
             }}>
                 {loginContents}
