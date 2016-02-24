@@ -14,6 +14,7 @@ const subgroupPickerHeight = 25;
 const secondTableToolbarHeight = 50;
 const secondTableSeparatorHeight = 20;
 const separatorHeight = 40;
+const shortHeightChartBreakpoint = 400;
 
 
 class Dashboard {
@@ -24,8 +25,10 @@ class Dashboard {
             sliderHeight = p.ui.chartVisible && !p.ui.hasShortHeightDetail ? 30 : 0,
             tableTitleHeight = 24,
             secondTableVisible = (p.ui.secondTableVisible && p.rows.type !== 'detailed'),
-            defaultChartHeight = this.props.ui.isMobile ?
-                                    Math.round(p.ui.screenHeight * 0.3) : 264,
+            defaultChartHeight = (
+                this.props.ui.isMobile ||
+                p.ui.screenHeight < shortHeightChartBreakpoint
+            ) ? Math.round(p.ui.screenHeight * 0.3) : 264,
             // rowHeight = (this.props.ui.isMobile && p.rows.type == 'detailed') ? 40 : smallColumnWidth;
             rowHeight = this.props.ui.screenHeight < 640 ? smallerRowHeight :
                                                                 smallColumnWidth;
