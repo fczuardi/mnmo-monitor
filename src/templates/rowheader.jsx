@@ -158,7 +158,8 @@ export default (row, key, p, a) => {
     return (
         <tr {...trProps}>
             <td style={{
-                position: 'relative'
+                position: 'relative',
+                height: p.rowHeight
             }}>
                 {mainHeader}
                 {secondHeader}

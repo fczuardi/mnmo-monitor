@@ -67,6 +67,9 @@ export default (content, rowKey, cellKey, p) => {
             </span>
         );
     let cellStyle = tableStyles ? tableStyles(p).borderRight : {};
+    if (cellKey === 0){
+        cellStyle.height = p.rowHeight;
+    }
     if ((p.rows.type === 'detailed') && (p.columns.selected === cellKey)) {
         let columnColors = tableStyles ? tableStyles(p).columnColors : null;
         cellStyle.backgroundColor = columnColors ? columnColors[(cellKey % columnColors.length)] : 'inherit'
