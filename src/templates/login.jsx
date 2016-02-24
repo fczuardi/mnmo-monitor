@@ -171,7 +171,7 @@ export default (p, a) => {
             overflow: 'auto'
         }}>
             <div style={{
-                width: 333,
+                width: 320,
                 margin: 'auto'
             }}>
                 {loginContents}
