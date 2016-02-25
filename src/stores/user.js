@@ -48,7 +48,8 @@ class UserStore extends Store {
         this.flux = flux;
         this.register(rowsActions.returnChangedStartTime, this.updateStartTime);
         this.register(rowsActions.secondaryRowsFetchCompleted, this.updateSecondTableFormDay);
-        this.register(rowsActions.rowsFetchCompleted, this.rowsFetchCompleted);
+        //uncomment for bug#99 fix
+        // this.register(rowsActions.rowsFetchCompleted, this.rowsFetchCompleted);
         this.register(userActions.usernameInput, this.changeUsernamePref);
         this.register(userActions.passwordInput, this.changePasswordPref);
         this.register(userActions.emailInput, this.changeEmailPref);
@@ -162,21 +163,22 @@ class UserStore extends Store {
     //     console.log('==--==CHANGE', this.state);
     // }
 
-    rowsFetchCompleted(data){
-        let values = merge({}, this.state.newSecondaryRow);
-        // console.log('--..--..rowsFetchCompleted', values, '.', data);
-        if (values.day === ''){
-            // console.warn('EMPTY DAY');
-            values.day = data.date;
-            let calendarStore = this.flux.getStore('calendar');
-            // console.log('__calendarStore.state', calendarStore.state)
-            values.startTime = calendarStore.state.firstMinute;
-            values.endTime = calendarStore.state.lastMinute;
-            this.setState({
-                newSecondaryRow: values
-            });
-        }
-    }
+    //uncomment for bug#99 fix
+    // rowsFetchCompleted(data){
+    //     let values = merge({}, this.state.newSecondaryRow);
+    //     // console.log('--..--..rowsFetchCompleted', values, '.', data);
+    //     if (values.day === ''){
+    //         // console.warn('EMPTY DAY');
+    //         values.day = data.date;
+    //         let calendarStore = this.flux.getStore('calendar');
+    //         // console.log('__calendarStore.state', calendarStore.state)
+    //         values.startTime = calendarStore.state.firstMinute;
+    //         values.endTime = calendarStore.state.lastMinute;
+    //         this.setState({
+    //             newSecondaryRow: values
+    //         });
+    //     }
+    // }
 
     updateSecondTableFormDay(data){
         // console.log('--..--..updateSecondTableFormDay', data,
@@ -186,15 +188,16 @@ class UserStore extends Store {
             values.day = data.day;
             values.startTime = data.startTime;
             values.endTime = data.endTime;
-        }else{
-            // console.log('data.day is null?', data);
-            let calendarStore = this.flux.getStore('calendar');
-            // console.log('calendarStore.state', calendarStore.state)
-            let rowsStore = this.flux.getStore('rows');
-            // console.log('__rowsStore.state', rowsStore.state)
-            values.day = rowsStore.state.date;
-            values.startTime = calendarStore.state.firstMinute;
-            values.endTime = calendarStore.state.lastMinute;
+        //uncomment for bug#99 fix
+        // }else{
+        //     // console.log('data.day is null?', data);
+        //     let calendarStore = this.flux.getStore('calendar');
+        //     // console.log('calendarStore.state', calendarStore.state)
+        //     let rowsStore = this.flux.getStore('rows');
+        //     // console.log('__rowsStore.state', rowsStore.state)
+        //     values.day = rowsStore.state.date;
+        //     values.startTime = calendarStore.state.firstMinute;
+        //     values.endTime = calendarStore.state.lastMinute;
         }
         values.primaryVarLabel = this.state.newSecondaryRow.primaryVarLabel;
         values.secondaryVarLabel = this.state.newSecondaryRow.secondaryVarLabel;
