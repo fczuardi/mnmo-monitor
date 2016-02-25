@@ -11,7 +11,7 @@ export default {
         username: 'usuario',
         password: 'contraseña',
         saveInfo: 'guardar la información',
-        iAgree: 'He leído y estoy de acuerdo: {tosLink}',
+        iAgree: 'Estoy de acuerdo: {tosLink}',
         tos: 'Condiciones de Uso',
         submit: {
             loading: 'Cargando…',

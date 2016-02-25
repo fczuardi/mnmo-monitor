@@ -5,6 +5,9 @@ body{
     background: none !important;
     box-shadow: none !important;
 }
+.padding10{
+  padding: 10px !important;
+}
 .header-icon-1,
 .header-icon-2,
 .header-icon-13,

@@ -94,7 +94,10 @@ export default (p, a) => {
                             </option>
                         )}
                     </Select>
-                    <span>
+                    <span style={{
+                        fontSize: 15,
+                        lineHeight: '27px'
+                    }}>
                         <a href="#" onClick={a.forgotPasswordClick}>
                             {p.language.messages.password.forgotPasswordLink}
                         </a>
@@ -133,8 +136,10 @@ export default (p, a) => {
                 )}
                 </CaptchaAnswers>
             </FieldSet>
-            <FieldSet className="no-bg">
-                <div>
+            <FieldSet className="no-bg padding10">
+                <div style={{
+                    fontSize: 15
+                }}>
                     <Checkbox
                         id="TOSCheckBox"
                         checked={p.user.tosAgree}

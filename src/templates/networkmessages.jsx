@@ -22,7 +22,7 @@ export default (p) => {
         boxShadow: '3px 4px 20px 0px rgba(0, 0, 0, 0.3)',
         padding: 15,
         color: textColor,
-        fontSize: 14,
+        fontSize: 12,
         lineHeight: '25px',
         transition: 'bottom 1s',
         zIndex: 3
