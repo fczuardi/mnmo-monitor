@@ -10,6 +10,7 @@ import {
 } from '../../config/apiHelpers';
 import partition from 'lodash/collection/partition';
 import find from 'lodash/collection/find';
+import filter from 'lodash/collection/filter';
 
 class GroupsStore extends Store {
     constructor(flux) {
@@ -96,7 +97,7 @@ class GroupsStore extends Store {
         .then(function(payload){
             // console.log('result', URLs.filters.subgroups, payload);
             console.log('OK', URLs.filters.subgroups);
-            let groups = parseSubGroups(payload).groups;
+            let groups = filter(parseSubGroups(payload).groups, {'hasThumbnails': true});
             store.setState({
                 selectedGroupSubgroups: groups
             });
