@@ -160,7 +160,7 @@
     "www:js:polyfill:es5-shim": "cp node_modules/es5-shim/es5-shim.js ./dist/classic/lib/js/.",
     "www:js:polyfill:es5-sham": "cp node_modules/es5-shim/es5-sham.js ./dist/classic/lib/js/.",
     "www:js:polyfill:console": "cp node_modules/console-polyfill/index.js ./dist/classic/lib/js/console-polyfill.js",
-    "www:js:polyfill:Intl": "cp ./node_modules/intl/dist/Intl.js ./node_modules/intl/locale-data/jsonp/en-US.js node_modules/intl/locale-data/jsonp/es-ES.js node_modules/intl/locale-data/jsonp/pt-BR.js ./dist/classic/lib/js/.",
+    "www:js:polyfill:Intl": "cp ./node_modules/intl/dist/Intl.js ./node_modules/intl/dist/Intl.js.map ./node_modules/intl/locale-data/jsonp/en-US.js node_modules/intl/locale-data/jsonp/es-ES.js node_modules/intl/locale-data/jsonp/pt-BR.js ./dist/classic/lib/js/.",
     "www:js:polyfill:Promise": "cp -f ./node_modules/lie/dist/lie.polyfill.js ./dist/classic/lib/js/promise-polyfill.js",
     "www:js:polyfill:object-assign": "browserify -o ./dist/classic/lib/js/object-assign-polyfill.js -e ./src/polyfills/object-assign.js",
     "www:js:polyfill:raf": "browserify -o ./dist/classic/lib/js/raf-polyfill.js -e ./src/polyfills/raf.js",
