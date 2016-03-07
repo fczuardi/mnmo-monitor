@@ -281,6 +281,18 @@ class UIStore extends Store {
         });
     }
     widthChange() {
+        //on the login screen, opening a virtual keyboard on chrome on iOS
+        //triggers a window resize that might change the layout and
+        //make the virtual keyboard close again
+        //see bug #166
+        if (
+            document.activeElement &&
+            document.activeElement.nodeName &&
+            document.activeElement.nodeName.toUpperCase() === 'INPUT' &&
+            this.state.screen === null //only on the login screen
+        ){
+            return null
+        }
         this.setState({
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
