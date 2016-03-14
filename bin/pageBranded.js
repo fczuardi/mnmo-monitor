@@ -23,8 +23,10 @@ var options = {
         './lib/js/en-US.js',
         './lib/js/pt-BR.js',
         './lib/js/es-ES.js',
-        './lib/js/vendors.js',
-        './js/app.js'
+        // './lib/js/vendors.js',
+        // './js/app.js'
+        './lib/js/vendors.min.js',
+        './js/app.min.js'
     ]
 };
 
