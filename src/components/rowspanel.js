@@ -1,4 +1,5 @@
 // import {findDOMNode} from 'react';
+import moment from 'moment';
 import template from '../templates/rowspanel.jsx';
 import tryRender from '../lib/trycomponent';
 
