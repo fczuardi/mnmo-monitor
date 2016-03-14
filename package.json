@@ -104,6 +104,13 @@
     "../../config/menulinks": "global:ConfigMenulinks",
     "./flux": "global:APPFlux"
   },
+  "aliasify": {
+    "aliases": {
+      "../../config/endpoints.js": "./config/secret.endpoints.js",
+      "../../config/apiHelpers": "./config/secret.apiHelpers",
+      "../../config/languageHelpers": "./config/secret.languageHelpers"
+    }
+  },
   "scripts": {
     "clean": "rm -rf ./dist",
     "font:clean": "rm -rf ./assets/fonts",
@@ -225,6 +232,28 @@
     "preclassic:img": "npm run www:img",
     "preclassic": "npm run classic:clean",
     "classic": "npm run classic:www & npm run classic:docs && npm run classic:secret",
+
+    "branded:clean": "rm -rf ./dist/branded",
+    "branded:mkdir": "mkdir -p  ./dist/branded/js ./dist/branded/img ./dist/branded/css ./dist/branded/lib/js ./dist/branded/lib/css ./dist/branded/lib/fonts",
+    "prebranded:img": "npm run www:img",
+    "branded:img": "cp -R ./dist/classic/img ./dist/branded/.",
+    "prebranded:css": "npm run www:css",
+    "branded:css": "cp -R ./dist/classic/css ./dist/branded/. && cp -R ./dist/classic/lib/css ./dist/branded/lib/.",
+    "prebranded:fonts": "npm run www:fonts",
+    "branded:fonts": "cp -R ./dist/classic/lib/fonts ./dist/branded/lib/.",
+    "branded:html": "babel-node ./bin/pageBranded.js > ./dist/branded/index.html",
+
+    "prebranded:js:polyfill": "npm run www:js:polyfill:object-assign && npm run www:js:polyfill:raf",
+    "branded:js:polyfill:base": "cat node_modules/es5-shim/es5-shim.js node_modules/es5-shim/es5-sham.js node_modules/console-polyfill/index.js ./node_modules/lie/dist/lie.polyfill.js  ./dist/classic/lib/js/object-assign-polyfill.js ./dist/classic/lib/js/raf-polyfill.js ./node_modules/whatwg-fetch/fetch.js > ./dist/branded/lib/js/polyfills.js",
+    "branded:js:polyfill:Intl": "cp ./node_modules/intl/dist/Intl.js ./node_modules/intl/dist/Intl.js.map ./node_modules/intl/locale-data/jsonp/en-US.js node_modules/intl/locale-data/jsonp/es-ES.js node_modules/intl/locale-data/jsonp/pt-BR.js ./dist/branded/lib/js/.",
+    "branded:js:polyfill": "npm run branded:js:polyfill:base && npm run branded:js:polyfill:Intl",
+    "branded:js:vendors": "browserify -o ./dist/branded/lib/js/vendors.js -r react -r 'react/addons' -r react-intl -r flummox -r 'flummox/component' -r 'moment' -r 'query-string' -r 'interact.js' -r 'react-intl' -r 'lodash/object/merge' -r 'lodash/collection/partition' -r 'lodash/collection/sortBy' -r 'lodash/collection/find' -r 'lodash/collection/filter' -r 'lodash/collection/pluck' -r 'lodash/object/keys' -r 'lodash/string/capitalize'",
+    "branded:js:app": "browserify -o ./dist/branded/js/app.js -e src/app.js -x react -x 'react/addons' -x react-intl -x flummox -x 'flummox/component' -x 'moment' -x 'query-string' -x 'interact.js  -x 'react-intl' -x 'lodash/object/merge' -x 'lodash/collection/partition' -x 'lodash/collection/sortBy' -x 'lodash/collection/find' -x 'lodash/collection/filter' -x 'lodash/collection/pluck' -x 'lodash/object/keys' -x 'lodash/string/capitalize'' -t browserify-versionify -t babelify -t aliasify",
+    "branded:js": "npm run branded:js:polyfill && npm run branded:js:vendors && npm run branded:js:app",
+
+    "prebranded": "npm run branded:clean && npm run branded:mkdir",
+    "branded": "npm run branded:html && npm run branded:css && npm run branded:img && npm run branded:fonts && npm run branded:js",
+
     "start": "babel-node server.js",
     "test": "node ."
   },
@@ -247,6 +276,7 @@
   },
   "homepage": "https://github.com/fczuardi/mnmo-monitor",
   "devDependencies": {
+    "aliasify": "^1.9.0",
     "babel": "^5.8.23",
     "babelify": "^6.3.0",
     "browserify": "^11.0.1",

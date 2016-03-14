@@ -7,15 +7,20 @@ const PORT = 8001;
 const ROOT = './dist/classic/';
 const DEV_PORT = 8002;
 const DEV_ROOT = './dist/www/';
+const BRANDED_PORT = 8003;
+const BRANDED_ROOT = './dist/branded/';
+
 const API_PORT = 9001;
 
 var app = koa(),
     devApp = koa(),
+    brandedApp = koa(),
     api = koa();
 
 // Serve static files
 //------------------------------------------------------------------------------
 devApp.use(serve(DEV_ROOT));
+brandedApp.use(serve(BRANDED_ROOT));
 app.use(serve(ROOT));
 
 // Reference Development API
@@ -32,6 +37,9 @@ console.log('serving app at http://localhost:' + PORT);
 
 devApp.listen(DEV_PORT);
 console.log('serving unbundled app at http://localhost:' + DEV_PORT);
+
+brandedApp.listen(BRANDED_PORT);
+console.log('serving branded app at http://localhost:' + BRANDED_PORT);
 
 api.listen(API_PORT);
 console.log('serving dev API at http://localhost:' + API_PORT);
