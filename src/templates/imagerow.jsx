@@ -3,7 +3,7 @@ import URLs from '../../config/endpoints.js';
 import ToolbarButton from 'mnmo-components/lib/themes/mnmo/toolbarbutton';
 import merge from 'lodash/object/merge';
 import tableStyles from '../styles/tablestyles';
-// import moment from 'moment';
+import moment from 'moment';
 
 const smallColumnWidth = 60;
 const mediumColumnWidth = 106;
@@ -124,28 +124,28 @@ export default (p,a) => {
         //for the thumbnails call the day always turn at 00:00
         //so we must add 1 day if the time is from 00:00 until the 'lastMinute'
         //value for that country
-        // let tableDay = moment(
-        //     p.rows.date.replace(/-/gi, '') + 'T' + p.ui.minute
-        // );
-        // let tableDayStart = moment(
-        //     p.rows.date.replace(/-/gi, '') + 'T' + p.calendar.firstMinute.replace(/:/gi, '')
-        // );
-        // let realDayStart = moment(
-        //     p.rows.date.replace(/-/gi, '') + 'T0000'
-        // );
-        // let realDay = tableDay.clone();
+        let tableDay = moment(
+            p.rows.date.replace(/-/gi, '') + 'T' + p.ui.minute
+        );
+        let tableDayStart = moment(
+            p.rows.date.replace(/-/gi, '') + 'T' + p.calendar.firstMinute.replace(/:/gi, '')
+        );
+        let realDayStart = moment(
+            p.rows.date.replace(/-/gi, '') + 'T0000'
+        );
+        let realDay = tableDay.clone();
+
+        // console.log('tableDay', tableDay.format('YYYYMMDD'),
+        //             'tableDayEnd', tableDayEnd.format('YYYYMMDD'));
+
+        //isBetween match is exclusive http://momentjs.com/docs/#/query/is-between/
+        if (tableDay.isBetween(realDayStart.subtract(1, 'm'), tableDayStart)){
+            realDay.add(1, 'd');
+        }
         //
-        // // console.log('tableDay', tableDay.format('YYYYMMDD'),
-        // //             'tableDayEnd', tableDayEnd.format('YYYYMMDD'));
-        //
-        // //isBetween match is exclusive http://momentjs.com/docs/#/query/is-between/
-        // if (tableDay.isBetween(realDayStart.subtract(1, 'm'), tableDayStart)){
-        //     realDay.add(1, 'd');
-        // }
-        //
-        // let dayParam = realDay.format('YYYYMMDD');
+        let dayParam = realDay.format('YYYYMMDD');
         // // console.log('dayParam', dayParam);
-        let dayParam = p.rows.date.replace(/-/gi, '');
+        // let dayParam = p.rows.date.replace(/-/gi, '');
         return (
             <div
                 key={key}
