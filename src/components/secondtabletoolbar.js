@@ -7,7 +7,7 @@ class SecondTableToolbar{
         const userActions = this.props.flux.getActions('user');
         const actions = {
             onVarChange: (ev) => {
-                console.log('onVarChange', ev.target.value);
+                // console.log('onVarChange', ev.target.value);
                 userActions.secondTableFormChanged('variableComboID', ev.target.value);
             },
             // onDayChange: (ev) => {
@@ -35,11 +35,11 @@ class SecondTableToolbar{
                 userActions.secondTableFormChanged('action', 'add');
             },
             onMobileAddClicked: (ev) => {
-                console.log('onMobileAddClicked');
+                // console.log('onMobileAddClicked');
                 userActions.openPanel('secondtable');
             },
             onAutoUpdateClicked: (ev) => {
-                console.log('onAutoUpdateClicked', ev.target.value);
+                // console.log('onAutoUpdateClicked', ev.target.value);
                 userActions.secondTableFormChanged('autoUpdate', null);
             }
         }

@@ -21,7 +21,7 @@ class SecondTablePanel {
                 userActions.closePanel();
             },
             autoUpdateChange: (ev) => {
-                console.log('autoUpdateChange');
+                // console.log('autoUpdateChange');
                 userActions.secondTableFormChanged('autoUpdate', null);
             },
             firstVarChange: (ev) => {
@@ -57,14 +57,14 @@ class SecondTablePanel {
             calendarDayClick: (e, d) => {
                 let day = moment(d);
                 let newDay = day.format('YYYY-MM-DD');
-                console.log('calendarDayClick', newDay);
+                // console.log('calendarDayClick', newDay);
                 userActions.secondTableFormChanged('day', newDay);
 
             },
             monthChange: (d) => {
                 let day = moment(d);
                 let newDay = day.format('YYYY-MM-DD');
-                console.log('monthChange', newDay);
+                // console.log('monthChange', newDay);
             }
         };
         return tryRender('secondtablepanel', template, this.props, actions);

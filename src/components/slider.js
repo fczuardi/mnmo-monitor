@@ -31,11 +31,11 @@ class Slider {
             endDate.add(1, 'days');
         }
         let lastRowMinute = endDate.subtract(total/linesPerMinute, 'minutes');
-        console.log(
-            'diff (percentFromMinute)',
-            currentDate.diff(lastRowMinute, 'minutes'),
-            linesPerMinute, total
-        );
+        // console.log(
+        //     'diff (percentFromMinute)',
+        //     currentDate.diff(lastRowMinute, 'minutes'),
+        //     linesPerMinute, total
+        // );
         return currentDate.diff(lastRowMinute, 'minutes') * linesPerMinute / total;
     }
 

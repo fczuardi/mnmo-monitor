@@ -6,8 +6,8 @@ class ErrorDialog {
         const actions = {
             buttonClicked: (event) => {
                 event.preventDefault();
-                console.log('this.props.columns.enabled', this.props.columns.enabled,
-                this.props.columns.enabled.length, this.props.groups.selected);
+                // console.log('this.props.columns.enabled', this.props.columns.enabled,
+                // this.props.columns.enabled.length, this.props.groups.selected);
                 userActions.errorDismissed();
                 if (this.props.ui.screen === 'password'){
                     //do not open menus or submenus

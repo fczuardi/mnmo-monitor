@@ -241,7 +241,7 @@ class UserStore extends Store {
         // console.log('fetchPreferences', token, store.sessionStore.state.token);
         token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
-        console.log('GET', URLs.user.preferences);
+        // console.log('GET', URLs.user.preferences);
         fetch(URLs.baseUrl + URLs.user.preferences, {
             method: 'GET',
             headers: authHeaders(token)
@@ -249,10 +249,10 @@ class UserStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK', URLs.user.preferences);
-            console.log('result', payload);
+            // console.log('OK', URLs.user.preferences);
+            // console.log('result', payload);
             let result = parseUserPreferences(payload);
-            console.log('parsed result', result);
+            // console.log('parsed result', result);
             let userPreferences = merge({}, result.prefs);
             if (result.error !== null) {
                 if (result.errorCode === 500){
@@ -287,7 +287,7 @@ class UserStore extends Store {
         this.preferencesFetched(preferences);
     }
     preferencesFetched(preferences) {
-        console.log('set user state: preferencesFetched', preferences.classLabel);
+        // console.log('set user state: preferencesFetched', preferences.classLabel);
         this.setState(preferences);
     }
     publishPasswordChange(){
@@ -318,9 +318,9 @@ class UserStore extends Store {
                             {'Content-Type': 'application/x-www-form-urlencoded'} :
                             authHeaders(token);
 
-        console.log('POST', url);
-        console.log('postBody', postBody);
-        console.log('postHeaders', postHeaders);
+        // console.log('POST', url);
+        // console.log('postBody', postBody);
+        // console.log('postHeaders', postHeaders);
         fetch(url, {
             method: 'POST',
             headers: postHeaders,
@@ -332,7 +332,7 @@ class UserStore extends Store {
         ))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK (post)', URLs.user.password, payload);
+            // console.log('OK (post)', URLs.user.password, payload);
             let result = passwordChangePostResponseOK(payload);
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
@@ -351,9 +351,9 @@ class UserStore extends Store {
         });
     }
     startForgotPassword(){
-        console.log('start forgot password flow');
+        // console.log('start forgot password flow');
         let store = this;
-        console.log('GET', URLs.user.forgotPassword);
+        // console.log('GET', URLs.user.forgotPassword);
         // console.log('query params',
         //     URLs.user.countryParam, store.state.countryID,
         //     URLs.user.emailParam, store.state.email
@@ -370,7 +370,7 @@ class UserStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK (get)', URLs.user.forgotPassword, payload);
+            // console.log('OK (get)', URLs.user.forgotPassword, payload);
             let result = forgotPasswordPostResponseOK(payload);
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
@@ -404,7 +404,7 @@ class UserStore extends Store {
         }
         let postBody = buildUserPreferencesPostBody(state);
         if (!postBody){ return false; }
-        console.log('POST', URLs.user.preferences);
+        // console.log('POST', URLs.user.preferences);
         // console.log('postBody', postBody);
         fetch(URLs.baseUrl + URLs.user.preferences, {
             method: 'POST',
@@ -417,15 +417,15 @@ class UserStore extends Store {
         ))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK (post)', URLs.user.preferences);
-            console.log('result (post)', URLs.user.preferences, payload);
+            // console.log('OK (post)', URLs.user.preferences);
+            // console.log('result (post)', URLs.user.preferences, payload);
             let result = userPreferencesPostResponseOK(payload),
                 newState = result.data;
-            console.log('parsed result', result);
-            console.log('parsed newState', newState);
-            console.log('store.state.languageID',store.state.languageID, newState.languageID);
+            // console.log('parsed result', result);
+            // console.log('parsed newState', newState);
+            // console.log('store.state.languageID',store.state.languageID, newState.languageID);
             if (store.needsRefetch){
-                console.log('Language changed, fetch user preferences again');
+                // console.log('Language changed, fetch user preferences again');
                 store.fetchPreferences();
             }
             // userPreferencesPostResponseOK(payload);
@@ -559,7 +559,7 @@ class UserStore extends Store {
         });
     }
     changeLanguagePref(languageID) {
-        console.log('set user state: changeLanguagePref');
+        // console.log('set user state: changeLanguagePref');
         this.needsRefetch = true;
         this.setState({
             languageID: languageID
@@ -616,7 +616,7 @@ class UserStore extends Store {
         if (rowsType === 'list'){
             //always set startTime to first minute when posting user endTime
             //changes with the table type set to list
-            console.log('user is changing end time on a minutes table, reset start time');
+            // console.log('user is changing end time on a minutes table, reset start time');
             result = this.overrideStartTime(result)
         }
         return result;
@@ -722,7 +722,7 @@ class UserStore extends Store {
         return result;
     }
     secondTableFormUpdate(change) {
-        console.log('secondTableFormUpdate', change);
+        // console.log('secondTableFormUpdate', change);
         let newState = merge({},this.state.newSecondaryRow);
         switch (change.field){
             case 'autoUpdate':
@@ -756,7 +756,7 @@ class UserStore extends Store {
                     newState.primaryVarLabel, newState.secondaryVarLabel);
                 break;
             case 'secondaryVarLabel':
-                console.log('secondaryVarLabel changed to', change.value)
+                // console.log('secondaryVarLabel changed to', change.value)
                 newState[change.field] = change.value;
                 newState.variableComboID = this.getVariableComboIDFromLabels(
                     newState.primaryVarLabel, newState.secondaryVarLabel);

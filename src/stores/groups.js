@@ -55,7 +55,7 @@ class GroupsStore extends Store {
         let store = this;
         token = token || this.sessionStore.state.token;
         if (token === null){ return false; }
-        console.log('GET', URLs.filters.groups);
+        // console.log('GET', URLs.filters.groups);
         fetch(URLs.baseUrl + URLs.filters.groups, {
             method: 'GET',
             headers: authHeaders(token)
@@ -63,12 +63,12 @@ class GroupsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK', URLs.filters.groups);
-            console.log('result', URLs.filters.groups, payload);
+            // console.log('OK', URLs.filters.groups);
+            // console.log('result', URLs.filters.groups, payload);
             let groups = parseGroups(payload).groups,
                 partitionedGroups = partition(groups, 'type', 1),
                 userStore = store.flux.getStore('user');
-            console.log('parsed result', URLs.filters.groups, partitionedGroups);
+            // console.log('parsed result', URLs.filters.groups, partitionedGroups);
             store.setState({
                 type1: partitionedGroups[0],
                 type2: partitionedGroups[1]
@@ -87,7 +87,7 @@ class GroupsStore extends Store {
         let store = this;
         token = token || this.sessionStore.state.token;
         if (token === null){ return false; }
-        console.log('GET', URLs.filters.subgroups);
+        // console.log('GET', URLs.filters.subgroups);
         fetch(URLs.baseUrl + URLs.filters.subgroups, {
             method: 'GET',
             headers: authHeaders(token)
@@ -96,7 +96,7 @@ class GroupsStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             // console.log('result', URLs.filters.subgroups, payload);
-            console.log('OK', URLs.filters.subgroups);
+            // console.log('OK', URLs.filters.subgroups);
             let groups = filter(parseSubGroups(payload).groups, {'hasThumbnails': true});
             store.setState({
                 selectedGroupSubgroups: groups

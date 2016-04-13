@@ -85,7 +85,7 @@ class LanguageStore extends Store {
         let store = this;
         token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
-        console.log('GET', URLs.languages.list);
+        // console.log('GET', URLs.languages.list);
         fetch(URLs.baseUrl + URLs.languages.list, {
             method: 'GET',
             headers: authHeaders(token)
@@ -94,7 +94,7 @@ class LanguageStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             // console.log('result', URLs.languages.list, payload);
-            console.log('OK', URLs.languages.list);
+            // console.log('OK', URLs.languages.list);
             let languages = parseLanguages(payload).languages;
             store.setState({
                 list: languages

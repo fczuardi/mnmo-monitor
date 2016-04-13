@@ -21,7 +21,7 @@ class RowHeaders extends Component {
         const userActions = this.props.flux.getActions('user');
         const actions = {
             onRemoveClicked: (ev) => {
-                console.log('remove row clicked!', ev.target.getAttribute('data-key'));
+                // console.log('remove row clicked!', ev.target.getAttribute('data-key'));
                 userActions.secondTableFormChanged('action', ev.target.getAttribute('data-key'));
             }
         }

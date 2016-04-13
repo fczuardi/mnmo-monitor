@@ -51,15 +51,15 @@ class PasswordValidationStore extends Store {
         params[URLs.user.language] = qsParams[URLs.user.language];
         let url = URLs.baseUrl + URLs.user.forgotPassword + '?' +
                     queryString.stringify(params);
-        console.log('GET', url);
+        // console.log('GET', url);
         fetch(url, {method: 'GET'})
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK (get)', URLs.user.forgotPassword, payload);
+            // console.log('OK (get)', URLs.user.forgotPassword, payload);
             let languageStore = store.flux.getStore('language');
             let result = parseForgotPasswordToken(payload, languageStore.state.messages);
-            console.log('parsed result forgot token', result);
+            // console.log('parsed result forgot token', result);
             if (result.success){
                 store.setState({
                     canSubmit: true,

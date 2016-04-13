@@ -61,7 +61,7 @@ class ColumnsStore extends Store {
     }
 
     userChanged(newState) {
-        console.log('userChanged');
+        // console.log('userChanged');
         if (newState.groupID !== this.previousSelectedGroup){
             this.fetchColumns(this.sessionStore.state.token);
             this.previousSelectedGroup = newState.groupID;
@@ -76,11 +76,11 @@ class ColumnsStore extends Store {
     }
 
     fetchColumns(token) {
-        console.log('fetchColumns');
+        // console.log('fetchColumns');
         let store = this;
         token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
-        console.log('GET', URLs.columns.list);
+        // console.log('GET', URLs.columns.list);
         fetch(URLs.baseUrl + URLs.columns.list, {
             method: 'GET',
             headers: authHeaders(token)
@@ -88,10 +88,10 @@ class ColumnsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.columns.list, payload);
-            console.log('OK ' + URLs.columns.list);
+            // console.log('result', URLs.columns.list, payload);
+            // console.log('OK ' + URLs.columns.list);
             let columns = parseColumnsList(payload);
-            console.log('parsed result', columns);
+            // console.log('parsed result', columns);
             // if (columns.error !== null) {
             //     console.log('error arrived');
             //     store.userActions.errorArrived(columns.error);
@@ -116,7 +116,7 @@ class ColumnsStore extends Store {
         if (token === null){ return false; }
         if (hasChanged === false){ return false; }
         if (!postBody){ return false; }
-        console.log('POST ' + URLs.columns.list);
+        // console.log('POST ' + URLs.columns.list);
         fetch(URLs.baseUrl + URLs.columns.list, {
             method: 'POST',
             headers: authHeaders(token),
@@ -126,9 +126,9 @@ class ColumnsStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             let response = columnListPostResponseOK(payload);
-            console.log('result (post)', URLs.columns.list, response);
+            // console.log('result (post)', URLs.columns.list, response);
             let newState = response;
-            console.log('OK (post)', URLs.columns.list);
+            // console.log('OK (post)', URLs.columns.list);
             store.columnsActions.columnsPublished(newState);
         })
         .catch(function(e){

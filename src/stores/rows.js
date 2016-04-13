@@ -196,7 +196,7 @@ class RowsStore extends Store {
         let url = URLs.baseUrl + URLs.rows.secondTable + '?';
         url += URLs.rows.secondTableDayParam + '=' + dayParam;
         url += '&' + URLs.rows.secondTableVariableParam + '=' + varParam;
-        console.log('GET ', url);
+        // console.log('GET ', url);
         fetch(url, {
             method: 'GET',
             headers: authHeaders(token)
@@ -204,11 +204,11 @@ class RowsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK', URLs.rows.secondTable);
-            console.log('result', payload);
+            // console.log('OK', URLs.rows.secondTable);
+            // console.log('result', payload);
             // console.log('result', JSON.stringify(payload, 2, ' '));
             let result = parseSecondaryRows(payload);
-            console.log('parsed result', result);
+            // console.log('parsed result', result);
             store.rowsActions.secondaryRowsFetchCompleted(result.rows);
 
             if (result.error !== null) {
@@ -234,7 +234,7 @@ class RowsStore extends Store {
         });
     }
     updateSecondTable(data){
-        console.log('updateSecondTable', data);
+        // console.log('updateSecondTable', data);
         let newValues = merge({}, this.state.secondary);
         //overwrite rows and headers
         if (data.headers.length > 0){
@@ -246,7 +246,7 @@ class RowsStore extends Store {
         newValues.autoUpdate = data.autoUpdate;
         newValues.lastLoad = new Date().getTime();
         newValues.loading = false;
-        console.log('newValues', newValues);
+        // console.log('newValues', newValues);
         this.setState({
             secondary: newValues
         });
@@ -269,9 +269,9 @@ class RowsStore extends Store {
             postBody[URLs.rows.secondTableVariableParam] = params.variableComboID;
         }
         postBody = queryString.stringify(postBody);
-        console.log('---------');
-        console.log('modifySecondaryTable POST body', postBody, postHeaders);
-        console.log('---------');
+        // console.log('---------');
+        // console.log('modifySecondaryTable POST body', postBody, postHeaders);
+        // console.log('---------');
 
 
         fetch(url, {
@@ -285,8 +285,8 @@ class RowsStore extends Store {
         ))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK (post)', URLs.rows.secondTableAutoupdateParam);
-            console.log('result (post)', URLs.rows.secondTableAutoupdateParam, payload);
+            // console.log('OK (post)', URLs.rows.secondTableAutoupdateParam);
+            // console.log('result (post)', URLs.rows.secondTableAutoupdateParam, payload);
             let result = secondTablePostResponseOK(payload);
             if (result.error !== null) {
                 store.userActions.errorArrived(result.error);
@@ -369,7 +369,7 @@ class RowsStore extends Store {
                         );
                     }
                 }else{
-                    console.log('=== REMOVE ROW ===', change.value);
+                    // console.log('=== REMOVE ROW ===', change.value);
                     this.removeSecondaryRow(change.value);
                 }
                 break;
@@ -386,7 +386,7 @@ class RowsStore extends Store {
         }
         token = token || store.sessionStore.state.token;
         if (token === null){ return false; }
-        console.log('GET', type, URLs.rows[type], endTime);
+        // console.log('GET', type, URLs.rows[type], endTime);
 
         let lastEndTime = endTime || (resetRows ? '' : store.state.lastEndTime);
         endTime = endTime || '';
@@ -403,7 +403,7 @@ class RowsStore extends Store {
         let url = URLs.baseUrl + URLs.rows[type] + '?' +
                         URLs.rows.endTimeParam + '=' + endTime + '&' +
                         URLs.rows.lastEndTimeParam + '=' + lastEndTime;
-        console.log('== fetch Rows url ==', url);
+        // console.log('== fetch Rows url ==', url);
         if (URLs.rows[type] === undefined){ return false; }
         store.setState({
             loading: true,
@@ -416,10 +416,10 @@ class RowsStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK', URLs.rows[type], resetRows);
-            console.log('result', payload);
+            // console.log('OK', URLs.rows[type], resetRows);
+            // console.log('result', payload);
             let result = parseRows(payload, store.state.type);
-            console.log('parsed result', result);
+            // console.log('parsed result', result);
             //edge case, column got removed from the backend between fetches
             let enabledColumns = store.columnsStore.state.enabled;
             if (
@@ -429,8 +429,8 @@ class RowsStore extends Store {
                 result.rows.data.length > 1 &&
                 result.rows.data[0].length !== enabledColumns.length
             ){
-                console.log('number of columns', result.rows.data[0].length, 'vs', enabledColumns.length);
-                console.log('--- COLUMN REMOVED FROM SERVER ---');
+                // console.log('number of columns', result.rows.data[0].length, 'vs', enabledColumns.length);
+                // console.log('--- COLUMN REMOVED FROM SERVER ---');
                 let languageStore = store.flux.getStore('language');
                 let columnsActions = store.flux.getActions('columns');
                 columnsActions.outOfSync();
@@ -511,11 +511,11 @@ class RowsStore extends Store {
     }
 
     startSecondaryAutoUpdate(){
-        console.log('startSecondaryAutoUpdate');
+        // console.log('startSecondaryAutoUpdate');
         let store = this;
         window.clearInterval(store.secondaryAutoUpdateInterval);
         store.secondaryAutoUpdateInterval = window.setInterval(function(){
-            console.log('secondary autoupdate fetch');
+            // console.log('secondary autoupdate fetch');
             store.fetchSecondaryRows(
                 store.userStore.state.newSecondaryRow.day + ' ' +
                 store.userStore.state.newSecondaryRow.startTime
@@ -524,7 +524,7 @@ class RowsStore extends Store {
     }
 
     stopSecondaryAutoUpdate(){
-        console.log('stopSecondaryAutoUpdate');
+        // console.log('stopSecondaryAutoUpdate');
         window.clearInterval(this.secondaryAutoUpdateInterval);
     }
 
@@ -596,7 +596,7 @@ class RowsStore extends Store {
         //             firstNewHeaderLabel.substring(0,5), 'with',
         //             calendarStore.state.firstMinute.substring(0,5), dayChanged);
         if (dayChanged){
-            console.log('day changed replace data');
+            // console.log('day changed replace data');
             return mergedData;
         }
 
@@ -628,7 +628,7 @@ class RowsStore extends Store {
 
         if (lastHeaderLabel.substring(0,2) === '00' &&
                 firstNewHeaderLabel.substring(0,2) === '23') {
-            console.log('Pagination occured right in between 00:00 and 23:59');
+            // console.log('Pagination occured right in between 00:00 and 23:59');
             lastHeaderLabel = lastHeaderLabel.replace('00:', '24:');
         }
         //if received first header (16:59) is close to last existing header (17:00)
@@ -694,7 +694,7 @@ class RowsStore extends Store {
             data.rows.data.length === 0 ||
             (data.rows.data.length === 1 && data.rows.data[0].length === 1 && data.rows.data[0][0] === null)
         ){
-            console.log('no data');
+            // console.log('no data');
             this.setState({
                 lastLoad: new Date().getTime(),
                 loading: false,
@@ -767,7 +767,7 @@ class RowsStore extends Store {
     }
 
     printTable(){
-        console.log('printTable');
+        // console.log('printTable');
 
         let tableProperties = {
             flux: this.flux,

@@ -44,7 +44,7 @@ class VariablesStore extends Store {
     fetchVars(token) {
         let store = this;
         if (token === null){ return false; }
-        console.log('GET', URLs.filters.variables);
+        // console.log('GET', URLs.filters.variables);
         fetch(URLs.baseUrl + URLs.filters.variables, {
             method: 'GET',
             headers: authHeaders(token)
@@ -52,10 +52,10 @@ class VariablesStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('result', URLs.filters.variables, payload);
-            console.log('OK', URLs.filters.variables);
+            // console.log('result', URLs.filters.variables, payload);
+            // console.log('OK', URLs.filters.variables);
             let parsedResult = parseVariables(payload);
-            console.log('parsedResult', parsedResult);
+            // console.log('parsedResult', parsedResult);
             let newCombos = parsedResult.combos;
             let primaryOptions = keys(
                                     newCombos

@@ -10,7 +10,7 @@ class FailedRender{
     componentDidMount(){
         const userActions = this.props.flux.getActions('user');
         const message = (this.props && this.props.message) ? this.props.message : '';
-        console.log('userActions', userActions);
+        // console.log('userActions', userActions);
         window.setTimeout(function(){
             userActions.errorArrived({
                 message: message,

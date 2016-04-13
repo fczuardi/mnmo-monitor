@@ -12,7 +12,7 @@ class LoginForm {
                 this.props.flux.getActions('country').select(event.target.value),
             forgotPasswordClick: (event) => {
                 event.preventDefault();
-                console.log('forgot password clicked');
+                // console.log('forgot password clicked');
                 this.props.flux.getActions('user').navigateToScreen('forgotPassword');
             },
             saveInfoChange: (event) =>

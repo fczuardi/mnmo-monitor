@@ -236,7 +236,7 @@ export default (p) => {
                 let backgroundColor = columnColors[(index % columnColors.length)];
                 endAngle = startAngle + percent * (2 * Math.PI);
                 if (percent > 0.999){
-                    console.log('one single value');
+                    // console.log('one single value');
                     endAngle *= 0.999;
                 }
                 let x1 = (centerX + rx * Math.cos(startAngle));

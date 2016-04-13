@@ -27,11 +27,11 @@ class CalendarStore extends Store {
             minutesInADay: 1440,
         };
     }
-    
+
     userPrefFetched(pref) {
-        let dateString = (pref.archivedReport && 
-                            pref.archivedReport.date) ? 
-                                            pref.archivedReport.date : 
+        let dateString = (pref.archivedReport &&
+                            pref.archivedReport.date) ?
+                                            pref.archivedReport.date :
                                             today.format('YYYY-MM-DD');
         this.fetchDays(dateString);
         this.fetchDayLimits();
@@ -42,11 +42,11 @@ class CalendarStore extends Store {
         let token = this.sessionStore.state.token;
         if (token === null){ return false; }
         let dateParts = dateString.split('-');
-        let url = URLs.baseUrl + 
-                    URLs.calendar.days + '?' + 
+        let url = URLs.baseUrl +
+                    URLs.calendar.days + '?' +
                     URLs.calendar.monthParam + '=' + dateParts[1] + '&' +
                     URLs.calendar.yearParam + '=' + dateParts[0];
-        console.log('GET', URLs.calendar.days);
+        // console.log('GET', URLs.calendar.days);
         fetch(url, {
             method: 'GET',
             headers: authHeaders(token)
@@ -54,7 +54,7 @@ class CalendarStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK', URLs.calendar.days);
+            // console.log('OK', URLs.calendar.days);
             // console.log('result', payload);
             let stateUpdate = parseCalendar(payload);
             let newState = merge(store.state, stateUpdate);
@@ -64,16 +64,16 @@ class CalendarStore extends Store {
             console.log('fetch error ' + URLs.calendar.days, e); // eslint-disable-line
         });
     }
-    
+
     fetchDayLimits() {
         let store = this;
         let token = this.sessionStore.state.token;
         if (token === null){ return false; }
         let countryID = this.userStore.state.countryID;
-        let url = URLs.baseUrl + 
-                    URLs.calendar.dayLimits + '?' + 
+        let url = URLs.baseUrl +
+                    URLs.calendar.dayLimits + '?' +
                     URLs.calendar.countryParam + '=' + countryID;
-        console.log('GET', URLs.calendar.dayLimits);
+        // console.log('GET', URLs.calendar.dayLimits);
         fetch(url, {
             method: 'GET',
             headers: authHeaders(token)
@@ -81,17 +81,17 @@ class CalendarStore extends Store {
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
         .then(function(payload){
-            console.log('OK', URLs.calendar.dayLimits);
+            // console.log('OK', URLs.calendar.dayLimits);
             // console.log('result', payload);
             let stateUpdate = parseDayLimits(payload);
-            console.log('parsed result', stateUpdate);
+            // console.log('parsed result', stateUpdate);
             store.setState(stateUpdate);
         })
         .catch(function(e){
             console.log('fetch error ' + URLs.calendar.dayLimits, e); // eslint-disable-line
         });
     }
-    
+
 
 }
 

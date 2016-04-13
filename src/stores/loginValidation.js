@@ -75,11 +75,11 @@ class LoginValidationStore extends Store {
             url = URLs.baseUrl + URLs.validation.captcha + '?' +
                 URLs.session.loginLanguageParam + '=' +
                 (languageNames[this.userStore.state.languageID || 0]);
-        console.log('GET', url);
+        // console.log('GET', url);
         fetch(url)
         .then(chooseTextOrJSON)
         .then(function(payload) {
-            console.log('OK', URLs.validation.captcha);
+            // console.log('OK', URLs.validation.captcha);
             let languageStore = store.flux.getStore('language');
             let questionTemplate = languageStore.state.messages.login.question;
             let options = parseCaptchaSetup(payload, questionTemplate);

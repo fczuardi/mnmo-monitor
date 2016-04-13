@@ -7,8 +7,8 @@ class ChangePassword {
         const actions = {
             cancelClick: (event) => {
                 event.preventDefault();
-                console.log('cancel change password');
-                console.log(window.location.search.length);
+                // console.log('cancel change password');
+                // console.log(window.location.search.length);
                 //reset browser's location.search
                 //to clear any forgot password parameters if they are present
                 if (window.location.search.length > 0) {

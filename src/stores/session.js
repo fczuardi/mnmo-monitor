@@ -104,8 +104,8 @@ class SessionStore extends Store {
         })
         .then(chooseTextOrJSON)
         .then(function(payload) {
-            console.log('result (post)', URLs.session.login, payload);
-            console.log('OK (post)', URLs.session.login);
+            // console.log('result (post)', URLs.session.login, payload);
+            // console.log('OK (post)', URLs.session.login);
             let sessionData = parseLoginResponse(payload);
             let sessionDataError = (sessionData.error_description || sessionData.error);
             if (sessionData.token){

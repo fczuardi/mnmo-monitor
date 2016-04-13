@@ -27,10 +27,10 @@ class FrequencyStore extends Store {
         let token = this.sessionStore.state.token;
         if (token === null){ return false; }
         let countryID = this.userStore.state.countryID || '1',
-            url = URLs.baseUrl + 
-                    URLs.frequency.list + '?' + 
+            url = URLs.baseUrl +
+                    URLs.frequency.list + '?' +
                     URLs.frequency.countryParam + '=' + countryID;
-        console.log('GET', URLs.frequency.list);
+        // console.log('GET', URLs.frequency.list);
         fetch(url, {
             method: 'GET',
             headers: authHeaders(token)
@@ -39,7 +39,7 @@ class FrequencyStore extends Store {
         .then(chooseTextOrJSON)
         .then(function(payload){
             // console.log('result', URLs.frequency.list, payload);
-            console.log('OK', URLs.frequency.list);
+            // console.log('OK', URLs.frequency.list);
             let newState = parseFrequencies(payload);
             store.setState(newState);
         })

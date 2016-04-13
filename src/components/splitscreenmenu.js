@@ -11,7 +11,7 @@ class SplitScreenMenu{
             },
             secondTableOnClicked: (event) => {
                 event.stopPropagation();
-                console.log('secondTableOnClicked');
+                // console.log('secondTableOnClicked');
                 this.props.flux.getActions('user').secondTableEnabled();
             },
             chartOffClicked: (event) => {
