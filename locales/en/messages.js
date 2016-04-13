@@ -61,7 +61,8 @@ export default {
     },
     chart: {
         onButton: 'Chart',
-        offButton: 'Empty'
+        offButton: 'Empty',
+        pieChartLabel: 'This chart computes only the selected stations.'
     },
     groups: {
         title: 'Groups',

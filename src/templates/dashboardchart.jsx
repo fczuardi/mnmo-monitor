@@ -208,7 +208,7 @@ export default (p) => {
     );
     let pieChartWidth = p.ui.screenWidth;
     // let pieChartPadding = 14;
-    let pieChartHeight = p.chartHeight;
+    let pieChartHeight = p.chartHeight - 18;
     let centerX = pieChartWidth / 2;
     let centerY = pieChartHeight / 2;
     let rx = pieChartHeight / 2 - p.tableTitleHeight;
@@ -262,6 +262,23 @@ export default (p) => {
         </svg>
     );
 
+    let pieChartLabelStyle = {
+        textAlign: 'center',
+        fontSize: 11,
+        width: '100%',
+        position: 'absolute',
+        bottom: 3
+    };
+
+    let pieChartWithLabel = !isPercent ? null : (
+        <div>
+            {pieChart}
+            <p style={pieChartLabelStyle}>
+                {p.language.messages.chart.pieChartLabel}
+            </p>
+        </div>
+    );
+
     return (
         <div
             id="column-bars"
@@ -275,7 +292,7 @@ export default (p) => {
                     {row}
                 </tbody>
             </table>
-            {pieChart}
+            {pieChartWithLabel}
         </div>
     );
 };

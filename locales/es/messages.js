@@ -61,7 +61,8 @@ export default {
     },
     chart: {
         onButton: 'Gráfico',
-        offButton: 'Vazio'
+        offButton: 'Vazio',
+        pieChartLabel: 'Este gráfico representa las estaciones seleccionadas.'
     },
     groups: {
         title: 'Grupos',

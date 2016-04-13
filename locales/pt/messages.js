@@ -61,7 +61,8 @@ export default {
     },
     chart: {
         onButton: 'Gráfico',
-        offButton: 'Vazio'
+        offButton: 'Vazio',
+        pieChartLabel: 'Este gráfico representa apenas as emissoras selecionadas.'
     },
     groups: {
         title: 'Grupos',
