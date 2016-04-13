@@ -395,7 +395,7 @@ class UserStore extends Store {
         let debugParams = queryString.parse(location.search);
         let state = merge({}, store.state);
         if (debugParams.debug === 'user'){
-            console.log('DEBUG: ', debugParams);
+            // console.log('DEBUG: ', debugParams);
             //example http://localhost:8001/?debug=user&archivedReport={%22date%22:%222016-01-26%22,%22end%22:%2220:00:00%22,%22start%22:%2208:00:00%22}
             let archivedReport = JSON.parse(debugParams.archivedReport);
             if (archivedReport.date && archivedReport.end && archivedReport.start){
@@ -432,7 +432,7 @@ class UserStore extends Store {
             store.userActions.preferencesPublished(newState);
             if (result.error !== null) {
                 let openedPanel = store.flux.getStore('ui').state.panel;
-                console.log('---ERROR---', openedPanel , result.errorCode, (result.errorCode >= 10051 && result.errorCode <= 10054));
+                // console.log('---ERROR---', openedPanel , result.errorCode, (result.errorCode >= 10051 && result.errorCode <= 10054));
                 if (result.errorCode >= 10051 && result.errorCode <= 10054 && openedPanel !== 'rows'){
                     let calendarStore = store.flux.getStore('calendar');
                     let startTime = calendarStore.state.firstMinute;

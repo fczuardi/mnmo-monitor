@@ -462,7 +462,7 @@ class RowsStore extends Store {
                     // error 98 should not warn the user nor interrupt autoUpdate
                     // just do nothing.
                     // na verdade mostrar a mensagem, no balaozinho debaixo, do carregando
-                    console.log('error 98:', result, result.error);
+                    console.log('error 98:', result.error);
                 }else{
                     store.stopAutoUpdate();
                 }
