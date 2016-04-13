@@ -3,11 +3,11 @@ import serve from 'koa-static';
 import cors from 'koa-cors';
 import APIRouter from './api';
 
-const PORT = 8001;
+const PORT = 7001;
 const ROOT = './dist/classic/';
-const DEV_PORT = 8002;
+const DEV_PORT = 7002;
 const DEV_ROOT = './dist/www/';
-const BRANDED_PORT = 8003;
+const BRANDED_PORT = 7003;
 const BRANDED_ROOT = './dist/branded/';
 
 const API_PORT = 9001;
