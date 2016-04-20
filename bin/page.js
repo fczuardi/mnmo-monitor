@@ -31,8 +31,6 @@ var options = {
         './lib/js/pt-BR.js',
         './lib/js/es-ES.js',
         '$comment=intl-polyfills',
-        // '//cdnjs.cloudflare.com/ajax/libs/d3/3.3.13/d3.js',
-        // '$comment=d3',
         './lib/js/react.js',
         './lib/js/flummox.js',
         './lib/js/flummox-component.js',
