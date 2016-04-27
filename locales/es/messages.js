@@ -60,8 +60,8 @@ export default {
         months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
     },
     chart: {
-        onButton: 'Gráfico',
-        offButton: 'Vazio',
+        onButton: 'Graficos',
+        offButton: 'Vacio',
         pieChartLabel: 'Este gráfico representa las estaciones seleccionadas.'
     },
     groups: {
