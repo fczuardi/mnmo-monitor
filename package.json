@@ -250,7 +250,7 @@
     "prebranded": "npm run branded:clean && npm run branded:mkdir",
     "branded": "npm run branded:html && npm run branded:css && npm run branded:img && npm run branded:fonts && npm run branded:js",
     "branded-branch": "cd ../monitor-traditional && git checkout bundled && rm -rf *.html js lib css && cp -R ../mnmo-monitor/dist/branded/* . && cd ../mnmo-monitor",
-    "copy:secrets": "cp -R ../monitor-traditional/_dev/config ./",
+    "copy:secrets": "cp -R ../monitor-traditional/_dev/config ../monitor-traditional/_dev/locales ./ ",
     "start": "babel-node server.js",
     "test": "node ."
   },
