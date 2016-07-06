@@ -227,7 +227,7 @@
     "preclassic:www": "npm run www",
     "preclassic:img": "npm run www:img",
     "preclassic": "npm run classic:clean",
-    "classic": "npm run classic:www & npm run classic:docs && npm run classic:secret",
+    "classic": "npm run classic:www && npm run classic:secret",
     "branded:clean": "rm -rf ./dist/branded",
     "branded:mkdir": "mkdir -p  ./dist/branded/js ./dist/branded/img ./dist/branded/css ./dist/branded/lib/js ./dist/branded/lib/css ./dist/branded/lib/fonts",
     "prebranded:img": "npm run www:img",
