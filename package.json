@@ -117,7 +117,7 @@
     "font:mkdir": "mkdir -p ./assets/fonts",
     "font:download:roboto": "goog-webfont-dl --all -f Roboto",
     "font:mv:roboto": "mv Roboto* ./assets/fonts",
-    "font:cp:custom-icons": "cp -Rf ../mnmo-components/assets/fonts/Entypo ./assets/fonts/.",
+    "font:cp:custom-icons": "./bin/downloadCustomEntypo.sh",
     "font": "npm run font:clean && npm run font:mkdir && npm run font:download:roboto && npm run font:mv:roboto && npm run font:cp:custom-icons",
     "dev:lib": "npm install -D ../mnmo-components/dist/npm",
     "dev:lint": "eslint .",
