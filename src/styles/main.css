@@ -157,6 +157,16 @@ body{
         font-size: 10px;
     }
 
+    .simple-table-print .printTableFooter {
+        border: 1px solid black;
+        font-size: 15px;
+        line-height: 20px;
+    }
+    .simple-table-print .printTableFooter .secondary {
+        font-size: 12px;
+    }
+
+
 }
 .addRowButton{
     opacity: 0.5;

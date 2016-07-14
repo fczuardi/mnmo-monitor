@@ -76,6 +76,18 @@ let secondTable = p => (!p.ui.secondTableVisible) ? null : (
         }</tbody>
     </table>
 );
+
+let dayAverageFooter = p => (p.rows.type !== 'merged') ? null : (
+    <tfoot className="printTableFooter">
+        <tr className={(p.rows.data.length % 2 === 0 ? 'odd' : 'even')}>
+            {rowHeaderCell(p.rows.headers, 0)}
+            {p.rows.data[0].map( (cell, cellKey) => {
+                return cellRenderer(cell, 0, cellKey, p);
+            })}
+        </tr>
+    </tfoot>
+);
+
 export default (p) => {
 return (<div>
 <div className={'simple-table-print-header'}>
@@ -148,16 +160,17 @@ return (<div>
         </tr>
     </thead>
     <tbody>
-        {p.rows.data.map( (row, key) => (
+        {p.rows.data.map( (row, key) => (p.rows.type !== 'merged' || key > 0) ? (
                 <tr key={key} className={(key % 2 === 0 ? 'odd' : 'even')}>
                     {rowHeaderCell(p.rows.headers, key)}
                     {row.map( (cell, cellKey) => {
                         return cellRenderer(cell, key, cellKey, p);
                     })}
                 </tr>
-            )
+            ) : null
         )}
     </tbody>
+    {dayAverageFooter(p)}
 </table>
 </div>);
 };
