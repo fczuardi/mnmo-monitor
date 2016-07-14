@@ -42,8 +42,42 @@ function columnHeaderContent(column, p){
     );
     return cellContent;
 }
-export default (p) =>
-<div>
+
+function compareAveragesRow(row, key, p){
+    if (!p.ui.secondTableVisible) {
+        return null;
+    }
+    var className = (key % 2 === 0 ? 'odd' : 'even');
+    return (
+        <div key={'secondarytablerow-' + key}>
+            <tr key={'separator-' + key} className={className}>
+                <td key={'separator-td-' + key} colSpan={row.length + 1}>
+                    {p.rows.secondary.headers[key][4]}
+                </td>
+            </tr>
+            <tr key={'row-' + key} className={className}>
+                {rowHeaderCell(p.rows.secondary.headers, key)}
+                {row.map( (cell, cellKey) => {
+                    return cellRenderer(cell, key, cellKey, p);
+                })}
+            </tr>
+        </div>
+    );
+}
+
+let secondTable = p => (!p.ui.secondTableVisible) ? null : (
+    <table className={'simple-table-print'}  cellSpacing="0">
+        <caption>
+            {p.language.messages.rows.secondTable}
+        </caption>
+        <tbody>{
+            p.rows.secondary.data.map((row, key) =>
+                compareAveragesRow(row, key, p))
+        }</tbody>
+    </table>
+);
+export default (p) => {
+return (<div>
 <div className={'simple-table-print-header'}>
     <img src='./img/logo_splash_small.png' />
 </div>
@@ -97,18 +131,21 @@ export default (p) =>
         </dd>
     </div>
 </div>
+{secondTable(p)}
 <table className={'simple-table-print'}  cellSpacing="0">
     <caption>
         {p.language.messages.rows.printTableTitle[p.rows.type]}
     </caption>
     <thead>
-        <th key={'headers-column'}></th>
-        {p.columns.enabled.map( (column, key) => (
-                <th key={key}>
-                    {columnHeaderContent(column, p)}
-                </th>
-            )
-        )}
+        <tr>
+            <th key={'headers-column'}></th>
+            {p.columns.enabled.map( (column, key) => (
+                    <th key={key}>
+                        {columnHeaderContent(column, p)}
+                    </th>
+                )
+            )}
+        </tr>
     </thead>
     <tbody>
         {p.rows.data.map( (row, key) => (
@@ -122,4 +159,5 @@ export default (p) =>
         )}
     </tbody>
 </table>
-</div>;
+</div>);
+};

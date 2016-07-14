@@ -777,8 +777,8 @@ class RowsStore extends Store {
             language: this.flux.getStore('language').state,
             columns: this.flux.getStore('columns').state,
             rows: this.state,
+            ui: this.flux.getStore('ui').state,
             iconWidth: 30
-            // ui: this.flux.getStore('ui').state
         };
         let tableHTML = renderToStaticMarkup(
             DOM.html(null,
