@@ -152,7 +152,7 @@
     "www:js:lib:react-intl": "browserify -o ./dist/classic/lib/js/react-intl.js -r 'react-intl' -t browserify-shim -s ReactIntl",
     "www:js:lib:interactjs": "browserify -o ./dist/classic/lib/js/interact.js -r 'interact.js' -t browserify-shim -s InteractJS",
     "www:js:lib:moment": "browserify -o ./dist/classic/lib/js/moment.js -r 'moment' -t browserify-shim -s moment",
-    "www:js:lib:react-day-picker": "browserify -o ./dist/classic/lib/js/react-day-picker.js -e ./node_modules/react-day-picker/dist/DayPicker.js -t browserify-shim -s ReactDayPicker",
+    "www:js:lib:react-day-picker": "browserify -o ./dist/classic/lib/js/react-day-picker.js -e ./node_modules/react-day-picker/DayPicker.js -t browserify-shim -s ReactDayPicker",
     "www:js:lib:querystring": "browserify -o ./dist/classic/lib/js/querystring.js -r 'query-string' -t browserify-shim -s QueryString",
     "www:js:lib:lodash:merge": "browserify -o ./dist/classic/lib/js/lodash-merge.js -r 'lodash/object/merge' -t browserify-shim -s LodashMerge",
     "www:js:lib:lodash:partition": "browserify -o ./dist/classic/lib/js/lodash-partition.js -r 'lodash/collection/partition' -t browserify-shim -s LodashPartition",
@@ -310,6 +310,6 @@
   "dependencies": {
     "moment": "^2.10.2",
     "query-string": "^1.0.0",
-    "react-day-picker": "^0.8.1"
+    "react-day-picker": "^1.2.0"
   }
 }
