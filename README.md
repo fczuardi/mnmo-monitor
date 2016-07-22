@@ -13,6 +13,7 @@ Instalacao do ambiente de dev:
 2 git
 ---
 - instalar git caso nao tenha na maquina
+  - https://git-scm.com/downloads
 - para saber se tem git na maquina digite ```git --version```
 
 
