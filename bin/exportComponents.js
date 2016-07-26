@@ -1,4 +1,4 @@
-import {join} from 'path';
+import {join, sep} from 'path';
 import {createWriteStream} from 'fs';
 import browserify from 'browserify';
 // import browserifyShim from 'browserify-shim';
@@ -23,7 +23,7 @@ function createUMD(entry, globalName, outFilename, isES6){
 Object.keys(globalModules).forEach((key) => {
     if (key.indexOf('mnmo-') !== -1) {
         let entry = join(modulesPath, key + '.js'),
-            componentName = entry.replace(/(.*)\/(.*)/, '$2'),
+            componentName = entry.replace(/(.*)[\/|\\](.*)/, '$2'),
             globalName = globalModules[key].split(':')[1],
             outFilename = join(classicPath, 'lib/js/component-' + componentName);
         console.log(outFilename, globalName);
@@ -42,15 +42,14 @@ Object.keys(globalModules).forEach((key) => {
         if (
                 (subfolder === 'components') &&
                 (key.indexOf('../components/') !== -1) ){
-            entry = entry.replace('/components/', '/src/components/');
+            entry = entry.replace( sep + 'components' + sep, sep + 'src' + sep + 'components' + sep);
         }
         if (
             (subfolder === 'styles') &&
             (key.indexOf('../styles/') !== -1)
         ){
-            entry = entry.replace('/styles/', '/src/styles/');
+            entry = entry.replace(sep + 'styles' + sep, sep + 'src' + sep + 'styles' + sep);
         }
-        console.log(entry, outFilename, globalName);
         createUMD(entry, globalName, outFilename, true);
     }
 });
