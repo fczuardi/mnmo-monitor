@@ -32,6 +32,7 @@ cd ~
 mkdir tcnet
 cd tcnet
 git clone https://github.com/fczuardi/global-flummox
+git clone https://github.com/fczuardi/mnmo-components.git
 git clone https://github.com/fczuardi/mnmo-monitor.git
 git clone https://github.com/fczuardi/tcnet-traditional.git
 ```
@@ -63,6 +64,14 @@ Diretorio default do arquivo npmrc:  C:\Program Files\nodejs\node_modules\npm
 - npm run mkdir
 - npm run js
 
+### 4.2 mnmo-components
+- cd ../mnmo-components
+- npm install
+- npm run fontwin
+  - ou ```npm run font``` se estiver em Linux/Mac
+- npm run npmwin
+  - ou ```npm run npm``` se estiver em Linux/Mac
+
 ### 4.2 mnmo-monitor dependencies
 - cd ../mnmo-monitor
 - npm install
@@ -70,7 +79,7 @@ Diretorio default do arquivo npmrc:  C:\Program Files\nodejs\node_modules\npm
 - npm run copy:secrets
 
 
-5 gerar versao "clássica" da app
+5 gerar versão "clássica" da app
 --------------------------------
 - npm run www
 - a build ficará em ./dist/classic

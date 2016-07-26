@@ -292,7 +292,7 @@
     "lie": "^3.0.2",
     "lodash": "^3.10.1",
     "marked": "^0.3.5",
-    "mnmo-components": "^0.1.0",
+    "mnmo-components": "file:../mnmo-components/dist/npm",
     "moment": "^2.11.1",
     "normalize.css": "^3.0.3",
     "object-assign": "^4.0.1",
