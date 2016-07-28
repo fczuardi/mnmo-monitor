@@ -87,3 +87,10 @@ Diretorio default do arquivo npmrc:  C:\Program Files\nodejs\node_modules\npm
 ### 5.1 subir o server local
 - npm run start
 - abrir o navegador em http://localhost:7001
+
+6 atualizar repositorio -traditional com as mudancas
+--------------------------------
+
+- npm run classic
+- cd ../monitor-traditional
+- git status, git commit, git push
