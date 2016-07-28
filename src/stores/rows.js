@@ -796,7 +796,12 @@ class RowsStore extends Store {
                         rel: 'stylesheet'
                     })
                 ),
-                DOM.body(null,
+                DOM.body({
+                        style: {
+                            overflow: 'auto',
+                            marginBottom: 50
+                        }
+                    },
                     createElement(SimpleTable, tableProperties),
                     DOM.script({dangerouslySetInnerHTML: {__html: `
                         window.onload = function(){
