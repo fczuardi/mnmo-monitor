@@ -98,6 +98,16 @@ Diretorio default do arquivo npmrc:  C:\Program Files\nodejs\node_modules\npm
 7 atualizar repositorio -traditional com as mudancas
 --------------------------------
 
+### 7.1 Gerar branch "bundled" do -traditional
+- npm run branded
+- npm run branded-branch
+- cd ../monitor-traditional
+- git commit, push
+- git checkout master (para voltar para a branch master)
+- cd ../mnmo-monitor (para voltar para o mnmo-monitor)
+
+
+### 7.2 Gerar branch "master" do -traditional
 - npm run classic
 - cd ../monitor-traditional
 - git status, git commit, git push
