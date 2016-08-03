@@ -88,7 +88,14 @@ Diretorio default do arquivo npmrc:  C:\Program Files\nodejs\node_modules\npm
 - npm run start
 - abrir o navegador em http://localhost:7001
 
-6 atualizar repositorio -traditional com as mudancas
+6 depois que o patch estiver ok
+--------------------------------
+- git commit -am "mensagem"
+- npm version patch
+- git push
+- git push --tags
+
+7 atualizar repositorio -traditional com as mudancas
 --------------------------------
 
 - npm run classic

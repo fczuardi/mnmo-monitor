@@ -9,7 +9,9 @@ import {
     buildSignInRequestBody,
     parseLoginResponse,
     chooseTextOrJSON,
-    languageNames
+    languageNames,
+    authHeaders,
+    buildLogoutUserPreferencesPostBody
 } from '../../config/apiHelpers';
 
 const REFRESH_TIME = 3 * 1000;
@@ -136,6 +138,29 @@ class SessionStore extends Store {
             token: null
         });
         removeLocalItem('sessionToken');
+
+        // make a POST request to logout the user on the server
+        const url = URLs.baseUrl + URLs.session.logout;
+        const userState = this.flux.getStore('user').state;
+        const postBody = buildLogoutUserPreferencesPostBody(userState);
+        const options = {
+            method: 'POST',
+            headers: authHeaders(this.state.token),
+            body: postBody
+        };
+        // console.log('POST request in the URL', url);
+        // console.log('postBody', postBody);
+        fetch(url, options)
+        .then(function(payload){
+            // console.log('Logout endpoint returned this:', payload);
+        })
+        .catch(function(e){
+            console.log('Error: ' + URLs.session.logout, e); // eslint-disable-line
+            store.setState({
+                error: e.name + ': ' + e.message
+            });
+        });
+
     }
 }
 
