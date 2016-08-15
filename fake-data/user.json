@@ -10,12 +10,12 @@
         "frequencyID": 4,
         "mergeFunctionID": 1
     },
-    "groupID": 6,
-    "groupShortLabel": "GRC",
+    "groupID": 5,
+    "groupShortLabel": "GRE",
     "subgroupID": null,
     "classID": 1,
     "primaryVarLabel": "VarA",
-    "secondaryVarLabel": "-",
-    "variableComboID": 1,
-    "groupLabel": "GROUP C"
+    "secondaryVarLabel": "VarB",
+    "variableComboID": 4,
+    "groupLabel": "GROUP E"
 }

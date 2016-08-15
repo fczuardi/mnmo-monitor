@@ -50,6 +50,7 @@ Object.keys(globalModules).forEach((key) => {
         ){
             entry = entry.replace(sep + 'styles' + sep, sep + 'src' + sep + 'styles' + sep);
         }
+        console.log(outFilename, globalName);
         createUMD(entry, globalName, outFilename, true);
     }
 });

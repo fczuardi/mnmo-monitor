@@ -55,6 +55,11 @@ router.get(URLs.rows.detailed, function* detailedRows(next) {
     this.body = readFileSync(filename);
     yield next;
 });
+router.get(URLs.rows.secondTable, function* secondTableRows(next) {
+    let filename = './fake-data/rows.secondTable.json';
+    this.body = readFileSync(filename);
+    yield next;
+});
 router.get(URLs.frequency.list, function* freq(next) {
     let filename = './fake-data/frequencies.json';
     this.body = readFileSync(filename);

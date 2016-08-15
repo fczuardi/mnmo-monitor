@@ -177,6 +177,7 @@ export default {
     parseSubGroups: parseGroups,
     parseVariables: parseVariables,
     parseRows: genericParse,
+    parseSecondaryRows: genericParse,
     parseFrequencies: genericParse,
     parseCalendar: genericParse,
     parseDayLimits: genericParse,
