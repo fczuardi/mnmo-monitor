@@ -6,6 +6,7 @@ import TableContent from '../components/tablecontent';
 
 export default (p) => {
     let isSmall = p.ui.screenHeight < 640;
+    let hasDesktopWidth = p.ui.screenWidth > 600;
     let secondTableParams = merge({}, p);
     secondTableParams.tableHeight = p.secondTableHeight;
     secondTableParams.rowHeadersElementId = 'secondTableRowHeaders';
@@ -24,7 +25,12 @@ export default (p) => {
         <SecondTableToolbar {...p} />
     )}
     <div
-        className={isSmall ? 'dataTable small': 'dataTable'}
+        className={hasDesktopWidth
+            ? 'dataTable desktop' 
+            : isSmall
+                ? 'dataTable small'
+                : 'dataTable'
+        }
         style={{
             width: secondTableParams.tableWidth,
             height: secondTableParams.tableHeight,

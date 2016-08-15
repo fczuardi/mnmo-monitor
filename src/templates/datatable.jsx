@@ -10,6 +10,7 @@ import merge from 'lodash/object/merge';
 export default (p, a) => {
     let isSecondTable = (p.rows.type === 'secondary');
     let isSmall = p.ui.screenHeight < 640;
+    let hasDesktopWidth = p.ui.screenWidth > 600;
     let firstCellIcon = (
         <img
             style={{
@@ -72,8 +73,13 @@ export default (p, a) => {
             }}
         ></div>
         <div
-            className={isSmall && isSecondTable ?
-                            'dataTable small': 'dataTable'}
+            className={hasDesktopWidth
+                ? 'dataTable desktop' 
+                : isSecondTable && isSmall
+                    ? 'dataTable small'
+                    : 'dataTable'
+            }
+
             style={{
                 position: 'absolute',
                 width: p.tableWidth,
