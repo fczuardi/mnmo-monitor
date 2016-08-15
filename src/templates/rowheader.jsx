@@ -35,17 +35,29 @@ export default (row, key, p, a) => {
     let splittedFirstValue = firstValue.split(' - ');
     let isMerged  = (splittedFirstValue.length > 1);
     let isSecondTable = (p.rows.type === 'secondary');
-    let fontSizes = [15, 17, 25, 14, 12, 36];
-    if (p.ui.screenHeight <= 640){
-        if (isMerged) {
-            fontSizes = [10, 12, 17, 9, 7, 26];
-        } else {
-            fontSizes = [13, 15, 23, 12, 10, 34];
-        }
-    }
+    let isDesktop = (p.ui.screenHeight > 640);
+
+    // font sizes (title)
+    let mergedTitleSize = isDesktop ? 15 : 10;
+    let secondTableTitleSize = isDesktop ? 12 : 10;
+    let listTitleSize = isDesktop ? 17 : 15;
+    let iconSize = isDesktop ? 14 : isMerged ? 9 : 12;
+    
+    // font sizes (subtitle)
+    let secondTableSubtitleSize = isDesktop ? 12 : isMerged ? 7 : 10;
+    let listSubtitleSize = isDesktop ? 15 : isMerged ? 10 : 13;
+    let subtitleIconSize = isDesktop ? 12 : isMerged ? 7 : 10;
+    
+    // font sizes (big bracket)
+    let bracketSize = isDesktop ? 25 : 17;
+    let bracketLineHeight = isDesktop ? '36px' : '26px';
+    
     let titleStyle = {
-        fontSize: isMerged ? fontSizes[0] :
-                    isSecondTable ? fontSizes[4] : fontSizes[1]
+        fontSize: isMerged 
+                    ? mergedTitleSize 
+                    : isSecondTable 
+                        ? secondTableTitleSize 
+                        : listTitleSize
     }
     let firstTitle = isMerged ? (
         <span
@@ -65,8 +77,8 @@ export default (row, key, p, a) => {
         <span
             style={{
                 position: 'absolute',
-                fontSize: fontSizes[2],
-                lineHeight: fontSizes[5] + 'px',
+                fontSize: bracketSize,
+                lineHeight: bracketLineHeight,
                 marginLeft: -10
             }}
         >[</span>
@@ -78,7 +90,7 @@ export default (row, key, p, a) => {
             className="icon-attention"
             style={{
                 color: '#D1A800',
-                fontSize: fontSizes[3],
+                fontSize: iconSize,
                 marginRight: 5
             }}
         >
@@ -102,17 +114,20 @@ export default (row, key, p, a) => {
     // ): null;
     // let varsCount = keys(p.vars.combos).length;
     let secondHeader = isNaN(secondValue) ? (null) : (
-        <p style={{margin: 0, fontSize: isSecondTable ? fontSizes[4] : fontSizes[0]}}>
+        <p style={{
+            margin: 0, 
+            fontSize: isSecondTable ? secondTableSubtitleSize : listSubtitleSize
+        }}>
             <i
                 className={(p.user.classID !== null) ?
                         ('header-icon-' + p.user.classID) : ''}
                 style={{
-                    fontSize: fontSizes[4],
+                    fontSize: subtitleIconSize,
                     marginRight: 3
                 }}
             />
             <span style={{
-                    lineHeight: fontSizes[0] + 'px',
+                    lineHeight: listSubtitleSize + 'px',
                     verticalAlign: 'text-top'
                 }}
             >
