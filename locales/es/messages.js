@@ -62,7 +62,7 @@ export default {
     chart: {
         onButton: 'Graficos',
         offButton: 'Vacio',
-        pieChartLabel: 'Este gráfico representa las estaciones seleccionadas.'
+        pieChartLabel: 'Este grafico solamente representa los canales seleccionados y no incluye otras audiencias.'
     },
     groups: {
         title: 'Grupos',

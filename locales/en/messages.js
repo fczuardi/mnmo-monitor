@@ -62,7 +62,7 @@ export default {
     chart: {
         onButton: 'Chart',
         offButton: 'Empty',
-        pieChartLabel: 'This chart computes only the selected stations.'
+        pieChartLabel: 'This chart computes only selected channels and does not include other ratings.'
     },
     groups: {
         title: 'Groups',
