@@ -200,11 +200,6 @@ class RowsStore extends Store {
     }
     setPrintInterval() {
         if (this.userStore.state.autoUpdate){
-            console.log('autoUpdate on, use table minutes',
-                this.state.headers[(this.state.headers.length - 1)][0],
-                this.state.headers[0][0],
-                this.state.date
-            );
             let start = this.state.headers[(this.state.headers.length - 1)][0];
             let end = this.state.headers[0][0];
             let newState = {
