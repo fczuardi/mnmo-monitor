@@ -51,6 +51,7 @@ export default {
         tos: 'Termos de serviço',
         help: 'Ayuda',
         print: 'Imprimir',
+        setPrintInterval: 'Definir intervalo',
         changePassword: 'Cambiar contraseña',
         logout: 'Cerrar sesión'
     },

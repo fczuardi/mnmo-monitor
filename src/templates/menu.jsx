@@ -94,7 +94,10 @@ export default (p, a) => {
     )}
         <List>
             <LI>
-                <A href='#' onClick={a.printClick}>
+                <A
+
+                    type={p.rows.type === 'list' ? 'panel' : ''}
+                    href='#' onClick={a.printClick}>
                     {p.language.messages.settings.print}
                 </A>
             </LI>

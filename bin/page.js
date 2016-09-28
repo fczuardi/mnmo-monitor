@@ -111,6 +111,7 @@ var options = {
         '$comment=stores',
         './js/menulinks.js',
         './js/components/submenucolumns.js',
+        './js/components/submenuprint.js',
         './js/components/submenurouter.js',
         './js/components/menu.js',
         '$comment=sidebar-menu',

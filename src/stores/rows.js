@@ -27,6 +27,7 @@ class RowsStore extends Store {
         super();
         const sessionStore = flux.getStore('session');
         const userStore = flux.getStore('user');
+        const calendarStore = flux.getStore('calendar');
         const userActions = flux.getActions('user');
         const columnsStore = flux.getStore('columns');
         const variablesStore = flux.getStore('vars');
@@ -38,6 +39,7 @@ class RowsStore extends Store {
         this.userActions = userActions;
         this.sessionStore = sessionStore;
         this.userStore = userStore;
+        this.calendarStore = calendarStore;
         this.variablesStore = variablesStore;
         this.columnsStore = columnsStore;
         this.sessionActions = sessionActions;
@@ -45,6 +47,13 @@ class RowsStore extends Store {
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.preferencesPublished, this.userChanged);
         this.register(userActions.tableScrollEnded, this.getNextPage);
+        this.register(userActions.clearPrintInterval, this.clearPrintInterval);
+        this.register(userActions.setPrintInterval, this.setPrintInterval);
+        this.register(userActions.setPrintStartHour, this.setPrintStartHour);
+        this.register(userActions.setPrintEndHour, this.setPrintEndHour);
+        this.register(userActions.setPrintStartMinute, this.setPrintStartMinute);
+        this.register(userActions.setPrintEndMinute, this.setPrintEndMinute);
+        this.register(userActions.printIntervalRequested, this.fetchPrintRows);
         this.register(userActions.printRequested, this.printTable);
         this.register(userActions.secondTableEnabled, this.fetchSecondaryRows);
         this.register(userActions.secondTableFormChanged, this.secondTableFormUpdate);
@@ -77,6 +86,18 @@ class RowsStore extends Store {
                 headers: [],
                 columns: [],
                 data: []
+            },
+            // print table (when in minutes list, user can setup a different
+            // interval for the printed table)
+            printInterval: {
+                date: null, //2016-09-22
+                start: null,
+                end: null
+            },
+            printTableLoading: false,
+            printTable: {
+                data: [],
+                headers: []
             }
         };
         this.previousUserState = userStore.state;
@@ -111,7 +132,6 @@ class RowsStore extends Store {
         this.fetchRows();
         this.toggleAutoUpdate(pref.autoUpdate);
     }
-
     toggleAutoUpdate(autoUpdate) {
         if (autoUpdate){
             this.startAutoUpdate();
@@ -119,8 +139,6 @@ class RowsStore extends Store {
             this.stopAutoUpdate();
         }
     }
-
-
     userChanged(newState) {
         // console.log('userChanged', newState);
         let oldState = this.previousUserState;
@@ -150,11 +168,9 @@ class RowsStore extends Store {
             this.toggleAutoUpdate(newState.autoUpdate);
         }
     }
-
     columnsFetched(newState) {
         this.previousColumnsState = merge({}, newState);
     }
-
     columnsChanged(newState) {
         let newSequence = newState.enabled;
         let oldSequence = this.previousColumnsState.enabled;
@@ -171,6 +187,117 @@ class RowsStore extends Store {
             this.fetchRows(null, null, null, true);
         }
         this.previousColumnsState = merge({}, newState);
+    }
+    clearPrintInterval() {
+        this.setState({
+            printInterval: {
+                date: null,
+                start: this.calendarStore.state.firstMinute,
+                end: this.calendarStore.state.lastMinute
+            },
+            printTable: { data: [], headers: [] }
+        });
+    }
+    setPrintInterval() {
+        if (this.userStore.state.autoUpdate){
+            console.log('autoUpdate on, use table minutes',
+                this.state.headers[(this.state.headers.length - 1)][0],
+                this.state.headers[0][0],
+                this.state.date
+            );
+            let start = this.state.headers[(this.state.headers.length - 1)][0];
+            let end = this.state.headers[0][0];
+            let newState = {
+                date: this.state.date,
+                start: start,
+                end: end
+            };
+            this.setState({ printInterval: newState })
+        } else {
+            this.setState({ printInterval: this.userStore.state.archivedReport })
+        }
+    }
+    setPrintStartHour(h) {
+        let startParts = this.state.printInterval.start.split(':');
+        let newStart = [h].concat(startParts.slice(1));
+        let start = newStart.join(':');
+        this.setState({
+            printInterval: {
+                date: this.state.printInterval.date,
+                start: start,
+                end: this.state.printInterval.end
+            },
+            printTable: { data: [], headers: [] }
+        })
+    }
+    setPrintStartMinute(m) {
+        let startParts = this.state.printInterval.start.split(':');
+        let newStart = [startParts[0]].concat([m]);
+        let start = newStart.join(':');
+        this.setState({
+            printInterval: {
+                date: this.state.printInterval.date,
+                start: start,
+                end: this.state.printInterval.end
+            },
+            printTable: { data: [], headers: [] }
+        })
+    }
+    setPrintEndHour(h) {
+        let endParts = this.state.printInterval.end.split(':');
+        let newEnd = [h].concat(endParts.slice(1));
+        let end = newEnd.join(':');
+        this.setState({
+            printInterval: {
+                date: this.state.printInterval.date,
+                start: this.state.printInterval.start,
+                end: end
+            },
+            printTable: { data: [], headers: [] }
+        })
+    }
+    setPrintEndMinute(m) {
+        let endParts = this.state.printInterval.end.split(':');
+        let newEnd = [endParts[0]].concat([m]);
+        let end = newEnd.join(':');
+        this.setState({
+            printInterval: {
+                date: this.state.printInterval.date,
+                start: this.state.printInterval.start,
+                end: end
+            },
+            printTable: { data: [], headers: [] }
+        })
+    }
+    fetchPrintRows() {
+        let store = this;
+        let token = this.sessionStore.state.token;
+        let url = URLs.baseUrl + URLs.rows.list + '?' +
+            URLs.rows.dayParam + '=' + this.state.printInterval.date + '&' +
+            URLs.rows.startMinuteParam + '=' + this.state.printInterval.start + '&' +
+            URLs.rows.endMinuteParam + '=' + this.state.printInterval.end;
+        store.setState({ printTableLoading: true });
+        fetch(url, { method: 'GET', headers: authHeaders(token) })
+        .then((response) => statusRouter(response, store.sessionActions.signOut))
+        .then(chooseTextOrJSON)
+        .then(function(payload){
+            let result = parseRows(payload, store.state.type);
+            if (result.error !== null) {
+                store.setState({ printTableLoading: false });
+                return store.userActions.errorArrived(
+                    result.error,
+                    store.rowsActions.fetchAgainRequested,
+                    false
+                );
+            }
+            return store.setState({
+                printTableLoading: false,
+                printTable: {
+                    data: result.rows.data,
+                    headers: result.rows.headers
+                }
+            });
+        });
     }
 
     fetchSecondaryRows(dayParam) {
@@ -332,7 +459,6 @@ class RowsStore extends Store {
         }
         this.modifySecondaryTable(params);
     }
-
     secondTableFormUpdate(change){
         let secondary = merge({}, this.state.secondary);
         switch (change.field){
@@ -377,7 +503,6 @@ class RowsStore extends Store {
                 break;
         }
     }
-
     fetchRows(token, newType, endTime, resetRows) {
         let store = this;
         let type = store.state.type;
@@ -479,7 +604,6 @@ class RowsStore extends Store {
             });
         });
     }
-
     resetRows(newType) {
         let type = newType || this.state.type;
         this.setState({
@@ -490,11 +614,7 @@ class RowsStore extends Store {
             lastLoad: new Date().getTime()
         });
     }
-
-    resetSecondaryRows(){
-
-    }
-
+    resetSecondaryRows(){}
     startAutoUpdate() {
         // console.log('startAutoUpdate');
         let store = this;
@@ -504,12 +624,10 @@ class RowsStore extends Store {
             store.fetchRows();
         }, AUTOUPDATE_INTERVAL);
     }
-
     stopAutoUpdate() {
         // console.log('stopAutoUpdate');
         window.clearInterval(this.autoUpdateInterval);
     }
-
     startSecondaryAutoUpdate(){
         // console.log('startSecondaryAutoUpdate');
         let store = this;
@@ -522,12 +640,10 @@ class RowsStore extends Store {
             );
         }, AUTOUPDATE_INTERVAL);
     }
-
     stopSecondaryAutoUpdate(){
         // console.log('stopSecondaryAutoUpdate');
         window.clearInterval(this.secondaryAutoUpdateInterval);
     }
-
     getNextPage() {
         if (
             // (this.state.type === 'merged') ||
@@ -542,13 +658,11 @@ class RowsStore extends Store {
         // console.log('getNextPage', lastTime);
         this.fetchRows(this.sessionStore.state.token, this.state.type, lastTime);
     }
-
     TextToMinutes(text) {
         text = text || '00:00';
         let timeParts = text.split(':');
         return parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
     }
-
     //merge new loaded rows into the existing table already in memory
     updateRows(newHeaders, newRows) {
         let shouldReplaceTable = (this.state.data.length === 0 || this.autoUpdateStatusChanged),
@@ -664,7 +778,6 @@ class RowsStore extends Store {
                                     rowsToAdd.concat(updatedRows)
         };
     }
-
     getColumnsFromRows(rows){
         // console.log('getColumnsFromRows r', rows);
         let firstRowCells = rows[0] ? rows[0] : [];
@@ -686,7 +799,6 @@ class RowsStore extends Store {
         // console.log('getColumnsFromRows', columns);
         return columns;
     }
-
     updateMenuLabel(data) {
         // console.log('updateMenuLabel', data.errorCode, data.error);
         let nonBlockingErrorMessage = data.errorCode === 98 ? data.error : null;
@@ -719,18 +831,15 @@ class RowsStore extends Store {
             nonBlockingErrorMessage: nonBlockingErrorMessage
         });
     }
-
     updateRowsType(newType) {
         this.resetRows(newType);
         this.fetchRows(this.sessionStore.state.token, newType);
     }
-
     columnClicked(index) {
         if (this.state.type !== 'detailed') {
             this.updateRowsType('detailed');
         }
     }
-
     columnSelectionChange(obj){
         // console.log('columnSelectionChange', obj);
         if (!obj.checked){
@@ -748,7 +857,6 @@ class RowsStore extends Store {
             });
         }
     }
-
     columnMoved(indexes){
         if (indexes.oldIndex === indexes.newIndex){
             return null;
@@ -765,10 +873,8 @@ class RowsStore extends Store {
             data: newRows
         });
     }
-
     printTable(){
         // console.log('printTable');
-
         let tableProperties = {
             flux: this.flux,
             // ggroups: this.flux.getStore('groups').state,
@@ -780,6 +886,10 @@ class RowsStore extends Store {
             ui: this.flux.getStore('ui').state,
             iconWidth: 30
         };
+        if (this.state.printTable.data.length) {
+            tableProperties.rows.data = this.state.printTable.data;
+            tableProperties.rows.headers = this.state.printTable.headers;
+        }
         let tableHTML = renderToStaticMarkup(
             DOM.html(null,
                 DOM.head(null,

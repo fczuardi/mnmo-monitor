@@ -46,6 +46,27 @@ class UserActions extends Actions {
     mergeFunctionUpdated(functionID) {
         return parseInt(functionID);
     }
+    clearPrintInterval() {
+        return null;
+    }
+    setPrintInterval() {
+        return null;
+    }
+    setPrintStartHour(hour) {
+        return hour;
+    }
+    setPrintStartMinute(minute) {
+        return minute;
+    }
+    setPrintEndHour(hour) {
+        return hour;
+    }
+    setPrintEndMinute(minute) {
+        return minute;
+    }
+    printIntervalRequested() {
+        return null;
+    }
     preferencesPublished(preferences) {
         return preferences;
     }

@@ -19,7 +19,11 @@ class Menu {
             },
             printClick: (event) => {
                 event.preventDefault();
-                userActions.printRequested();
+                if (p.rows.type === 'list') {
+                    userActions.setPrintInterval();
+                    return userActions.openSubmenu('print');
+                }
+                return userActions.printRequested();
             },
             autoUpdateChange: (event) =>
                 p.flux.getActions('user').autoUpdateToggle(event.target.checked),
