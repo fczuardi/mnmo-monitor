@@ -91,7 +91,7 @@ let dayAverageFooter = p => (p.rows.type !== 'merged') ? null : (
 export default (p) => {
 return (<div>
 <div className={'simple-table-print-header'}>
-    <img src='./img/logo_splash_small.png' />
+    <img src='./img/logo_print.png' />
 </div>
 <div className={'simple-table-print-metadata'}>
     <div className={'datablock'}>
