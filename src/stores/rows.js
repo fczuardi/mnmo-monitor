@@ -279,11 +279,8 @@ class RowsStore extends Store {
             let result = parseRows(payload, store.state.type);
             if (result.error !== null) {
                 store.setState({ printTableLoading: false });
-                return store.userActions.errorArrived(
-                    result.error,
-                    store.rowsActions.fetchAgainRequested,
-                    false
-                );
+                console.error(result.error);
+                return store.userActions.errorArrived(result.error, null, false);
             }
             return store.setState({
                 printTableLoading: false,
