@@ -42,8 +42,8 @@ export default (p, a) => {
     );
     let lastMinuteParts = p.calendar.lastMinute.split(':');
     let endParts = p.rows.printInterval.end.split(':');
-    let endingHour = parseInt(endParts[0]);
-    let endingMinute = parseInt(endParts[1]);
+    let endingHour = endParts[0];
+    let endingMinute = endParts[1];
     let endTimePicker = (
         <MultiPicker
             title={p.language.messages.rows.endingTime}
