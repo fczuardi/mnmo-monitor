@@ -66,7 +66,7 @@ export default (p, a) => {
     let setTableButton = (
         <div style={{ marginLeft:-20, textAlign: 'center' }}>
             <A href="#" onClick={a.setTableClick}>
-                {p.language.messages.settings.setPrintInterval}
+                {p.language.messages.settings.print}
             </A>
         </div>
     );

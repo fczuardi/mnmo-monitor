@@ -264,7 +264,31 @@ class RowsStore extends Store {
             printTable: { data: [], headers: [] }
         })
     }
+    openPrintPopup() {
+        if (!window.printWindow || !window.printWindow.window){
+            window.printWindow = window.open('', 'printWindow', 'scrollbars=yes');
+        }
+    }
+
     fetchPrintRows() {
+        const language = this.flux.getStore('language').state;
+        this.openPrintPopup();
+        let loadingHTML = renderToStaticMarkup(
+            DOM.html(null,
+                DOM.body({
+                        style: {
+                            overflow: 'auto',
+                            marginBottom: 50
+                        }
+                    },
+                    DOM.p(
+                        { id: 'loadingMessage', className: 'popupLoadingMessage' },
+                        language.messages.network.loadingData
+                    )
+                )
+            )
+        );
+        printWindow.document.write(loadingHTML);
         let store = this;
         let token = this.sessionStore.state.token;
         let url = URLs.baseUrl + URLs.rows.list + '?' +
@@ -278,17 +302,20 @@ class RowsStore extends Store {
         .then(function(payload){
             let result = parseRows(payload, store.state.type);
             if (result.error !== null) {
+                window.printWindow.close();
                 store.setState({ printTableLoading: false });
                 console.error(result.error);
                 return store.userActions.errorArrived(result.error, null, false);
             }
-            return store.setState({
+            store.setState({
                 printTableLoading: false,
                 printTable: {
                     data: result.rows.data,
                     headers: result.rows.headers
                 }
             });
+            store.userActions.printRequested();
+            return store.userActions.closeSubmenu()
         });
     }
 
@@ -915,9 +942,16 @@ class RowsStore extends Store {
             )
         );
         // console.log(tableHTML);
-        let printWindow = window.open('', 'printWindow', 'scrollbars=yes');
-        printWindow.document.write(tableHTML);
-        printWindow.document.close();
+        this.openPrintPopup();
+        try {
+            // remove loading message
+            let loadingMessageElement = window.printWindow.document.getElementById('loadingMessage');
+            loadingMessageElement.style.display = 'none';
+        } catch(e) {
+            console.error(e.message);
+        }
+        window.printWindow.document.write(tableHTML);
+        window.printWindow.document.close();
     }
 }
 
