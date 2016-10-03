@@ -48,6 +48,8 @@ class RowsStore extends Store {
         this.register(userActions.preferencesPublished, this.userChanged);
         this.register(userActions.tableScrollEnded, this.getNextPage);
         this.register(userActions.clearPrintInterval, this.clearPrintInterval);
+        this.register(userActions.dateUpdated, this.setPrintInterval);
+        this.register(userActions.autoUpdateToggle, this.setPrintInterval);
         this.register(userActions.setPrintInterval, this.setPrintInterval);
         this.register(userActions.setPrintStartHour, this.setPrintStartHour);
         this.register(userActions.setPrintEndHour, this.setPrintEndHour);
@@ -296,6 +298,9 @@ class RowsStore extends Store {
             URLs.rows.startMinuteParam + '=' + this.state.printInterval.start + '&' +
             URLs.rows.endMinuteParam + '=' + this.state.printInterval.end;
         store.setState({ printTableLoading: true });
+        window.setTimeout(function(){
+            store.userActions.closeSubmenu();
+        }, 1);
         fetch(url, { method: 'GET', headers: authHeaders(token) })
         .then((response) => statusRouter(response, store.sessionActions.signOut))
         .then(chooseTextOrJSON)
@@ -314,8 +319,10 @@ class RowsStore extends Store {
                     headers: result.rows.headers
                 }
             });
-            store.userActions.printRequested();
-            return store.userActions.closeSubmenu()
+            if (window.printWindow.window) {
+                store.userActions.printRequested();
+            }
+            return store.userActions.clearPrintInterval();
         });
     }
 

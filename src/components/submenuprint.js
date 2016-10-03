@@ -24,8 +24,7 @@ class PrintSubmenu {
             },
             printClick: (event) => {
                 event.preventDefault();
-                userActions.printRequested();
-                return userActions.closeSubmenu();
+                return userActions.printRequested();
             }
         };
         return tryRender('submenuprint', template, this.props, actions);
