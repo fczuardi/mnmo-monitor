@@ -180,7 +180,7 @@ export default (p, a) => {
     );
 
     let isFullscreen = p.ui.screenWidth < fullScreenLimit;
-    let isFullHeight = p.ui.screenWidth < p.ui.rowPanelHeight;
+    let isFullHeight = p.ui.screenHeight < p.ui.rowPanelHeight;
     return (
         <Dialog align='center' fullscreen={isFullscreen}>
             <Drawer
@@ -191,16 +191,19 @@ export default (p, a) => {
                 fullscreen={isFullscreen}
             >
             <div
-                id={'rowPanelDrawer'}
                 style={{
-                    height: '90%',
+                    height: (p.ui.screenHeight - 100),
                     overflow: 'auto'
                 }}
             >
-                {datePicker}
-                {startingTime}
-                {endingTime}
-                {frequencyPicker}
+                <div
+                    id={'rowPanelDrawer'}
+                >
+                    {datePicker}
+                    {startingTime}
+                    {endingTime}
+                    {frequencyPicker}
+                </div>
             </div>
             </Drawer>
         </Dialog>

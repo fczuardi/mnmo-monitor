@@ -4,13 +4,11 @@ import template from '../templates/rowspanel.jsx';
 import tryRender from '../lib/trycomponent';
 
 class RowsPanel {
-    componentDidUpdate(){
+    componentDidMount(){
         let dialogHeight = document.getElementById('rowPanelDrawer').offsetHeight + 90;
         // let dialog = findDOMNode(this);
-        // console.log('rowPanelDrawer componentDidUpdate', dialogHeight);
-        if (dialogHeight != this.props.ui.rowPanelHeight){
-            this.props.flux.getActions('rows').rowPanelHeightCalculated(dialogHeight);
-        }
+        // console.log('rowPanelDrawer componentDidUpdate', dialogHeight, this.props.ui.rowPanelHeight, this.props.ui.screenHeight);
+        this.props.flux.getActions('rows').rowPanelHeightCalculated(dialogHeight);
     }
     render() {
         const userActions = this.props.flux.getActions('user');
