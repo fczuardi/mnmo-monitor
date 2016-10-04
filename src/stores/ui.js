@@ -367,10 +367,11 @@ class UIStore extends Store {
         let store = this;
         let varsCount = keys(this.variablesStore.state.combos).length;
         let rowHeight = this.state.screenHeight < 640 ? smallerRowHeight : smallColumnWidth;
-        rowHeight -=1;
+        rowHeight += 1;
         // let displaySeparators = (!this.state.chartVisible || !this.state.isMobile);
         let displaySeparators = true;
         let separatorHeight = displaySeparators ? 40 : 0;
+        separatorHeight += 1;
         // let currentRow = Math.floor(this.coordY / (rowHeight + separatorHeight));
         let currentMinuteIndex = Math.floor(
             this.coordY / (rowHeight * varsCount + separatorHeight)
@@ -379,7 +380,8 @@ class UIStore extends Store {
         //     currentMinuteIndex,
         //     this.state.chartVisible,
         //     displaySeparators,
-        //     separatorHeight
+        //     separatorHeight,
+        //     rowHeight
         // );
         let minute = this.rowsStore.state.headers[currentMinuteIndex * varsCount] ?
                         this.minuteFromHeader(
