@@ -211,7 +211,12 @@ class RowsStore extends Store {
             };
             this.setState({ printInterval: newState })
         } else {
-            this.setState({ printInterval: this.userStore.state.archivedReport })
+            this.setState({ printInterval: {
+                start: this.state.headers[(this.state.headers.length - 1)][0],
+                end: this.userStore.state.archivedReport.end,
+                date: this.userStore.state.archivedReport.date,
+	    	}
+	    })
         }
     }
     setPrintStartHour(h) {
