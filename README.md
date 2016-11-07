@@ -1,11 +1,42 @@
 Instalacao do ambiente de dev:
 =============================
 
+Rede
+-------
+
+Este projeto usa o tanto o github quanto npm registry como repositórios de
+código e dependências. Ambos transferem arquivos via conexões encriptada (SSL).
+
+Antes de começar a reproduzir o ambiente, certifique-se que sua rede / firewall
+possui as regras necessárias para o bom funcionamento do git e do 
+gerenciador de pacotes (npm ou yarn).
+
+Se a porta 22 for bloqueada você pode tentar configurar seu ssh para usar a 
+porta 443 que tem mais chances de estar aberta (por causa do navegador).
+
+Um exemplo de configuração para acessar github via ssh pela porta 443:
+
+arquivo: *~/.ssh/config*
+```
+Host github.com
+  Hostname ssh.github.com
+  Port 443
+```
+
+Para clonar o repositório via ssh ao invés de https, faça um Fork para a conta 
+do seu usuário e configure uma chave publica da sua maquina no github.
+
+![01_fork](https://cloud.githubusercontent.com/assets/7760/20060618/241ac6da-a4e3-11e6-91dd-771a211a86a9.png)
+![02_use_ssh](https://cloud.githubusercontent.com/assets/7760/20060617/240da306-a4e3-11e6-9bda-fa74b60c9d97.png)
+![03_ssh_url](https://cloud.githubusercontent.com/assets/7760/20060616/23e6049a-a4e3-11e6-8ce1-d2f802d17315.png)
+
 1 git
 ---
 - instalar git caso nao tenha na maquina
   - https://git-scm.com/downloads
-  - aproveite para escolher boas opcoes de instalação, como a quebra de linha verdadeira (LF, unix) e um terminal default melhor que o cmd.exe. Ver screenshots abaixo.
+  - aproveite para escolher boas opcoes de instalação, como a quebra de linha
+  verdadeira (LF, unix) e um terminal default melhor que o cmd.exe.
+  Ver screenshots abaixo.
 - para saber se tem git na maquina, abra o **Git Bash** e digite ```git --version```
 
 ![screen shot 2016-07-22 at 9 42 43 am](https://cloud.githubusercontent.com/assets/7760/17057566/2b4c3610-4ff1-11e6-823d-751aedd63283.png)
@@ -25,6 +56,8 @@ Instalacao do ambiente de dev:
 3 clone the mnmo-monitor and git repos
 ------------------------------------
 
+(use as urls dos seus forks, por exemplo git@github.com:*SEU_USER_NAME*/mnmo-monitor.git)
+
 Abra o Git Bash e digite:
 
 ```
@@ -40,6 +73,7 @@ git clone https://github.com/fczuardi/tcnet-traditional.git
 
 ### 3.a se o git clone nao funcionar, baixe os zips:
 - https://github.com/fczuardi/global-flummox/archive/master.zip
+- https://github.com/fczuardi/mnmo-components/archive/master.zip
 - https://github.com/fczuardi/tcnet-traditional/archive/master.zip
 - https://github.com/fczuardi/mnmo-monitor/archive/master.zip
 - extraia os 3 zips debaixo de um mesmo subdiretorio de forma que sejam pastas irmãs
