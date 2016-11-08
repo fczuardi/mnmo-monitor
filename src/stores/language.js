@@ -50,9 +50,11 @@ const localeUtils = {
   },
 
   getFirstDayOfWeek(locale) {
-    if (locale === 'es') {
-      return 1;
-    }
+    // remember to change the first day on the weekdatsLong and weekdaysShort
+    // arrays as well, if you choose to uncomment the lines below
+    // if (locale === 'es') {
+      // return 1;
+    // }
     return 0;
   }
 
