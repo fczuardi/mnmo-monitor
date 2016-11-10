@@ -7,6 +7,18 @@ Rede
 Este projeto usa o tanto o github quanto npm registry como repositórios de
 código e dependências. Ambos transferem arquivos via conexões encriptada (SSL).
 
+Idealmente isso pode ser feito por https, porém algumas redes corporativas
+não usam CAs normais ou usam seus próprio root CA, o que causa boa parte dos
+endereços do mundo darem erros de certificado. Uma alternativa ao uso de https
+para ```git clone``` e para ```npm install``` é usar o git via SSH e o npm por
+http normal.
+
+Para usar o git via SSH, você vai precisar [gerar um par de chaves][keygeneration]
+na sua máquina e [cadastrar a chave pública na sua conta do GitHub][addkeytogithub]
+o SSH por padrão usa a porta 22, e essa porta em alguns ambientes coorporativos
+também pode estar bloqueada, se esse for o caso, veja como mudar a porta padrão
+do SSH para alguma outra aberta (443 por exemplo).
+
 Antes de começar a reproduzir o ambiente, certifique-se que sua rede / firewall
 possui as regras necessárias para o bom funcionamento do git e do 
 gerenciador de pacotes (npm ou yarn).
@@ -30,12 +42,17 @@ do seu usuário e configure uma chave publica da sua maquina no github.
 ![02_use_ssh](https://cloud.githubusercontent.com/assets/7760/20060617/240da306-a4e3-11e6-9bda-fa74b60c9d97.png)
 ![03_ssh_url](https://cloud.githubusercontent.com/assets/7760/20060616/23e6049a-a4e3-11e6-8ce1-d2f802d17315.png)
 
+[keygeneration]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+[addkeytogithub]: https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+
 1 git
 ---
 - instalar git caso nao tenha na maquina
   - https://git-scm.com/downloads
   - aproveite para escolher boas opcoes de instalação, como a quebra de linha
-  verdadeira (LF, unix) e um terminal default melhor que o cmd.exe.
+  LF do Unix SEMPRE. E o terminal Git Bash que é centenas de vezes melhor que 
+  o cmd.exe.
+  
   Ver screenshots abaixo.
 - para saber se tem git na maquina, abra o **Git Bash** e digite ```git --version```
 
@@ -76,7 +93,7 @@ git clone https://github.com/fczuardi/tcnet-traditional.git
 - https://github.com/fczuardi/mnmo-components/archive/master.zip
 - https://github.com/fczuardi/tcnet-traditional/archive/master.zip
 - https://github.com/fczuardi/mnmo-monitor/archive/master.zip
-- extraia os 3 zips debaixo de um mesmo subdiretorio de forma que sejam pastas irmãs
+- extraia os 4 zips debaixo de um mesmo subdiretorio de forma que sejam pastas irmãs
 
 ### 3.a.a renomear pastas
 - renomeie as pastas para nao ter o -master do fim, ex: global-flummox-master > global-flummox
@@ -89,14 +106,20 @@ Diretorio default do arquivo npmrc:  C:\Program Files\nodejs\node_modules\npm
 4 Instalar as dependencias do mnmo-monitor
 ------------------------------------------
 
-### 4.0 set npm loglevel to http for more feedback
+### 4.0 set npm loglevel to http for more feedback and color always for colorful outputs
 - npm config set loglevel http
+- npm config set color always
 
 ### 4.1 global-flummox
 - cd global-flummox
 - npm install
 - npm run mkdir
 - npm run js
+
+Existe uma issue aberta para simplificarmos a instalação dessa dependência: https://github.com/fczuardi/tcnet-traditional/issues/193<Paste>
+
+E uma issue para cortá-la por completo, substituindo-a por uma implementação
+mais moderna do flux: https://github.com/fczuardi/tcnet-traditional/issues/194
 
 ### 4.2 mnmo-components
 - cd ../mnmo-components
@@ -106,9 +129,11 @@ Diretorio default do arquivo npmrc:  C:\Program Files\nodejs\node_modules\npm
 - npm run npmwin
   - ou ```npm run npm``` se estiver em Linux/Mac
 
+Existe uma issue aberta para simplificarmos a instalação dessa dependência: https://github.com/fczuardi/tcnet-traditional/issues/190
+
 ### 4.2 mnmo-monitor dependencies
 - cd ../mnmo-monitor
-- npm install
+- npm install --no-optional
 - npm run font
 - npm run copy:secrets
 
@@ -140,6 +165,8 @@ Diretorio default do arquivo npmrc:  C:\Program Files\nodejs\node_modules\npm
 - git checkout master (para voltar para a branch master)
 - cd ../mnmo-monitor (para voltar para o mnmo-monitor)
 
+Este script não é compatível com Windows ainda, existe uma issue aberta para
+fazer essa adaptação: https://github.com/fczuardi/tcnet-traditional/issues/195
 
 ### 7.2 Gerar branch "master" do -traditional
 - npm run classic
