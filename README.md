@@ -135,7 +135,7 @@ Existe uma issue aberta para simplificarmos a instalação dessa dependência: h
 - cd ../mnmo-monitor
 - npm install --no-optional
 - npm run font
-- npm run copy:secrets
+- NODE_ENV=development npm run copy:secrets (ou release, ou production)
 
 
 5 gerar versão "clássica" da app
