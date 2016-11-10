@@ -209,7 +209,7 @@
     "classic:clean": "rm -rf ../monitor-traditional/lib ../monitor-traditional/js ../monitor-traditional/*.html",
     "classic:js:app": "cp -R ./dist/classic/js ../monitor-traditional/.",
     "classic:js:lib": "cp -R ./dist/classic/lib ../monitor-traditional/.",
-    "classic:js:secretconfig": "cp ./config/secret.* ../monitor-traditional/_dev/config/.",
+    "classic:js:secretconfig": "cp ./config/secret.apiHelpers.js ./config/secret.languageHelpers.js ./config/secret.menulinks.js ../monitor-traditional/_dev/config/.",
     "classic:js:secretlocales": "cp ./locales/pt/secret.* ../monitor-traditional/_dev/locales/pt/. && cp ./locales/es/secret.* ../monitor-traditional/_dev/locales/es/. && cp ./locales/en/secret.* ../monitor-traditional/_dev/locales/en/.",
     "classic:secret": "npm run classic:js:secretconfig && npm run classic:js:secretlocales",
     "classic:html": "cp -R ./dist/classic/*.html ../monitor-traditional/.",
