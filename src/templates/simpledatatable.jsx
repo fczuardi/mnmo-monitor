@@ -77,7 +77,7 @@ let secondTable = p => (!p.ui.secondTableVisible) ? null : (
     </table>
 );
 
-let dayAverageFooter = p => (p.rows.type !== 'merged') ? null : (
+let dayAverageFooter = p => (
     <tfoot className="printTableFooter">
         <tr className={(p.rows.data.length % 2 === 0 ? 'odd' : 'even')}>
             {rowHeaderCell(p.rows.headers, 0)}
@@ -160,7 +160,7 @@ return (<div>
         </tr>
     </thead>
     <tbody>
-        {p.rows.data.map( (row, key) => (p.rows.type !== 'merged' || key > 0) ? (
+        {p.rows.data.map( (row, key) => (key > 0) ? (
                 <tr key={key} className={(key % 2 === 0 ? 'odd' : 'even')}>
                     {rowHeaderCell(p.rows.headers, key)}
                     {row.map( (cell, cellKey) => {

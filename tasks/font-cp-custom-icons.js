@@ -3,7 +3,7 @@
 // "font:cp:custom-icons": "./bin/downloadCustomEntypo.sh",
 var download = require('download-file')
 var dir = './assets/fonts/Entypo/';
-var url = 'http://file.myfontastic.com/LJwoe4jsYH2RoMHM6ZwrvW/fonts/1449171288'
+var url = 'https://file.myfontastic.com/LJwoe4jsYH2RoMHM6ZwrvW/fonts/1449171288'
 var filename = 'Custom-Entypo-mnmo';
 
 var callback = function(err) {
