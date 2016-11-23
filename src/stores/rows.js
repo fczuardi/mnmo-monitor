@@ -955,6 +955,7 @@ class RowsStore extends Store {
         );
         // console.log(tableHTML);
         this.openPrintPopup();
+        this.fetchRows();
         try {
             // remove loading message
             let loadingMessageElement = window.printWindow.document.getElementById('loadingMessage');
