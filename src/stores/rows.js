@@ -48,6 +48,7 @@ class RowsStore extends Store {
         this.register(userActions.preferencesPublished, this.userChanged);
         this.register(userActions.tableScrollEnded, this.getNextPage);
         this.register(userActions.clearPrintInterval, this.clearPrintInterval);
+        this.register(userActions.baseUpdate, this.changeBasePref)
         this.register(userActions.dateUpdated, this.setPrintInterval);
         this.register(userActions.autoUpdateToggle, this.setPrintInterval);
         this.register(userActions.setPrintInterval, this.setPrintInterval);
@@ -199,6 +200,12 @@ class RowsStore extends Store {
             },
             printTable: { data: [], headers: [] }
         });
+    }
+    changeBasePref(baseID) {
+        this.setState({
+          baseID: baseID
+        });
+        this.fetchRows();
     }
     setPrintInterval() {
         if (this.userStore.state.autoUpdate){

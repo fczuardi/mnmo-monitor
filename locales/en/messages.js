@@ -60,6 +60,10 @@ export default {
         weekdaysShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     },
+    base: {
+      column: 'Base time: side by side',
+      row:  'Base time: stacked'
+    },
     chart: {
         onButton: 'Chart',
         offButton: 'Empty',
@@ -98,7 +102,11 @@ export default {
         secondTable: 'Compare',
         mergeRows: 'Merge rows',
         unmergeRows: 'All rows',
-        range: 'Range'
+        range: 'Range',
+        headerPrint: {
+            minute: 'MIN',
+            base: 'BASE',
+        },
     },
     subgroups: {
         title: 'Subgroups',

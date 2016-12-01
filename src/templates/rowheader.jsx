@@ -42,21 +42,21 @@ export default (row, key, p, a) => {
     let secondTableTitleSize = isDesktop ? 12 : 10;
     let listTitleSize = isDesktop ? 17 : 15;
     let iconSize = isDesktop ? 14 : isMerged ? 9 : 12;
-    
+
     // font sizes (subtitle)
     let secondTableSubtitleSize = isDesktop ? 12 : isMerged ? 7 : 10;
     let listSubtitleSize = isDesktop ? 15 : isMerged ? 10 : 13;
     let subtitleIconSize = isDesktop ? 12 : isMerged ? 7 : 10;
-    
+
     // font sizes (big bracket)
     let bracketSize = isDesktop ? 25 : 17;
     let bracketLineHeight = isDesktop ? '36px' : '26px';
-    
+
     let titleStyle = {
-        fontSize: isMerged 
-                    ? mergedTitleSize 
-                    : isSecondTable 
-                        ? secondTableTitleSize 
+        fontSize: isMerged
+                    ? mergedTitleSize
+                    : isSecondTable
+                        ? secondTableTitleSize
                         : listTitleSize
     }
     let firstTitle = isMerged ? (
@@ -115,7 +115,7 @@ export default (row, key, p, a) => {
     // let varsCount = keys(p.vars.combos).length;
     let secondHeader = isNaN(secondValue) ? (null) : (
         <p style={{
-            margin: 0, 
+            margin: 0,
             fontSize: isSecondTable ? secondTableSubtitleSize : listSubtitleSize
         }}>
             <i
@@ -134,6 +134,30 @@ export default (row, key, p, a) => {
                 {secondValue}
             </span>
         </p>
+    );
+    let baseRow = (
+      <tr {...trProps}>
+          <td style={{
+              position: 'relative',
+              height: trProps.style.height
+          }}>
+              {mainHeader}
+              {secondHeader}
+              {removeButton}
+          </td>
+      </tr>
+    );
+    let baseColumn = (
+      <tr {...trProps}>
+          <td style={{
+              position: 'relative',
+              height: trProps.style.height
+          }}>
+              {mainHeader}
+              {removeButton}
+          </td>
+          <td>{secondHeader}</td>
+      </tr>
     );
     if (isDetailed && isSeparator){
         secondHeader = null;
@@ -171,15 +195,6 @@ export default (row, key, p, a) => {
         )
     }
     return (
-        <tr {...trProps}>
-            <td style={{
-                position: 'relative',
-                height: trProps.style.height
-            }}>
-                {mainHeader}
-                {secondHeader}
-                {removeButton}
-            </td>
-        </tr>
+        p.user.baseID === 0 && !isDetailed ? {baseColumn} : {baseRow}
     );
 }

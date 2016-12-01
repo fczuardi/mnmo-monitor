@@ -29,6 +29,8 @@ class Menu {
                 p.flux.getActions('user').autoUpdateToggle(event.target.checked),
             languageSettingChange: (event) =>
                 p.flux.getActions('user').languageUpdate(event.target.value),
+            baseSettingChange:  (event) =>
+                p.flux.getActions('user').baseUpdate(event.target.value),            
             openColumnsSelection: (event) => {
                 event.preventDefault();
                 // if the user doesnt have a selected group

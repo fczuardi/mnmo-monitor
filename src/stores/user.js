@@ -57,6 +57,7 @@ class UserStore extends Store {
         this.register(userActions.tosAgreementUpdate, this.changeTosPref);
         this.register(userActions.autoUpdateToggle, this.changeAutoUpdatePref);
         this.register(userActions.languageUpdate, this.changeLanguagePref);
+        this.register(userActions.baseUpdate, this.changeBasePref);
         this.register(userActions.navigateToScreen, this.resetChangePasswordFields);
         this.register(userActions.currentPasswordInput, this.changeCurrentPasswordPref);
         this.register(userActions.newPasswordInput, this.changeNewPasswordPref);
@@ -123,7 +124,7 @@ class UserStore extends Store {
         };
         //user preferences state changed
         this.addListener('change', function(){
-            // console.log('user preferences state changed');
+            //console.log('user preferences state changed');
             this.savePreferences();
         });
         //TODO this can be better:
@@ -218,7 +219,7 @@ class UserStore extends Store {
         this.userActions.localPreferencesFetched(preferences);
     }
     savePreferences() {
-        // console.log('savePreferences');
+        //console.log('savePreferences');
         let localUserPreference = merge({}, this.state);
         let doNotStore = [
             'captchaAnswer',
@@ -390,6 +391,7 @@ class UserStore extends Store {
         // console.log('updatePreferences..', token);
         // console.log('updatePreferences..', store.state);
         let hasChanged = diffUserPreferences(store.state);
+        //console.log('hasChanged: ' +  hasChanged);
         if (hasChanged === false){ return false; }
         // console.log('updatePreferences...');
         let debugParams = queryString.parse(location.search);
@@ -403,6 +405,7 @@ class UserStore extends Store {
             }
         }
         let postBody = buildUserPreferencesPostBody(state);
+        //console.log("Post body" + postBody);
         if (!postBody){ return false; }
         // console.log('POST', URLs.user.preferences);
         // console.log('postBody', postBody);
@@ -559,10 +562,14 @@ class UserStore extends Store {
         });
     }
     changeLanguagePref(languageID) {
-        // console.log('set user state: changeLanguagePref');
         this.needsRefetch = true;
         this.setState({
             languageID: languageID
+        });
+    }
+    changeBasePref(baseID) {
+        this.setState({
+          baseID: baseID
         });
     }
     getGroupFromStore(groupID) {

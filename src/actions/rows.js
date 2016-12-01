@@ -20,6 +20,9 @@ class RowsActions extends Actions {
     rowPanelHeightCalculated(h){
         return h;
     }
+    baseUpdate(baseID) {
+        return parseInt(baseID);
+    }
     returnChangedStartTime(){
         // console.log('ACTION returnChangedStartTime');
         return null;

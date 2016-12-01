@@ -60,6 +60,10 @@ export default {
         weekdaysShort: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
         months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
     },
+    base: {
+      column: 'Hora base: lado a lado',
+      row:  'Hora base: apilado'
+    },
     chart: {
         onButton: 'Graficos',
         offButton: 'Vacio',
@@ -98,7 +102,11 @@ export default {
         secondTable: 'Comparar',
         mergeRows: 'Agrupar filas',
         unmergeRows: 'Ver todas',
-        range: 'Período'
+        range: 'Período',
+        headerPrint: {
+            minute: 'MIN',
+            base: 'BASE',
+        },
    },
     subgroups: {
         title: 'Sub-grupos',
