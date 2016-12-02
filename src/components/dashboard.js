@@ -41,9 +41,14 @@ class Dashboard {
         p.secondTableRowHeight = this.props.ui.screenHeight < 640 ?
                             smallerSecondTableRowHeight : secondTableRowHeight;
         p.tableWidth = p.ui.screenWidth;
-        p.tableContentWidth = p.columns.enabled.length * columnWidth;
+
+        let columnNumHeader = (p.user.baseID === 0 && p.rows.type !== 'detailed') ? 2 : 1;
+        let columnNum =   (p.user.baseID === 0 && p.rows.type !== 'detailed') ? 1 : 0;
+
+        p.tableContentWidth = (p.columns.enabled.length  +  columnNum) * columnWidth;
         p.columnWidth = p.tableContentWidth > p.tableWidth ? columnWidth :
-             Math.ceil((p.tableWidth) / (p.columns.enabled.length + 1));
+             Math.ceil((p.tableWidth) / (p.columns.enabled.length + columnNumHeader));
+        p.columnWidthHeader =  (p.columnWidth * columnNumHeader);
         p.iconWidth = rowHeight - 2 * cellPadding;
         p.cellPadding = cellPadding;
 

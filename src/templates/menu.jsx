@@ -70,6 +70,8 @@ export default (p, a) => {
                 >
                     {p.language.messages.base.column}
                 </Radio>
+            </LI>
+            <LI>
                 <Radio
                     name="settings-base"
                     id="settings-base-1"
@@ -80,7 +82,7 @@ export default (p, a) => {
                 >
                     {p.language.messages.base.row}
                 </Radio>
-              </LI>
+            </LI>
         </List>
         <List bottomSpace={true}>
         {p.language.list.map( (language, key) => (

@@ -135,30 +135,6 @@ export default (row, key, p, a) => {
             </span>
         </p>
     );
-    let baseRow = (
-      <tr {...trProps}>
-          <td style={{
-              position: 'relative',
-              height: trProps.style.height
-          }}>
-              {mainHeader}
-              {secondHeader}
-              {removeButton}
-          </td>
-      </tr>
-    );
-    let baseColumn = (
-      <tr {...trProps}>
-          <td style={{
-              position: 'relative',
-              height: trProps.style.height
-          }}>
-              {mainHeader}
-              {removeButton}
-          </td>
-          <td>{secondHeader}</td>
-      </tr>
-    );
     if (isDetailed && isSeparator){
         secondHeader = null;
     }
@@ -194,7 +170,32 @@ export default (row, key, p, a) => {
             ></div>
         )
     }
+    let baseRow = (
+      <tr {...trProps}>
+          <td style={{
+              position: 'relative',
+              height: trProps.style.height
+          }}>
+              {mainHeader}
+              {secondHeader}
+              {removeButton}
+          </td>
+      </tr>
+    );
+    let baseColumn = (
+      <tr {...trProps}>
+          <td style={{
+              height: trProps.style.height
+          }}>
+              {mainHeader}
+              {removeButton}
+          </td>
+          <td style={{
+              height: trProps.style.height
+          }}>{secondHeader}</td>
+      </tr>
+    );
     return (
-        p.user.baseID === 0 && !isDetailed ? {baseColumn} : {baseRow}
+        p.user.baseID === 0 && !isDetailed ? baseColumn : baseRow
     );
 }

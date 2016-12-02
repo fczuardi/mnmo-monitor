@@ -74,7 +74,7 @@ export default (p, a) => {
         ></div>
         <div
             className={hasDesktopWidth
-                ? 'dataTable desktop' 
+                ? 'dataTable desktop'
                 : isSecondTable && isSmall
                     ? 'dataTable small'
                     : 'dataTable'
@@ -91,7 +91,7 @@ export default (p, a) => {
         >
             <div
                 style={{
-                    width: p.columnWidth,
+                    width: p.columnWidthHeader,
                     height: p.tableHeight,
                     overflow: 'hidden',
                     // backgroundColor: 'blue',
@@ -99,11 +99,11 @@ export default (p, a) => {
                 }}
             >
                 <div
-                    style={merge({
-
-                    },
-                    tableStyles(p).borderBottom,
-                    tableStyles(p).borderRight
+                    style={merge(tableStyles(p).borderBottom,
+                        tableStyles(p).borderRight,
+                        {
+                            width: p.columnWidthHeader
+                        }
                     )}
                 >
                     {firstCell}
