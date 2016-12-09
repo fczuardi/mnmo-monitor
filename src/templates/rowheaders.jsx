@@ -10,17 +10,17 @@ export default (p, a) => {
     id={p.rowHeadersElementId || 'row-headers'}
     style={{
         height: p.rows.type === 'secondary' ? p.tableHeight : p.tableHeight - p.rowHeight,
-        width: p.columnWidth,
+        width: p.columnWidthHeader,
         // backgroundColor: 'orange',
         overflow: 'hidden'
     }}
 >
     <table
-        style={merge({
-            width: p.columnWidth,
+        style={merge(tableStyles(p).borderRight, {
+            width: (p.columnWidthHeader),
             textAlign: 'center',
             marginBottom: 100
-        }, tableStyles(p).borderRight)}
+        })}
     >
         <tbody key="tableheaders">
             {p.rows.headers.map((row, key) => rowRenderer(row, key, p, a))}

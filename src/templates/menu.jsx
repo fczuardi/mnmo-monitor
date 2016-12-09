@@ -59,6 +59,32 @@ export default (p, a) => {
             </LI>
         </List>
         <List bottomSpace={true}>
+            <LI>
+                <Radio
+                    name="settings-base"
+                    id="settings-base-0"
+                    value="0"
+                    checked={(p.user.baseID == 0)}
+                    isItem={true}
+                    onChange={a.baseSettingChange}
+                >
+                    {p.language.messages.base.column}
+                </Radio>
+            </LI>
+            <LI>
+                <Radio
+                    name="settings-base"
+                    id="settings-base-1"
+                    value="1"
+                    checked={(p.user.baseID == 1)}
+                    isItem={true}
+                    onChange={a.baseSettingChange}
+                >
+                    {p.language.messages.base.row}
+                </Radio>
+            </LI>
+        </List>
+        <List bottomSpace={true}>
         {p.language.list.map( (language, key) => (
             <LI key={key}>
                 <Radio

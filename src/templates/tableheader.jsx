@@ -9,7 +9,7 @@ export default (p, a) => {
         <div
             id="table-headers"
             style={merge({
-            width: p.tableWidth - p.columnWidth,
+            width: p.tableWidth - p.columnWidthHeader,
             overflow: 'hidden',
             // backgroundColor: 'green',
         }, tableStyles(p).borderBottom)}>

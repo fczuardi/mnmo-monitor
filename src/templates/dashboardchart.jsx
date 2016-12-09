@@ -27,7 +27,7 @@ export default (p) => {
         minWidth: p.columnWidth - 1
     };
     let emptyCell = (
-        <td key="first" style={cellStyle}></td>
+        <td key="first" style={merge({},cellStyle,{width: p.columnWidthHeader-1, minWidth: p.columnWidthHeader-1})}></td>
     );
     let isMerged = p.rows.type === 'merged';
     let groupID = !p.groups.selected ? '' :

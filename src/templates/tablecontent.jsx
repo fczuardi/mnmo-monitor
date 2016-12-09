@@ -7,7 +7,7 @@ export default (p, a) => {
                                                     p.tableHeight - p.rowHeight;
     p.rowHeight = p.rows.type === 'secondary' ? p.secondTableRowHeight : p.rowHeight;
     let style = {
-        width: p.tableWidth - p.columnWidth,
+        width: p.tableWidth - p.columnWidthHeader,
         height: tableContentHeight
     };
     if (p.rows.type === 'detailed'){

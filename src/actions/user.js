@@ -22,6 +22,9 @@ class UserActions extends Actions {
     languageUpdate(languageID) {
         return parseInt(languageID);
     }
+    baseUpdate(baseID) {
+        return parseInt(baseID);
+    }
     dateUpdated(day) {
         return day;
     }

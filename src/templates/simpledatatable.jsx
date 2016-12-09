@@ -1,7 +1,7 @@
 import React from 'react';
 import cellRenderer from './tablecell.jsx';
 
-function rowHeaderCell(headers, index){
+function rowHeaderCell(headers, index, p){
     let cellData = headers[index],
         firstValue = cellData[0].indexOf('__') === -1 ?
                                                 cellData[0] :
@@ -11,12 +11,25 @@ function rowHeaderCell(headers, index){
         firstValue = cellData[0].split('__')[0];
     }
     let secondHeader = isNaN(secondValue) ? null : secondValue;
+    let baseRow = (
+      <td key={'rowheader-' + index}>
+          <span>{firstValue}</span><br />
+          <span className="secondary">{secondHeader}</span>
+      </td>
+    );
+    let baseColumn = (
+        <div>
+            <td key={'rowheader-' + index}>
+                <span>{firstValue}</span>
+            </td>
+            <td>
+                <span>{secondHeader}</span>
+            </td>
+        </div>
+    );
 
     return (
-        <td key={'rowheader-' + index}>
-            <span>{firstValue}</span><br />
-            <span className="secondary">{secondHeader}</span>
-        </td>
+        p.rows.baseID === 0 ? {baseColumn} : {baseRow}
     );
 }
 
@@ -56,7 +69,7 @@ function compareAveragesRow(row, key, p){
                 </td>
             </tr>
             <tr key={'row-' + key} className={className}>
-                {rowHeaderCell(p.rows.secondary.headers, key)}
+                {rowHeaderCell(p.rows.secondary.headers, key, p)}
                 {row.map( (cell, cellKey) => {
                     return cellRenderer(cell, key, cellKey, p);
                 })}
@@ -80,7 +93,7 @@ let secondTable = p => (!p.ui.secondTableVisible) ? null : (
 let dayAverageFooter = p => (
     <tfoot className="printTableFooter">
         <tr className={(p.rows.data.length % 2 === 0 ? 'odd' : 'even')}>
-            {rowHeaderCell(p.rows.headers, 0)}
+            {rowHeaderCell(p.rows.headers, 0, p)}
             {p.rows.data[0].map( (cell, cellKey) => {
                 return cellRenderer(cell, 0, cellKey, p);
             })}
@@ -150,7 +163,8 @@ return (<div>
     </caption>
     <thead>
         <tr>
-            <th key={'headers-column'}></th>
+            <th key={'headers-column'}>{p.language.messages.rows.headerPrint.minute}</th>
+            {p.rows.baseID === 0?(<th key={'base-column'}>{p.language.messages.rows.headerPrint.base}</th>):null}
             {p.columns.enabled.map( (column, key) => (
                     <th key={key}>
                         {columnHeaderContent(column, p)}
@@ -162,7 +176,7 @@ return (<div>
     <tbody>
         {p.rows.data.map( (row, key) => (key > 0) ? (
                 <tr key={key} className={(key % 2 === 0 ? 'odd' : 'even')}>
-                    {rowHeaderCell(p.rows.headers, key)}
+                    {rowHeaderCell(p.rows.headers, key, p)}
                     {row.map( (cell, cellKey) => {
                         return cellRenderer(cell, key, cellKey, p);
                     })}
