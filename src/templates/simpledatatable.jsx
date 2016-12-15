@@ -28,9 +28,7 @@ function rowHeaderCell(headers, index, p){
         </div>
     );
 
-    return (
-        p.rows.baseID === 0 ? {baseColumn} : {baseRow}
-    );
+    return p.rows.baseID === 0 ? baseColumn : baseRow;
 }
 
 function columnHeaderContent(column, p){
