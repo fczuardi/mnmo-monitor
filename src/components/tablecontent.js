@@ -13,6 +13,7 @@ class TableContent {
             (nextProps.ui.screenWidth !== this.props.ui.screenWidth) ||
             (nextProps.ui.screenHeight !== this.props.ui.screenHeight) ||
             (nextProps.columns.enabled.length !== this.props.columns.enabled.length) ||
+            (nextProps.user.baseID !== this.props.user.baseID) ||
             (nextProps.columns.selected !== this.props.columns.selected) ||
             (nextProps.ui.secondTableVisible !== this.props.ui.secondTableVisible)
         );

@@ -99,6 +99,10 @@ let dayAverageFooter = p => (
     </tfoot>
 );
 
+let baseColumnHeader = p => p.user.baseID === 0
+    ? <th key={'base-column'}>{p.language.messages.rows.headerPrint.base}</th>
+    : null;
+
 export default (p) => {
 return (<div>
 <div className={'simple-table-print-header'}>
@@ -162,7 +166,7 @@ return (<div>
     <thead>
         <tr>
             <th key={'headers-column'}>{p.language.messages.rows.headerPrint.minute}</th>
-            {p.rows.baseID === 0?(<th key={'base-column'}>{p.language.messages.rows.headerPrint.base}</th>):null}
+            {baseColumnHeader(p)}
             {p.columns.enabled.map( (column, key) => (
                     <th key={key}>
                         {columnHeaderContent(column, p)}
