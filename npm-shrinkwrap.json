@@ -1361,6 +1361,11 @@
       "from": "hawk@>=2.3.0 <2.4.0",
       "resolved": "https://registry.npmjs.org/hawk/-/hawk-2.3.1.tgz"
     },
+    "hex-rgb": {
+      "version": "1.0.0",
+      "from": "hex-rgb@latest",
+      "resolved": "https://registry.npmjs.org/hex-rgb/-/hex-rgb-1.0.0.tgz"
+    },
     "hoek": {
       "version": "2.16.3",
       "from": "hoek@>=2.0.0 <3.0.0",
