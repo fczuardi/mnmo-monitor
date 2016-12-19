@@ -137,6 +137,7 @@ class ColumnsStore extends Store {
             // console.log('result (post)', URLs.columns.list, response);
             let newState = response;
             // console.log('OK (post)', URLs.columns.list);
+            store.updateCustomColors(newState.enabled);
             store.columnsActions.columnsPublished(newState);
         })
         .catch(function(e){
