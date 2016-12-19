@@ -47,6 +47,7 @@ class UIStore extends Store {
         this.register(userActions.monthUpdated, this.updateSelectedMonth);
         this.register(sessionActions.tokenGranted, this.resetError);
         this.register(columnsActions.columnHeaderSelected, this.resetMenuState);
+        this.register(columnsActions.colorSwitchToggle, this.toggleColorSwitch);
         this.userActions = userActions;
         this.state = {
             // first digit is cosmetic, don't mean nothing,
@@ -55,6 +56,7 @@ class UIStore extends Store {
             version: 'v3.__VERSION__',
             menuClosed: true,
             submenu: null,
+            openColorSwitch: null,
             panel: null,
             screen: null,
             chartVisible: true,
@@ -272,6 +274,12 @@ class UIStore extends Store {
     }
     resetScreen() {
         this.changeScreen(null);
+    }
+    toggleColorSwitch(index) {
+        const nextValue = this.state.openColorSwitch === index
+            ? null
+            : index;
+        this.setState({ openColorSwitch: nextValue });
     }
     resetMenuState() {
         this.setState({

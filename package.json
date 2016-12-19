@@ -50,6 +50,7 @@
     "../components/menu": "global:APPMenu",
     "../components/header": "global:APPHeader",
     "../components/submenucolumns": "global:APPColumnsPanel",
+    "../components/submenucolors": "global:APPColorsPanel",
     "../components/submenuprint": "global:APPPrintPanel",
     "../components/submenurouter": "global:APPSubmenuRouter",
     "../components/groupselect": "global:APPGroupsPanel",
