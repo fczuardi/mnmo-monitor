@@ -13,6 +13,7 @@ class TableHeader extends Component {
             (newColumnsErrors !== oldColumnsErrors) ||
             (nextProps.rows.lastLoad > this.props.rows.lastLoad) ||
             (nextProps.ui.screenWidth !== this.props.ui.screenWidth) ||
+            (nextProps.user.baseID !== this.props.user.baseID) ||
             (nextProps.groups.selected !== this.props.groups.selected)
         );
     }

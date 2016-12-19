@@ -1,4 +1,5 @@
 import koa from 'koa';
+import compress from 'koa-compress';
 import serve from 'koa-static';
 import cors from 'koa-cors';
 import APIRouter from './api';
@@ -21,6 +22,7 @@ var app = koa(),
 //------------------------------------------------------------------------------
 devApp.use(serve(DEV_ROOT));
 brandedApp.use(serve(BRANDED_ROOT));
+app.use(compress());
 app.use(serve(ROOT));
 
 // Reference Development API

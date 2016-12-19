@@ -93,6 +93,7 @@ class UserStore extends Store {
             confirmNewPassword: '',
             customerName: '',
             countryID: null,
+            baseID: 0, // user preference to show base on its own column
             rememberLogin: false,
             captchaAnswer: null,
             tosAgree: false,
