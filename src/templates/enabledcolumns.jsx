@@ -10,7 +10,7 @@ export default (p, a) =>
             key={key}
             haveHandle={p.editing}
             handleClassName="handle"
-            data-index={key}
+            data-index={'li_' + key}
         >
         <div className="item" style={{
             width: '95%',
@@ -21,8 +21,8 @@ export default (p, a) =>
                 value={column.id}
                 isItem={true}
                 checked={true}
-                onChange={a.columnChange}
-                data-index={key}
+                onChange={(event) => a.columnChange(event, key)}
+                data-index={'ch_' + key}
             >
             {
             (column.icons && !column.iconError) ?

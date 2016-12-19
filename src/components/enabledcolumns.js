@@ -4,6 +4,7 @@ import tryRender from '../lib/trycomponent';
 import interact from 'interact.js';
 import pluck from 'lodash/collection/pluck';
 
+const getIndex = element => parseInt(element.getAttribute('data-index').slice(3), 10);
 
 class EnabledColumns {
     constructor() {
@@ -103,8 +104,8 @@ class EnabledColumns {
             ondragenter: function (event) {
                 var draggableElement = event.relatedTarget.parentNode,
                     dropzoneElement = event.target.parentNode,
-                    draggableIndex = draggableElement.getAttribute('data-index'),
-                    dropzoneIndex = dropzoneElement.getAttribute('data-index');
+                    draggableIndex = getIndex(draggableElement),
+                    dropzoneIndex = getIndex(dropzoneElement);
                 if(draggableIndex < dropzoneIndex){
                     dropzoneElement.style.borderBottom = '2px solid #0D99DB';
                     dropzoneElement.style.borderTop = draggableElement.getAttribute('data-topBorder');
@@ -128,8 +129,8 @@ class EnabledColumns {
             ondrop: function (event) {
                 var draggableElement = event.relatedTarget.parentNode,
                     dropzoneElement = event.target.parentNode,
-                    draggableIndex = draggableElement.getAttribute('data-index'),
-                    dropzoneIndex = dropzoneElement.getAttribute('data-index');
+                    draggableIndex = getIndex(draggableElement),
+                    dropzoneIndex = getIndex(dropzoneElement);
                 component.props.actions.columnMove(draggableIndex, dropzoneIndex);
                 draggableElement.style.webkitTransform =
                 draggableElement.style.transform =

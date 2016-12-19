@@ -9,11 +9,11 @@ class ColumnsSubmenu {
                 this.props.flux.getActions('user').closeSubmenu(),
             editColors: () =>
                 this.props.flux.getActions('user').openSubmenu('colors'),
-            columnChange: (event) => {
+            columnChange: (event, key) => {
                 return this.props.flux.getActions('columns').updateColumnSelectedState(
                     event.target.value,
                     event.target.checked,
-                    event.nativeEvent.target.getAttribute('data-index')
+                    key
                 );
             },
             columnMove: (draggableIndex, dropzoneIndex) =>
