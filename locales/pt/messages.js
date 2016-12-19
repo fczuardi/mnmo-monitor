@@ -48,6 +48,7 @@ export default {
         close: 'Fechar',
         save: 'Salvar',
         back: 'Voltar',
+        colors: 'Cores',
         tos: 'Termos de serviço',
         help: 'Ajuda',
         print: 'Imprimir',

@@ -23,6 +23,15 @@ class ColumnActions extends Actions {
     columnHeaderSelected(index){
         return index;
     }
+    colorSwitchToggle(index){
+        return index;
+    }
+    columnColorChanged(index, color){
+        return {
+            index: index,
+            color: color
+        };
+    }
     columnIconFailed(columnID){
         return parseInt(columnID);
     }

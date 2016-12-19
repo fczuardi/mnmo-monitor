@@ -27,6 +27,7 @@ class ColumnsStore extends Store {
         this.register(columnsActions.columnMoved, this.columnMoved);
         this.register(columnsActions.columnIconFailed, this.columnIconBroken);
         this.register(columnsActions.columnHeaderSelected, this.columnSelected);
+        this.register(columnsActions.columnColorChanged, this.columnColorChanged);
         this.register(userActions.preferencesFetched, this.userPreferencesFetched);
         this.register(userActions.preferencesPublished, this.userChanged);
         this.state = {
@@ -34,6 +35,7 @@ class ColumnsStore extends Store {
             ],
             disabled: [
             ],
+            customColors: null, // ex: ['#b40931', '#cc5d09', '#cca109', ..., '#213ba8', '#941ec5', '#b8b8b8', '#5f5f5f']
             selected: null
         };
         this.sessionStore = sessionStore;
@@ -75,6 +77,11 @@ class ColumnsStore extends Store {
         }
     }
 
+    updateCustomColors(enabled){
+        let customColors = enabled.map(c => c.customColor);
+        this.setState({ customColors: customColors });
+    }
+
     fetchColumns(token) {
         // console.log('fetchColumns');
         let store = this;
@@ -98,6 +105,7 @@ class ColumnsStore extends Store {
             //     return null;
             // } else {
             // }
+            store.updateCustomColors(columns.enabled);
             store.columnsActions.columnsFetched(columns);
         })
         .catch(function(e){
@@ -192,6 +200,23 @@ class ColumnsStore extends Store {
         });
     }
 
+    columnColorChanged(colorObj) {
+        const index = colorObj.index;
+        const newColor = colorObj.color;
+        const newEnabled = this.state.enabled.map((column, i) => {
+            if (i !== index) {
+                return column;
+            }
+            column.customColor = newColor;
+            return column;
+        });
+        this.updateCustomColors(newEnabled);
+        this.shouldPostChange = true;
+        this.setState({
+            enabled: newEnabled
+        });
+    }
+    
     columnSelected(index) {
         this.shouldPostChange = false;
         this.setState({

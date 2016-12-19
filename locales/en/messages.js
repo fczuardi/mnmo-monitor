@@ -48,6 +48,7 @@ export default {
         close: 'Close',
         save: 'Save',
         back: 'Back',
+        colors: 'Colors',
         tos: 'Terms of service',
         help: 'Help',
         print: 'Print',

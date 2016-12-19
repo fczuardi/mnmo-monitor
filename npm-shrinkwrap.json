@@ -1361,6 +1361,11 @@
       "from": "hawk@>=2.3.0 <2.4.0",
       "resolved": "https://registry.npmjs.org/hawk/-/hawk-2.3.1.tgz"
     },
+    "hex-rgb": {
+      "version": "1.0.0",
+      "from": "hex-rgb@latest",
+      "resolved": "https://registry.npmjs.org/hex-rgb/-/hex-rgb-1.0.0.tgz"
+    },
     "hoek": {
       "version": "2.16.3",
       "from": "hoek@>=2.0.0 <3.0.0",
@@ -2653,6 +2658,11 @@
       "version": "1.0.1",
       "from": "restore-cursor@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/restore-cursor/-/restore-cursor-1.0.1.tgz"
+    },
+    "rgb-hex": {
+      "version": "2.1.0",
+      "from": "rgb-hex@latest",
+      "resolved": "https://registry.npmjs.org/rgb-hex/-/rgb-hex-2.1.0.tgz"
     },
     "right-align": {
       "version": "0.1.3",

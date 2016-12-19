@@ -78,7 +78,8 @@ export default (p,a) => {
                 p.groups.selected.secondaryId !== -1 ?
                 p.groups.selected.secondaryId : p.groups.selected.id;
     let imgElement = (column, key) => {
-        let columnColors = tableStyles(p).columnColors;
+        let defaultColumnColors = tableStyles(p).columnColors;
+        let columnColors = p.columns.customColors? p.columns.customColors: defaultColumnColors;
         let backgroundColor = columnColors[(key % columnColors.length)];
         let hasThumbnail = (
             column !== null &&

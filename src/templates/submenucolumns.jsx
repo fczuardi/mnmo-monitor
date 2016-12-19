@@ -13,9 +13,9 @@ export default (p, a) =>
 <Drawer
     title={p.language.messages.settings.columns}
     closeLabel={p.language.messages.settings.back}
-    editLabel={p.language.messages.settings.close}
-    doneLabel={p.language.messages.settings.close}
+    saveLabel={p.language.messages.settings.colors}
     onCloseClick={a.closeDrawer}
+    onSaveClick={a.editColors}
 >
     <EnabledColumns
         items={p.columns.enabled}

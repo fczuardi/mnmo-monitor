@@ -7,6 +7,8 @@ class ColumnsSubmenu {
         const actions = {
             closeDrawer: () =>
                 this.props.flux.getActions('user').closeSubmenu(),
+            editColors: () =>
+                this.props.flux.getActions('user').openSubmenu('colors'),
             columnChange: (event) => {
                 return this.props.flux.getActions('columns').updateColumnSelectedState(
                     event.target.value,

@@ -23,7 +23,8 @@ function parseData(valueString){
 export default (p) => {
     const isPercent = varTypes[p.vars.combo.first] === 'percent';
     let varsCount = keys(p.vars.combos).length;
-    let columnColors = tableStyles(p).columnColors;
+    let defaultColumnColors = tableStyles(p).columnColors;
+    let columnColors = p.columns.customColors? p.columns.customColors: defaultColumnColors;
     let fullColumns = p.rows.columns.map( (c, index) => {
         return c.map( (cell, cellIndex) => {
             let value = parseData(cell)[0];
