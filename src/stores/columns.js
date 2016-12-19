@@ -34,6 +34,7 @@ class ColumnsStore extends Store {
             ],
             disabled: [
             ],
+            customColors: null, // ex: ['#b40931', '#cc5d09', '#cca109', ..., '#213ba8', '#941ec5', '#b8b8b8', '#5f5f5f']
             selected: null
         };
         this.sessionStore = sessionStore;
@@ -98,6 +99,9 @@ class ColumnsStore extends Store {
             //     return null;
             // } else {
             // }
+            let customColors = columns.enabled.map(c => c.customColor);
+            // console.log({ customColors });
+            store.setState({ customColors: customColors });
             store.columnsActions.columnsFetched(columns);
         })
         .catch(function(e){

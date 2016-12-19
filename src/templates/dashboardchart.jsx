@@ -19,7 +19,7 @@ export default (p) => {
     const isPercent = varTypes[p.vars.combo.first] === 'percent';
     let chartTopPadding = p.ui.isMobile ? 70 : 50;
     let defaultColumnColors = tableStyles(p).columnColors;
-    let columnColors = p.customColors ? p.customColors : defaultColumnColors;
+    let columnColors = p.columns.customColors ? p.columns.customColors : defaultColumnColors;
     let cellStyle = {
         position: 'relative',
         verticalAlign: 'bottom',

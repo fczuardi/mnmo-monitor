@@ -26,7 +26,7 @@ export default (column, key, p, a) => {
     );
     if (p.rows.type === 'detailed') {
         let defaultColumnColors = tableStyles(p).columnColors;
-        let columnColors = p.customColors ? p.customColors : defaultColumnColors;
+        let columnColors = p.columns.customColors? p.columns.customColors: defaultColumnColors;
         cellStyle.backgroundColor = columnColors[(key % columnColors.length)]
     }
 

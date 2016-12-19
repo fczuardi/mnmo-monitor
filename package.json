@@ -312,6 +312,7 @@
   "dependencies": {
     "moment": "^2.10.2",
     "query-string": "^1.0.0",
-    "react-day-picker": "^1.2.0"
+    "react-day-picker": "^1.2.0",
+    "rgb-hex": "^2.1.0"
   }
 }

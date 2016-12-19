@@ -2654,6 +2654,11 @@
       "from": "restore-cursor@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/restore-cursor/-/restore-cursor-1.0.1.tgz"
     },
+    "rgb-hex": {
+      "version": "2.1.0",
+      "from": "rgb-hex@latest",
+      "resolved": "https://registry.npmjs.org/rgb-hex/-/rgb-hex-2.1.0.tgz"
+    },
     "right-align": {
       "version": "0.1.3",
       "from": "right-align@>=0.1.1 <0.2.0",

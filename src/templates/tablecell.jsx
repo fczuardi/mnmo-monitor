@@ -74,7 +74,7 @@ export default (content, rowKey, cellKey, p) => {
     }
     if ((p.rows.type === 'detailed') && (p.columns.selected === cellKey)) {
         let defaultColumnColors = tableStyles ? tableStyles(p).columnColors : null;
-        let columnColors = p.customColors ? p.customColors : defaultColumnColors;
+        let columnColors = p.columns.customColors? p.columns.customColors: defaultColumnColors;
         cellStyle.backgroundColor = columnColors ? columnColors[(cellKey % columnColors.length)] : 'inherit'
     }
 
