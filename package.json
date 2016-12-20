@@ -312,6 +312,7 @@
   },
   "dependencies": {
     "hex-rgb": "^1.0.0",
+    "interact.js": "^1.2.8",
     "moment": "^2.10.2",
     "query-string": "^1.0.0",
     "react-day-picker": "^1.2.0",
