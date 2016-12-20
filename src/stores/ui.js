@@ -153,7 +153,6 @@ class UIStore extends Store {
     rowsFetchCompleted(){
         // console.log('__ this.rowsStore.state.headers.length', this.rowsStore.state.headers.length);
         // console.log('rowsFetchCompleted', this.state.newestMinute, this.previousNewestMinute, this.state.newestMinute > this.previousNewestMinute);
-        let varsCount = keys(this.variablesStore.state.combos).length;
         let rowHeight = (this.state.screenHeight < 640) ?
                                         smallerRowHeight : smallColumnWidth;
         let secondRowMinute = this.rowsStore.state.headers.length > 1 ?
@@ -170,15 +169,7 @@ class UIStore extends Store {
             // then auto scroll one row down so the user don't lose the place of
             // the row she was interested in at the current scroll position
             // see bug #128
-            if (this.rowsStore.state.type !== 'detailed'){
-                this.coordY += rowHeight;
-                // console.log('.. .. rowHeight', rowHeight);
-            } else {
-                let separatorHeight = 40;
-                let minuteHeight = rowHeight * varsCount + separatorHeight -(varsCount+1);
-                this.coordY += minuteHeight;
-                // console.log('.. .. minuteHeight', minuteHeight);
-            }
+            this.coordY += rowHeight;
             this.scrollUpdate();
             this.scrollMainTable();
         }
@@ -373,7 +364,6 @@ class UIStore extends Store {
     }
     updateMinute(){
         let store = this;
-        let varsCount = keys(this.variablesStore.state.combos).length;
         let rowHeight = this.state.screenHeight < 640 ? smallerRowHeight : smallColumnWidth;
         rowHeight += 1;
         // let displaySeparators = (!this.state.chartVisible || !this.state.isMobile);
@@ -381,9 +371,7 @@ class UIStore extends Store {
         let separatorHeight = displaySeparators ? 40 : 0;
         separatorHeight += 1;
         // let currentRow = Math.floor(this.coordY / (rowHeight + separatorHeight));
-        let currentMinuteIndex = Math.floor(
-            this.coordY / (rowHeight * varsCount + separatorHeight)
-        );
+        let currentMinuteIndex = Math.floor(this.coordY / rowHeight);
         // console.log('currentMinuteIndex',
         //     currentMinuteIndex,
         //     this.state.chartVisible,
@@ -391,9 +379,9 @@ class UIStore extends Store {
         //     separatorHeight,
         //     rowHeight
         // );
-        let minute = this.rowsStore.state.headers[currentMinuteIndex * varsCount] ?
+        let minute = this.rowsStore.state.headers[currentMinuteIndex] ?
                         this.minuteFromHeader(
-                            this.rowsStore.state.headers[currentMinuteIndex * varsCount][0]
+                            this.rowsStore.state.headers[currentMinuteIndex][0]
                         ):
                         '';
         let oldestMinute = this.rowsStore.state.headers[this.rowsStore.state.headers.length - 1] ?
@@ -484,23 +472,7 @@ class UIStore extends Store {
             columnBars.scrollLeft = this.coordX;
         }
 
-        // if (this.rowsStore.state.type === 'detailed') {
-        //     store.sliderTableScroll(this.coordY / maxYScroll);
-        // }
-        // sliderHandleElement.style.webkitTransform =
-        // sliderHandleElement.style.transform =
-        //   'translate(' + sliderX + 'px, ' + '0px)';
-        // sliderHandleElement.setAttribute('data-x', sliderX);
-
-
         let loadedRowsCount = store.rowsStore.state.data.length;
-        if (this.rowsStore.state.type === 'detailed'){
-            // while we dont have the slider, the detailed table has extra
-            // "separator" rows that are added in render time
-            // so we add those to the loadedRowsCount count
-            let varsCount = keys(this.variablesStore.state.combos).length;
-            loadedRowsCount += loadedRowsCount / varsCount;
-        }
 
         if (scrollEnded &&
             !this.nextPageLoadSent &&
@@ -547,20 +519,8 @@ class UIStore extends Store {
         if (!tableContents){
             return null;
         }
-        let maxYScroll = (
-                tableContents.scrollHeight
-                // - tableContents.offsetHeight
-                // - INFINITE_SCROLL_THRESHOLD
-            ),
-        //     // variablesCount = keys(this.variablesStore.state.combos).length,
+        let maxYScroll = tableContents.scrollHeight,
             newY = maxYScroll * percent;
-        // // if (this.rowsStore.state.type === 'detailed'){
-        // //     let pages = this.rowsStore.state.headers.length / variablesCount,
-        // //         page = Math.ceil((1 - percent) * pages),
-        // //         pageHeight = tableContents.offsetHeight - 1;
-        // //     newY = Math.min(page * pageHeight, maxYScroll);
-        // // }
-        // tableContents.scrollTop = newY;
         if (!this.ticking) {
             this.coordY = newY;
             this.ticking = true;

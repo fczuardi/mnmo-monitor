@@ -10,11 +10,7 @@ export default (p, a) => {
         width: p.tableWidth - p.columnWidthHeader,
         height: tableContentHeight
     };
-    if (p.rows.type === 'detailed'){
-        // style.overflowY = 'hidden';
-        // style.overflowX = 'auto';
-        style.overflow = 'auto';
-    } else if (p.rows.type === 'secondary'){
+    if (p.rows.type === 'secondary'){
         style.overflow = 'hidden';
     }else{
         style.overflow = 'auto';

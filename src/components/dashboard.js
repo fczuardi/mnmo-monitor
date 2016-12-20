@@ -13,14 +13,12 @@ const cellPadding = 8;
 const subgroupPickerHeight = 25;
 const secondTableToolbarHeight = 50;
 const secondTableSeparatorHeight = 20;
-const separatorHeight = 40;
 const shortHeightChartBreakpoint = 400;
 
 
 class Dashboard {
     render() {
         let p = merge({}, this.props);
-        let varsCount = keys(p.vars.combos).length;
         let thumbnailsRowHeight = 120,
             sliderHeight = p.ui.chartVisible && !p.ui.hasShortHeightDetail ? 30 : 0,
             tableTitleHeight = 24,
@@ -29,7 +27,6 @@ class Dashboard {
                 this.props.ui.isMobile ||
                 p.ui.screenHeight < shortHeightChartBreakpoint
             ) ? Math.round(p.ui.screenHeight * 0.3) : 264,
-            // rowHeight = (this.props.ui.isMobile && p.rows.type == 'detailed') ? 40 : smallColumnWidth;
             rowHeight = this.props.ui.screenHeight < 640 ? smallerRowHeight :
                                                                 smallColumnWidth;
 
@@ -42,8 +39,8 @@ class Dashboard {
                             smallerSecondTableRowHeight : secondTableRowHeight;
         p.tableWidth = p.ui.screenWidth;
 
-        let columnNumHeader = (p.user.baseID === 0 && p.rows.type !== 'detailed') ? 2 : 1;
-        let columnNum =   (p.user.baseID === 0 && p.rows.type !== 'detailed') ? 1 : 0;
+        let columnNumHeader = (p.user.baseID === 0) ? 2 : 1;
+        let columnNum =   (p.user.baseID === 0) ? 1 : 0;
 
         p.tableContentWidth = (p.columns.enabled.length  +  columnNum) * columnWidth;
         p.columnWidth = p.tableContentWidth > p.tableWidth ? columnWidth :
@@ -91,9 +88,7 @@ class Dashboard {
             if(p.ui.isMobile && p.ui.chartVisible && !p.ui.hasShortHeightDetail ) {
                 // table height must be the height of x rows
                 // where x is the number of indexes
-                p.tableHeight = p.rowHeight * varsCount +
-                                    separatorHeight +
-                                    p.rowHeight; // table header
+                p.tableHeight = p.rowHeight +  p.rowHeight; // table header
                 // chart height is the rest of the screen
                 p.chartHeight = p.ui.screenHeight -
                                     appHeaderHeight -

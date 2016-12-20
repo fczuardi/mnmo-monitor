@@ -108,11 +108,6 @@ export default (row, key, p, a) => {
             {firstTitle}
         </p>
     );
-    // let minuteHeader = (p.rows.type === 'detailed' &&
-    //                     key % varsCount === 0) ? (
-    //     <span> - {row[0].split('__')[0]}</span>
-    // ): null;
-    // let varsCount = keys(p.vars.combos).length;
     let secondHeader = isNaN(secondValue) ? (null) : (
         <p style={{
             margin: 0,
@@ -196,6 +191,6 @@ export default (row, key, p, a) => {
       </tr>
     );
     return (
-        p.user.baseID === 0 && !isDetailed ? baseColumn : baseRow
+        p.user.baseID === 0 ? baseColumn : baseRow
     );
 }

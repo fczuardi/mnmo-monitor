@@ -22,7 +22,6 @@ function parseData(valueString){
 
 export default (p) => {
     const isPercent = varTypes[p.vars.combo.first] === 'percent';
-    let varsCount = keys(p.vars.combos).length;
     let defaultColumnColors = tableStyles(p).columnColors;
     let columnColors = p.columns.customColors? p.columns.customColors: defaultColumnColors;
     let fullColumns = p.rows.columns.map( (c, index) => {
@@ -42,15 +41,9 @@ export default (p) => {
         // );
         let rowSum = 0;
         for (var j= col.length - 1; j >= 0 ; j -= 1){
-            if (
-                (rowSum < p.ui.lastVisibleRow + varsCount + 1) &&
-                (j % varsCount === 0)
-            ){
-                let value = col[j];
-                maxValue = Math.max(maxValue, value);
-                newCol.push(value);
-                rowSum += 1;
-            }
+            let value = col[j];
+            maxValue = Math.max(maxValue, value);
+            newCol.push(value);
             rowSum += 1;
         }
         columns.push(newCol);
@@ -76,7 +69,7 @@ export default (p) => {
         if (index === chartDivisions.length - 1){
             return null;
         }
-        let headerIndex = varsCount * (chartDivisions.length - 2 - index);
+        let headerIndex = (chartDivisions.length - 2 - index);
         // console.log('headerIndex', headerIndex);
         // let nextX = chartDivisions[index + 1] || 0;
         let nextX = chartDivisions[index + 1];

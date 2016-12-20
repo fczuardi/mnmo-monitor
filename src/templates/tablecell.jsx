@@ -17,9 +17,7 @@ const defaultNumberProps = {
 }
 
 export default (content, rowKey, cellKey, p) => {
-    let tableHasSeparators = (p.rows.type === 'detailed');
-    let firstRowWithValue = tableHasSeparators ? 1 : 0;
-    let varsCount = keys(p.vars.combos).length + firstRowWithValue; // +1 for the added separators
+    let firstRowWithValue = 0;
     let cellRowHeader = (p.rows.headers && p.rows.headers[rowKey]) ? p.rows.headers[rowKey][0] : null;
     //there are 3 possible headers from where we can extract the row var label:
     //'18:02__VARLABEL', '18:02' and 'VARLABEL'
@@ -57,7 +55,7 @@ export default (content, rowKey, cellKey, p) => {
 
     let values = content ? content.split('|') : [null, null],
         firstLine = renderValue(values[0], 'first'),
-        secondLine = p.rows.type === 'detailed' ? null : renderValue(values[1], 'second'),
+        secondLine = renderValue(values[1], 'second'),
         cellContent = secondLine ? (
             <div>
                 <span>{firstLine}</span><br/>

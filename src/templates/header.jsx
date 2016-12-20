@@ -69,19 +69,6 @@ export default (p, a) => {
             </ToolbarButton>
         </div>
     );
-    // let chartButton = (
-    //     <span style={{
-    //         color: (p.ui.chartVisible) ? '#FFFFFF' : '#787878'
-    //     }}>
-    //         <ToolbarButton
-    //             onClick={a.chartToggleClicked}
-    //             className={(p.rows.type === 'detailed') ?
-    //                             'header-icon-chart-line':
-    //                             'header-icon-chart-bar'}
-    //
-    //         />
-    //     </span>
-    // );
     let chartButton = null;
     let autoUpdateStatus = (
         <span

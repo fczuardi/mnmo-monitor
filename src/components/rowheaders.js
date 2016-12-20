@@ -28,19 +28,11 @@ class RowHeaders extends Component {
         }
         let p = merge({}, this.props);
         let isSecondary = p.rows.type === 'secondary';
-        if (
-            isSecondary ||
-            (p.rows.type === 'detailed' && p.rows.headers)
-        ){
+        if (isSecondary){
             let rowsWithSeparators = [];
-            let varsCount = keys(p.vars.combos).length;
-            // let displaySeparators = (!p.ui.chartVisible || !p.ui.isMobile);
             let displaySeparators = true;
             p.rows.headers.forEach( (row, key) => {
-                if (
-                    isSecondary ||
-                    (displaySeparators && (key % varsCount === 0))
-                ){
+                if (isSecondary){
                     //duplicate row
                     let rowCopy = row.slice();
                     if (isSecondary){
