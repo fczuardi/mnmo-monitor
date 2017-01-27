@@ -26,7 +26,7 @@ export default (p) => {
     )}
     <div
         className={hasDesktopWidth
-            ? 'dataTable desktop' 
+            ? 'dataTable desktop'
             : isSmall
                 ? 'dataTable small'
                 : 'dataTable'
@@ -41,7 +41,7 @@ export default (p) => {
     >
         <div
             style={{
-                width: secondTableParams.columnWidth,
+                //width: secondTableParams.columnWidth,
                 height: secondTableParams.tableHeight,
                 overflow: 'hidden',
                 // backgroundColor: 'blue',
