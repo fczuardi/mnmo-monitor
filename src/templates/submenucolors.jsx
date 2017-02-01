@@ -20,8 +20,8 @@ const colorIcon = color => (
 );
 
 const colorLine = (a, key, colors) => {
-    return colors.map((color) =>
-        <a onClick={() => a.colorClick(key, color)}>
+    return colors.map((color, i) =>
+        <a key={'color_' + i} onClick={() => a.colorClick(key, color)}>
             {colorIcon(color)}
         </a>
     );
@@ -53,7 +53,7 @@ export default (p, a) =>
         {p.columns.enabled.map( (column, key) =>
             <LI
                 key={key}
-                data-index={key}
+                data-index={'col_' + key}
                 onClick={() => a.openColorSwitch(key)}
             >
             <div className="item" style={{

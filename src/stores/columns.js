@@ -78,7 +78,9 @@ class ColumnsStore extends Store {
     }
 
     updateCustomColors(enabled){
-        let customColors = enabled.map(c => c.customColor);
+        let customColors = enabled.map(c => {
+            return c.customColor;
+        });
         this.setState({ customColors: customColors });
     }
 
@@ -154,17 +156,20 @@ class ColumnsStore extends Store {
                 groupToExclude, 'id', parseInt(obj.columnID)
             );
         this.shouldPostChange = true;
+        let newState = {};
         if (obj.checked === true){
-            this.setState({
+            newState = {
                 enabled: groupToInclude.concat(partitionedGroup[0]),
                 disabled: partitionedGroup[1]
-            });
+            };
         } else {
-            this.setState({
+            newState = {
                 enabled: partitionedGroup[1],
                 disabled: sortBy(groupToInclude.concat(partitionedGroup[0]), 'label')
-            });
+            };
         }
+        this.updateCustomColors(newState.enabled);
+        this.setState(newState);
     }
 
     columnMoved(indexes) {
@@ -175,7 +180,9 @@ class ColumnsStore extends Store {
             item = newEnabled[indexes.oldIndex];
         newEnabled.splice(indexes.oldIndex, 1);
         newEnabled.splice(indexes.newIndex, 0, item);
+
         this.shouldPostChange = true;
+        this.updateCustomColors(newEnabled);
         this.setState({
             enabled: newEnabled
         });
@@ -217,7 +224,7 @@ class ColumnsStore extends Store {
             enabled: newEnabled
         });
     }
-    
+
     columnSelected(index) {
         this.shouldPostChange = false;
         this.setState({

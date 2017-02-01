@@ -1,6 +1,6 @@
 {
   "name": "mnmo-monitor",
-  "version": "1.4.1",
+  "version": "1.4.4",
   "dependencies": {
     "abbrev": {
       "version": "1.0.9",
@@ -1476,9 +1476,9 @@
       "resolved": "https://registry.npmjs.org/insert-module-globals/-/insert-module-globals-6.6.3.tgz"
     },
     "interact.js": {
-      "version": "1.2.6",
+      "version": "1.2.8",
       "from": "interact.js@>=1.2.6 <2.0.0",
-      "resolved": "https://registry.npmjs.org/interact.js/-/interact.js-1.2.6.tgz"
+      "resolved": "https://registry.npmjs.org/interact.js/-/interact.js-1.2.8.tgz"
     },
     "interpret": {
       "version": "1.0.1",

@@ -185,6 +185,7 @@ export default (row, key, p, a) => {
     let baseColumn = (
       <tr {...trProps}>
           <td style={{
+              position: 'relative',
               height: trProps.style.height
           }}>
               {mainHeader}
